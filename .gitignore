@@ -1,3 +1,11 @@
+Data_manager_split_datasets/
+result_experiments/
+data/
+.idea/
+*.csv
+*.ipynb
+.DS_Store
+*.zip
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
