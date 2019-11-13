@@ -5,7 +5,7 @@ import pandas as pd
 def best_model_reader(path):
     '''
     Read all the files in the given directory folder (assumed to terminate with a '/' and then
-    return the list of best models in all the files.
+    return the list of best model in all the files.
 
     It basically read the last line of the report files generated after running hyper-parameter tuning code.
 

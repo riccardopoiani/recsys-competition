@@ -15,7 +15,7 @@ import numpy as np
 class BaseSimilarityMatrixRecommender(BaseRecommender):
     """
     This class refers to a BaseRecommender KNN which uses a similarity matrix, it provides two function to compute item's score
-    bot for user-based and Item-based models as well as a function to save the W_matrix
+    bot for user-based and Item-based model as well as a function to save the W_matrix
     """
 
     def __init__(self, URM_train):

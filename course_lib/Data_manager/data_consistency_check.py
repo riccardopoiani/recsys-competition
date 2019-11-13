@@ -137,18 +137,18 @@ def assert_URM_ICM_mapper_consistency(URM_DICT, GLOBAL_MAPPER_DICT, ICM_DICT, IC
             n_feature_occurrences = ICM_object.nnz
 
             assert n_items_ICM == n_items_URM, print_preamble + "Number of items in ICM {} is {} while in URM is {}".format(ICM_name, n_items_ICM, n_items_URM)
-            assert n_features != 0, print_preamble + "Number of features in ICM {} is 0".format(ICM_name)
+            assert n_features != 0, print_preamble + "Number of feature in ICM {} is 0".format(ICM_name)
             assert n_feature_occurrences != 0, print_preamble + "Number of interactions in ICM {} is 0".format(ICM_name)
 
 
-            assert n_features >= len(feature_original_id_to_index), print_preamble + "feature id-to-index mapper contains more keys than features in ICM {}".format(ICM_name)
-            assert n_features >= max(feature_original_id_to_index.values()), print_preamble + "feature id-to-index mapper contains indices greater than number of features in ICM {}".format(ICM_name)
+            assert n_features >= len(feature_original_id_to_index), print_preamble + "feature id-to-index mapper contains more keys than feature in ICM {}".format(ICM_name)
+            assert n_features >= max(feature_original_id_to_index.values()), print_preamble + "feature id-to-index mapper contains indices greater than number of feature in ICM {}".format(ICM_name)
 
             # Check if every non-empty item and feature has a mapper value
             ICM_object = sps.csr_matrix(ICM_object)
             nonzero_items_mask = np.ediff1d(ICM_object.indptr)>0
             nonzero_items = np.arange(0, n_items_URM, dtype=np.int)[nonzero_items_mask]
-            assert np.isin(nonzero_items, np.array(list(item_original_ID_to_index.values()))).all(), print_preamble + "there exist items with features that do not have a mapper entry in ICM {}".format(ICM_name)
+            assert np.isin(nonzero_items, np.array(list(item_original_ID_to_index.values()))).all(), print_preamble + "there exist items with feature that do not have a mapper entry in ICM {}".format(ICM_name)
 
 
             ICM_object = sps.csc_matrix(ICM_object)

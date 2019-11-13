@@ -36,7 +36,7 @@ class MatrixFactorization_BPR_Theano(object):
           It's also used in a variety of other use-cases, such
           as matrix completion, link prediction and tag recommendation.
 
-          `rank` is the number of latent features in the matrix
+          `rank` is the number of latent feature in the matrix
           factorisation model.
 
           `n_users` is the number of users and `n_items` is the

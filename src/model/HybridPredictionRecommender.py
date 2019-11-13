@@ -15,7 +15,7 @@ class HybridPredictionRecommenderDebug(BaseRecommender):
 
     def add_fitted_model(self, recommender_name: str, recommender_object: BaseRecommender, recommender_aps: np.array):
         '''
-        Add an already fitted model to the list of models that will be used to compute predictions.
+        Add an already fitted model to the list of model that will be used to compute predictions.
         Models are assumed to be fitted on the same URM_train and validated on the same URM_validation.
         Also, recommendation average precision, are assumed to refer to the same map user-index.
 

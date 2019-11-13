@@ -19,7 +19,7 @@ class Compute_Similarity_Euclidean:
         """
         Computes the euclidean similarity on the columns of dataMatrix
         If it is computed on URM=|users|x|items|, pass the URM as is.
-        If it is computed on ICM=|items|x|features|, pass the ICM transposed.
+        If it is computed on ICM=|items|x|feature|, pass the ICM transposed.
         :param dataMatrix:
         :param topK:
         :param normalize

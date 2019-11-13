@@ -88,7 +88,7 @@ class WeightedRankingStrategy(RecommendationStrategyInterface):
 
 class HybridRankBasedRecommender(BaseRecommender):
     """
-    Hybrid recommender based on rankings of different recommender models: the weighted merge of rankings is done only
+    Hybrid recommender based on rankings of different recommender model: the weighted merge of rankings is done only
     on a specific size of ranking (i.e. cutoff * cutoff_multiplier)
     """
 
@@ -133,7 +133,7 @@ class HybridRankBasedRecommender(BaseRecommender):
         :return: None
         """
         if np.all(np.in1d(weights.keys(), list(self.models.keys()), assume_unique=True)):
-            raise ValueError("The weights key name passed does not correspond to the name of the models inside the "
+            raise ValueError("The weights key name passed does not correspond to the name of the model inside the "
                              "hybrid recommender: {}".format(self.get_recommender_names()))
         self.weights = weights
         self.hybrid_strategy = hybrid_strategy

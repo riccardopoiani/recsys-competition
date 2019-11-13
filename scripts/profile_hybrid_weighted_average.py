@@ -3,7 +3,7 @@ from src.data_management.RecSys2018Reader import RecSys2018Reader
 from course_lib.Data_manager.DataSplitter_k_fold import DataSplitter_Warm_k_fold
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
-from src.models.HybridRankBasedRecommender import HybridRankBasedRecommender
+from src.model.HybridRankBasedRecommender import HybridRankBasedRecommender
 
 if __name__ == '__main__':
     dataset = RecSys2018Reader("../data/train.csv", "../data/tracks.csv")

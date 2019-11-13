@@ -45,7 +45,7 @@ class HybridWeightedAverageRecommender(BaseRecommender):
         :return: None
         """
         if np.all(np.in1d(weights.keys(), list(self.models.keys()), assume_unique=True)):
-            raise ValueError("The weights key name passed does not correspond to the name of the models inside the "
+            raise ValueError("The weights key name passed does not correspond to the name of the model inside the "
                              "hybrid recommender: {}".format(self.get_recommender_names()))
         self.normalize = normalize
         self.weights = weights

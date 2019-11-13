@@ -34,13 +34,13 @@ if __name__ == '__main__':
     # Evaluate algorithm
     hold_out_validation = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list)
     results = hold_out_validation.evaluateRecommender(slim_recommender)
-    slim_recommender.saveModel(folder_path="../report/models/slim_bpr/", file_name="best_slim_early_stopped_model")
+    slim_recommender.saveModel(folder_path="../report/model/slim_bpr/", file_name="best_slim_early_stopped_model")
 
     print(str(results))
     print(results)
 
     # Print Results
-    path = "../report/models/slim_bpr/best_slim_early_stopped_results"
+    path = "../report/model/slim_bpr/best_slim_early_stopped_results"
     f = open(path, "w+")
     f.write(str(results))
     f.close()

@@ -223,8 +223,8 @@ class MatrixFactorization_AsySVD_Cython(_MatrixFactorization_Cython):
 
     Reference: Factorization Meets the Neighborhood: a Multifaceted Collaborative Filtering Model (Koren, 2008)
 
-    Factorizes the rating matrix R into two matrices X and Y of latent factors, which both represent item latent features.
-    Users are represented by aggregating the latent features in Y of items they have already rated.
+    Factorizes the rating matrix R into two matrices X and Y of latent factors, which both represent item latent feature.
+    Users are represented by aggregating the latent feature in Y of items they have already rated.
     Rating prediction is performed by computing the dot product of this accumulated user profile with the target item's
     latent factor in X.
 
