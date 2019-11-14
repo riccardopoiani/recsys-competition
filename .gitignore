@@ -1,7 +1,10 @@
+
 Data_manager_split_datasets/
 result_experiments/
 data/
 .idea/
+course_lib/**/*.c
+course_lib/**/*.html
 *.csv
 *.ipynb
 .DS_Store
