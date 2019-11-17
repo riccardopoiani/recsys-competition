@@ -200,3 +200,59 @@ def plot_ordered_metrics(metrics_df : pd.DataFrame):
     plt.ylabel("Metric value")
     plt.legend()
     plt.show()
+
+
+def plot_popularity_discretized(array, threshold_list, y_label="Percentage of element popularity"):
+    '''
+    Plot popularity of a certain array discretized.
+
+    It is recommended to call with function with threshold_list[0] = 0.
+    Morevoer, the threshold_list is assumed to be ordered
+
+
+    :param array: array of popularity (item or users), that contains, in each position how many interactions
+    a certain user or a certain items have
+    :param threshold_list: list of threshold that will be used for the plot. In particular, it will be
+    plotted popularity ranged in each interval of threshold_list[i-1] and threshold_list[i]
+    :param y_label: y label of the graph
+    :return: array containing information of the plot: the first one has asbolute values, the second one
+    a normalized version
+    '''
+    condition_list = []
+
+    t0 = threshold_list[0]
+    cond = array == threshold_list[0]
+    condition_list.append(cond)
+
+    t_prev = t0
+    for i in range(1, len(threshold_list)):
+        cond = np.logical_and((array > t_prev), (array <= threshold_list[i]))
+        condition_list.append(cond)
+        t_prev = threshold_list[i]
+
+    shape_list = []
+    for c in condition_list:
+        temp = np.extract(c, array)
+        shape_list.append(temp.shape[0])
+
+    print("We have " + str(shape_list[0]) + " array elems with a " + str(threshold_list[0]) + " interactions")
+    for i in range (1, len(shape_list)):
+        print("We have " + str(shape_list[i]) + " array elems with interactions in (" + str(threshold_list[i-1]) + ", " +str(threshold_list[i]) + "]")
+
+    shape_arr = np.array(shape_list)
+    total = shape_arr.sum()
+    normalized_shape = np.divide(shape_arr, total)
+    t_str = []
+    for t in threshold_list:
+        t_str.append(str(t))
+
+    plt.bar(t_str, normalized_shape, align='center', alpha=0.5)
+
+    #plt.xticks(y_pos, objects)
+    plt.ylabel(y_label)
+    plt.xlabel("Threshold")
+    plt.title('Discretized graph')
+
+    plt.show()
+
+    return shape_arr, normalized_shape
