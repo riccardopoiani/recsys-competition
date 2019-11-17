@@ -1,11 +1,11 @@
-from src.data_management.RecSys2018Reader import RecSys2018Reader
+from src.data_management.RecSys2019Reader import RecSys2019Reader
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from src.model_management.submission_helper import *
 from src.data_management.data_reader import read_target_playlist
 
 if __name__ == '__main__':
     # Data loading
-    dataset = RecSys2018Reader("../data/train.csv", "../data/tracks.csv")
+    dataset = RecSys2019Reader("../data/train.csv", "../data/tracks.csv")
     dataset.load_data()
     URM_all = dataset.get_URM_all()
 

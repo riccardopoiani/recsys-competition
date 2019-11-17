@@ -4,27 +4,29 @@ from scipy import sparse as sps
 import pandas as pd
 
 
-def evaluate_recommender_by_user_activity(recommender_object: BaseRecommender, URM_train: sps.csr_matrix,
-                                          URM_test: sps.csr_matrix, cutoff: list, n_folds: int = 5):
+def evaluate_recommender_by_user_demographic(recommender_object: BaseRecommender, URM_train: sps.csr_matrix,
+                                             URM_test: sps.csr_matrix, cutoff_list: list, user_demographic: np.ndarray, n_folds: int = 5):
     """
-    Split the URM_test into "n_folds" folds based on User Activity (e.g. 20% of least active users on first fold), then
+    Split the URM_test into "n_folds" folds based on the list "user_demographic" (e.g. if n_folds=5, then 20% for each fold), then
     evaluate each folds of URM_test and return the metric results.
-    Folds are sorted by an increasing user activity.
+     - Folds are sorted user_demographic an increasing user activity.
 
     :param recommender_object: Base.BaseRecommender object to be evaluated
     :param URM_train: csr_matrix
     :param URM_test: csr_matrix
-    :param cutoff: list of cutoff to evaluate on
+    :param cutoff_list: list of cutoff to evaluate on
+    :param user_demographic: the list (np.ndarray) containing a single user demographic for all users in URM_train
     :param n_folds: the number of folds you want to divide the URM_test
     :return: a dict of metric results for each cutoff
     """
+    if len(user_demographic) != URM_train.shape[0]:
+        raise AttributeError("The list user_demographic containing user demographic does not contain the value for each user in "
+                             "URM_train")
+
     from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 
-    user_activity_train = (URM_train > 0).sum(axis=1)
-    user_activity_train = np.array(user_activity_train).squeeze()
-
     users_to_evaluate = np.array(list(set(URM_test.tocsc().indices)))
-    user_activity_test = user_activity_train[users_to_evaluate]
+    user_activity_test = user_demographic[users_to_evaluate]
     user_activity_test_indices = np.argsort(user_activity_test)
     users_to_evaluate_ordered = users_to_evaluate[user_activity_test_indices]
 
@@ -54,7 +56,7 @@ def evaluate_recommender_by_user_activity(recommender_object: BaseRecommender, U
 
         fold_splits.append(sps.csr_matrix(fold_split))
 
-    evaluators = [EvaluatorHoldout(fold_split, cutoff_list=cutoff) for fold_split in fold_splits]
+    evaluators = [EvaluatorHoldout(fold_split, cutoff_list=cutoff_list) for fold_split in fold_splits]
     return [evaluator.evaluateRecommender(recommender_object)[0] for evaluator in evaluators]
 
 

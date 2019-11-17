@@ -1,42 +1,20 @@
 import numpy as np
-from course_lib.Base.BaseRecommender import BaseRecommender
-from typing import Dict
+from src.model.AbstractHybridRecommender import AbstractHybridRecommender
 
-class HybridWeightedAverageRecommender(BaseRecommender):
+
+class HybridWeightedAverageRecommender(AbstractHybridRecommender):
     """
     Pure weighted average hybrid recommender: the weighted average of scores is calculated over all scores
     """
 
     RECOMMENDER_NAME = "HybridWeightedAverageRecommender"
 
-    def __init__(self, URM_train):
-        """
-
-        :param URM_train: The URM train, but it is useless to add
-
-        """
+    def __init__(self, URM_train, normalize=True):
         super().__init__(URM_train)
-        self.models: Dict[str, BaseRecommender] = {}
-        self.weights: Dict[str, float] = {}
 
+        self.normalize = normalize
 
-    def add_fitted_model(self, recommender_name: str, recommender_object: BaseRecommender):
-        """
-        Add an already fitted model to the hybrid
-
-        :param recommender_name: The unique identifier name of the recommender
-        :param recommender_object: the recommender model to be added
-        :return:
-        """
-        self.models[recommender_name] = recommender_object
-
-    def get_number_of_models(self):
-        return len(self.models)
-
-    def get_recommender_names(self):
-        return list(self.models.keys())
-
-    def fit(self, normalize=True, **weights):
+    def fit(self, **weights):
         """
         Fit the hybrid model by setting the weight of each recommender
 
@@ -45,12 +23,11 @@ class HybridWeightedAverageRecommender(BaseRecommender):
         :return: None
         """
         if np.all(np.in1d(weights.keys(), list(self.models.keys()), assume_unique=True)):
-            raise ValueError("The weights key name passed does not correspond to the name of the model inside the "
+            raise ValueError("The weights key name passed does not correspond to the name of the models inside the "
                              "hybrid recommender: {}".format(self.get_recommender_names()))
-        self.normalize = normalize
         self.weights = weights
 
-    def _compute_item_score(self, user_id_array, items_to_compute = None):
+    def _compute_item_score(self, user_id_array, items_to_compute=None):
         """
         Compute weighted average scores from all the recommenders added. If normalize is true, then each recommender
         score will be normalized before weighted.
@@ -62,7 +39,7 @@ class HybridWeightedAverageRecommender(BaseRecommender):
         cum_scores_batch = np.zeros(shape=(len(user_id_array), self.URM_train.shape[1]))
 
         for recommender_name, recommender_model in self.models.items():
-            scores_batch = recommender_model._compute_item_score(user_id_array, items_to_compute = items_to_compute)
+            scores_batch = recommender_model._compute_item_score(user_id_array, items_to_compute=items_to_compute)
 
             if self.normalize:
                 maximum = np.max(scores_batch, axis=1).reshape((len(user_id_array), 1))

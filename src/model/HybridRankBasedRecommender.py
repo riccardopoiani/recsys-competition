@@ -1,5 +1,5 @@
 import numpy as np
-from course_lib.Base.BaseRecommender import BaseRecommender
+from src.model.AbstractHybridRecommender import AbstractHybridRecommender
 from typing import Dict, List
 
 
@@ -42,6 +42,7 @@ class RecommendationStrategyInterface():
         """
         raise NotImplementedError("This method has to be implemented by another class")
 
+
 class WeightedAverageStrategy(RecommendationStrategyInterface):
 
     def __init__(self, normalize = True):
@@ -68,12 +69,14 @@ class WeightedAverageStrategy(RecommendationStrategyInterface):
         weighted_scores = weight * ranking_scores
         return rankings, weighted_scores
 
+
 class WeightedCountStrategy(RecommendationStrategyInterface):
 
     def get_hybrid_rankings_and_scores(self, rankings: list, scores: np.ndarray, weight: float):
         ranking_scores = np.ones(shape=(np.array(rankings).shape))
         weighted_scores = weight * ranking_scores
         return rankings, weighted_scores
+
 
 class WeightedRankingStrategy(RecommendationStrategyInterface):
 
@@ -86,58 +89,40 @@ class WeightedRankingStrategy(RecommendationStrategyInterface):
 
 ########## Hybrid Recommender ##########
 
-class HybridRankBasedRecommender(BaseRecommender):
+class HybridRankBasedRecommender(AbstractHybridRecommender):
     """
-    Hybrid recommender based on rankings of different recommender model: the weighted merge of rankings is done only
+    Hybrid recommender based on rankings of different recommender models: the weighted merge of rankings is done only
     on a specific size of ranking (i.e. cutoff * cutoff_multiplier)
     """
 
     RECOMMENDER_NAME = "HybridRankBasedRecommender"
 
-    def __init__(self, URM_train):
+    def __init__(self, URM_train, hybrid_strategy = WeightedAverageStrategy(), multiplier_cutoff=5):
         """
 
-        :param URM_train: The URM train, but it is useless to add
-
-        """
-        super().__init__(URM_train)
-        self.models: Dict[str, BaseRecommender] = {}
-        self.weights: Dict[str, float] = {}
-
-
-    def add_fitted_model(self, recommender_name: str, recommender_object: BaseRecommender):
-        """
-        Add an already fitted model to the hybrid
-
-        :param recommender_name: The unique identifier name of the recommender
-        :param recommender_object: the recommender model to be added
-        :return:
-        """
-        self.models[recommender_name] = recommender_object
-
-    def get_number_of_models(self):
-        return len(self.models)
-
-    def get_recommender_names(self):
-        return list(self.models.keys())
-
-    def fit(self, hybrid_strategy: RecommendationStrategyInterface = WeightedAverageStrategy(), multiplier_cutoff=5, **weights):
-        """
-        Fit the hybrid model by setting the weight of each recommender
-
+        :param URM_train:
         :param hybrid_strategy: an object of strategy pattern tha'''t handles the hybrid core functioning of the recommender
         system
         :param multiplier_cutoff: the multiplier used for multiplying the cutoff for handling more recommended items
         to average
+        """
+        super().__init__(URM_train)
+
+        self.hybrid_strategy = hybrid_strategy
+        self.multiplier_cutoff = multiplier_cutoff
+        self.weights = None
+
+    def fit(self, **weights):
+        """
+        Fit the hybrid model by setting the weight of each recommender
+
         :param weights: the list of weight of each recommender
         :return: None
         """
         if np.all(np.in1d(weights.keys(), list(self.models.keys()), assume_unique=True)):
-            raise ValueError("The weights key name passed does not correspond to the name of the model inside the "
+            raise ValueError("The weights key name passed does not correspond to the name of the models inside the "
                              "hybrid recommender: {}".format(self.get_recommender_names()))
         self.weights = weights
-        self.hybrid_strategy = hybrid_strategy
-        self.multiplier_cutoff = multiplier_cutoff
 
     def recommend(self, user_id_array, cutoff=None, remove_seen_flag=True, items_to_compute=None,
                   remove_top_pop_flag=False, remove_CustomItems_flag=False, return_scores=False):
@@ -175,8 +160,7 @@ class HybridRankBasedRecommender(BaseRecommender):
                                                            items_to_compute=items_to_compute, remove_top_pop_flag=remove_top_pop_flag,
                                                            remove_CustomItems_flag=remove_CustomItems_flag, return_scores=True)
             rankings, weighted_scores = self.hybrid_strategy.get_hybrid_rankings_and_scores(rankings, scores,
-                                                                                            self.weights[recommender_name],
-                                                                                            cutoff_model)
+                                                                                            self.weights[recommender_name])
             for i in range(len(all_cum_score_builder)):
                 all_cum_score_builder[i].add_scores(rankings[i], weighted_scores[i])
 
@@ -190,3 +174,7 @@ class HybridRankBasedRecommender(BaseRecommender):
             return weighted_rankings, scores
         else:
             return weighted_rankings
+
+    def _compute_item_score(self, user_id_array, items_to_compute=None):
+        # Useless for this recommender
+        pass
