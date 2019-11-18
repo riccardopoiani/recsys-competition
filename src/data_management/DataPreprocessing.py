@@ -28,14 +28,6 @@ class AbstractDataPreprocessing(DataReader):
         self._LOADED_URM_DICT["URM_all"] = self._preprocess_URM_all(URM_all)
         self._LOADED_ICM_DICT = self._preprocess_ICMs(self.reader)
 
-        if self.soft_copy:
-            self._LOADED_GLOBAL_MAPPER_DICT = self.reader._LOADED_GLOBAL_MAPPER_DICT
-        else :
-            self._LOADED_GLOBAL_MAPPER_DICT = self.reader.get_loaded_Global_mappers()
-
-    def _load_from_original_file(self):
-        pass
-
     def _copy_static_data_reader(self, reader):
         self.IS_IMPLICIT = reader.IS_IMPLICIT
         self.AVAILABLE_ICM = reader.get_all_available_ICM_names()
@@ -46,10 +38,12 @@ class AbstractDataPreprocessing(DataReader):
         if self.soft_copy:
             self._LOADED_URM_DICT = self.reader._LOADED_URM_DICT
             self._LOADED_ICM_DICT = reader._LOADED_ICM_DICT
+            self._LOADED_GLOBAL_MAPPER_DICT = self.reader._LOADED_GLOBAL_MAPPER_DICT
             self._LOADED_ICM_MAPPER_DICT = reader._LOADED_ICM_MAPPER_DICT
         else:
             self._LOADED_URM_DICT = self.reader.get_loaded_URM_dict()
             self._LOADED_ICM_DICT = reader.get_loaded_ICM_dict()
+            self._LOADED_GLOBAL_MAPPER_DICT = self.reader.get_loaded_Global_mappers()
             self._LOADED_ICM_MAPPER_DICT = reader._LOADED_ICM_MAPPER_DICT
 
 
@@ -73,7 +67,6 @@ class DataPreprocessingExample(AbstractDataPreprocessing):
 
     def _preprocess_ICMs(self, reader : DataReader):
         return self._LOADED_ICM_DICT
-
 
 class DataPreprocessingRemoveColdUsersItems(AbstractDataPreprocessing):
 
