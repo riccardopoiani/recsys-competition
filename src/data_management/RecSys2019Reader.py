@@ -1,20 +1,20 @@
 import pandas as pd
 import numpy as np
-import os
+
+from course_lib.Base.DataIO import DataIO
 from course_lib.Data_manager.DataReader import DataReader
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs
 
 
-def _loadURM(filePath, separator=",", if_new_user="add", if_new_item="add",
-             item_original_ID_to_index=None,
+def _loadURM(file_path, separator=",", if_new_user="add", if_new_item="add", item_original_ID_to_index=None,
              user_original_ID_to_index=None):
     URM_all_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_col_mapper=item_original_ID_to_index,
                                                         on_new_col=if_new_item,
                                                         preinitialized_row_mapper=user_original_ID_to_index,
                                                         on_new_row=if_new_user)
 
-    df_original = pd.read_csv(filepath_or_buffer=filePath, sep=separator,
+    df_original = pd.read_csv(filepath_or_buffer=file_path, sep=separator,
                               usecols=['row', 'col'],
                               dtype={'row': str, 'col': str})
 
@@ -28,11 +28,11 @@ def _loadURM(filePath, separator=",", if_new_user="add", if_new_item="add",
            URM_all_builder.get_row_token_to_id_mapper()
 
 
-def _loadICM_asset(filePath, separator=",", if_new_item="add", item_original_ID_to_index=None):
+def _loadICM_asset(file_path, separator=",", if_new_item="add", item_original_ID_to_index=None):
     ICM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=item_original_ID_to_index,
                                                     on_new_row=if_new_item)
 
-    df_original = pd.read_csv(filePath, sep=separator,
+    df_original = pd.read_csv(file_path, sep=separator,
                               usecols=['row', 'col'],
                               dtype={'row': str, 'col': str})
 
@@ -48,11 +48,11 @@ def _loadICM_asset(filePath, separator=",", if_new_item="add", item_original_ID_
            ICM_builder.get_row_token_to_id_mapper()
 
 
-def _loadICM_sub_class(filePath, separator=",", if_new_item="add", item_original_ID_to_index=None):
+def _loadICM_sub_class(file_path, separator=",", if_new_item="add", item_original_ID_to_index=None):
     ICM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=item_original_ID_to_index,
                                                     on_new_row=if_new_item)
 
-    df_original = pd.read_csv(filePath, sep=separator,
+    df_original = pd.read_csv(file_path, sep=separator,
                               usecols=['row', 'col'],
                               dtype={'row': str, 'col': str})
 
@@ -68,11 +68,11 @@ def _loadICM_sub_class(filePath, separator=",", if_new_item="add", item_original
            ICM_builder.get_row_token_to_id_mapper()
 
 
-def _loadICM_price(filePath, separator=',', if_new_item="add", item_original_ID_to_index=None):
+def _loadICM_price(file_path, separator=',', if_new_item="add", item_original_ID_to_index=None):
     ICM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=item_original_ID_to_index,
                                                     on_new_row=if_new_item)
 
-    df_original = pd.read_csv(filePath, sep=separator,
+    df_original = pd.read_csv(file_path, sep=separator,
                               usecols=['row', 'col'],
                               dtype={'row': str, 'col': str})
 
@@ -88,51 +88,107 @@ def _loadICM_price(filePath, separator=',', if_new_item="add", item_original_ID_
            ICM_builder.get_row_token_to_id_mapper()
 
 
+def _loadUCM_age(file_path, separator=",", if_new_user="add", user_original_ID_to_index=None):
+    UCM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=user_original_ID_to_index,
+                                                    on_new_row=if_new_user)
+
+    df_original = pd.read_csv(file_path, sep=separator, usecols=['row', 'col'], dtype={'row': str, 'col': str})
+
+    user_id_list = df_original['row'].values
+    age_id_list = df_original['col'].values
+
+    UCM_builder.add_data_lists(user_id_list, age_id_list, np.ones(len(user_id_list), dtype=np.float64))
+
+    return UCM_builder.get_SparseMatrix(), UCM_builder.get_column_token_to_id_mapper(), \
+           UCM_builder.get_row_token_to_id_mapper()
+
+
+def _loadUCM_region(file_path, separator=",", if_new_user="add", user_original_ID_to_index=None):
+    UCM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=user_original_ID_to_index,
+                                                    on_new_row=if_new_user)
+
+    df_original = pd.read_csv(file_path, sep=separator, usecols=['row', 'col'], dtype={'row': str, 'col': str})
+
+    user_id_list = df_original['row'].values
+    region_id_list = df_original['col'].values
+
+    UCM_builder.add_data_lists(user_id_list, region_id_list, np.ones(len(user_id_list), dtype=np.float64))
+
+    return UCM_builder.get_SparseMatrix(), UCM_builder.get_column_token_to_id_mapper(), \
+           UCM_builder.get_row_token_to_id_mapper()
+
+
 class RecSys2019Reader(DataReader):
     DATASET_SUBFOLDER = "data/"
     AVAILABLE_ICM = ["ICM_all", "ICM_price", "ICM_asset", "ICM_sub_class"]
-    #AVAILABLE_UCM = ["UCM_ALL", "UCM_age", "UCM_region"]
+    AVAILABLE_UCM = ["UCM_ALL", "UCM_age", "UCM_region"]
     AVAILABLE_URM = ["URM_all"]
+
+    _LOADED_UCM_DICT = None
+    _LOADED_UCM_MAPPER_DICT = None
+
     IS_IMPLICIT = True
 
-    def __init__(self, URM_path: os.path="../data/data_train.csv", ICM_asset_path: os.path="../data/data_ICM_asset.csv",
-                 ICM_price_path: os.path="../data/data_ICM_price.csv", ICM_sub_class_path: os.path="../data/data_ICM_sub_class.csv"):
+    def __init__(self, URM_path="../data/data_train.csv", ICM_asset_path="../data/data_ICM_asset.csv",
+                 ICM_price_path="../data/data_ICM_price.csv", ICM_sub_class_path="../data/data_ICM_sub_class.csv",
+                 UCM_age_path="../data/data_UCM_age.csv", UCM_region_path="../data/data_UCM_region.csv"):
         super().__init__()
         self.URM_path = URM_path
         self.ICM_asset_path = ICM_asset_path
         self.ICM_price_path = ICM_price_path
         self.ICM_sub_class_path = ICM_sub_class_path
+        self.UCM_age_path = UCM_age_path
+        self.UCM_region_path = UCM_region_path
+
+        self._LOADED_UCM_DICT = {}
+        self._LOADED_UCM_MAPPER_DICT = {}
 
     def _get_dataset_name_root(self):
         return self.DATASET_SUBFOLDER
 
+    def get_UCM_from_name(self, UCM_name):
+        self._assert_is_initialized()
+        return self._LOADED_UCM_DICT[UCM_name].copy()
+
+    def get_UCM_feature_to_index_mapper_from_name(self, UCM_name):
+        self._assert_is_initialized()
+        return self._LOADED_UCM_MAPPER_DICT[UCM_name].copy()
+
+    def get_all_available_UCM_names(self):
+        return self.AVAILABLE_UCM.copy()
+
+    def get_loaded_UCM_names(self):
+        return self.AVAILABLE_UCM.copy()
+
     def _load_from_original_file(self):
         # Load data from original file
 
-        print("Recsys2019Reader: Loading original data")
+        print("RecSys2019Reader: Loading original data")
 
-        print("Recsys2019Reader: loading ICM album and artist")
+        print("RecSys2019Reader: loading ICM subclass, asset and price")
+
+        ICM_sub_class, tokenToFeatureMapper_ICM_sub_class, self.item_original_ID_to_index = _loadICM_sub_class(
+            self.ICM_sub_class_path,
+            separator=',', )
+
+        self._LOADED_ICM_DICT["ICM_sub_class"] = ICM_sub_class
+        self._LOADED_ICM_MAPPER_DICT["ICM_sub_class"] = tokenToFeatureMapper_ICM_sub_class
 
         ICM_asset, tokenToFeatureMapper_ICM_asset, self.item_original_ID_to_index = _loadICM_asset(self.ICM_asset_path,
-                                                                                                   separator=',', )
+                                                                                                   separator=',',
+                                                                                                   if_new_item="ignore",
+                                                                                                   item_original_ID_to_index=self.item_original_ID_to_index)
         self._LOADED_ICM_DICT["ICM_asset"] = ICM_asset
         self._LOADED_ICM_MAPPER_DICT["ICM_asset"] = tokenToFeatureMapper_ICM_asset
 
         ICM_price, tokenToFeatureMapper_ICM_price, self.item_original_ID_to_index = _loadICM_price(self.ICM_price_path,
-                                                                                                      separator=',',
-                                                                                                      if_new_item="ignore",
-                                                                                                      item_original_ID_to_index=self.item_original_ID_to_index)
-        self._LOADED_ICM_DICT["ICM_price"] = ICM_price
-        self._LOADED_ICM_MAPPER_DICT["ICM_price"] = tokenToFeatureMapper_ICM_price
-
-        ICM_sub_class, tokenToFeatureMapper_ICM_sub_class, self.item_original_ID_to_index = _loadICM_sub_class(self.ICM_sub_class_path,
                                                                                                    separator=',',
                                                                                                    if_new_item="ignore",
                                                                                                    item_original_ID_to_index=self.item_original_ID_to_index)
-        self._LOADED_ICM_DICT["ICM_sub_class"] = ICM_sub_class
-        self._LOADED_ICM_MAPPER_DICT["ICM_sub_class"] = tokenToFeatureMapper_ICM_sub_class
+        self._LOADED_ICM_DICT["ICM_price"] = ICM_price
+        self._LOADED_ICM_MAPPER_DICT["ICM_price"] = tokenToFeatureMapper_ICM_price
 
-        print("Recsys2019Reader: loading URM")
+        print("RecSys2019Reader: loading URM")
 
         URM_all, self.item_original_ID_to_index, self.user_original_ID_to_index = _loadURM(self.URM_path, separator=",",
                                                                                            if_new_item="ignore",
@@ -141,7 +197,28 @@ class RecSys2019Reader(DataReader):
         self._LOADED_GLOBAL_MAPPER_DICT["user_original_ID_to_index"] = self.user_original_ID_to_index
         self._LOADED_GLOBAL_MAPPER_DICT["item_original_ID_to_index"] = self.item_original_ID_to_index
 
-        print("Recsys2019Reader: loading ICM all")
+        print("RecSys2019Reader: loading UCM age, region and all")
+        print("RecSys2019Reader: WARNING --> There is no verification in the consistency of UCMs")
+        print("RecSys2019Reader: WARNING --> The number of data in UCM is much lower than the original")
+        print("RecSys2019Reader: WARNING --> UCM will be ignored by any preprocessing or data splitter class")
+
+        UCM_age, tokenToFeatureMapper_UCM_age, self.user_original_ID_to_index = _loadUCM_age(self.UCM_age_path,
+                                                                                             separator=",",
+                                                                                             if_new_user="ignore",
+                                                                                             user_original_ID_to_index=self.user_original_ID_to_index)
+
+        self._LOADED_UCM_DICT["UCM_age"] = UCM_age
+        self._LOADED_UCM_MAPPER_DICT["UCM_age"] = tokenToFeatureMapper_UCM_age
+
+        UCM_region, tokenToFeatureMapper_UCM_region, self.user_original_ID_to_index = _loadUCM_region(
+            self.UCM_region_path,
+            separator=",",
+            if_new_user="ignore",
+            user_original_ID_to_index=self.user_original_ID_to_index)
+        self._LOADED_UCM_DICT["UCM_region"] = UCM_region
+        self._LOADED_UCM_MAPPER_DICT["UCM_region"] = tokenToFeatureMapper_UCM_region
+
+        print("RecSys2019Reader: loading ICM all")
 
         ICM_price_asset, tokenToFeatureMapper_ICM_price_asset = merge_ICM(ICM_price, ICM_asset,
                                                                           tokenToFeatureMapper_ICM_price,
@@ -154,4 +231,54 @@ class RecSys2019Reader(DataReader):
         self._LOADED_ICM_DICT["ICM_all"] = ICM_all
         self._LOADED_ICM_MAPPER_DICT["ICM_all"] = tokenToFeatureMapper_ICM_all
 
-        print("Recsys2019Reader: loading complete")
+        print("RecSys2019Reader: loading complete")
+
+    def _save_dataset(self, save_folder_path):
+        """
+        Saves all URM, ICM and UCM
+        :param save_folder_path:
+        :return:
+        """
+        dataIO = DataIO(folder_path=save_folder_path)
+
+        dataIO.save_data(data_dict_to_save=self._LOADED_GLOBAL_MAPPER_DICT,
+                         file_name="dataset_global_mappers")
+
+        dataIO.save_data(data_dict_to_save=self._LOADED_URM_DICT,
+                         file_name="dataset_URM")
+
+        if len(self.get_loaded_ICM_names()) > 0:
+            dataIO.save_data(data_dict_to_save=self._LOADED_ICM_DICT,
+                             file_name="dataset_ICM")
+
+            dataIO.save_data(data_dict_to_save=self._LOADED_ICM_MAPPER_DICT,
+                             file_name="dataset_ICM_mappers")
+
+        if len(self.get_loaded_UCM_names()) > 0:
+            dataIO.save_data(data_dict_to_save=self._LOADED_URM_DICT,
+                             file_name="dataset_UCM")
+            dataIO.save_data(data_dict_to_save=self._LOADED_UCM_MAPPER_DICT,
+                             file_name="dataset_UCM_mappers")
+
+    def _load_from_saved_sparse_matrix(self, save_folder_path):
+        """
+        Loads all URM, ICM and UCM
+        :return:
+        """
+        dataIO = DataIO(folder_path=save_folder_path)
+        self._LOADED_GLOBAL_MAPPER_DICT = dataIO.load_data(file_name="dataset_global_mappers")
+
+        self._LOADED_URM_DICT = dataIO.load_data(file_name="dataset_URM")
+
+        if len(self.get_loaded_ICM_names()) > 0:
+            self._LOADED_ICM_DICT = dataIO.load_data(file_name="dataset_ICM")
+
+            self._LOADED_ICM_MAPPER_DICT = dataIO.load_data(file_name="dataset_ICM_mappers")
+
+        if len(self.get_loaded_UCM_names()) > 0:
+            self._LOADED_UCM_DICT = dataIO.load_data(file_name="dataset_UCM")
+            self._LOADED_UCM_MAPPER_DICT = dataIO.load_data(file_name="dataset_UCM_mappers")
+            print("RecSys2019Reader: WARNING --> There is no verification in the consistency of UCMs")
+            print("RecSys2019Reader: WARNING --> The number of data in UCM is much lower than the original")
+            print("RecSys2019Reader: WARNING --> UCM will be ignored by any preprocessing or data splitter class")
+
