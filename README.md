@@ -24,7 +24,7 @@ In order to versioning notebooks, use <a href="https://github.com/mwouts/jupytex
 commands written in python to convert notebooks into pure python files.
 For pairing a notebook, after having installed jupytext, it is possible to do it by
 <pre><code>jupytext --set-formats ipynb,py notebook.ipynb</code></pre>
-Then, it is possible to sync (i.e. update markdown) with
+Then, it is possible to sync (i.e. update python file) with
 <pre><code>jupytext --sync notebook.ipynb</code></pre>
 
 ### Convert Notebook to HTML

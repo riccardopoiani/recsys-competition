@@ -68,6 +68,25 @@ df_UCM_age[df_UCM_age.row.isin(least_active_users)].col.value_counts().sort_inde
 
 # Overall, there is no big difference in the distribution of most active users and least active users between the overall distribution
 
+# #### User activity for each age
+
+# +
+ages = df_UCM_age.col.sort_values().unique()
+
+fig, ax = plt.subplots(2, 5, figsize=(20, 11))
+
+for i in range(len(ages)):
+    users_in_age_i = df_UCM_age[df_UCM_age.col==ages[i]].row.values
+    ax[i//5][i%5].plot(df_URM[df_URM.row.isin(users_in_age_i)].groupby(by='row').\
+                       sum(axis=1)['data'].sort_values(ascending=False).values)
+    ax[i//5][i%5].set_xlabel('User Index')
+    if i%5==0:
+        ax[i//5][i%5].set_ylabel('Number of Interactions')
+    ax[i//5][i%5].set_title('Age=%d'%ages[i])
+# -
+
+# From these user activity, it is quite impossible to see any interesting and meaningful information
+
 # ## Region
 
 df_UCM_region = pd.read_csv("../data/data_UCM_region.csv")
@@ -90,6 +109,28 @@ df_UCM_region[df_UCM_region.row.isin(least_active_users)].col.value_counts().sor
 
 # Overall, it seems there is less users in region 4 when it is active, but more users in region 4 when it is inactive
 
+# +
+regions = df_UCM_region.col.sort_values().unique()
+
+fig, ax = plt.subplots(3, 3, figsize=(20, 16))
+
+for i in range(len(regions)):
+    users_in_region_i = df_UCM_region[df_UCM_region.col==regions[i]].row.values
+    ax[i//3][i%3].plot(df_URM[df_URM.row.isin(users_in_region_i)].groupby(by='row').\
+                       sum(axis=1)['data'].sort_values(ascending=False).values)
+    ax[i//3][i%3].set_xlabel('User Index')
+    if i%3==0:
+        ax[i//3][i%3].set_ylabel('Number of Interactions')
+    ax[i//3][i%3].set_title('Region=%d'%regions[i])
+    
+ax[2][1].set_visible(False)
+ax[2][2].set_visible(False)
+# -
+
+# There are regions with a very different types of users:
+#  - For example, in region=5, the user activity is very high for some users while a lot of users has almost 0 interactions
+#  - Another constrant type is region=0: in this case, the user activity are distributed among lots of users and the hyperbole is not so steep
+
 # ## Age-Region
 
 df_UCM_age_region = pd.merge(df_UCM_age, df_UCM_region, on='row')
@@ -97,13 +138,31 @@ df_UCM_age_region = pd.merge(df_UCM_age, df_UCM_region, on='row')
 # +
 regions = df_UCM_age_region['col_y'].sort_values().unique()
 
-fig, ax = plt.subplots(3, 2, figsize=(20, 25))
+fig, ax = plt.subplots(2, 3, figsize=(20, 12))
 
 for i in range(len(regions)):
-    df_UCM_age_region[df_UCM_age_region.col_y == regions[i]]['col_x'].value_counts().sort_index().plot.bar(ax=ax[i//2][i%2])
-    ax[i//2][i%2].set_xlabel('Age')
-    ax[i//2][i%2].set_ylabel('Frequency')
-    ax[i//2][i%2].set_title('Region=%d'%regions[i])
+    df_UCM_age_region[df_UCM_age_region.col_y == regions[i]]['col_x'].value_counts().sort_index().plot.bar(ax=ax[i//3][i%3])
+    ax[i//3][i%3].set_xlabel('Age')
+    ax[i//3][i%3].set_ylabel('Frequency')
+    ax[i//3][i%3].set_title('Region=%d'%regions[i])
 # -
 
 # By changing the region, the distribution of the age is still very similar to the original ones except some small changes.
+
+# +
+ages = df_UCM_age_region['col_x'].sort_values().unique()
+
+fig, ax = plt.subplots(2, 5, figsize=(20, 9))
+
+for i in range(len(ages)):
+    df_UCM_age_region[df_UCM_age_region.col_x == ages[i]]['col_y'].\
+            value_counts().sort_index().plot.bar(ax=ax[i//5][i%5])
+    ax[i//5][i%5].set_xlabel('Region')
+    if i%5==0:
+        ax[i//5][i%5].set_ylabel('Frequency')
+    ax[i//5][i%5].set_title('Age=%d'%ages[i])
+# -
+
+# It is possible to see that the region 7 is going down as the age goes up from the age=5. But there is also a smaller distribution of the region 7 in age=1 and age=2. For the other distribution, there might be similar behavior.
+
+
