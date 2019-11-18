@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 from course_lib.Base.DataIO import DataIO
 from course_lib.Data_manager.DataReader import DataReader
@@ -129,16 +130,14 @@ class RecSys2019Reader(DataReader):
 
     IS_IMPLICIT = True
 
-    def __init__(self, URM_path="../data/data_train.csv", ICM_asset_path="../data/data_ICM_asset.csv",
-                 ICM_price_path="../data/data_ICM_price.csv", ICM_sub_class_path="../data/data_ICM_sub_class.csv",
-                 UCM_age_path="../data/data_UCM_age.csv", UCM_region_path="../data/data_UCM_region.csv"):
+    def __init__(self, root_path="../data/"):
         super().__init__()
-        self.URM_path = URM_path
-        self.ICM_asset_path = ICM_asset_path
-        self.ICM_price_path = ICM_price_path
-        self.ICM_sub_class_path = ICM_sub_class_path
-        self.UCM_age_path = UCM_age_path
-        self.UCM_region_path = UCM_region_path
+        self.URM_path = os.path.join(root_path, "data_train.csv")
+        self.ICM_asset_path = os.path.join(root_path, "data_ICM_asset.csv")
+        self.ICM_price_path = os.path.join(root_path, "data_ICM_price.csv")
+        self.ICM_sub_class_path = os.path.join(root_path, "data_ICM_sub_class.csv")
+        self.UCM_age_path = os.path.join(root_path, "data_UCM_age.csv")
+        self.UCM_region_path = os.path.join(root_path, "data_UCM_age.csv")
 
         self._LOADED_UCM_DICT = {}
         self._LOADED_UCM_MAPPER_DICT = {}
