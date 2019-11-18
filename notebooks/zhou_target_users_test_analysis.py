@@ -19,6 +19,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+
+import sys
+sys.path.append("..")
 
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 
@@ -111,6 +115,15 @@ missing_users_in_UCM_region[:10]
 # + {"pycharm": {"name": "#%%\n", "is_executing": false}}
 print("There are still missing %d users considering UCM region"%len(missing_users_in_UCM_region))
 print("Which means there are %d missing users that can be handled by UCM region"%(len(missing_users)-len(missing_users_in_UCM_region)))
+# -
+
+# Let's plot the region of these 3104 missing users:
+
+df_region[df_region.row.isin(missing_users[mask])].col.value_counts().sort_index().plot.bar()
+plt.title('Counts of missing users present in UCM_region in specific region')
+plt.xlabel('Region')
+plt.ylabel('Counts')
+plt.show()
 
 # + {"pycharm": {"name": "#%% md\n"}, "cell_type": "markdown"}
 # ### Age
@@ -130,6 +143,15 @@ missing_users_in_UCM_age
 # + {"pycharm": {"name": "#%%\n", "is_executing": false}}
 print("There are still missing %d users considering UCM age"%len(missing_users_in_UCM_age))
 print("Which means there are %d missing users that can be handled by UCM age"%(len(missing_users)-len(missing_users_in_UCM_age)))
+# -
+
+# Let's plot the age for the missing users in UCM age:
+
+df_age[df_age.row.isin(missing_users[mask])].col.value_counts().sort_index().plot.bar()
+plt.title('Counts of missing users present in UCM_age in specific age')
+plt.xlabel('Age')
+plt.ylabel('Counts')
+plt.show()
 
 # + {"pycharm": {"name": "#%% md\n"}, "cell_type": "markdown"}
 # ### Both Region and Age
@@ -146,6 +168,37 @@ missing_users_in_UCM_age_region[:10]
 # + {"pycharm": {"name": "#%%\n", "is_executing": false}}
 print("There are still missing %d users considering UCM age"%len(missing_users_in_UCM_age_region))
 print("Which means there are %d missing users that can be handled by UCM age"%(len(missing_users)-len(missing_users_in_UCM_age_region)))
+
+# +
+df_age_region_missing = pd.merge(df_age, df_region, on='row')
+df_age_region_missing = df_age_region_missing[df_age_region_missing.row.isin(missing_users[mask])]
+
+regions = df_age_region_missing['col_y'].sort_values().unique()
+
+fig, ax = plt.subplots(2, 3, figsize=(20, 12))
+
+for i in range(len(regions)):
+    df_age_region_missing[df_age_region_missing.col_y == regions[i]]['col_x'].\
+            value_counts().sort_index().plot.bar(ax=ax[i//3][i%3])
+    ax[i//3][i%3].set_xlabel('Age')
+    ax[i//3][i%3].set_ylabel('Frequency')
+    ax[i//3][i%3].set_title('Region=%d'%regions[i])
+
+# +
+ages = df_age_region_missing['col_x'].sort_values().unique()
+
+fig, ax = plt.subplots(2, 5, figsize=(20, 9))
+
+for i in range(len(ages)):
+    df_age_region_missing[df_age_region_missing.col_x == ages[i]]['col_y'].\
+            value_counts().sort_index().plot.bar(ax=ax[i//5][i%5])
+    ax[i//5][i%5].set_xlabel('Region')
+    if i%5==0:
+        ax[i//5][i%5].set_ylabel('Frequency')
+    ax[i//5][i%5].set_title('Age=%d'%ages[i])
+# -
+
+# For increasing age from age=5 we can see a decreasing of region=7, but this could be seen also in the original merge DataFrame. But in this case, in age=7 there is an increasement and then it decrease another time. This are variation in the distribution, not in the actual frequency
 
 # + {"pycharm": {"name": "#%% md\n"}, "cell_type": "markdown"}
 # ## Conclusion

@@ -97,13 +97,31 @@ df_UCM_age_region = pd.merge(df_UCM_age, df_UCM_region, on='row')
 # +
 regions = df_UCM_age_region['col_y'].sort_values().unique()
 
-fig, ax = plt.subplots(3, 2, figsize=(20, 25))
+fig, ax = plt.subplots(2, 3, figsize=(20, 12))
 
 for i in range(len(regions)):
-    df_UCM_age_region[df_UCM_age_region.col_y == regions[i]]['col_x'].value_counts().sort_index().plot.bar(ax=ax[i//2][i%2])
-    ax[i//2][i%2].set_xlabel('Age')
-    ax[i//2][i%2].set_ylabel('Frequency')
-    ax[i//2][i%2].set_title('Region=%d'%regions[i])
+    df_UCM_age_region[df_UCM_age_region.col_y == regions[i]]['col_x'].value_counts().sort_index().plot.bar(ax=ax[i//3][i%3])
+    ax[i//3][i%3].set_xlabel('Age')
+    ax[i//3][i%3].set_ylabel('Frequency')
+    ax[i//3][i%3].set_title('Region=%d'%regions[i])
 # -
 
 # By changing the region, the distribution of the age is still very similar to the original ones except some small changes.
+
+# +
+ages = df_UCM_age_region['col_x'].sort_values().unique()
+
+fig, ax = plt.subplots(2, 5, figsize=(20, 9))
+
+for i in range(len(ages)):
+    df_UCM_age_region[df_UCM_age_region.col_x == ages[i]]['col_y'].\
+            value_counts().sort_index().plot.bar(ax=ax[i//5][i%5])
+    ax[i//5][i%5].set_xlabel('Region')
+    if i%5==0:
+        ax[i//5][i%5].set_ylabel('Frequency')
+    ax[i//5][i%5].set_title('Age=%d'%ages[i])
+# -
+
+# It is possible to see that the region 7 is going down as the age goes up from the age=5. But there is also a smaller distribution of the region 7 in age=1 and age=2. For the other distribution, there might be similar behavior.
+
+
