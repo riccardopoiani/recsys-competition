@@ -106,7 +106,7 @@ def explore_tuning_result(path, recommender_class, URM_train, URM_test,
     top_popular = TopPop(URM_train)
     top_popular.fit()
     plot_comparison_with_top_pop(recommender_instance, top_popular,
-                                                               compare_top_pop_points, URM_train)
+                                 compare_top_pop_points, URM_train)
     fig_comparison_with_top_pop = plt.gcf()
     fig_comparison_with_top_pop.show()
     if save_on_file:

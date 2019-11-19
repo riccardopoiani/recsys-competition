@@ -12,6 +12,6 @@ if __name__ == '__main__':
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
-    path = "../report/hp_tuning/item_cf/Nov19_14-39-56_k_out_value_3/"
+    path = "../report/hp_tuning/user_cf/Nov19_14-58-37_k_out_value_3/"
     explore_tuning_result(path, UserKNNCFRecommender, URM_train, URM_test, save_on_file=True,
-                          output_path_folder="../report/hp_tuning/item_cf/Nov19_14-39-56_k_out_value_3/graphics/")
+                          output_path_folder="../report/hp_tuning/user_cf/Nov19_14-58-37_k_out_value_3/graphics/")

@@ -178,7 +178,6 @@ def plot_comparison_with_top_pop(recommender_object: BaseRecommender, top_popula
     plt.ylabel('Average number of items in common with top-popular')
     plt.xlabel('Number of items recommended by top-popular')
     plt.title(graph_title)
-    plt.show()
 
     return y_ticks
 
