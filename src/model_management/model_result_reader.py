@@ -1,8 +1,11 @@
 import os
 import pandas as pd
+from os import listdir
+from os.path import isfile, join
+from src.utils.general_utility_functions import from_string_to_dict
 
 
-def best_model_reader(path):
+def best_model_reader2(path):
     '''
     Read all the files in the given directory folder (assumed to terminate with a '/' and then
     return the list of best model in all the files.
@@ -12,10 +15,10 @@ def best_model_reader(path):
     :param path: directory where .txt of report files of hp. tuning are stored
     :return: list of dictionary that contains the hp of the best model found. There will be 1 dictionary for each file
     '''
-    from os import listdir
-    from os.path import isfile, join
-    from ..utils.general_utility_functions import from_string_to_dict
     only_files = [f for f in listdir(path) if isfile(join(path, f))]
+
+    # Filter zip files
+    only_files = [f for f in only_files if f[-3:] != 'zip']
 
     best_model_list = []
     for file in only_files:
