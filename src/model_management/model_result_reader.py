@@ -8,7 +8,6 @@ def read_folder_metadata(path):
     '''
     Read all the metadata.zip file in a given folder.
     They are result of hp tuning.
-
     :param path: path of the folder
     :return: list of dataframes containing information in the metadata.zip files in the folder
     '''

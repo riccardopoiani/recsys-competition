@@ -6,7 +6,7 @@ Created on 14/06/18
 @author: Maurizio Ferrari Dacrema
 """
 
-from Base.BaseMatrixFactorizationRecommender import BaseMatrixFactorizationRecommender
+from course_lib.Base.BaseMatrixFactorizationRecommender import BaseMatrixFactorizationRecommender
 from course_lib.Base.Recommender_utils import check_matrix
 
 from sklearn.utils.extmath import randomized_svd

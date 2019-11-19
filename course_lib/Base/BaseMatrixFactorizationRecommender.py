@@ -6,7 +6,7 @@ Created on 16/09/2017
 @author: Maurizio Ferrari Dacrema
 """
 
-from Base.BaseRecommender import BaseRecommender
+from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.KNN.ItemKNNCustomSimilarityRecommender import ItemKNNCustomSimilarityRecommender
 from course_lib.Base.Recommender_utils import check_matrix
 from course_lib.Base.DataIO import DataIO

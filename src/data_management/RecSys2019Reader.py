@@ -122,7 +122,7 @@ def _loadUCM_region(file_path, separator=",", if_new_user="add", user_original_I
 class RecSys2019Reader(DataReader):
     DATASET_SUBFOLDER = "data/"
     AVAILABLE_ICM = ["ICM_all", "ICM_price", "ICM_asset", "ICM_sub_class"]
-    AVAILABLE_UCM = ["UCM_ALL", "UCM_age", "UCM_region"]
+    AVAILABLE_UCM = ["UCM_age", "UCM_region"]
     AVAILABLE_URM = ["URM_all"]
 
     _LOADED_UCM_DICT = None
@@ -130,14 +130,14 @@ class RecSys2019Reader(DataReader):
 
     IS_IMPLICIT = True
 
-    def __init__(self, root_path="../data/"):
-        super().__init__()
+    def __init__(self, root_path="../data/", reload_from_original=False):
+        super().__init__(reload_from_original_data=reload_from_original)
         self.URM_path = os.path.join(root_path, "data_train.csv")
         self.ICM_asset_path = os.path.join(root_path, "data_ICM_asset.csv")
         self.ICM_price_path = os.path.join(root_path, "data_ICM_price.csv")
         self.ICM_sub_class_path = os.path.join(root_path, "data_ICM_sub_class.csv")
         self.UCM_age_path = os.path.join(root_path, "data_UCM_age.csv")
-        self.UCM_region_path = os.path.join(root_path, "data_UCM_age.csv")
+        self.UCM_region_path = os.path.join(root_path, "data_UCM_region.csv")
 
         self._LOADED_UCM_DICT = {}
         self._LOADED_UCM_MAPPER_DICT = {}
@@ -214,6 +214,7 @@ class RecSys2019Reader(DataReader):
             separator=",",
             if_new_user="ignore",
             user_original_ID_to_index=self.user_original_ID_to_index)
+
         self._LOADED_UCM_DICT["UCM_region"] = UCM_region
         self._LOADED_UCM_MAPPER_DICT["UCM_region"] = tokenToFeatureMapper_UCM_region
 
@@ -254,7 +255,7 @@ class RecSys2019Reader(DataReader):
                              file_name="dataset_ICM_mappers")
 
         if len(self.get_loaded_UCM_names()) > 0:
-            dataIO.save_data(data_dict_to_save=self._LOADED_URM_DICT,
+            dataIO.save_data(data_dict_to_save=self._LOADED_UCM_DICT,
                              file_name="dataset_UCM")
             dataIO.save_data(data_dict_to_save=self._LOADED_UCM_MAPPER_DICT,
                              file_name="dataset_UCM_mappers")

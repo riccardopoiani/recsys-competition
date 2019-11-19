@@ -3,6 +3,9 @@ from course_lib.Data_manager.DataReader import DataReader
 import scipy.sparse as sps
 import numpy as np
 
+from course_lib.Data_manager.DataReader_utils import reconcile_mapper_with_removed_tokens
+
+
 class AbstractDataPreprocessing(DataReader):
 
     def __init__(self, reader: DataReader, soft_copy = True):
@@ -13,10 +16,10 @@ class AbstractDataPreprocessing(DataReader):
         self._copy_static_data_reader(reader)
 
     def _preprocess_URM_all(self, URM_all : sps.csr_matrix):
-        raise NotImplementedError("_preprocess_URM_all was not implemented in the abstract class")
+        raise NotImplementedError("_preprocess_URM_all is not implemented in the abstract class")
 
     def _preprocess_ICMs(self, reader : DataReader):
-        raise NotImplementedError("_preprocess_ICM_all was not implemented in the abstract class")
+        raise NotImplementedError("_preprocess_ICMs is not implemented in the abstract class")
 
     def load_data(self, save_folder_path = None):
         self.reader.load_data()
@@ -86,24 +89,27 @@ class DataPreprocessingRemoveColdUsersItems(AbstractDataPreprocessing):
 
     def _preprocess_URM_all(self, URM_all : sps.csr_matrix):
         warm_items_mask = np.ediff1d(URM_all.tocsc().indptr) > self.threshold_items
-        warm_items = np.arange(URM_all.shape[1])[warm_items_mask]
+        self.warm_items = np.arange(URM_all.shape[1])[warm_items_mask]
 
-        URM_all = URM_all[:, warm_items]
+        URM_all = URM_all[:, self.warm_items]
 
         warm_users_mask = np.ediff1d(URM_all.tocsr().indptr) > self.threshold_users
         warm_users = np.arange(URM_all.shape[0])[warm_users_mask]
 
         URM_all = URM_all[warm_users, :]
 
-        user_mapper = self._LOADED_GLOBAL_MAPPER_DICT["user_original_ID_to_index"]
-        self._LOADED_GLOBAL_MAPPER_DICT["user_original_ID_to_index"] = {key: value for key, value in user_mapper.items()
-                                                                        if value in warm_users}
+        self._LOADED_GLOBAL_MAPPER_DICT["user_original_ID_to_index"] = reconcile_mapper_with_removed_tokens(
+                self._LOADED_GLOBAL_MAPPER_DICT["user_original_ID_to_index"],
+                np.arange(0, len(warm_users_mask), dtype=np.int)[np.logical_not(warm_users_mask)])
 
-        item_mapper = self._LOADED_GLOBAL_MAPPER_DICT["item_original_ID_to_index"]
-        self._LOADED_GLOBAL_MAPPER_DICT["item_original_ID_to_index"] = {key: value for key, value in item_mapper.items()
-                                                                        if value in warm_items}
+        self._LOADED_GLOBAL_MAPPER_DICT["item_original_ID_to_index"] = reconcile_mapper_with_removed_tokens(
+                self._LOADED_GLOBAL_MAPPER_DICT["item_original_ID_to_index"],
+                np.arange(0, len(warm_items_mask), dtype=np.int)[np.logical_not(warm_items_mask)])
 
         return URM_all
 
     def _preprocess_ICMs(self, reader : DataReader):
+        for ICM_name, ICM_object in self._LOADED_ICM_DICT.items():
+            self._LOADED_ICM_DICT[ICM_name] = ICM_object[self.warm_items, :]
         return self._LOADED_ICM_DICT
+

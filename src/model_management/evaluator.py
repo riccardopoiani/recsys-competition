@@ -15,7 +15,7 @@ def evaluate_recommender_by_user_demographic(recommender_object: BaseRecommender
     :param URM_train: csr_matrix
     :param URM_test: csr_matrix
     :param cutoff_list: list of cutoff to evaluate on
-    :param user_demographic: the list (np.ndarray) containing a single user demographic for all users in URM_train
+    :param user_demographic: the list (np.ndarray) containing a single user demographic for all users in URM_train (in the same order!!)
     :param n_folds: the number of folds you want to divide the URM_test
     :return: a dict of metric results for each cutoff
     """

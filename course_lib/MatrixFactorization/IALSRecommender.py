@@ -6,7 +6,7 @@ Created on 23/03/2019
 
 
 
-from Base.BaseMatrixFactorizationRecommender import BaseMatrixFactorizationRecommender
+from course_lib.Base.BaseMatrixFactorizationRecommender import BaseMatrixFactorizationRecommender
 from course_lib.Base.Incremental_Training_Early_Stopping import Incremental_Training_Early_Stopping
 from course_lib.Base.Recommender_utils import check_matrix
 import numpy as np
