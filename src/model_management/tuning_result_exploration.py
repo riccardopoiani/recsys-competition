@@ -2,6 +2,7 @@ from src.model_management.model_result_reader import *
 from src.plots.plot_evaluation_helper import *
 from src.model_management.evaluator import *
 import numpy as np
+from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 
 
 def explore_tuning_result(path, recommender_class, URM_train, URM_test,

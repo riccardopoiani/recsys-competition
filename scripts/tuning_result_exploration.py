@@ -2,7 +2,7 @@ from src.model_management.tuning_result_exploration import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.DataPreprocessing import *
-from course_lib.KNN.UserKNNCFRecommender import *
+from course_lib.KNN.ItemKNNCFRecommender import *
 
 if __name__ == '__main__':
     data_reader = RecSys2019Reader()
@@ -12,6 +12,6 @@ if __name__ == '__main__':
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
-    path = "../report/hp_tuning/user_cf/Nov19_14-58-37_k_out_value_3/"
-    explore_tuning_result(path, UserKNNCFRecommender, URM_train, URM_test, save_on_file=True,
-                          output_path_folder="../report/hp_tuning/user_cf/Nov19_14-58-37_k_out_value_3/graphics/")
+    path = "../report/hp_tuning/item_cf/Nov19_14-39-56_k_out_value_3/"
+    explore_tuning_result(path, ItemKNNCFRecommender, URM_train, URM_test, save_on_file=True,
+                          output_path_folder="")
