@@ -6,7 +6,7 @@ Created on 16/09/2017
 @author: Maurizio Ferrari Dacrema
 """
 
-from Base.BaseRecommender import BaseRecommender
+from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.DataIO import DataIO
 import numpy as np
 

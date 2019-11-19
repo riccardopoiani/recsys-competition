@@ -86,9 +86,9 @@ class DataPreprocessingRemoveColdUsersItems(AbstractDataPreprocessing):
 
     def _preprocess_URM_all(self, URM_all : sps.csr_matrix):
         warm_items_mask = np.ediff1d(URM_all.tocsc().indptr) > self.threshold_items
-        warm_items = np.arange(URM_all.shape[1])[warm_items_mask]
+        self.warm_items = np.arange(URM_all.shape[1])[warm_items_mask]
 
-        URM_all = URM_all[:, warm_items]
+        URM_all = URM_all[:, self.warm_items]
 
         warm_users_mask = np.ediff1d(URM_all.tocsr().indptr) > self.threshold_users
         warm_users = np.arange(URM_all.shape[0])[warm_users_mask]
@@ -101,9 +101,11 @@ class DataPreprocessingRemoveColdUsersItems(AbstractDataPreprocessing):
 
         item_mapper = self._LOADED_GLOBAL_MAPPER_DICT["item_original_ID_to_index"]
         self._LOADED_GLOBAL_MAPPER_DICT["item_original_ID_to_index"] = {key: value for key, value in item_mapper.items()
-                                                                        if value in warm_items}
+                                                                        if value in self.warm_items}
 
         return URM_all
 
     def _preprocess_ICMs(self, reader : DataReader):
+        for ICM_name, ICM_object in self._LOADED_ICM_DICT.items():
+            self._LOADED_ICM_DICT[ICM_name] = ICM_object[self.warm_items, :]
         return self._LOADED_ICM_DICT

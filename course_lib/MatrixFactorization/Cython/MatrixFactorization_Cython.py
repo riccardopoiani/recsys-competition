@@ -7,7 +7,7 @@ Created on 07/09/17
 """
 
 
-from Base.BaseMatrixFactorizationRecommender import BaseMatrixFactorizationRecommender
+from course_lib.Base.BaseMatrixFactorizationRecommender import BaseMatrixFactorizationRecommender
 from course_lib.Base.Incremental_Training_Early_Stopping import Incremental_Training_Early_Stopping
 from course_lib.Base.Recommender_utils import check_matrix
 
@@ -56,7 +56,7 @@ class _MatrixFactorization_Cython(BaseMatrixFactorizationRecommender, Incrementa
         self.negative_interactions_quota = negative_interactions_quota
 
         # Import compiled module
-        from MatrixFactorization.Cython.MatrixFactorization_Cython_Epoch import MatrixFactorization_Cython_Epoch
+        from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython_Epoch import MatrixFactorization_Cython_Epoch
 
 
         if self.algorithm_name in ["FUNK_SVD", "ASY_SVD"]:
