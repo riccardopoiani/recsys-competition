@@ -5,7 +5,7 @@ from os.path import isfile, join
 from src.utils.general_utility_functions import from_string_to_dict
 
 
-def best_model_reader2(path):
+def best_model_reader(path):
     '''
     Read all the files in the given directory folder (assumed to terminate with a '/' and then
     return the list of best model in all the files.

@@ -8,7 +8,7 @@ def get_popular_items(URM, popular_threshold=100):
     :param popular_threshold: popularity threshold
     :return:
     '''
-    return __get_popular__(URM, popular_threshold, axis=0)
+    return _get_popular(URM, popular_threshold, axis=0)
 
 
 def get_active_users(URM, popular_threshold=100):
@@ -19,15 +19,36 @@ def get_active_users(URM, popular_threshold=100):
     :param popular_threshold: popularty threshold
     :return:
     '''
-    return __get_popular__(URM, popular_threshold, axis=1)
+    return _get_popular(URM, popular_threshold, axis=1)
 
 def get_unpopular_items(URM, popular_t):
-    return __get_unpopular__(URM, popular_t, axis=0)
+    return _get_unpopular(URM, popular_t, axis=0)
 
 def get_unactive_users(URM, popular_t):
-    return __get_unpopular__(URM, popular_t, axis=1)
+    return _get_unpopular(URM, popular_t, axis=1)
 
-def __get_unpopular__(URM, popular_threshold, axis):
+def get_user_demographic(UCM, URM_all, threshold_users):
+    """
+    Return a list containing all ages for each user of URM_train. In case there is no age for that user, it returns -1
+     - This is useful for plotting the metric based on age demographic
+
+    :param UCM: any UCM age or region
+    :param URM_all: URM containing all users (warm users), basically, it is the one directly from the reader
+    :param threshold_users: threshold for warm users
+    :return: a list containing all ages for each user of URM_train
+    """
+    warm_users_mask = np.ediff1d(URM_all.tocsr().indptr) > threshold_users
+    warm_users = np.arange(URM_all.shape[0])[warm_users_mask]
+
+    UCM_copy = UCM.copy()[warm_users, :].tocoo()
+
+    users = UCM_copy.row
+    features = UCM_copy.col
+    user_demographic = np.full(UCM_copy.shape[0], -1)
+    user_demographic[users] = features
+    return user_demographic
+
+def _get_unpopular(URM, popular_threshold, axis):
     items = (URM > 0).sum(axis=axis)
     items_unsorted = np.array(items).squeeze()
 
@@ -41,7 +62,7 @@ def __get_unpopular__(URM, popular_threshold, axis):
 
     return index_arr
 
-def __get_popular__(URM, popular_t, axis):
+def _get_popular(URM, popular_t, axis):
     items = (URM > 0).sum(axis=axis)
     items_unsorted = np.array(items).squeeze()
 
