@@ -7,13 +7,13 @@ from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUse
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from numpy.random import seed
 
+SEED = 69420
+
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data
-    SEED = 69420
     seed(SEED)
 
     # Data loading
-
     data_reader = RecSys2019Reader("../../data/")
     data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_users=3)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
@@ -22,7 +22,7 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
     ICM_all = data_reader.get_ICM_from_name("ICM_all")
 
-    # Remove seed for hyper-parameter tuning
+    # Reset seed for hyper-parameter tuning
     seed()
 
     # Setting evaluator

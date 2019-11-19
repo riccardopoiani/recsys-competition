@@ -4,8 +4,14 @@ from course_lib.ParameterTuning.run_parameter_search import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from datetime import datetime
 from src.data_management.DataPreprocessing import *
+from numpy.random import seed
+
+SEED = 69420
 
 if __name__ == '__main__':
+    # Set seed in order to have same splitting of data
+    seed(SEED)
+
     # Data loading
     data_reader = RecSys2019Reader()
     data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_users=3)
@@ -13,18 +19,21 @@ if __name__ == '__main__':
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
+    # Reset seed for hyper-parameter tuning
+    seed()
+
     # Setting evaluator
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list)
 
     # HP tuning
     print("Start tuning...")
-    version_path = "../report/hp_tuning/item_cf/"
+    version_path = "../report/hp_tuning/user_cf/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
 
-    runParameterSearch_Collaborative(URM_train=URM_train, recommender_class=ItemKNNCFRecommender,
+    runParameterSearch_Collaborative(URM_train=URM_train, recommender_class=UserKNNCFRecommender,
                                      evaluator_validation=evaluator,
                                      metric_to_optimize="MAP",
                                      output_folder_path=version_path,
