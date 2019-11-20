@@ -10,8 +10,13 @@ import numpy as np
 import scipy.sparse as sps
 import time, sys, copy
 
+from numpy.random import seed
+
 from enum import Enum
 from course_lib.Utils.seconds_to_biggest_unit import seconds_to_biggest_unit
+
+from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.New_DataSplitter_leave_k_out import *
 
 from course_lib.Base.Evaluation.metrics import roc_auc, precision, precision_recall_min_denominator, recall, MAP, MRR, ndcg, arhr, rmse, \
     Novelty, Coverage_Item, Metrics_Object, Coverage_User, Gini_Diversity, Shannon_Entropy, Diversity_MeanInterList, Diversity_Herfindahl, AveragePopularity
@@ -203,6 +208,95 @@ class Evaluator(object):
         assert self.URM_test.getformat() == "csr", "Evaluator_Base_Class: URM_test is not CSR, this will cause errors in relevant items ratings"
 
         return self.URM_test.data[self.URM_test.indptr[user_id]:self.URM_test.indptr[user_id+1]]
+
+class EvaluatorCrossValidationKeepKOut(Evaluator):
+
+    EVALUATOR_NAME = "EvaluatorCrossValidationKeepKOut"
+
+    def __init__(self, data_set, cutoff, seed_list, minRatingsPerUser=1, exclude_seen=True, diversity_object=None, ignore_items=None,
+                 ignore_users=None, n_folds=10):
+        if type(cutoff) != int:
+            raise TypeError()
+        temp_list = [cutoff]
+
+        if n_folds < 2:
+            raise RuntimeError("The number of folds should be at least 2")
+
+        # Just save the parameter, that will be passed to the new hold out validator that will be created
+        self.data_set = data_set
+        self.cutoff_list = temp_list
+        self.seed_list = seed_list
+        self.minRatingsPerUser=minRatingsPerUser
+        self.exclude_seen=exclude_seen
+        self.diversity_object=diversity_object
+        self.ignore_items = ignore_items
+        self.ignore_users = ignore_users
+        self.n_folds = n_folds
+
+    def evaluateRecommender(self, recommender_object):
+        '''
+        Not implemented for this method.
+        In this case you should use crossvaluateRecommender
+
+        :param recommender_object: none
+        :return: none
+        '''
+        raise NotImplementedError("The method evaluateRecommender not implemented for this evaluator class")
+
+
+    def crossevaluateRecommender(self, recommender_class, **recommender_keywargs):
+        '''
+        Cross-evaluate the recommender class passed.
+
+        :param recommender_class: recommender class to recommender
+        :param recommender_keywargs: non-positional argument of the fit method for the recommender class
+        :return: dictionary containing the various metric calculated in the X-validation
+        '''
+        results_list = []
+
+        # For all the folds...
+        for i in range(0, self.n_folds):
+            current_seed = self.seed_list[i]
+            seed(current_seed)
+            data_reader = RecSys2019Reader()
+            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+                                                       force_new_split=True)
+            data_reader.load_data()
+            URM_train, URM_test = data_reader.get_holdout_split()
+
+            print("Holdout validation on fold number {}".format(i+1))
+            # Getting data for the validation
+            URM_train, URM_test = self.data_set.get_URM_train_for_test_fold(n_test_fold=i)
+
+            # Creating recommender instance
+            print("Fitting the recommender...")
+            recommender_instance = recommender_class(URM_train)
+            recommender_instance.fit(**recommender_keywargs)
+
+            hold_out_validator = EvaluatorHoldout(URM_test, self.cutoff_list, exclude_seen=self.exclude_seen,
+                                                  diversity_object=self.diversity_object,
+                                                  ignore_items=self.ignore_items
+                                                  , ignore_users=self.ignore_users,
+                                                  minRatingsPerUser=self.minRatingsPerUser)
+
+            print("Recommender holdout...", end="")
+            fold_result = hold_out_validator.evaluateRecommender(recommender_instance)[0][self.cutoff_list[0]]
+            print("..Fold done")
+
+            results_list.append(fold_result)
+
+        average_result = results_list[0]
+
+        # Averaging results
+        for key in average_result:
+            key_sum = 0
+            for i in range(1, self.n_folds):
+                key_sum += results_list[i][key]
+            average_result[key] += key_sum
+            average_result[key] /= self.n_folds
+
+        return average_result
+
 
 
 class EvaluatorCrossValidation(Evaluator):
