@@ -3,7 +3,6 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from course_lib.ParameterTuning.run_parameter_search import runParameterSearch_Content
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from datetime import datetime
-from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from numpy.random import seed
 
