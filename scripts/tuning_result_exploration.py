@@ -1,4 +1,4 @@
-from src.model_management.tuning_result_exploration import *
+from src.plots.tuning_result_exploration import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.DataPreprocessing import *
