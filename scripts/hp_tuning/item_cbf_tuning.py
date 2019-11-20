@@ -15,7 +15,6 @@ if __name__ == '__main__':
 
     # Data loading
     data_reader = RecSys2019Reader("../../data/")
-    data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_users=3)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True)
     data_reader.load_data()
