@@ -4,11 +4,11 @@ from src.model_management.evaluator import *
 import numpy as np
 
 
-def explore_tuning_result(path, recommender_class, URM_train, URM_test,
-                          metric='MAP', save_on_file=False, retrain_model=True,
-                          is_compare_top_pop = True,
-                          compare_top_pop_points=None,
-                          demographic_list_name=None, demographic_list=None, output_path_folder=""):
+def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test,
+                                    metric='MAP', save_on_file=False, retrain_model=True,
+                                    is_compare_top_pop = True,
+                                    compare_top_pop_points=None,
+                                    demographic_list_name=None, demographic_list=None, output_path_folder=""):
     '''
     Plot some graphics concerning the results of hyperparameter procedure.
     In particular, first samples are plotted (where the bayesian method have searched for solutions).
@@ -95,13 +95,13 @@ def explore_tuning_result(path, recommender_class, URM_train, URM_test,
         print("Read the best model from file")
         raise NotImplemented("Not implemented feature")
 
-    explore_recommender(recommender_instance, URM_train, URM_test, output_path_folder, save_on_file, compare_top_pop_points,
-                        demographic_list, demographic_list_name, is_compare_top_pop)
+    basic_plots_recommender(recommender_instance, URM_train, URM_test, output_path_folder, save_on_file, compare_top_pop_points,
+                            demographic_list, demographic_list_name, is_compare_top_pop)
 
 
-def explore_recommender(recommender_instance: BaseRecommender, URM_train, URM_test, output_path_folder,
-                        save_on_file, compare_top_pop_points, demographic_list, demographic_list_name,
-                        is_compare_top_pop):
+def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, URM_test, output_path_folder,
+                            save_on_file, compare_top_pop_points, demographic_list, demographic_list_name,
+                            is_compare_top_pop):
     '''
     Plot some graphics concerning the results of a built recommender system
     In particular:

@@ -13,5 +13,5 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
 
     path = "../report/hp_tuning/item_cf/Nov19_14-39-56_k_out_value_3/"
-    explore_tuning_result(path, ItemKNNCFRecommender, URM_train, URM_test, save_on_file=True,
-                          output_path_folder="")
+    basic_plots_from_tuning_results(path, ItemKNNCFRecommender, URM_train, URM_test, save_on_file=True,
+                                    output_path_folder="")
