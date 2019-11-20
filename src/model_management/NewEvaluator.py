@@ -213,7 +213,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
 
     EVALUATOR_NAME = "EvaluatorCrossValidationKeepKOut"
 
-    def __init__(self, data_set, cutoff, seed_list, minRatingsPerUser=1, exclude_seen=True, diversity_object=None, ignore_items=None,
+    def __init__(self, cutoff, seed_list, data_path, minRatingsPerUser=1, exclude_seen=True, diversity_object=None, ignore_items=None,
                  ignore_users=None, n_folds=10):
         if type(cutoff) != int:
             raise TypeError()
@@ -223,9 +223,9 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             raise RuntimeError("The number of folds should be at least 2")
 
         # Just save the parameter, that will be passed to the new hold out validator that will be created
-        self.data_set = data_set
         self.cutoff_list = temp_list
         self.seed_list = seed_list
+        self.data_path = data_path
         self.minRatingsPerUser=minRatingsPerUser
         self.exclude_seen=exclude_seen
         self.diversity_object=diversity_object
@@ -258,15 +258,13 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
         for i in range(0, self.n_folds):
             current_seed = self.seed_list[i]
             seed(current_seed)
-            data_reader = RecSys2019Reader()
+            data_reader = RecSys2019Reader(self.data_path)
             data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                        force_new_split=True)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
 
-            print("Holdout validation on fold number {}".format(i+1))
-            # Getting data for the validation
-            URM_train, URM_test = self.data_set.get_URM_train_for_test_fold(n_test_fold=i)
+            print("Holdout number {}".format(i+1))
 
             # Creating recommender instance
             print("Fitting the recommender...")
@@ -282,6 +280,8 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             print("Recommender holdout...", end="")
             fold_result = hold_out_validator.evaluateRecommender(recommender_instance)[0][self.cutoff_list[0]]
             print("..Fold done")
+
+            print("FOLD RESULT IS: " + str(fold_result))
 
             results_list.append(fold_result)
 
