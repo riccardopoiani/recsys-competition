@@ -3,7 +3,7 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from course_lib.ParameterTuning.run_parameter_search import runParameterSearch_Content
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from datetime import datetime
-from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
+from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from numpy.random import seed
 
@@ -15,6 +15,7 @@ if __name__ == '__main__':
 
     # Data loading
     data_reader = RecSys2019Reader("../../data/")
+    data_reader = DataPreprocessingDigitizeICMs(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 10, "ICM_price": 10})
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True)
     data_reader.load_data()
@@ -32,7 +33,7 @@ if __name__ == '__main__':
     print("Start tuning...")
     version_path = "../../report/hp_tuning/item_cbf/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
-    now = now + "_k_out_value_3/"
+    now = now + "_k_out_value_3-discr_price10_asset10/"
     version_path = version_path + now
 
     runParameterSearch_Content(URM_train=URM_train, ICM_object=ICM_all, ICM_name="ICM_all",

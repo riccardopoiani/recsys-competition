@@ -34,15 +34,16 @@ def _loadICM_asset(file_path, separator=",", if_new_item="add", item_original_ID
                                                     on_new_row=if_new_item)
 
     df_original = pd.read_csv(file_path, sep=separator,
-                              usecols=['row', 'col'],
-                              dtype={'row': str, 'col': str})
+                              usecols=['row', 'col', 'data'],
+                              dtype={'row': str, 'col': str, 'data': float})
 
     df_original['col'] = "asset-" + df_original['col']
 
     item_id_list = df_original['row'].values
     asset_id_list = df_original['col'].values
+    data_list = df_original['data'].values
 
-    ICM_builder.add_data_lists(item_id_list, asset_id_list, np.ones(len(item_id_list), dtype=np.float64))
+    ICM_builder.add_data_lists(item_id_list, asset_id_list, data_list)
 
     return ICM_builder.get_SparseMatrix(), \
            ICM_builder.get_column_token_to_id_mapper(), \
@@ -74,15 +75,16 @@ def _loadICM_price(file_path, separator=',', if_new_item="add", item_original_ID
                                                     on_new_row=if_new_item)
 
     df_original = pd.read_csv(file_path, sep=separator,
-                              usecols=['row', 'col'],
-                              dtype={'row': str, 'col': str})
+                              usecols=['row', 'col', 'data'],
+                              dtype={'row': str, 'col': str, 'data': float})
 
     df_original['col'] = "price-" + df_original['col']
 
     item_id_list = df_original['row'].values
     price_id_list = df_original['col'].values
+    data_list = df_original['data'].values
 
-    ICM_builder.add_data_lists(item_id_list, price_id_list, np.ones(len(item_id_list), dtype=np.float64))
+    ICM_builder.add_data_lists(item_id_list, price_id_list, data_list)
 
     return ICM_builder.get_SparseMatrix(), \
            ICM_builder.get_column_token_to_id_mapper(), \
