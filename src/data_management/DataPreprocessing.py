@@ -3,6 +3,7 @@ import scipy.sparse as sps
 import numpy as np
 
 from course_lib.Data_manager.DataReader_utils import reconcile_mapper_with_removed_tokens, merge_ICM
+from src.data_management.RecSys2019Reader_utils import build_ICM_all
 from src.feature.feature_processing import transform_numerical_to_label
 from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs
 
@@ -160,21 +161,9 @@ class DataPreprocessingDigitizeICMs(AbstractDataPreprocessing):
             self._LOADED_ICM_DICT[ICM_name] = ICM_builder.get_SparseMatrix()
             self._LOADED_ICM_MAPPER_DICT[ICM_name] = ICM_builder.get_column_token_to_id_mapper()
 
-        # Re-merge ICM_all
+        # Re-build ICM_all
         if "ICM_all" in self.get_loaded_ICM_names():
-            ICM_all = None
-            tokenToFeatureMapper_ICM_all = {}
-            for ICM_name, ICM_object in self._LOADED_ICM_DICT.items():
-                if ICM_name != "ICM_all":
-                    if ICM_all is None:
-                        ICM_all = ICM_object.copy()
-                        tokenToFeatureMapper_ICM_all = self._LOADED_ICM_MAPPER_DICT[ICM_name]
-                    else:
-                        ICM_all, tokenToFeatureMapper_ICM_all = merge_ICM(ICM_all, ICM_object,
-                                                                          tokenToFeatureMapper_ICM_all,
-                                                                          self._LOADED_ICM_MAPPER_DICT[ICM_name])
-
-            self._LOADED_ICM_DICT["ICM_all"] = ICM_all
-            self._LOADED_ICM_MAPPER_DICT["ICM_all"] = tokenToFeatureMapper_ICM_all
+            self._LOADED_ICM_DICT["ICM_all"], self._LOADED_ICM_MAPPER_DICT["ICM_all"] = build_ICM_all(self._LOADED_ICM_DICT,
+                                                                                                      self._LOADED_ICM_MAPPER_DICT)
 
         return self._LOADED_ICM_DICT

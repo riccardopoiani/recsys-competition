@@ -94,7 +94,8 @@ def plot_sample_evaluations(result: pd.DataFrame, dimensions_list: list, metric_
                 if result[dim_i].dtype == "bool":
                     counts = result[dim_i].value_counts()
                     ax[i, i].bar(counts.index.astype('str'), counts.values)
-
+                elif result[dim_i].dtype == object:
+                    ax[i, i].hist(result[dim_i], bins=bins)
                 else:
                     ax[i, i].hist(result[dim_i], bins=bins,
                                   range=(result[dim_i].min(), result[dim_i].max()))

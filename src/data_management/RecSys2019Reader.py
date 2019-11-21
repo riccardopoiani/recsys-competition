@@ -4,126 +4,12 @@ import os
 
 from course_lib.Base.DataIO import DataIO
 from course_lib.Data_manager.DataReader import DataReader
-from course_lib.Data_manager.DataReader_utils import merge_ICM
-from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs
-
-
-def _loadURM(file_path, separator=",", if_new_user="add", if_new_item="add", item_original_ID_to_index=None,
-             user_original_ID_to_index=None):
-    URM_all_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_col_mapper=item_original_ID_to_index,
-                                                        on_new_col=if_new_item,
-                                                        preinitialized_row_mapper=user_original_ID_to_index,
-                                                        on_new_row=if_new_user)
-
-    df_original = pd.read_csv(filepath_or_buffer=file_path, sep=separator,
-                              usecols=['row', 'col'],
-                              dtype={'row': str, 'col': str})
-
-    user_id_list = df_original['row'].values
-    item_id_list = df_original['col'].values
-    rating_list = np.ones(len(user_id_list), dtype=np.float64)
-
-    URM_all_builder.add_data_lists(user_id_list, item_id_list, rating_list)
-    return URM_all_builder.get_SparseMatrix(), \
-           URM_all_builder.get_column_token_to_id_mapper(), \
-           URM_all_builder.get_row_token_to_id_mapper()
-
-
-def _loadICM_asset(file_path, separator=",", if_new_item="add", item_original_ID_to_index=None):
-    ICM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=item_original_ID_to_index,
-                                                    on_new_row=if_new_item)
-
-    df_original = pd.read_csv(file_path, sep=separator,
-                              usecols=['row', 'col', 'data'],
-                              dtype={'row': str, 'col': str, 'data': float})
-
-    df_original['col'] = "asset-" + df_original['col']
-
-    item_id_list = df_original['row'].values
-    asset_id_list = df_original['col'].values
-    data_list = df_original['data'].values
-
-    ICM_builder.add_data_lists(item_id_list, asset_id_list, data_list)
-
-    return ICM_builder.get_SparseMatrix(), \
-           ICM_builder.get_column_token_to_id_mapper(), \
-           ICM_builder.get_row_token_to_id_mapper()
-
-
-def _loadICM_sub_class(file_path, separator=",", if_new_item="add", item_original_ID_to_index=None):
-    ICM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=item_original_ID_to_index,
-                                                    on_new_row=if_new_item)
-
-    df_original = pd.read_csv(file_path, sep=separator,
-                              usecols=['row', 'col'],
-                              dtype={'row': str, 'col': str})
-
-    df_original['col'] = "sub_class-" + df_original['col']
-
-    item_id_list = df_original['row'].values
-    sub_class_id_list = df_original['col'].values
-
-    ICM_builder.add_data_lists(item_id_list, sub_class_id_list, np.ones(len(item_id_list), dtype=np.float64))
-
-    return ICM_builder.get_SparseMatrix(), \
-           ICM_builder.get_column_token_to_id_mapper(), \
-           ICM_builder.get_row_token_to_id_mapper()
-
-
-def _loadICM_price(file_path, separator=',', if_new_item="add", item_original_ID_to_index=None):
-    ICM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=item_original_ID_to_index,
-                                                    on_new_row=if_new_item)
-
-    df_original = pd.read_csv(file_path, sep=separator,
-                              usecols=['row', 'col', 'data'],
-                              dtype={'row': str, 'col': str, 'data': float})
-
-    df_original['col'] = "price-" + df_original['col']
-
-    item_id_list = df_original['row'].values
-    price_id_list = df_original['col'].values
-    data_list = df_original['data'].values
-
-    ICM_builder.add_data_lists(item_id_list, price_id_list, data_list)
-
-    return ICM_builder.get_SparseMatrix(), \
-           ICM_builder.get_column_token_to_id_mapper(), \
-           ICM_builder.get_row_token_to_id_mapper()
-
-
-def _loadUCM_age(file_path, separator=",", if_new_user="add", user_original_ID_to_index=None):
-    UCM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=user_original_ID_to_index,
-                                                    on_new_row=if_new_user)
-
-    df_original = pd.read_csv(file_path, sep=separator, usecols=['row', 'col'], dtype={'row': str, 'col': str})
-
-    user_id_list = df_original['row'].values
-    age_id_list = df_original['col'].values
-
-    UCM_builder.add_data_lists(user_id_list, age_id_list, np.ones(len(user_id_list), dtype=np.float64))
-
-    return UCM_builder.get_SparseMatrix(), UCM_builder.get_column_token_to_id_mapper(), \
-           UCM_builder.get_row_token_to_id_mapper()
-
-
-def _loadUCM_region(file_path, separator=",", if_new_user="add", user_original_ID_to_index=None):
-    UCM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=user_original_ID_to_index,
-                                                    on_new_row=if_new_user)
-
-    df_original = pd.read_csv(file_path, sep=separator, usecols=['row', 'col'], dtype={'row': str, 'col': str})
-
-    user_id_list = df_original['row'].values
-    region_id_list = df_original['col'].values
-
-    UCM_builder.add_data_lists(user_id_list, region_id_list, np.ones(len(user_id_list), dtype=np.float64))
-
-    return UCM_builder.get_SparseMatrix(), UCM_builder.get_column_token_to_id_mapper(), \
-           UCM_builder.get_row_token_to_id_mapper()
+from src.data_management.RecSys2019Reader_utils import *
 
 
 class RecSys2019Reader(DataReader):
     DATASET_SUBFOLDER = "data/"
-    AVAILABLE_ICM = ["ICM_all", "ICM_price", "ICM_asset", "ICM_sub_class"]
+    AVAILABLE_ICM = ["ICM_all", "ICM_price", "ICM_asset", "ICM_sub_class", "ICM_item_pop"]
     AVAILABLE_UCM = ["UCM_age", "UCM_region"]
     AVAILABLE_URM = ["URM_all"]
 
@@ -168,30 +54,37 @@ class RecSys2019Reader(DataReader):
 
         print("RecSys2019Reader: loading ICM subclass, asset and price")
 
-        ICM_sub_class, tokenToFeatureMapper_ICM_sub_class, self.item_original_ID_to_index = _loadICM_sub_class(
+        ICM_sub_class, tokenToFeatureMapper_ICM_sub_class, self.item_original_ID_to_index = load_ICM_sub_class(
             self.ICM_sub_class_path,
             separator=',', )
 
         self._LOADED_ICM_DICT["ICM_sub_class"] = ICM_sub_class
         self._LOADED_ICM_MAPPER_DICT["ICM_sub_class"] = tokenToFeatureMapper_ICM_sub_class
 
-        ICM_asset, tokenToFeatureMapper_ICM_asset, self.item_original_ID_to_index = _loadICM_asset(self.ICM_asset_path,
+        ICM_asset, tokenToFeatureMapper_ICM_asset, self.item_original_ID_to_index = load_ICM_asset(self.ICM_asset_path,
                                                                                                    separator=',',
                                                                                                    if_new_item="ignore",
                                                                                                    item_original_ID_to_index=self.item_original_ID_to_index)
         self._LOADED_ICM_DICT["ICM_asset"] = ICM_asset
         self._LOADED_ICM_MAPPER_DICT["ICM_asset"] = tokenToFeatureMapper_ICM_asset
 
-        ICM_price, tokenToFeatureMapper_ICM_price, self.item_original_ID_to_index = _loadICM_price(self.ICM_price_path,
+        ICM_price, tokenToFeatureMapper_ICM_price, self.item_original_ID_to_index = load_ICM_price(self.ICM_price_path,
                                                                                                    separator=',',
                                                                                                    if_new_item="ignore",
                                                                                                    item_original_ID_to_index=self.item_original_ID_to_index)
         self._LOADED_ICM_DICT["ICM_price"] = ICM_price
         self._LOADED_ICM_MAPPER_DICT["ICM_price"] = tokenToFeatureMapper_ICM_price
 
+        ICM_item_pop, tokenToFeatureMapper_ICM_item_pop, self.item_original_ID_to_index = load_ICM_item_pop(self.URM_path,
+                                                                                                            separator=',',
+                                                                                                            if_new_item="ignore",
+                                                                                                            item_original_ID_to_index=self.item_original_ID_to_index)
+        self._LOADED_ICM_DICT["ICM_item_pop"] = ICM_item_pop
+        self._LOADED_ICM_MAPPER_DICT["ICM_item_pop"] = tokenToFeatureMapper_ICM_item_pop
+
         print("RecSys2019Reader: loading URM")
 
-        URM_all, self.item_original_ID_to_index, self.user_original_ID_to_index = _loadURM(self.URM_path, separator=",",
+        URM_all, self.item_original_ID_to_index, self.user_original_ID_to_index = load_URM(self.URM_path, separator=",",
                                                                                            if_new_item="ignore",
                                                                                            item_original_ID_to_index=self.item_original_ID_to_index)
         self._LOADED_URM_DICT["URM_all"] = URM_all
@@ -203,7 +96,7 @@ class RecSys2019Reader(DataReader):
         print("RecSys2019Reader: WARNING --> The number of data in UCM is much lower than the original")
         print("RecSys2019Reader: WARNING --> UCM will be ignored by any preprocessing or data splitter class")
 
-        UCM_age, tokenToFeatureMapper_UCM_age, self.user_original_ID_to_index = _loadUCM_age(self.UCM_age_path,
+        UCM_age, tokenToFeatureMapper_UCM_age, self.user_original_ID_to_index = load_UCM_age(self.UCM_age_path,
                                                                                              separator=",",
                                                                                              if_new_user="ignore",
                                                                                              user_original_ID_to_index=self.user_original_ID_to_index)
@@ -211,7 +104,7 @@ class RecSys2019Reader(DataReader):
         self._LOADED_UCM_DICT["UCM_age"] = UCM_age
         self._LOADED_UCM_MAPPER_DICT["UCM_age"] = tokenToFeatureMapper_UCM_age
 
-        UCM_region, tokenToFeatureMapper_UCM_region, self.user_original_ID_to_index = _loadUCM_region(
+        UCM_region, tokenToFeatureMapper_UCM_region, self.user_original_ID_to_index = load_UCM_region(
             self.UCM_region_path,
             separator=",",
             if_new_user="ignore",
@@ -222,16 +115,8 @@ class RecSys2019Reader(DataReader):
 
         print("RecSys2019Reader: loading ICM all")
 
-        ICM_price_asset, tokenToFeatureMapper_ICM_price_asset = merge_ICM(ICM_price, ICM_asset,
-                                                                          tokenToFeatureMapper_ICM_price,
-                                                                          tokenToFeatureMapper_ICM_asset)
-
-        ICM_all, tokenToFeatureMapper_ICM_all = merge_ICM(ICM_price_asset, ICM_sub_class,
-                                                          tokenToFeatureMapper_ICM_price_asset,
-                                                          tokenToFeatureMapper_ICM_sub_class)
-
-        self._LOADED_ICM_DICT["ICM_all"] = ICM_all
-        self._LOADED_ICM_MAPPER_DICT["ICM_all"] = tokenToFeatureMapper_ICM_all
+        self._LOADED_ICM_DICT["ICM_all"], self._LOADED_ICM_MAPPER_DICT["ICM_all"] = build_ICM_all(self._LOADED_ICM_DICT,
+                                                                                                  self._LOADED_ICM_MAPPER_DICT)
 
         print("RecSys2019Reader: loading complete")
 

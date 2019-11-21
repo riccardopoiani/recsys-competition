@@ -15,12 +15,11 @@ if __name__ == '__main__':
 
     # Data loading
     data_reader = RecSys2019Reader("../../data/")
-    data_reader = DataPreprocessingDigitizeICMs(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 10, "ICM_price": 10})
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True)
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
-    ICM_all = data_reader.get_ICM_from_name("ICM_all")
+    ICM_sub_class = data_reader.get_ICM_from_name("ICM_sub_class")
 
     # Reset seed for hyper-parameter tuning
     seed()
@@ -31,12 +30,12 @@ if __name__ == '__main__':
 
     # HP tuning
     print("Start tuning...")
-    version_path = "../../report/hp_tuning/item_cbf/"
+    version_path = "../../report/hp_tuning/item_cbf_subclass/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
-    now = now + "_k_out_value_3-discr_price10_asset10/"
+    now = now + "_k_out_value_3/"
     version_path = version_path + now
 
-    runParameterSearch_Content(URM_train=URM_train, ICM_object=ICM_all, ICM_name="ICM_all",
+    runParameterSearch_Content(URM_train=URM_train, ICM_object=ICM_sub_class, ICM_name="ICM_sub_class",
                                recommender_class=ItemKNNCBFRecommender,
                                evaluator_validation=evaluator,
                                metric_to_optimize="MAP",
