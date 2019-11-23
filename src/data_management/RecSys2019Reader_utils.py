@@ -1,3 +1,4 @@
+from course_lib.Data_manager.DataReader import DataReader
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs
 import pandas as pd
@@ -147,3 +148,17 @@ def build_ICM_all(ICM_object_dict, ICM_feature_mapper_dict):
                                                                   ICM_feature_mapper_dict[ICM_name])
 
     return ICM_all, tokenToFeatureMapper_ICM_all
+
+def get_ICM_numerical(reader: DataReader, with_item_popularity = True):
+    ICM_asset = reader.get_ICM_from_name("ICM_asset")
+    ICM_price = reader.get_ICM_from_name("ICM_price")
+    ICM_asset_mapper = reader.get_ICM_feature_to_index_mapper_from_name("ICM_asset")
+    ICM_price_mapper = reader.get_ICM_feature_to_index_mapper_from_name("ICM_price")
+
+    ICM_numerical, ICM_numerical_mapper = merge_ICM(ICM_asset, ICM_price, ICM_asset_mapper, ICM_price_mapper)
+    if with_item_popularity:
+        ICM_item_pop = reader.get_ICM_from_name("ICM_item_pop")
+        ICM_item_pop_mapper = reader.get_ICM_feature_to_index_mapper_from_name("ICM_item_pop")
+        ICM_numerical, ICM_numerical_mapper = merge_ICM(ICM_numerical, ICM_item_pop, ICM_numerical_mapper,
+                                                        ICM_item_pop_mapper)
+    return ICM_numerical, ICM_numerical_mapper

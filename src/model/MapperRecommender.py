@@ -1,4 +1,4 @@
-from Base.BaseRecommender import BaseRecommender
+from course_lib.Base.BaseRecommender import BaseRecommender
 from typing import Dict
 import numpy as np
 

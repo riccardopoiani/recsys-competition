@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     # HP tuning
     print("Start tuning...")
-    version_path = "../report/hp_tuning/user_cf/"
+    version_path = "../../report/hp_tuning/user_cf/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
