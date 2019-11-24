@@ -81,4 +81,5 @@ if __name__ == '__main__':
     recommender_list.append(slim_bpr)
 
     # Plotting the comparison based on user activity
+    plot_compare_recommender_user_group()
     plot_compare_recommenders_user_profile_len(recommender_list, URM_train, URM_test, save_on_file=True)

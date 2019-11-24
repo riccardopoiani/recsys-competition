@@ -13,6 +13,27 @@ def read_target_users(path="../data/data_target_users_test.csv"):
 
     return target_tuple
 
+def read_URM_cold_all(path="../data/data_train.csv"):
+    '''
+    :return: all the user rating matrix, in csr format
+    '''
+    import scipy.sparse as sps
+    import numpy as np
+    import pandas as pd
+
+    # Reading data
+    df_original = pd.read_csv(path)
+
+    user_id_list = df_original['row'].values
+    item_id_list = df_original['col'].values
+    rating_list = np.ones(len(user_id_list))
+
+    # Creating URM
+    URM_all = sps.coo_matrix((rating_list, (user_id_list, item_id_list)))
+    URM_all = URM_all.tocsr()
+
+    return URM_all
+
 def row_split(row_string):
     '''
     Helper for splitting the URM
