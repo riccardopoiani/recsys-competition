@@ -8,6 +8,7 @@ from course_lib.KNN.UserKNNCFRecommender import *
 from course_lib.Base.NonPersonalizedRecommender import TopPop
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
+from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
 
 if __name__ == '__main__':
     # Data reading
@@ -62,6 +63,11 @@ if __name__ == '__main__':
     top_pop = TopPop(URM_train)
     top_pop.fit()
 
+    pure_svd_kwargs = {'num_factors': 350}
+    pure_svd = PureSVDRecommender(URM_train)
+    pure_svd.fit(**pure_svd_kwargs)
+
+
     recommender_list = []
     recommender_list.append(item_cf)
     recommender_list.append(user_cf)
@@ -70,6 +76,7 @@ if __name__ == '__main__':
     recommender_list.append(item_cbf_categorical)
     recommender_list.append(p3alpha)
     recommender_list.append(rp3beta)
+    recommender_list.append(pure_svd_kwargs)
 
     # Plotting the comparison based on user activity
     plot_compare_recommenders_user_profile_len(recommender_list, URM_train, URM_test, save_on_file=True)

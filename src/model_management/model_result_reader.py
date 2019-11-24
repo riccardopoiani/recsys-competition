@@ -72,9 +72,11 @@ def read_tuning_metadata_file(zip_file_path: os.path):
 
     data_file = None
     try:
+        print(zip_file_path)
         data_file = zipfile.ZipFile(zip_file_path)
     except (FileNotFoundError, zipfile.BadZipFile):
         print("Unable to find data zip file!")
+
 
     recommender_name_path = data_file.extract("algorithm_name_recommender.json", path=zip_file_path + "decompressed/")
     hyperparameters_list_path = data_file.extract("hyperparameters_list.json", path=zip_file_path + "decompressed/")

@@ -38,6 +38,8 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
     '''
     results = read_folder_metadata(path)
 
+    print("hello")
+
     # Create folder if it does not exist
     if save_on_file:
         try:
@@ -56,14 +58,15 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
         dimension_list = r.columns[0:arhr_index]
 
         # Plot
-        fig, ax = plot_sample_evaluations(r, dimension_list)
-        fig.show()
+        if len(dimension_list) > 1:
+            fig, ax = plot_sample_evaluations(r, dimension_list)
+            fig.show()
 
-        # Save the plot on file
-        if save_on_file:
-            output_path_file = output_path_folder + "sample_distr_" + str(count) + ".png"
-            fig.savefig(output_path_file, bbox_inches='tight')
-            print("Add feature of saving on files the plots")
+            # Save the plot on file
+            if save_on_file:
+                output_path_file = output_path_folder + "sample_distr_" + str(count) + ".png"
+                fig.savefig(output_path_file, bbox_inches='tight')
+                print("Add feature of saving on files the plots")
 
     # MAX FOUND SO FAR
     t = results[0][metric].nlargest(1)
