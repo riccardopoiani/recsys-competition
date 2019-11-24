@@ -22,8 +22,10 @@ def get_user_profile_demographic(URM_train, bins):
     # Print some stats. about the bins
     for group_id in range(0, bins):
         start_pos = group_id * block_size
-        end_pos = min((group_id + 1) * block_size, len(profile_length))
-
+        if group_id < bins - 1:
+            end_pos = min((group_id + 1) * block_size, len(profile_length))
+        else:
+            end_pos = len(profile_length)
         users_in_group = sorted_users[start_pos:end_pos]
 
         users_in_group_p_len = profile_length[users_in_group]
