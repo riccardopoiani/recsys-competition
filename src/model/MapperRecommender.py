@@ -2,7 +2,6 @@ from course_lib.Base.BaseRecommender import BaseRecommender
 from typing import Dict
 import numpy as np
 
-
 class MapperRecommender(BaseRecommender):
 
     def __init__(self, URM_train):
