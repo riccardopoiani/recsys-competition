@@ -11,7 +11,7 @@ def write_submission_file(recommender, path, userlist):
 
     userlist.sort()
     f = open(path, "w+")
-    f.write("playlist_id,track_ids\n")
+    f.write("user_id,item_list\n")
     for i in tqdm(range(len(userlist)), mininterval=10, maxinterval=30):
         f.write(str(userlist[i]))
         f.write(",")

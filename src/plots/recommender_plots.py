@@ -4,7 +4,6 @@ from src.model_management.evaluator import *
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 import numpy as np
 from datetime import datetime
-from src.feature.demographics import get_user_profile_demographic
 
 def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test,
                                     metric='MAP', save_on_file=False, retrain_model=True,
@@ -45,6 +44,9 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
                 os.mkdir(output_path_folder)
         except FileNotFoundError as e:
             os.makedirs(output_path_folder)
+
+    if compare_top_pop_points is None:
+        compare_top_pop_points = [10, 100, 500, 1000]
 
     # PLOT WHERE SAMPLES HAVE BEEN TAKEN
     for count, r in enumerate(results):
@@ -133,9 +135,6 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
     :param output_path_folder: where image should be saved, if specified
     :return: None
     '''
-    if compare_top_pop_points is None:
-        compare_top_pop_points = [10, 100, 500, 1000]
-
     # Plot the trend of the predictions
     plot_recommendation_distribution(recommender_instance, URM_train, at=10)
     fig_rec_distr = plt.gcf()
@@ -148,7 +147,7 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
         print("Save on file")
 
     # Plot comparison with top popular
-    if is_compare_top_pop and recommender_instance.RECOMMENDER_NAME != TopPop.RECOMMENDER_NAME:
+    if is_compare_top_pop:
         top_popular = TopPop(URM_train)
         top_popular.fit()
         plot_comparison_with_top_pop(recommender_instance, top_popular,
@@ -211,7 +210,30 @@ def plot_compare_recommenders_user_profile_len(recommender_list,
     :param: output_folder_path: destination on which to save the the graphics
     :return: None
     '''
-    block_size, profile_length, sorted_users, group_mean_len = get_user_profile_demographic(URM_train, bins)
+    # Building user profiles groups
+    URM_train = sps.csr_matrix(URM_train)
+    profile_length = np.ediff1d(URM_train.indptr) # Getting the profile lenght for each user
+    sorted_users = np.argsort(profile_length) # Argsorting the user on the basis of their profiles len
+    block_size = int(len(profile_length) * (1/bins)) # Calculating the block size, given the desidered number of bins
+
+    group_mean_len = []
+
+    # Print some stats. about the bins
+    for group_id in range(0, bins):
+        start_pos = group_id * block_size
+        end_pos = min((group_id + 1) * block_size, len(profile_length))
+
+        users_in_group = sorted_users[start_pos:end_pos]
+
+        users_in_group_p_len = profile_length[users_in_group]
+
+        group_mean_len.append(int(users_in_group_p_len.mean()))
+
+        print("Group {}, average p.len {:.2f}, min {}, max {}".format(group_id,
+                                                                      users_in_group_p_len.mean(),
+                                                                      users_in_group_p_len.min(),
+                                                                      users_in_group_p_len.max()))
+
 
     plot_compare_recommender_user_group(recommender_list, URM_train, URM_test, block_size, profile_length.size,
                                         sorted_users, profile_length, group_mean_len, recommender_name_list,

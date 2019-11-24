@@ -1,3 +1,5 @@
+from abc import ABC
+
 import numpy as np
 from src.model.AbstractHybridRecommender import AbstractHybridRecommender
 from typing import Dict, List
@@ -27,9 +29,10 @@ class CumulativeScoreBuilder(object):
         else:
             return ranking[:cutoff].tolist()
 
+
 ######## HYBRID STRATEGIES ########
 
-class RecommendationStrategyInterface():
+class RecommendationStrategyInterface(ABC):
 
     def get_hybrid_rankings_and_scores(self, rankings: list, scores: np.ndarray, weight: float):
         """
@@ -45,13 +48,12 @@ class RecommendationStrategyInterface():
 
 class WeightedAverageStrategy(RecommendationStrategyInterface):
 
-    def __init__(self, normalize = True):
+    def __init__(self, normalize=True):
         self.normalize = normalize
 
     def get_hybrid_rankings_and_scores(self, rankings: list, scores: np.ndarray, weight: float):
-
         # indexing scores by ranking list
-        ranking_scores = scores[np.arange(len(rankings)), np.array(rankings).T].T
+        ranking_scores = scores[np.arange(len(rankings)), np.array(rankings, dtype=np.int).T].T
 
         # min-max normalization
         if self.normalize:
@@ -73,16 +75,16 @@ class WeightedAverageStrategy(RecommendationStrategyInterface):
 class WeightedCountStrategy(RecommendationStrategyInterface):
 
     def get_hybrid_rankings_and_scores(self, rankings: list, scores: np.ndarray, weight: float):
-        ranking_scores = np.ones(shape=(np.array(rankings).shape))
-        weighted_scores = weight * ranking_scores
+        ranking_scores = np.ones(shape=(len(rankings), len(rankings[0])))
+        weighted_scores = np.multiply(ranking_scores, weight)
         return rankings, weighted_scores
 
 
 class WeightedRankingStrategy(RecommendationStrategyInterface):
 
     def get_hybrid_rankings_and_scores(self, rankings: list, scores: np.ndarray, weight: float):
-        ranking_scores = np.tile(np.arange(1, len(rankings[0])+1)[::-1], reps=(len(rankings), 1))
-        weighted_scores = weight * ranking_scores
+        ranking_scores = np.tile(np.arange(1, len(rankings[0]) + 1)[::-1], reps=(len(rankings), 1))
+        weighted_scores = np.multiply(ranking_scores, weight)
         return rankings, weighted_scores
 
 
@@ -97,32 +99,35 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
 
     RECOMMENDER_NAME = "HybridRankBasedRecommender"
 
-    def __init__(self, URM_train, hybrid_strategy = WeightedAverageStrategy(), multiplier_cutoff=5):
-        """
-
-        :param URM_train:
-        :param hybrid_strategy: an object of strategy pattern tha'''t handles the hybrid core functioning of the recommender
-        system
-        :param multiplier_cutoff: the multiplier used for multiplying the cutoff for handling more recommended items
-        to average
-        """
+    def __init__(self, URM_train):
         super().__init__(URM_train)
-
-        self.hybrid_strategy = hybrid_strategy
-        self.multiplier_cutoff = multiplier_cutoff
+        self.hybrid_strategy = None
+        self.multiplier_cutoff = None
         self.weights = None
+        self.STRATEGY_MAPPER = {"weighted_count": WeightedCountStrategy(), "weighted_rank": WeightedRankingStrategy(),
+                                "weighted_avg": WeightedAverageStrategy(normalize=False),
+                                "norm_weighted_avg": WeightedAverageStrategy(normalize=True)}
 
-    def fit(self, **weights):
+    def fit(self, multiplier_cutoff=5, strategy="weighted_avg", **weights):
         """
         Fit the hybrid model by setting the weight of each recommender
 
+        :param strategy: an object of strategy pattern that handles the hybrid core functioning of the recommender
+        system
+        :param multiplier_cutoff: the multiplier used for multiplying the cutoff for handling more recommended items
+        to average
         :param weights: the list of weight of each recommender
         :return: None
         """
         if np.all(np.in1d(weights.keys(), list(self.models.keys()), assume_unique=True)):
             raise ValueError("The weights key name passed does not correspond to the name of the models inside the "
                              "hybrid recommender: {}".format(self.get_recommender_names()))
+        if strategy not in self.STRATEGY_MAPPER:
+            raise ValueError("The strategy name passed does not correspond to the implemented strategy: "
+                             "{}".format(self.STRATEGY_MAPPER))
         self.weights = weights
+        self.multiplier_cutoff = multiplier_cutoff
+        self.hybrid_strategy = self.STRATEGY_MAPPER[strategy]
 
     def recommend(self, user_id_array, cutoff=None, remove_seen_flag=True, items_to_compute=None,
                   remove_top_pop_flag=False, remove_CustomItems_flag=False, return_scores=False):
@@ -156,13 +161,23 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
         scores = []
 
         for recommender_name, recommender_model in self.models.items():
-            rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model, remove_seen_flag=remove_seen_flag,
-                                                           items_to_compute=items_to_compute, remove_top_pop_flag=remove_top_pop_flag,
-                                                           remove_CustomItems_flag=remove_CustomItems_flag, return_scores=True)
-            rankings, weighted_scores = self.hybrid_strategy.get_hybrid_rankings_and_scores(rankings, scores,
-                                                                                            self.weights[recommender_name])
+            rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+                                                           remove_seen_flag=remove_seen_flag,
+                                                           items_to_compute=items_to_compute,
+                                                           remove_top_pop_flag=remove_top_pop_flag,
+                                                           remove_CustomItems_flag=remove_CustomItems_flag,
+                                                           return_scores=True)
+
+            # Fill empty rankings due to cold users TODO: optimize
+            for i in range(len(rankings)):
+                if len(rankings[i]) == 0:
+                    rankings[i] = [-1]*cutoff_model
+
+            rankings, weighted_scores = self.hybrid_strategy.get_hybrid_rankings_and_scores(rankings=rankings,
+                                                                                            scores=scores,
+                                                                                            weight=self.weights[recommender_name])
             for i in range(len(all_cum_score_builder)):
-                all_cum_score_builder[i].add_scores(rankings[i], weighted_scores[i])
+                all_cum_score_builder[i].add_scores(np.array(rankings[i]), np.array(weighted_scores[i]))
 
         weighted_rankings = [all_cum_score_builder[i].get_ranking(cutoff=cutoff) for i in
                              range(len(all_cum_score_builder))]
@@ -178,3 +193,15 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
     def _compute_item_score(self, user_id_array, items_to_compute=None):
         # Useless for this recommender
         pass
+
+    def copy(self):
+        copy = HybridRankBasedRecommender(URM_train=self.URM_train)
+        copy.models = self.models
+        copy.weights = self.weights
+        copy.multiplier_cutoff = self.multiplier_cutoff
+        copy.normalize = self.normalize
+        return copy
+
+    @classmethod
+    def get_possible_strategies(cls):
+        return ["weighted_count", "weighted_rank", "weighted_avg", "norm_weighted_avg"]
