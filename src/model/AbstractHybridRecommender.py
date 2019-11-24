@@ -36,6 +36,9 @@ class AbstractHybridRecommender(BaseRecommender, ABC):
     def _verify_name_consistency(self, name):
         return False if name in list(self.models.keys()) else True
 
+    def copy(self):
+        raise NotImplementedError("Method not implemented")
+
     def saveModel(self, folder_path, file_name=None):
         # TODO
         pass

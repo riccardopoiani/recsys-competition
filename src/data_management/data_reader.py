@@ -1,48 +1,17 @@
-def read_target_playlist(path = "../data/target_playlists.csv"):
+def read_target_users(path="../data/data_target_users_test.csv"):
     '''
     :return: list of user to recommend in the target playlist
     '''
-    import numpy as np
-
     target_file = open(path, 'r')
 
     target_file.seek(0)
     target_tuple = []
 
     for line in target_file:
-        if line != "playlist_id\n":
+        if line != "user_id\n":
             target_tuple.append(row_split_target(line))
 
     return target_tuple
-
-
-
-def read_user_rating_matrix():
-    '''
-    :return: all the user rating matrix, in csr format
-    '''
-    import scipy.sparse as sps
-    import numpy as np
-
-    # Reading data
-    path = "../data/train.csv"
-    user_rating_matrix_file = open(path, 'r')
-
-    user_rating_matrix_file.seek(0)
-    user_rating_matrix_tuples = []
-
-    for line in user_rating_matrix_file:
-        if line != "playlist_id,track_id\n":
-            user_rating_matrix_tuples.append(row_split(line))
-
-    # Creating URM
-    user_list, item_list = zip(*user_rating_matrix_tuples)
-    ones = np.ones(len(item_list))
-    user_rating_matrix = sps.coo_matrix((ones, (user_list, item_list)))
-    user_rating_matrix = user_rating_matrix.tocsr()
-
-    return user_rating_matrix
-
 
 def row_split(row_string):
     '''
@@ -60,6 +29,7 @@ def row_split(row_string):
 
     return result
 
+
 def row_split_target(row_string):
     '''
     Function helper to read the target playlist
@@ -67,6 +37,7 @@ def row_split_target(row_string):
     :return:
     '''
     return int(row_string.replace("\n", ""))
+
 
 def get_warm_user_rating_matrix(user_rating_matrix):
     '''

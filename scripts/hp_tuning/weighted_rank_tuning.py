@@ -3,6 +3,7 @@ from datetime import datetime
 from numpy.random import seed
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.NonPersonalizedRecommender import TopPop
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
@@ -12,13 +13,18 @@ from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
-from src.model.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+from src.model.HybridRankBasedRecommender import HybridRankBasedRecommender
+from src.model.MapperRecommender import MapperRecommender
 from src.tuning.run_parameter_search_hybrid import run_parameter_search_hybrid
 
 SEED = 69420
 
+
 def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     all_models = {}
+
+    topPop = TopPop(URM_train)
+    topPop.fit()
 
     item_cf_keywargs = {'topK': 5, 'shrink': 1000, 'similarity': 'cosine', 'normalize': True,
                         'feature_weighting': 'TF-IDF'}
@@ -26,11 +32,18 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     item_cf.fit(**item_cf_keywargs)
     all_models['ITEM_CF'] = item_cf
 
+
     user_cf_keywargs = {'topK': 995, 'shrink': 9, 'similarity': 'cosine', 'normalize': True,
                         'feature_weighting': 'TF-IDF'}
     user_cf = UserKNNCFRecommender(URM_train)
     user_cf.fit(**user_cf_keywargs)
     all_models['USER_CF'] = user_cf
+
+    slim_bpr_kwargs = {'topK': 5, 'epochs': 1499, 'symmetric': False, 'sgd_mode': 'adagrad',
+                       'lambda_i': 1e-05, 'lambda_j': 0.01, 'learning_rate': 0.0001}
+    slim_bpr = SLIM_BPR_Cython(URM_train)
+    slim_bpr.fit(**slim_bpr_kwargs)
+    all_models['SLIM_BPR'] = slim_bpr
 
     item_cbf_numerical_kwargs = {'feature_weighting': 'none', 'normalize': False, 'normalize_avg_row': True,
                                  'shrink': 0, 'similarity': 'euclidean', 'similarity_from_distance_mode': 'exp',
@@ -46,12 +59,6 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     item_cbf_categorical.fit(**item_cbf_categorical_kwargs)
     item_cbf_categorical.RECOMMENDER_NAME = "ItemCBFKNNRecommenderCategorical"
     all_models['ITEM_CBF_CAT'] = item_cbf_categorical
-
-    slim_bpr_kwargs = {'topK': 5, 'epochs': 1499, 'symmetric': False, 'sgd_mode': 'adagrad',
-                       'lambda_i': 1e-05, 'lambda_j': 0.01, 'learning_rate': 0.0001}
-    slim_bpr = SLIM_BPR_Cython(URM_train)
-    slim_bpr.fit(**slim_bpr_kwargs)
-    all_models['SLIM_BPR'] = slim_bpr
 
     p3alpha_kwargs = {'topK': 84, 'alpha': 0.6033770403001427, 'normalize_similarity': True}
     p3alpha = P3alphaRecommender(URM_train)
@@ -82,7 +89,7 @@ if __name__ == '__main__':
     # Reset seed for hyper-parameter tuning
     seed()
 
-    model = HybridWeightedAverageRecommender(URM_train)
+    model = HybridRankBasedRecommender(URM_train)
 
     all_models = _get_all_models(URM_train=URM_train, ICM_numerical=ICM_numerical,
                                  ICM_categorical=ICM_categorical)
@@ -94,13 +101,14 @@ if __name__ == '__main__':
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list)
 
-    version_path = "../../report/hp_tuning/hybrid_weighted_avg/"
+    version_path = "../../report/hp_tuning/hybrid_weighted_rank/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
 
     run_parameter_search_hybrid(model, metric_to_optimize="MAP",
-                                      evaluator_validation=evaluator,
-                                      output_folder_path=version_path, n_cases=35)
+                                evaluator_validation=evaluator,
+                                output_folder_path=version_path,
+                                n_cases=35, parallelizeKNN=False)
 
     print("...tuning ended")

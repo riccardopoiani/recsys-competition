@@ -1,21 +1,19 @@
 from datetime import datetime
 
-from numpy.random import seed
-
-from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.NonPersonalizedRecommender import TopPop
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
-from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
+from src.data_management.data_reader import read_target_users
 from src.model.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
-from src.tuning.run_parameter_search_hybrid import run_parameter_search_hybrid
+from src.model.MapperRecommender import MapperRecommender
+from src.model_management.submission_helper import write_submission_file
 
-SEED = 69420
 
 def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     all_models = {}
@@ -26,6 +24,7 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     item_cf.fit(**item_cf_keywargs)
     all_models['ITEM_CF'] = item_cf
 
+    """
     user_cf_keywargs = {'topK': 995, 'shrink': 9, 'similarity': 'cosine', 'normalize': True,
                         'feature_weighting': 'TF-IDF'}
     user_cf = UserKNNCFRecommender(URM_train)
@@ -62,45 +61,40 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     rp3beta = RP3betaRecommender(URM_train)
     rp3beta.fit(**rp3beta_kwargs)
     all_models['RP3BETA'] = rp3beta
+    """
 
     return all_models
 
 
 if __name__ == '__main__':
-    # Set seed in order to have same splitting of data
-    seed(SEED)
-
-    # Data loading
     data_reader = RecSys2019Reader("../../data/")
-    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
-                                               force_new_split=True)
     data_reader.load_data()
-    URM_train, URM_test = data_reader.get_holdout_split()
+    URM_all = data_reader.get_URM_all()
     ICM_categorical = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
+    ICM_numerical, _ = get_ICM_numerical(data_reader)
 
-    # Reset seed for hyper-parameter tuning
-    seed()
+    # Main recommender
+    main_recommender = HybridWeightedAverageRecommender(URM_all)
 
-    model = HybridWeightedAverageRecommender(URM_train)
-
-    all_models = _get_all_models(URM_train=URM_train, ICM_numerical=ICM_numerical,
+    all_models = _get_all_models(URM_train=URM_all, ICM_numerical=ICM_numerical,
                                  ICM_categorical=ICM_categorical)
     for model_name, model_object in all_models.items():
-        model.add_fitted_model(model_name, model_object)
+        main_recommender.add_fitted_model(model_name, model_object)
     print("The models added in the hybrid are: {}".format(list(all_models.keys())))
+    weights = {'ITEM_CF': 0.969586046573504, 'USER_CF': 0.943330450168123, 'ITEM_CBF_NUM': 0.03250599212747674,
+               'ITEM_CBF_CAT': 0.018678076600871066, 'SLIM_BPR': 0.03591603993769955,
+               'P3ALPHA': 0.7474845972085382, 'RP3BETA': 0.1234024366177027}
+    main_recommender.fit(**weights)
 
-    # Setting evaluator
-    cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list)
+    # Sub recommender
+    sub_recommender = TopPop(URM_all)
+    sub_recommender.fit()
 
-    version_path = "../../report/hp_tuning/hybrid_weighted_avg/"
-    now = datetime.now().strftime('%b%d_%H-%M-%S')
-    now = now + "_k_out_value_3/"
-    version_path = version_path + "/" + now
+    mapper_model = MapperRecommender(URM_all)
+    mapper_model.fit(main_recommender=main_recommender, sub_recommender=sub_recommender,
+                     mapper=data_reader.get_user_original_ID_to_index_mapper())
+    target_users = read_target_users("../data/data_target_users_test.csv")
 
-    run_parameter_search_hybrid(model, metric_to_optimize="MAP",
-                                      evaluator_validation=evaluator,
-                                      output_folder_path=version_path, n_cases=35)
 
-    print("...tuning ended")
+    submission_path = "submission_" + datetime.now().strftime('%b%d_%H-%M-%S')
+    write_submission_file(mapper_model, submission_path, target_users)

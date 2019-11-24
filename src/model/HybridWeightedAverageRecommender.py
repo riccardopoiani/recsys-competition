@@ -56,3 +56,10 @@ class HybridWeightedAverageRecommender(AbstractHybridRecommender):
             scores_batch = scores_batch * self.weights[recommender_name]
             cum_scores_batch = np.add(cum_scores_batch, scores_batch)
         return cum_scores_batch
+
+    def copy(self):
+        copy = HybridWeightedAverageRecommender(URM_train=self.URM_train)
+        copy.models = self.models
+        copy.weights = self.weights
+        copy.normalize = self.normalize
+        return copy

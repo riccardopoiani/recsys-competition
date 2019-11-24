@@ -3,7 +3,7 @@ from typing import List
 import numpy as np
 
 
-class HybridPredictionRecommender(BaseRecommender):
+class HybridPredictionRecommenderDebug(BaseRecommender):
     models_object: List[BaseRecommender] = []
     models_name: List[str] = []
     models_aps: List[np.array] = []
@@ -24,7 +24,7 @@ class HybridPredictionRecommender(BaseRecommender):
         :param recommender_aps: average precision of the recommender on the validation set
         :return: None
         '''
-        if not (self._verify_aps_consistency_(recommender_aps) and self._verify_name_consistency_(
+        if not (self.__verify_aps_consistency__(recommender_aps) and self.__verify_name_consistency__(
                 recommender_name)):
             raise AssertionError("The len of the aps of each recommender should be the same. Moreover, the name"
                                  "should not be in the ones already used")
@@ -40,10 +40,10 @@ class HybridPredictionRecommender(BaseRecommender):
     def get_recommender_names(self):
         return self.models_name
 
-    def _verify_name_consistency_(self, name):
+    def __verify_name_consistency__(self, name):
         return False if name in self.models_name else True
 
-    def _verify_aps_consistency_(self, aps):
+    def __verify_aps_consistency__(self, aps):
         '''
         Verify that each recommender has the same number of tested recommendations
         :param aps: average precision to be checked
