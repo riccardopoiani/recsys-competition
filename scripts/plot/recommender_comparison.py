@@ -1,9 +1,7 @@
 from course_lib.Base.NonPersonalizedRecommender import TopPop
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
-<<<<<<< HEAD
 from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
-=======
 from course_lib.KNN.ItemKNNCFRecommender import *
 from course_lib.KNN.UserKNNCFRecommender import *
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
@@ -11,7 +9,6 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
 from src.plots.recommender_plots import *
->>>>>>> 43b44c018f9913c708976afebb59baa61e57b680
 
 if __name__ == '__main__':
     # Data reading
