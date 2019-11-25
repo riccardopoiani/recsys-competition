@@ -48,9 +48,6 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
         except FileNotFoundError as e:
             os.makedirs(output_path_folder)
 
-    if compare_top_pop_points is None:
-        compare_top_pop_points = [10, 100, 500, 1000]
-
     # PLOT WHERE SAMPLES HAVE BEEN TAKEN
     for count, r in enumerate(results):
         arhr_index = -1
@@ -139,13 +136,23 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
     :param output_path_folder: where image should be saved, if specified
     :return: None
     '''
+    if compare_top_pop_points is None:
+        compare_top_pop_points = [10, 100, 500, 1000]
+
+    if save_on_file:
+        try:
+            if not os.path.exists(output_path_folder):
+                os.mkdir(output_path_folder)
+        except FileNotFoundError as e:
+            os.makedirs(output_path_folder)
+
+
     # Plot the trend of the predictions
     plot_recommendation_distribution(recommender_instance, URM_train, at=10)
     fig_rec_distr = plt.gcf()
     fig_rec_distr.show()
 
     if save_on_file:
-
         output_path_file = output_path_folder + "recommendation_distribution.png"
         fig_rec_distr.savefig(output_path_file)
         print("Save on file")
