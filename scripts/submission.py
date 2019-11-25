@@ -1,17 +1,12 @@
 from datetime import datetime
 
 from course_lib.Base.NonPersonalizedRecommender import TopPop
-from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
-from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
-from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
-from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
-from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
 from src.data_management.data_reader import read_target_users
-from src.model.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
-from src.model.MapperRecommender import MapperRecommender
+from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+from src.model.FallbackRecommender.MapperRecommender import MapperRecommender
 from src.model_management.submission_helper import write_submission_file
 
 

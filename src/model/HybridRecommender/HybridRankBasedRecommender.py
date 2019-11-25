@@ -1,7 +1,7 @@
 from abc import ABC
 
 import numpy as np
-from src.model.AbstractHybridRecommender import AbstractHybridRecommender
+from src.model.HybridRecommender.AbstractHybridRecommender import AbstractHybridRecommender
 from typing import Dict, List
 
 

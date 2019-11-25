@@ -5,9 +5,8 @@ from functools import partial
 from skopt.space import Integer, Categorical, Real
 
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
-from src.model.AbstractHybridRecommender import AbstractHybridRecommender
+from src.model.HybridRecommender.AbstractHybridRecommender import AbstractHybridRecommender
 from src.tuning.SearchBayesianSkoptObject import SearchBayesianSkoptObject
-from src.model.HybridRankBasedRecommender import HybridRankBasedRecommender
 
 
 def run_hybrid_rank_based_rs_on_strategy(strategy_type, parameterSearch,

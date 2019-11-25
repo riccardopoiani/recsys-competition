@@ -2,7 +2,7 @@ from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.feature.demographics import get_user_profile_demographic
-from src.model.HybridDemographicRecommender import HybridDemographicRecommender
+from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
 from src.plots.recommender_plots import basic_plots_recommender
 from course_lib.Base.NonPersonalizedRecommender import TopPop
 

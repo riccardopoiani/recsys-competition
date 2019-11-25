@@ -243,6 +243,59 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
         '''
         raise NotImplementedError("The method evaluateRecommender not implemented for this evaluator class")
 
+    def crossevaluateHybridRecommender(self, recommender_class, recommender_keywargs, model_list, model_list_keywargs):
+        results_list = []
+
+        # For all the folds...
+        for i in range(0, self.n_folds):
+            current_seed = self.seed_list[i]
+            seed(current_seed)
+            data_reader = RecSys2019Reader(self.data_path)
+            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+                                                       force_new_split=True)
+            data_reader.load_data()
+            URM_train, URM_test = data_reader.get_holdout_split()
+
+            print("Holdout number {}".format(i+1))
+
+            # Creating recommender instance
+            print("Fitting the recommender...")
+            recommender_instance = recommender_class(URM_train)
+
+            for i, model in enumerate(model_list):
+                temp_rec = model_list[i](URM_train)
+                temp_rec.fit(**model_list_keywargs[i])
+                recommender_instance.add_fitted_model(recommender_instance.RECOMMENDER_NAME, recommender_instance)
+
+            recommender_instance.fit(**recommender_keywargs)
+
+            hold_out_validator = EvaluatorHoldout(URM_test, self.cutoff_list, exclude_seen=self.exclude_seen,
+                                                  diversity_object=self.diversity_object,
+                                                  ignore_items=self.ignore_items
+                                                  , ignore_users=self.ignore_users,
+                                                  minRatingsPerUser=self.minRatingsPerUser)
+
+            print("Recommender holdout...", end="")
+            fold_result = hold_out_validator.evaluateRecommender(recommender_instance)[0][self.cutoff_list[0]]
+            print("..Fold done")
+
+            print("FOLD RESULT IS: " + str(fold_result))
+
+            results_list.append(fold_result)
+
+        average_result = results_list[0]
+
+        # Averaging results
+        for key in average_result:
+            key_sum = 0
+            for i in range(1, self.n_folds):
+                key_sum += results_list[i][key]
+            average_result[key] += key_sum
+            average_result[key] /= self.n_folds
+
+        return average_result
+
+
 
     def crossevaluateRecommender(self, recommender_class, **recommender_keywargs):
         '''
