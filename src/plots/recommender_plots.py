@@ -188,7 +188,7 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
 
     # Plot other demographics
     if demographic_list is not None:
-        for i in range(0, demographic_list):
+        for i in range(0, len(demographic_list)):
             res = evaluate_recommender_by_user_demographic(recommender_instance, URM_train, URM_test,
                                                            [10], demographic_list[i], 10)
             plot_metric_results_by_user_demographic(res, metric_name="MAP", cutoff=10,

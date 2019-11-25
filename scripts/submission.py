@@ -1,13 +1,18 @@
 from datetime import datetime
 
 from course_lib.Base.NonPersonalizedRecommender import TopPop
+from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
+from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
+from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
+from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
-from src.data_management.data_reader import read_target_users
-from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+from src.data_management.data_reader import read_target_users, read_URM_cold_all
 from src.model.FallbackRecommender.MapperRecommender import MapperRecommender
-from src.model_management.submission_helper import write_submission_file
+from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+from src.model_management.submission_helper import write_submission_file_all
 
 
 def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
@@ -19,7 +24,6 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     item_cf.fit(**item_cf_keywargs)
     all_models['ITEM_CF'] = item_cf
 
-    """
     user_cf_keywargs = {'topK': 995, 'shrink': 9, 'similarity': 'cosine', 'normalize': True,
                         'feature_weighting': 'TF-IDF'}
     user_cf = UserKNNCFRecommender(URM_train)
@@ -56,7 +60,6 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     rp3beta = RP3betaRecommender(URM_train)
     rp3beta.fit(**rp3beta_kwargs)
     all_models['RP3BETA'] = rp3beta
-    """
 
     return all_models
 
@@ -70,7 +73,6 @@ if __name__ == '__main__':
 
     # Main recommender
     main_recommender = HybridWeightedAverageRecommender(URM_all)
-
     all_models = _get_all_models(URM_train=URM_all, ICM_numerical=ICM_numerical,
                                  ICM_categorical=ICM_categorical)
     for model_name, model_object in all_models.items():
@@ -80,16 +82,17 @@ if __name__ == '__main__':
                'ITEM_CBF_CAT': 0.018678076600871066, 'SLIM_BPR': 0.03591603993769955,
                'P3ALPHA': 0.7474845972085382, 'RP3BETA': 0.1234024366177027}
     main_recommender.fit(**weights)
+    print(main_recommender.weights)
 
     # Sub recommender
-    sub_recommender = TopPop(URM_all)
+    URM_cold_all = read_URM_cold_all("../data/data_train.csv")
+    sub_recommender = TopPop(URM_cold_all)
     sub_recommender.fit()
 
-    mapper_model = MapperRecommender(URM_all)
+    mapper_model = MapperRecommender(URM_cold_all)
     mapper_model.fit(main_recommender=main_recommender, sub_recommender=sub_recommender,
                      mapper=data_reader.get_user_original_ID_to_index_mapper())
     target_users = read_target_users("../data/data_target_users_test.csv")
 
-
-    submission_path = "submission_" + datetime.now().strftime('%b%d_%H-%M-%S')
-    write_submission_file(mapper_model, submission_path, target_users)
+    submission_path = "submission_" + datetime.now().strftime('%b%d_%H-%M-%S') + ".csv"
+    write_submission_file_all(mapper_model, submission_path, target_users)
