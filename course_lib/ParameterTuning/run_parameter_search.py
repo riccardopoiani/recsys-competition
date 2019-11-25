@@ -14,16 +14,24 @@ Created on 22/11/17
 ##########                                                  ##########
 ######################################################################
 from course_lib.Base.NonPersonalizedRecommender import TopPop, Random, GlobalEffects
+
+# KNN
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
-from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
-from course_lib.SLIM_ElasticNet.SLIMElasticNetRecommender import SLIMElasticNetRecommender
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
-from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import MatrixFactorization_BPR_Cython, MatrixFactorization_FunkSVD_Cython, MatrixFactorization_AsySVD_Cython
+
+# KNN machine learning
+from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
+from course_lib.SLIM_ElasticNet.SLIMElasticNetRecommender import SLIMElasticNetRecommender
+
+# Matrix Factorization
 from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
 from course_lib.MatrixFactorization.IALSRecommender import IALSRecommender
 from course_lib.MatrixFactorization.NMFRecommender import NMFRecommender
+from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import MatrixFactorization_BPR_Cython,\
+    MatrixFactorization_FunkSVD_Cython, MatrixFactorization_AsySVD_Cython
+
 
 
 
@@ -52,11 +60,12 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
                                           recommender_input_args,
                                           n_cases,
                                           n_random_starts,
+                                          resume_from_saved,
+                                          save_model,
                                           output_folder_path,
                                           output_file_name_root,
                                           metric_to_optimize,
                                           allow_weighting = False,
-                                          allow_bias_ICM = False,
                                           recommender_input_args_last_test = None):
 
     original_parameter_search_space = parameter_search_space
@@ -89,9 +98,6 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
         if allow_weighting:
             hyperparameters_range_dictionary["feature_weighting"] = Categorical(["none", "BM25", "TF-IDF"])
 
-        if allow_bias_ICM:
-            hyperparameters_range_dictionary["ICM_bias"] = Real(low = 1e-2, high = 1e+3, prior = 'log-uniform')
-
 
     local_parameter_search_space = {**hyperparameters_range_dictionary, **original_parameter_search_space}
 
@@ -99,6 +105,8 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
                            parameter_search_space = local_parameter_search_space,
                            n_cases = n_cases,
                            n_random_starts = n_random_starts,
+                           resume_from_saved = resume_from_saved,
+                           save_model = save_model,
                            output_folder_path = output_folder_path,
                            output_file_name_root = output_file_name_root + "_" + similarity_type,
                            metric_to_optimize = metric_to_optimize,
@@ -109,17 +117,21 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
 
 
 def runParameterSearch_Content(recommender_class, URM_train, ICM_object, ICM_name, URM_train_last_test = None,
-                               n_cases = 30, n_random_starts = 5,
+                               n_cases = 30, n_random_starts = 5, resume_from_saved = False, save_model = "best",
                              evaluator_validation= None, evaluator_test=None, metric_to_optimize = "PRECISION",
                              output_folder_path ="result_experiments/", parallelizeKNN = False, allow_weighting = True,
-                             similarity_type_list = None, allow_bias_ICM = False):
+                             similarity_type_list = None):
 
 
     # If directory does not exist, create
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
 
+    URM_train = URM_train.copy()
+    ICM_object = ICM_object.copy()
 
+    if URM_train_last_test is not None:
+        URM_train_last_test = URM_train_last_test.copy()
 
 
 
@@ -135,7 +147,7 @@ def runParameterSearch_Content(recommender_class, URM_train, ICM_object, ICM_nam
 
 
     recommender_input_args = SearchInputRecommenderArgs(
-        CONSTRUCTOR_POSITIONAL_ARGS = [ICM_object, URM_train],
+        CONSTRUCTOR_POSITIONAL_ARGS = [URM_train, ICM_object],
         CONSTRUCTOR_KEYWORD_ARGS = {},
         FIT_POSITIONAL_ARGS = [],
         FIT_KEYWORD_ARGS = {}
@@ -145,7 +157,7 @@ def runParameterSearch_Content(recommender_class, URM_train, ICM_object, ICM_nam
 
     if URM_train_last_test is not None:
         recommender_input_args_last_test = recommender_input_args.copy()
-        recommender_input_args_last_test.CONSTRUCTOR_POSITIONAL_ARGS[1] = URM_train_last_test
+        recommender_input_args_last_test.CONSTRUCTOR_POSITIONAL_ARGS[0] = URM_train_last_test
     else:
         recommender_input_args_last_test = None
 
@@ -156,11 +168,12 @@ def runParameterSearch_Content(recommender_class, URM_train, ICM_object, ICM_nam
                                                    parameterSearch = parameterSearch,
                                                    n_cases = n_cases,
                                                    n_random_starts = n_random_starts,
+                                                   resume_from_saved = resume_from_saved,
+                                                   save_model = save_model,
                                                    output_folder_path = output_folder_path,
                                                    output_file_name_root = output_file_name_root,
                                                    metric_to_optimize = metric_to_optimize,
                                                    allow_weighting = allow_weighting,
-                                                   allow_bias_ICM = allow_bias_ICM,
                                                    recommender_input_args_last_test = recommender_input_args_last_test)
 
 
@@ -187,7 +200,7 @@ def runParameterSearch_Content(recommender_class, URM_train, ICM_object, ICM_nam
 def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_last_test = None, metric_to_optimize = "PRECISION",
                                      evaluator_validation = None, evaluator_test = None, evaluator_validation_earlystopping = None,
                                      output_folder_path ="result_experiments/", parallelizeKNN = True,
-                                     n_cases = 35, n_random_starts = 5,
+                                     n_cases = 35, n_random_starts = 5, resume_from_saved = False, save_model = "best",
                                      allow_weighting = True,
                                      similarity_type_list = None):
 
@@ -204,6 +217,10 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_las
                               "validation_metric": metric_to_optimize,
                               }
 
+    URM_train = URM_train.copy()
+
+    if URM_train_last_test is not None:
+        URM_train_last_test = URM_train_last_test.copy()
 
     try:
 
@@ -239,9 +256,11 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_las
 
             parameterSearch.search(recommender_input_args,
                                    recommender_input_args_last_test = recommender_input_args_last_test,
-                                   fit_parameters_values={},
+                                   fit_hyperparameters_values={},
                                    output_folder_path = output_folder_path,
-                                   output_file_name_root = output_file_name_root
+                                   output_file_name_root = output_file_name_root,
+                                   resume_from_saved = resume_from_saved,
+                                   save_model = save_model,
                                    )
 
 
@@ -277,6 +296,8 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_las
                                                            parameterSearch = parameterSearch,
                                                            n_cases = n_cases,
                                                            n_random_starts = n_random_starts,
+                                                           resume_from_saved = resume_from_saved,
+                                                           save_model = save_model,
                                                            output_folder_path = output_folder_path,
                                                            output_file_name_root = output_file_name_root,
                                                            metric_to_optimize = metric_to_optimize,
@@ -369,7 +390,7 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_las
             hyperparameters_range_dictionary["epochs"] = Categorical([500])
             hyperparameters_range_dictionary["use_bias"] = Categorical([True, False])
             hyperparameters_range_dictionary["batch_size"] = Categorical([1])
-            hyperparameters_range_dictionary["num_factors"] = Categorical([200])
+            hyperparameters_range_dictionary["num_factors"] = Integer(1, 200)
             hyperparameters_range_dictionary["item_reg"] = Real(low = 1e-5, high = 1e-2, prior = 'log-uniform')
             hyperparameters_range_dictionary["user_reg"] = Real(low = 1e-5, high = 1e-2, prior = 'log-uniform')
             hyperparameters_range_dictionary["learning_rate"] = Real(low = 1e-4, high = 1e-1, prior = 'log-uniform')
@@ -510,6 +531,8 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_las
                                parameter_search_space = hyperparameters_range_dictionary,
                                n_cases = n_cases,
                                n_random_starts = n_random_starts,
+                               resume_from_saved = resume_from_saved,
+                               save_model = save_model,
                                output_folder_path = output_folder_path,
                                output_file_name_root = output_file_name_root,
                                metric_to_optimize = metric_to_optimize,

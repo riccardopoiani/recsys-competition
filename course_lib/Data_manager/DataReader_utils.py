@@ -204,7 +204,7 @@ def compute_density(URM):
 def removeFeatures(ICM, minOccurrence = 5, maxPercOccurrence = 0.30, reconcile_mapper = None):
     """
     The function eliminates the values associated to feature occurring in less than the minimal percentage of items
-    or more then the max. Shape of ICM is reduced deleting feature.
+    or more then the max. Shape of ICM is reduced deleting features.
     :param ICM:
     :param minPercOccurrence:
     :param maxPercOccurrence:
@@ -227,7 +227,7 @@ def removeFeatures(ICM, minOccurrence = 5, maxPercOccurrence = 0.30, reconcile_m
 
     deletedFeatures = np.arange(0, len(feature_mask))[np.logical_not(feature_mask)]
 
-    print("RemoveFeatures: removed {} feature with less then {} occurrencies, removed {} feature with more than {} occurrencies".format(
+    print("RemoveFeatures: removed {} features with less then {} occurrencies, removed {} features with more than {} occurrencies".format(
         sum(numOccurrences < minOccurrence), minOccurrence,
         sum(numOccurrences > n_items*maxPercOccurrence), int(n_items*maxPercOccurrence)
     ))

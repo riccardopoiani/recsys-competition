@@ -39,7 +39,8 @@ import time
 import sys
 
 from libc.math cimport exp, sqrt
-from libc.stdlib cimport rand, srand
+from libc.stdlib cimport rand, srand, RAND_MAX
+
 
 cdef struct BPR_sample:
     long user
@@ -491,8 +492,12 @@ cdef class SLIM_BPR_Cython_Epoch:
 
 import scipy.sparse as sps
 
+import numpy as np
+cimport numpy as np
+
 #from libc.stdlib cimport malloc, free#, qsort
 # PyMem malloc and free are slightly faster than plain C equivalents as they optimize OS calls
+from cpython.mem cimport PyMem_Malloc, PyMem_Free
 
 # Declaring QSORT as "gil safe", appending "nogil" at the end of the declaration
 # Otherwise I will not be able to pass the comparator function pointer
@@ -790,8 +795,6 @@ cdef class Sparse_Matrix_Tree_CSR:
 
         cdef long row
 
-        #start_time = time.time()
-
         for row in range(self.num_rows):
 
             if self.row_pointer[row].head != NULL:
@@ -804,20 +807,6 @@ cdef class Sparse_Matrix_Tree_CSR:
 
                 # Rebuild the tree
                 self.row_pointer[row].head = self.build_tree_from_list_flat(self.row_pointer[row].head)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     cdef matrix_element_tree_s * subtree_to_list_flat(self, matrix_element_tree_s * root):

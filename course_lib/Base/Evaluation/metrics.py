@@ -406,9 +406,9 @@ class Diversity_similarity(Metrics_Object):
     """
     Intra list diversity computes the diversity of items appearing in the recommendations received by each single user, by using an item_diversity_matrix.
 
-    It can be used, for example, to compute the diversity in terms of feature for a collaborative recommender.
+    It can be used, for example, to compute the diversity in terms of features for a collaborative recommender.
 
-    A content-based recommender will have low IntraList diversity if that is computed on the same feature the recommender uses.
+    A content-based recommender will have low IntraList diversity if that is computed on the same features the recommender uses.
     A TopPopular recommender may exhibit high IntraList diversity.
 
     """

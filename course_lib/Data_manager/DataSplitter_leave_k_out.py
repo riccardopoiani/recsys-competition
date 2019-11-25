@@ -133,7 +133,7 @@ class DataSplitter_leave_k_out(DataSplitter):
 
                 n_items, n_features = ICM_object.shape
 
-                statistics_string = "\tICM name: {}, Num feature: {}, feature occurrences: {}, density {:.2E}".format(
+                statistics_string = "\tICM name: {}, Num features: {}, feature occurrences: {}, density {:.2E}".format(
                     ICM_name,
                     n_features,
                     ICM_object.nnz,
@@ -408,3 +408,4 @@ class DataSplitter_leave_k_out(DataSplitter):
                                           ICM_DICT = self.SPLIT_ICM_DICT,
                                           ICM_MAPPER_DICT = self.SPLIT_ICM_MAPPER_DICT,
                                           DATA_SPLITTER_NAME = self.DATA_SPLITTER_NAME)
+

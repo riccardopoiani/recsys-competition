@@ -7,7 +7,7 @@ Created on 23/10/17
 """
 
 from course_lib.Base.Recommender_utils import check_matrix
-from course_lib.Base.BaseSimilarityMatrixRecommender import BaseSimilarityMatrixRecommender
+from course_lib.Base.BaseSimilarityMatrixRecommender import BaseItemSimilarityMatrixRecommender
 
 from course_lib.Base.IR_feature_weighting import okapi_BM_25, TF_IDF
 import numpy as np
@@ -15,7 +15,7 @@ import numpy as np
 from course_lib.Base.Similarity.Compute_Similarity import Compute_Similarity
 
 
-class ItemKNNCFRecommender(BaseSimilarityMatrixRecommender):
+class ItemKNNCFRecommender(BaseItemSimilarityMatrixRecommender):
     """ ItemKNN recommender"""
 
     RECOMMENDER_NAME = "ItemKNNCFRecommender"
@@ -24,8 +24,8 @@ class ItemKNNCFRecommender(BaseSimilarityMatrixRecommender):
 
 
 
-    def __init__(self, URM_train):
-        super(ItemKNNCFRecommender, self).__init__(URM_train)
+    def __init__(self, URM_train, verbose = True):
+        super(ItemKNNCFRecommender, self).__init__(URM_train, verbose = verbose)
 
 
     def fit(self, topK=50, shrink=100, similarity='cosine', normalize=True, feature_weighting = "none", **similarity_args):

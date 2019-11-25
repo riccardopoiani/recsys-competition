@@ -32,9 +32,7 @@ import cython
 import numpy as np
 cimport numpy as np
 
-from cpython.array cimport array, clone
-
-from libc.math cimport sqrt
+from cpython.array cimport array
 
 
 
@@ -75,7 +73,7 @@ cdef class Compute_Similarity_Cython:
         """
         Computes the cosine similarity on the columns of dataMatrix
         If it is computed on URM=|users|x|items|, pass the URM as is.
-        If it is computed on ICM=|items|x|feature|, pass the ICM transposed.
+        If it is computed on ICM=|items|x|features|, pass the ICM transposed.
         :param dataMatrix:
         :param topK:
         :param shrink:

@@ -7,10 +7,10 @@ Created on 23/10/17
 """
 
 from course_lib.Base.Recommender_utils import check_matrix, similarityMatrixTopK
-from course_lib.Base.BaseSimilarityMatrixRecommender import BaseSimilarityMatrixRecommender
+from course_lib.Base.BaseSimilarityMatrixRecommender import BaseItemSimilarityMatrixRecommender
 
 
-class ItemKNNCustomSimilarityRecommender(BaseSimilarityMatrixRecommender):
+class ItemKNNCustomSimilarityRecommender(BaseItemSimilarityMatrixRecommender):
     """ ItemKNN recommender"""
 
     RECOMMENDER_NAME = "ItemKNNCustomSimilarityRecommender"
