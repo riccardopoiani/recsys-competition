@@ -1,5 +1,5 @@
 import numpy as np
-from src.model.AbstractHybridRecommender import AbstractHybridRecommender
+from src.model.HybridRecommender.AbstractHybridRecommender import AbstractHybridRecommender
 
 
 class HybridWeightedAverageRecommender(AbstractHybridRecommender):

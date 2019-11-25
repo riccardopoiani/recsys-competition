@@ -21,7 +21,6 @@ class TopPop(BaseRecommender):
 
 
     def fit(self):
-
         # Use np.ediff1d and NOT a sum done over the rows as there might be values other than 0/1
         self.item_pop = np.ediff1d(self.URM_train.tocsc().indptr)
         self.n_items = self.URM_train.shape[1]

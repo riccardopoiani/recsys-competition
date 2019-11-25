@@ -13,8 +13,7 @@ from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
-from src.model.HybridRankBasedRecommender import HybridRankBasedRecommender
-from src.model.MapperRecommender import MapperRecommender
+from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 from src.tuning.run_parameter_search_hybrid import run_parameter_search_hybrid
 
 SEED = 69420
