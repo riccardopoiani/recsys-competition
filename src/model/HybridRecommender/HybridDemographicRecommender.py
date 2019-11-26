@@ -4,7 +4,6 @@ import numpy as np
 
 
 class HybridDemographicRecommender(BaseRecommender):
-
     user_group_dict: Dict[int, List] = {}
     group_id_list: List[int] = []
     recommender_group_relation: Dict[int, BaseRecommender] = {}
@@ -123,3 +122,6 @@ class HybridDemographicRecommender(BaseRecommender):
             scores[mask_list[i]] = scores_list[i]
 
         return scores
+
+    def save_model(self, folder_path, file_name=None):
+        raise NotImplemented()

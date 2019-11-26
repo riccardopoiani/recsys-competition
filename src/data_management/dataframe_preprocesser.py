@@ -3,7 +3,9 @@ import pandas as pd
 import scipy.sparse as sps
 from sklearn.preprocessing import Normalizer
 
-def get_preprocessed_dataframe(path="../data/", age_transformer = None, activity_transformer = None, keep_warm_only=False):
+
+def get_preprocessed_dataframe(path="../data/", age_transformer=None, activity_transformer=None,
+                               keep_warm_only=False):
     """
     Data preprocessing of URM and UCM.
 
@@ -18,6 +20,11 @@ def get_preprocessed_dataframe(path="../data/", age_transformer = None, activity
     - User activity, after log1p transformation, is normalized with scikit-learn Normalizer()
 
     :param path: path to the data folder
+    :param age_transformer: transformer to be applied to age. Default is Normalizer(). It has to exploit
+    same scikit learn interface.
+    :param activity_transformer: transformer to be applied to the activity, after the log1p transformation.
+    It has to export the same scikit learn interface
+    :param keep_warm_only: keep only the warm users in the process
     :return: a pre-processed dataframe containing information regarding the region, the age, and
     the user activity profile length
     """

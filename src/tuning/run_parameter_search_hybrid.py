@@ -19,9 +19,7 @@ def run_hybrid_rank_based_rs_on_strategy(strategy_type, parameterSearch,
                                          metric_to_optimize):
     original_parameter_search_space = parameter_search_space
 
-    hyperparameters_range_dictionary = {}
-    hyperparameters_range_dictionary["strategy"] = Categorical([strategy_type])
-    hyperparameters_range_dictionary["multiplier_cutoff"] = Integer(1, 10)
+    hyperparameters_range_dictionary = {"strategy": Categorical([strategy_type]), "multiplier_cutoff": Integer(1, 10)}
 
     local_parameter_search_space = {**hyperparameters_range_dictionary, **original_parameter_search_space}
 
