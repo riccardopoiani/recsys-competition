@@ -8,7 +8,7 @@ from src.model.FallbackRecommender import AdvancedTopPopular
 from functools import partial
 
 
-def run_parameter_search_advanced_top_pop(URM_train, data_frame_ucm, mapper, verbose=0, seed=69420, n_jobs=1,
+def run_parameter_search_advanced_top_pop(URM_train, data_frame_ucm, mapper, n_init=5, verbose=0, seed=69420, n_jobs=1,
                                           output_folder_path="result_experiments/",
                                           evaluator_validation=None, evaluator_test=None, n_cases=35,
                                           n_random_starts=5, metric_to_optimize="MAP"):
@@ -19,7 +19,8 @@ def run_parameter_search_advanced_top_pop(URM_train, data_frame_ucm, mapper, ver
 
     hyperparameters_range_dictionary = {"clustering_method": Categorical(['kmodes', 'kproto']),
                                         'n_clusters': Integer(1, 20),
-                                        'init_method': Categorical(["Huang", "random", "Cao"]), 'verbose': 0,
+                                        'n_init': n_init,
+                                        'init_method': Categorical(["Huang", "random", "Cao"]), 'verbose': verbose,
                                         'seed': seed,
                                         'n_jobs': n_jobs}
 
