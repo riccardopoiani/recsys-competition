@@ -9,6 +9,7 @@ from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemog
 
 
 class AdvancedTopPopular(BaseRecommender):
+    RECOMMENDER_NAME = "AdvancedTopPopular"
 
     """
     Advanced top popular recommender, based on clustering.
@@ -76,7 +77,7 @@ class AdvancedTopPopular(BaseRecommender):
         return new_df
 
     def fit(self, n_clusters=5, n_init=5, clustering_method="kmodes", verbose=1,
-            seed=69420, init_method="Huang"):
+            seed=69420, init_method="Huang", n_jobs=1):
         """
         Creates clusters based on the data frame given in input.
         After that, it fits top popular method using the clusters, and, predicts accordingly to them.
@@ -87,6 +88,7 @@ class AdvancedTopPopular(BaseRecommender):
         :param verbose: if you want to have verbose output 1, else 0
         :param seed: seed for the clustering randomness
         :param init_method: initialization method for the clusters
+        :param n_jobs: number of jobs
         :return: user clustered
         """
         # Verifying clustering method is present
@@ -100,9 +102,10 @@ class AdvancedTopPopular(BaseRecommender):
 
         # Clustering items
         if clustering_method == "kmodes":
-            km = KModes(n_clusters=n_clusters, init='Huang', n_init=n_init, verbose=verbose, random_state=seed)
+            km = KModes(n_clusters=n_clusters, init='Huang', n_init=n_init, verbose=verbose, random_state=seed,
+                        n_jobs=n_jobs)
         else:
-            km = KPrototypes(n_clusters=n_clusters, n_init=n_init, verbose=verbose, random_state=seed)
+            km = KPrototypes(n_clusters=n_clusters, n_init=n_init, verbose=verbose, random_state=seed, n_jobs=n_jobs)
 
         self.clusters = km.fit_predict(self.data)
 
