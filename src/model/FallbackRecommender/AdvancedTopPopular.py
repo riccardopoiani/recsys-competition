@@ -2,10 +2,10 @@ from course_lib.Base.BaseRecommender import BaseRecommender
 from kmodes.kmodes import KModes
 from kmodes.kprototypes import KPrototypes
 import numpy as np
-import pandas as pd
 
 from course_lib.Base.NonPersonalizedRecommender import TopPop
 from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
+from src.feature.clustering_utils import preprocess_data_frame, cluster_data
 
 
 class AdvancedTopPopular(BaseRecommender):
@@ -23,7 +23,6 @@ class AdvancedTopPopular(BaseRecommender):
         :param data: dataframe containing information from the UCM about the users
         """
         self.mapper_dict = mapper_dict
-        self.clusters = None
         self.data = data
         self.users_clustered_list = []
         self.hybrid_recommender = HybridDemographicRecommender(URM_train)
@@ -47,36 +46,6 @@ class AdvancedTopPopular(BaseRecommender):
         for i in range(0, new_users.size):
             new_mapper[str(new_users[i])] = i
         return new_mapper
-
-    @staticmethod
-    def _preprocess_data_frame_(df: pd.DataFrame, mapper_dict):
-        """
-        Pre-process the data frame removing the users discarded from the split in train-test.
-        Then, change the index of the data frame (i.e. users number) according to mapper of the split.
-
-        :param df: data frame read from file
-        :param mapper_dict: dictionary mapping between original users, and then one in the split
-        :return: preprocessed data frame
-        """
-        df = df.copy()
-
-        # Here, we have the original users, we should map them to the user in the split
-        warm_user_original = df.index
-        keys = np.array(list(mapper_dict.keys()))  # Users that are actually mapped to something else
-
-        mask = np.in1d(warm_user_original, keys)
-        not_mask = np.logical_not(mask)
-        user_to_discard = warm_user_original[not_mask]  # users that should be removed from the data frame since they
-
-        # Removing users discarded from the data frame
-        new_df = df.drop(user_to_discard, inplace=False)
-
-        # Mapping the users
-        new_df = new_df.reset_index()
-        new_df['user'] = new_df['user'].map(lambda x: mapper_dict[str(x)])
-        new_df = new_df.set_index("user")
-
-        return new_df
 
     def fit(self, n_clusters=5, n_init=5, clustering_method="kmodes", verbose=1,
             seed=69420, init_method="Huang", n_jobs=1):
@@ -102,21 +71,12 @@ class AdvancedTopPopular(BaseRecommender):
             raise RuntimeError("Clustering init method should be in ['Huang', 'Cao', 'random']")
 
         # Pre-processing the data frame
-        self.data = self._preprocess_data_frame_(self.data, self.mapper_dict)
+        self.data = preprocess_data_frame(self.data, self.mapper_dict)
 
-        # Clustering items
-        if clustering_method == "kmodes":
-            km = KModes(n_clusters=n_clusters, init='Huang', n_init=n_init, verbose=verbose, random_state=seed,
-                        n_jobs=n_jobs)
-        else:
-            km = KPrototypes(n_clusters=n_clusters, n_init=n_init, verbose=verbose, random_state=seed, n_jobs=n_jobs)
-
-        self.clusters = km.fit_predict(self.data)
-
-        # Fitting top popular methods to the various clusters of users
-        # Get users clustered
-        for i in range(0, n_clusters):
-            self.users_clustered_list.append(np.where(self.clusters == i))
+        # Clustering
+        self.users_clustered_list = cluster_data(self.data, clustering_method=clustering_method, n_jobs=n_jobs,
+                                                 n_clusters=n_clusters, n_init=n_init, seed=seed,
+                                                 init_method=init_method)
 
         # Fitting top populars and add them to the demographic hybrid
         for i in range(0, n_clusters):

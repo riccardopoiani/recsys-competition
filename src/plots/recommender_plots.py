@@ -5,13 +5,97 @@ from src.model_management.evaluator import *
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 import numpy as np
 from datetime import datetime
+from src.feature.clustering_utils import cluster_data
+
+def plot_clustering_demographics(recommender_instance_list: list, URM_train, URM_test, dataframe, metric, cutoff,
+                                 save_on_file=True,
+                                 output_folder_path="", demographic_name="clustering"):
+    """
+    Wrapper to plot all the available demographics.
+
+    :param demographic_name: name of the demographics
+    :param recommender_instance_list: list of recommenders
+    :param URM_train: URM train on which recommenders are trained
+    :param URM_test: URM train on which recommenders should be tested
+    :param metric: metric to be considered while evaluating them
+    :param save_on_file: if you wish to save on file or not
+    :param output_folder_path: output path of the picture. If you wish to save it
+    :return:
+    """
+    # Clustering demographics
+    clusters = cluster_data(data=dataframe)
+    cluster_id_list = list(np.arange(len(clusters)))
+    demographic_plot(recommender_instance_list, URM_train=URM_train, URM_test=URM_test, cutoff=cutoff,
+                     metric=metric, demographic_name="clustering", demographic=clusters, save_on_file=save_on_file,
+                     output_folder_path=output_folder_path, demographic_describer_list=cluster_id_list)
+
+    if save_on_file:
+        now = datetime.now().strftime('%b%d_%H-%M-%S')
+        fig = plt.gcf()
+        fig.show()
+        if len(recommender_instance_list) == 1:
+            output_path_file = output_folder_path + "_" + demographic_name + "_" + now + ".png"
+        else:
+            output_path_file = output_folder_path + "_" + demographic_name + "_comparison_" + now + ".png"
+        fig.savefig(output_path_file)
+        print("Save on file")
+
+
+def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, metric,
+                     demographic_describer_list: list, demographic: list, demographic_name: str, save_on_file=True,
+                     output_folder_path=""):
+    """
+    Plot the performances of a recommender (or a list of them), on a given metric, based on a certain demographic.
+
+    Note: this function can be used for comparison
+
+    :param metric: metric to be considered
+    :param cutoff: cutoff desired. Only an integer is supported at the moment.
+    :param URM_test: URM test on which recommender is evaluated
+    :param recommender_instance_list: instance of the recommender to be evaluated
+    :param URM_train: URM train on which the recommender is trained
+    :param output_folder_path: where to save images, if desired
+    :param save_on_file: if you which to save on file, or not
+    :param demographic_describer_list: describer of each group of the demographic. This information will be plotted
+    on the x-axis of the picture
+    :param demographic: list of list. In each list there is
+    :param demographic_name: name of the demographic
+    :return: None
+    """
+    plt.figure()
+    bins = len(demographic)
+
+    for recommender in recommender_instance_list:
+        results = evaluate_recommender_by_demographic(recommender_object=recommender, URM_train=URM_train,
+                                                      URM_test=URM_test, cutoff=cutoff, metric=metric,
+                                                      demographic=demographic)
+        plt.plot(results, label=demographic_name)
+
+    plt.title("Results of {}, accordingly to {}".format(metric, demographic_name))
+    plt.xticks(np.arange(bins), demographic_describer_list)
+    plt.ylabel(metric)
+    plt.xlabel(demographic_name)
+    plt.legend()
+
+    # Eventually save on file
+    if save_on_file:
+        now = datetime.now().strftime('%b%d_%H-%M-%S')
+        fig = plt.gcf()
+        fig.show()
+        if len(recommender_instance_list) == 1:
+            output_path_file = output_folder_path + "_" + demographic_name + "_" + now + ".png"
+        else:
+            output_path_file = output_folder_path + "_" + demographic_name + "_comparison_" + now + ".png"
+        fig.savefig(output_path_file)
+        print("Save on file")
+
 
 def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test,
                                     metric='MAP', save_on_file=False, retrain_model=True,
                                     is_compare_top_pop=True,
                                     compare_top_pop_points=None,
                                     demographic_list_name=None, demographic_list=None, output_path_folder="",
-                                    ICM = None):
+                                    ICM=None):
     '''
     Plot some graphics concerning the results of hyperparameter procedure.
     In particular, first samples are plotted (where the bayesian method have searched for solutions).
@@ -31,8 +115,8 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
     :param retrain_model: if model has to be re-trained (only option so far)
     :param is_compare_top_pop: if you have to perform the comparison with a top popular recommender
     :param compare_top_pop_points: comparison with the top popular with this points
-    :param demographic_list_name: list of addiontal demographics name
-    :param demographic_list: list of additional demographics
+    :param demographic_list_name: list of addiontal demographics name @DEPRECATED
+    :param demographic_list: list of additional demographics @DEPRECATED
     :param output_path_folder: where image should be saved, if specified
     :return: None
     '''
@@ -131,8 +215,8 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
     :param save_on_file: if you want to save graphics on file
     :param is_compare_top_pop: if you have to perform the comparison with a top popular recommender
     :param compare_top_pop_points: comparison with the top popular with this points
-    :param demographic_list_name: list of addiontal demographics name
-    :param demographic_list: list of additional demographics
+    :param demographic_list_name: list of addiontal demographics name @DEPRECATED
+    :param demographic_list: list of additional demographics @DEPRECATED
     :param output_path_folder: where image should be saved, if specified
     :return: None
     '''
@@ -145,7 +229,6 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
                 os.mkdir(output_path_folder)
         except FileNotFoundError as e:
             os.makedirs(output_path_folder)
-
 
     # Plot the trend of the predictions
     plot_recommendation_distribution(recommender_instance, URM_train, at=10)
@@ -229,6 +312,7 @@ def plot_compare_recommenders_user_profile_len(recommender_list,
                                         "MAP comparison on profile lens", x_label="User profile mean length")
 
 
+@DeprecationWarning
 def plot_compare_recommender_user_group(recommender_list,
                                         URM_train, URM_test,
                                         block_size, total_len, sorted_users, group_metric, group_representative,

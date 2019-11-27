@@ -2,10 +2,53 @@ import numpy as np
 from course_lib.Base.BaseRecommender import BaseRecommender
 from scipy import sparse as sps
 import pandas as pd
+from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 
 
+def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM_train: sps.csr_matrix,
+                                        URM_test: sps.csr_matrix, cutoff: int, demographic: list, metric="MAP"):
+    """
+    Evaluate the recommender object, computing the MAP@10 score of the given recommender in terms of some given
+    demographic.
+
+    :param recommender_object: object to be analyzed
+    :param URM_train: csr_matrix
+    :param URM_test: csr_matrix
+    :param cutoff: cutoff to evaluate. Only an integer can be given
+    :param demographic: list of list. In each list, you have the users of the group. MAP will be evaluate on these
+    groups
+    :param metric: metric to be considered
+    :return: desired metric for each group
+    """
+    # Compute len of the demographic
+    user_count = 0
+    for elem in demographic:
+        user_count += elem.size
+
+    if user_count != URM_train.shape[0]:
+        raise AttributeError("The demographic should contain all the users in the URM_train")
+
+    # Evaluate each group
+    total_users = np.arange(URM_train.shape[0])
+
+    result_per_group = []
+
+    for group in demographic:
+        mask_user_to_keep_out = np.logical_not(np.in1d(total_users, group))
+        users_to_keep_out = total_users[mask_user_to_keep_out]
+
+        evaluator = EvaluatorHoldout(URM_test, cutoff_list=[cutoff], ignore_users=users_to_keep_out)
+        results = evaluator.evaluateRecommender(recommender_object)
+        result_per_group.append(results[0][cutoff][metric])
+
+    return result_per_group
+
+
+
+@DeprecationWarning
 def evaluate_recommender_by_user_demographic(recommender_object: BaseRecommender, URM_train: sps.csr_matrix,
-                                             URM_test: sps.csr_matrix, cutoff_list: list, user_demographic: np.ndarray, n_folds: int = 5):
+                                             URM_test: sps.csr_matrix, cutoff_list: list, user_demographic: np.ndarray,
+                                             n_folds: int = 5):
     """
     Split the URM_test into "n_folds" folds based on the list "user_demographic" (e.g. if n_folds=5, then 20% for each fold), then
     evaluate each folds of URM_test and return the metric results.
@@ -20,10 +63,9 @@ def evaluate_recommender_by_user_demographic(recommender_object: BaseRecommender
     :return: a dict of metric results for each cutoff
     """
     if len(user_demographic) != URM_train.shape[0]:
-        raise AttributeError("The list user_demographic containing user demographic does not contain the value for each user in "
-                             "URM_train")
-
-    from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
+        raise AttributeError(
+            "The list user_demographic containing user demographic does not contain the value for each user in "
+            "URM_train")
 
     users_to_evaluate = np.array(list(set(URM_test.tocsc().indices)))
     user_activity_test = user_demographic[users_to_evaluate]
@@ -90,7 +132,7 @@ def get_singular_user_metrics(URM_test, recommender_object: BaseRecommender, cut
         end_pos = URM_test.indptr[user_id + 1]
 
         if end_pos - start_pos > 0:
-            relevant_items = URM_test.indices[start_pos : end_pos]
+            relevant_items = URM_test.indices[start_pos: end_pos]
 
             recommended_items = recommender_object.recommend(user_id, cutoff=cutoff)
 

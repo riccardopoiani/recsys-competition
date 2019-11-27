@@ -1,14 +1,46 @@
 import numpy as np
 import scipy.sparse as sps
+import pandas as pd
+from src.feature.clustering_utils import cluster_data
 
+def get_sub_class_demographic():
+    raise NotImplemented()
+
+def get_asset_demographic():
+    raise NotImplemented()
+
+def get_price_demographic(URM_train, ICM):
+    raise NotImplemented()
+
+def get_clustering_item_demographic():
+    raise NotImplemented()
+
+def get_clustering_user_demographic(dataframe: pd.DataFrame, bins, n_init, init_method="Huang", seed=69420):
+    """
+    Return a user-demographic based on a clustering approach.
+    Users are clustered according to the data frame containing information about URM profile length and UCM.
+
+    The default parameters are the ones that are given by the clustering achieving the best results in term
+    of cost function considering the default number of bins, which is 10.
+
+    :param dataframe: mixed dataframe of URM-profile length and information contained in the UCM
+    :param bins: number of bins
+    :param n_init: number of initialization of the cluster
+    :param seed: clustering approach seed
+    :return: clusters of the data, and a list containing the cluster ids
+    """
+    clusters = cluster_data(dataframe, n_clusters=bins, n_init=n_init, init_method=init_method, seed=seed)
+    cluster_id_list = np.arange(bins).tolist()
+
+    return clusters, cluster_id_list
 
 def get_user_profile_demographic(URM_train, bins):
     """
     Return the user profiles demographic of the URM_train given, splitting equally the bins.
 
-    :param URM_train:
+    :param URM_train: URM used for training the given recommender
     :param bins: number of bins
-    :return: user profile demographics described as a tuple containing (size of the block, profile lenghts,
+    :return: user profile demographics described as a tuple containing (size of the block, profile lengths,
     user sorted by the the profile length, mean of each group
     """
     # Building user profiles groups
