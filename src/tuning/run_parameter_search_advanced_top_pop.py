@@ -3,7 +3,7 @@ import os
 
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
-from src.model.FallbackRecommender import AdvancedTopPopular
+from src.model.FallbackRecommender.AdvancedTopPopular import AdvancedTopPopular
 
 from functools import partial
 
@@ -17,14 +17,11 @@ def run_parameter_search_advanced_top_pop(URM_train, data_frame_ucm, mapper, n_i
 
     URM_train = URM_train.copy()
 
-    hyperparameters_range_dictionary = {"clustering_method": Categorical(['kmodes', 'kproto']),
-                                        'n_clusters': Integer(1, 20),
-                                        'n_init': n_init,
-                                        'init_method': Categorical(["Huang", "random", "Cao"]), 'verbose': verbose,
-                                        'seed': seed,
-                                        'n_jobs': n_jobs}
+    hyperparameters_range_dictionary = {"clustering_method": Categorical(['kmodes']),
+                                        'n_clusters': Integer(1, 50),
+                                        'init_method': Categorical(["Huang", "random", "Cao"])}
 
-    output_file_name_root = AdvancedTopPopular.RECOMMENDER_NAME
+    output_file_name_root = "AdvancedTopPopular"
 
     parameterSearch = SearchBayesianSkopt(AdvancedTopPopular, evaluator_validation=evaluator_validation,
                                           evaluator_test=evaluator_test)

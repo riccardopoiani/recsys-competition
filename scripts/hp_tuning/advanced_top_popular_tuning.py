@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # TODO ignore_users = Ignore all but cold users
     ignore_users = None
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list)
 
     # HP tuning
     print("Start tuning...")
@@ -42,5 +42,6 @@ if __name__ == '__main__':
     run_parameter_search_advanced_top_pop(URM_train=URM_train, data_frame_ucm=df, mapper=mapper,
                                           metric_to_optimize="MAP",
                                           evaluator_validation=evaluator,
-                                          n_cases=35)
+                                          n_cases=35,
+                                          output_folder_path="../../hp_tuning/advanced_top_pop/")
     print("...tuning ended")

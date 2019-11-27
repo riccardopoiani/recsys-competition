@@ -9,7 +9,7 @@ from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemog
 
 
 class AdvancedTopPopular(BaseRecommender):
-    RECOMMENDER_NAME = "AdvancedTopPopular"
+    RECOMMENDER_NAME = "AdvancedTopPop"
 
     """
     Advanced top popular recommender, based on clustering.
@@ -58,6 +58,8 @@ class AdvancedTopPopular(BaseRecommender):
         :param mapper_dict: dictionary mapping between original users, and then one in the split
         :return: preprocessed data frame
         """
+        df = df.copy()
+
         # Here, we have the original users, we should map them to the user in the split
         warm_user_original = df.index
         keys = np.array(list(mapper_dict.keys()))  # Users that are actually mapped to something else
@@ -91,10 +93,12 @@ class AdvancedTopPopular(BaseRecommender):
         :param n_jobs: number of jobs
         :return: user clustered
         """
+        self.hybrid_recommender.reset_groups()
+
         # Verifying clustering method is present
-        if self._verify_clustering_method_(clustering_method):
+        if not self._verify_clustering_method_(clustering_method):
             raise RuntimeError("Clustering method should in in ['kmodes','kproto']")
-        if self._verify_init_method_(init_method):
+        if not self._verify_init_method_(init_method):
             raise RuntimeError("Clustering init method should be in ['Huang', 'Cao', 'random']")
 
         # Pre-processing the data frame
@@ -127,7 +131,7 @@ class AdvancedTopPopular(BaseRecommender):
         return self.users_clustered_list
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):
-        return self.hybrid_recommender.recommend(user_id_array, items_to_compute)
+        return self.hybrid_recommender._compute_item_score(user_id_array, items_to_compute)
 
     def save_model(self, folder_path, file_name=None):
         raise NotImplemented()

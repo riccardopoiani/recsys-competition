@@ -12,6 +12,11 @@ class HybridDemographicRecommender(BaseRecommender):
         self.max_user_id = 0
         super().__init__(URM_train)
 
+    def reset_groups(self):
+        self.user_group_dict = {}
+        self.group_id_list = []
+        self.recommender_group_relation = {}
+
     def _verify_user_group_list_(self, new_user_group):
         for id in self.group_id_list:
             group = self.user_group_dict[id]
@@ -29,7 +34,6 @@ class HybridDemographicRecommender(BaseRecommender):
             return False
 
         if group_id in self.recommender_group_relation.keys():
-            print("Here")
             return False
 
         return True
@@ -121,7 +125,7 @@ class HybridDemographicRecommender(BaseRecommender):
         for i, group_id in enumerate(self.group_id_list):
             scores[mask_list[i]] = scores_list[i]
 
-        return scores
+        return np.array(scores)
 
     def save_model(self, folder_path, file_name=None):
-        raise NotImplemented()
+        pass
