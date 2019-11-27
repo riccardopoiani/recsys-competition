@@ -29,24 +29,36 @@ def get_unactive_users(URM, popular_t):
 
 def get_user_demographic(UCM, URM_all, threshold_users):
     """
-    Return a list containing all ages for each user of URM_train. In case there is no age for that user, it returns -1
+    Return a list containing all demographics with only users that has profile length more than threshold_users.
+    In case there is no demographic for that user, it returns -1
      - This is useful for plotting the metric based on age demographic
 
     :param UCM: any UCM age or region
     :param URM_all: URM containing all users (warm users), basically, it is the one directly from the reader
     :param threshold_users: threshold for warm users
-    :return: a list containing all ages for each user of URM_train
+    :return: a list containing all demographics with only users that has profile length more than threshold_users
     """
-    warm_users_mask = np.ediff1d(URM_all.tocsr().indptr) > threshold_users
-    warm_users = np.arange(URM_all.shape[0])[warm_users_mask]
-
-    UCM_copy = UCM.copy()[warm_users, :].tocoo()
+    UCM_copy = get_warmer_UCM(UCM, URM_all, threshold_users)
 
     users = UCM_copy.row
     features = UCM_copy.col
     user_demographic = np.full(UCM_copy.shape[0], -1)
     user_demographic[users] = features
     return user_demographic
+
+def get_warmer_UCM(UCM, URM_all, threshold_users):
+    """
+    Return the UCM with only users that has profile length more than threshold_users
+
+    :param UCM: any UCM
+    :param URM_all: URM containing all users (warm users), basically, it is the one directly from the reader
+    :param threshold_users: threshold for warm users
+    :return: the UCM with only users that has profile length more than threshold_users
+    """
+    warm_users_mask = np.ediff1d(URM_all.tocsr().indptr) > threshold_users
+    warm_users = np.arange(URM_all.shape[0])[warm_users_mask]
+
+    return UCM.copy()[warm_users, :]
 
 def _get_unpopular(URM, popular_threshold, axis):
     items = (URM > 0).sum(axis=axis)

@@ -1,22 +1,19 @@
-import cProfile, pstats, io
+from datetime import datetime
 
 from numpy.random import seed
 
-from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
-from src.data_management.RecSys2019Reader import RecSys2019Reader
-from course_lib.Data_manager.DataSplitter_k_fold import DataSplitter_Warm_k_fold
-from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
+from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+from src.data_management.New_DataSplitter_leave_k_out import *
+from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
-from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
-import numpy as np
-
 from src.model.KNN.UserSimilarityRecommender import UserSimilarityRecommender
 
 SEED = 69420
 
 if __name__ == '__main__':
+    # Set seed in order to have same splitting of data
     seed(SEED)
 
     # Data loading
@@ -47,15 +44,22 @@ if __name__ == '__main__':
     kwargs = {'topK': 100, 'shrink': 0, 'similarity': 'cosine', 'normalize': False}
     model = UserSimilarityRecommender(URM_train, UCM_all, item_cf)
     model.fit(**kwargs)
-    pr = cProfile.Profile()
-    pr.enable()
 
-    for user in range(1000):
-        model.recommend(user, cutoff=10)
+    # Setting evaluator
+    cutoff_list = [10]
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=warm_users)
 
-    pr.disable()
-    s = io.StringIO()
-    sortby = "cumulative"
-    ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-    ps.print_stats()
-    print(s.getvalue())
+    version_path = "../../report/hp_tuning/user_similarity_rs/"
+    now = datetime.now().strftime('%b%d_%H-%M-%S')
+    now = now + "_k_out_value_3/"
+    version_path = version_path + "/" + now
+
+    result = evaluator.evaluateRecommender(model)
+    print(result)
+    """
+    run_parameter_search_hybrid(model, metric_to_optimize="MAP",
+                                      evaluator_validation=evaluator,
+                                      output_folder_path=version_path, n_cases=35)
+                                      """
+
+    print("...tuning ended")

@@ -5,6 +5,7 @@ from functools import partial
 from skopt.space import Integer, Categorical, Real
 
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
+from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 from src.model.HybridRecommender.AbstractHybridRecommender import AbstractHybridRecommender
 from src.tuning.SearchBayesianSkoptObject import SearchBayesianSkoptObject
 
@@ -33,8 +34,8 @@ def run_hybrid_rank_based_rs_on_strategy(strategy_type, parameterSearch,
 
 
 def run_parameter_search_hybrid(recommender_object: AbstractHybridRecommender, metric_to_optimize="PRECISION",
-                                      evaluator_validation=None, output_folder_path="result_experiments/",
-                                      parallelizeKNN=True, n_cases=35, n_random_starts=5):
+                                evaluator_validation=None, output_folder_path="result_experiments/",
+                                parallelizeKNN=True, n_cases=35, n_random_starts=5):
     # Create folder if it does not exist
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
@@ -58,7 +59,7 @@ def run_parameter_search_hybrid(recommender_object: AbstractHybridRecommender, m
 
     if recommender_object.RECOMMENDER_NAME == "HybridRankBasedRecommender":
 
-        strategies = ['norm_weighted_avg']#HybridRankBasedRecommender.get_possible_strategies()
+        strategies = HybridRankBasedRecommender.get_possible_strategies()
 
         run_hybrid_rank_based_rs_on_strategy_partial = partial(run_hybrid_rank_based_rs_on_strategy,
                                                                recommender_input_args=recommender_input_args,

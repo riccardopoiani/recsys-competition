@@ -3,6 +3,7 @@ from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs
 import pandas as pd
 import numpy as np
+import scipy.sparse as sps
 
 
 def load_URM(file_path, separator=",", if_new_user="add", if_new_item="add", item_original_ID_to_index=None,
@@ -162,3 +163,14 @@ def get_ICM_numerical(reader: DataReader, with_item_popularity = True):
         ICM_numerical, ICM_numerical_mapper = merge_ICM(ICM_numerical, ICM_item_pop, ICM_numerical_mapper,
                                                         ICM_item_pop_mapper)
     return ICM_numerical, ICM_numerical_mapper
+
+def merge_UCM(UCM1, UCM2, mapper_UCM1, mapper_UCM2):
+
+    UCM_all = sps.hstack([UCM1, UCM2], format='csr')
+
+    mapper_UCM_all = mapper_UCM1.copy()
+
+    for key in mapper_UCM2.keys():
+        mapper_UCM_all[key] = mapper_UCM2[key] + len(mapper_UCM1)
+
+    return  UCM_all, mapper_UCM_all

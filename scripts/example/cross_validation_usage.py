@@ -1,5 +1,5 @@
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.model_management.NewEvaluator import *
+from src.model_management.CrossEvaluator import *
 from course_lib.KNN.ItemKNNCFRecommender import *
 
 if __name__ == '__main__':

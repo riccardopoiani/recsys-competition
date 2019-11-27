@@ -47,14 +47,14 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     item_cbf_numerical_kwargs = {'feature_weighting': 'none', 'normalize': False, 'normalize_avg_row': True,
                                  'shrink': 0, 'similarity': 'euclidean', 'similarity_from_distance_mode': 'exp',
                                  'topK': 1000}
-    item_cbf_numerical = ItemKNNCBFRecommender(ICM_numerical, URM_train)
+    item_cbf_numerical = ItemKNNCBFRecommender(URM_train, ICM_numerical)
     item_cbf_numerical.fit(**item_cbf_numerical_kwargs)
     item_cbf_numerical.RECOMMENDER_NAME = "ItemCBFKNNRecommenderNumerical"
     all_models['ITEM_CBF_NUM'] = item_cbf_numerical
 
     item_cbf_categorical_kwargs = {'topK': 5, 'shrink': 1000, 'similarity': 'asymmetric', 'normalize': True,
                                    'asymmetric_alpha': 2.0, 'feature_weighting': 'BM25'}
-    item_cbf_categorical = ItemKNNCBFRecommender(ICM_categorical, URM_train)
+    item_cbf_categorical = ItemKNNCBFRecommender(URM_train, ICM_categorical)
     item_cbf_categorical.fit(**item_cbf_categorical_kwargs)
     item_cbf_categorical.RECOMMENDER_NAME = "ItemCBFKNNRecommenderCategorical"
     all_models['ITEM_CBF_CAT'] = item_cbf_categorical

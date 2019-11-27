@@ -4,7 +4,7 @@ from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.model.HybridRecommender import HybridWeightedAverageRecommender
-from src.model_management.NewEvaluator import EvaluatorCrossValidationKeepKOut
+from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from datetime import datetime
 

@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append("../..")
-
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.ParameterTuning.run_parameter_search import *
@@ -27,7 +23,7 @@ RECOMMENDER_CLASS_DICT = {
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--reader_path", default="../../data/", help="path to the root of data files")
-    parser.add_argument("-r", "--recommender_name",
+    parser.add_argument("-r", "--recommender_name", required=True,
                         help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
     parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyperparameter tuning")
     parser.add_argument("--seed", default=SEED, help="seed used in splitting the dataset")

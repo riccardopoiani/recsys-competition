@@ -1,9 +1,10 @@
+from datetime import datetime
+
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.plots.recommender_plots import basic_plots_recommender
-from datetime import datetime
-from src.model.FallbackRecommender.AdvancedTopPopular import AdvancedTopPopular
 from src.data_management.dataframe_preprocesser import get_preprocessed_dataframe
+from src.model.FallbackRecommender.AdvancedTopPopular import AdvancedTopPopular
+from src.plots.recommender_plots import basic_plots_recommender
 
 if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")

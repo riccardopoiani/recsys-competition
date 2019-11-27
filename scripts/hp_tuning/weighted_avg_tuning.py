@@ -17,6 +17,7 @@ from src.tuning.run_parameter_search_hybrid import run_parameter_search_hybrid
 
 SEED = 69420
 
+
 def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     all_models = {}
 
@@ -35,14 +36,14 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     item_cbf_numerical_kwargs = {'feature_weighting': 'none', 'normalize': False, 'normalize_avg_row': True,
                                  'shrink': 0, 'similarity': 'euclidean', 'similarity_from_distance_mode': 'exp',
                                  'topK': 1000}
-    item_cbf_numerical = ItemKNNCBFRecommender(ICM_numerical, URM_train)
+    item_cbf_numerical = ItemKNNCBFRecommender(URM_train, ICM_numerical)
     item_cbf_numerical.fit(**item_cbf_numerical_kwargs)
     item_cbf_numerical.RECOMMENDER_NAME = "ItemCBFKNNRecommenderNumerical"
     all_models['ITEM_CBF_NUM'] = item_cbf_numerical
 
     item_cbf_categorical_kwargs = {'topK': 5, 'shrink': 1000, 'similarity': 'asymmetric', 'normalize': True,
                                    'asymmetric_alpha': 2.0, 'feature_weighting': 'BM25'}
-    item_cbf_categorical = ItemKNNCBFRecommender(ICM_categorical, URM_train)
+    item_cbf_categorical = ItemKNNCBFRecommender(URM_train, ICM_categorical)
     item_cbf_categorical.fit(**item_cbf_categorical_kwargs)
     item_cbf_categorical.RECOMMENDER_NAME = "ItemCBFKNNRecommenderCategorical"
     all_models['ITEM_CBF_CAT'] = item_cbf_categorical
@@ -82,6 +83,8 @@ if __name__ == '__main__':
     # Reset seed for hyper-parameter tuning
     seed()
 
+    # TODO FIX model in such a way that it is possible to be used by passing only the class: i.e. pass a dict of models
+    # TODO in constructor
     model = HybridWeightedAverageRecommender(URM_train)
 
     all_models = _get_all_models(URM_train=URM_train, ICM_numerical=ICM_numerical,
@@ -100,7 +103,7 @@ if __name__ == '__main__':
     version_path = version_path + "/" + now
 
     run_parameter_search_hybrid(model, metric_to_optimize="MAP",
-                                      evaluator_validation=evaluator,
-                                      output_folder_path=version_path, n_cases=35)
+                                evaluator_validation=evaluator,
+                                output_folder_path=version_path, n_cases=35)
 
     print("...tuning ended")
