@@ -106,14 +106,15 @@ class PureSVD(ICollaborativeModel):
 class AdvancedTopPop(IBestModel):
     """
     Advanced Top Popular tuned with URM_train and UCM+user_profile_len
-     - MAP on tuning (only cold users): 0.0090
+     - MAP on tuning (only cold users): 0.0087
     """
-    best_parameters = {'clustering_method': 'kmodes', 'n_clusters': 8, 'init_method': 'Cao'}
+    best_parameters = {'clustering_method': 'kmodes', 'n_clusters': 45, 'init_method': 'random'}
 
-    def get_model(self, URM_train, demographic_df, original_to_train_user_id_mapper):
+    @classmethod
+    def get_model(cls, URM_train, demographic_df, original_to_train_user_id_mapper):
         model = AdvancedTopPopular(URM_train=URM_train, data=demographic_df,
                                    mapper_dict=original_to_train_user_id_mapper)
-        model.fit(**self.best_parameters)
+        model.fit(**cls.best_parameters)
         return model
 
 
@@ -126,7 +127,8 @@ class UserCBF(IBestModel):
     best_parameters = {'topK': 3285, 'shrink': 1189, 'similarity': 'cosine',
                        'normalize': False, 'feature_weighting': 'BM25'}
 
-    def get_model(self, URM_train, UCM_train):
+    @classmethod
+    def get_model(cls, URM_train, UCM_train):
         model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
-        model.fit(**self.get_best_parameters())
+        model.fit(**cls.get_best_parameters())
         return model

@@ -11,21 +11,24 @@ class IBestModel(ABC):
     best_parameters = {}
     recommender_class: BaseRecommender.__class__ = None
 
-    def get_best_parameters(self):
-        return self.best_parameters
+    @classmethod
+    def get_best_parameters(cls):
+        return cls.best_parameters
 
 
 class ICollaborativeModel(IBestModel):
 
-    def get_model(self, URM_train):
-        model = self.recommender_class(URM_train)
-        model.fit(**self.best_parameters)
+    @classmethod
+    def get_model(cls, URM_train):
+        model = cls.recommender_class(URM_train)
+        model.fit(**cls.best_parameters)
         return model
 
 
 class IContentModel(IBestModel):
 
-    def get_model(self, URM_train, ICM_train):
-        model = self.recommender_class(URM_train=URM_train, ICM_train=ICM_train)
-        model.fit(**self.best_parameters)
+    @classmethod
+    def get_model(cls, URM_train, ICM_train):
+        model = cls.recommender_class(URM_train=URM_train, ICM_train=ICM_train)
+        model.fit(**cls.best_parameters)
         return model

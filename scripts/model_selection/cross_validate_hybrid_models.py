@@ -1,11 +1,27 @@
 from datetime import datetime
 
-from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from src.model import best_models
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
+
+
+def hybrid_model_get_all_models():
+    all_models = {}
+    all_models_fit_parameters = {}
+    all_models_constructor_parameters = {}
+
+    all_models['ITEM_CF'] = ItemKNNCFRecommender
+    all_models_fit_parameters['ITEM_CF'] = best_models.ItemCF.get_best_parameters()
+    all_models_constructor_parameters['ITEM_CF'] = {}
+
+    all_models['USER_CF'] = UserKNNCFRecommender
+    all_models_fit_parameters['USER_CF'] = best_models.UserCF.get_best_parameters()
+    all_models_constructor_parameters['USER_CF'] = {}
+
+    return all_models, all_models_fit_parameters, all_models_constructor_parameters
+
 
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data
@@ -18,11 +34,12 @@ if __name__ == '__main__':
     destination_path = destination_path + "cross_valid_item_cf_" + now +".txt"
     num_folds = len(seed_list)
 
-    model_parameters = best_models.ItemCBF_CF.get_best_parameters()
+    all_models, all_models_fit, all_models_constructor = hybrid_model_get_all_models()
 
     # Setting evaluator
     evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/",  n_folds=num_folds)
-    results = evaluator.crossevaluateCBFRecommender(ItemKNNCBFRecommender, **model_parameters)
+    results = evaluator.crossevaluateHybridRecommender(HybridWeightedAverageRecommender, hybrid_kwargs, all_models,
+                                                       all_models_constructor, all_models_fit)
 
     # Writing on file cross validation results
     f = open(destination_path, "w")

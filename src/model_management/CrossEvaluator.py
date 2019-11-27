@@ -1,6 +1,7 @@
 from numpy.random import seed
 
 from course_lib.Base.Evaluation.Evaluator import Evaluator, EvaluatorHoldout
+from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.Data_manager.DataSplitter_k_fold import DataSplitter_Warm_k_fold
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
@@ -41,7 +42,8 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
         '''
         raise NotImplementedError("The method evaluateRecommender not implemented for this evaluator class")
 
-    def crossevaluateHybridRecommender(self, recommender_class, recommender_keywargs, model_list, model_list_keywargs):
+    def crossevaluateHybridRecommender(self, recommender_class, recommender_fit_parameters, models_classes_dict,
+                                       model_constructor_parameters_dict, model_fit_parameters_dict):
         results_list = []
 
         # For all the folds...
@@ -60,12 +62,12 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             print("Fitting the recommender...")
             recommender_instance = recommender_class(URM_train)
 
-            for i, model in enumerate(model_list):
-                temp_rec = model_list[i](URM_train)
-                temp_rec.fit(**model_list_keywargs[i])
-                recommender_instance.add_fitted_model(recommender_instance.RECOMMENDER_NAME, recommender_instance)
+            for model_name, model_class in models_classes_dict.items():
+                model_object = model_class(URM_train, **model_constructor_parameters_dict[model_name])
+                model_object.fit(**model_fit_parameters_dict[model_name])
+                recommender_instance.add_fitted_model(model_name, model_object)
 
-            recommender_instance.fit(**recommender_keywargs)
+            recommender_instance.fit(**recommender_fit_parameters)
 
             hold_out_validator = EvaluatorHoldout(URM_test, self.cutoff_list, exclude_seen=self.exclude_seen,
                                                   diversity_object=self.diversity_object,
@@ -80,18 +82,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             print("FOLD RESULT IS: " + str(fold_result))
 
             results_list.append(fold_result)
-
-        average_result = results_list[0]
-
-        # Averaging results
-        for key in average_result:
-            key_sum = 0
-            for i in range(1, self.n_folds):
-                key_sum += results_list[i][key]
-            average_result[key] += key_sum
-            average_result[key] /= self.n_folds
-
-        return average_result
+        return self._get_average_result(results_list, self.n_folds)
 
     def crossevaluateRecommender(self, recommender_class, **recommender_keywargs):
         '''
@@ -133,20 +124,9 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             print("FOLD RESULT IS: " + str(fold_result))
 
             results_list.append(fold_result)
+        return self._get_average_result(results_list, self.n_folds)
 
-        average_result = results_list[0]
-
-        # Averaging results
-        for key in average_result:
-            key_sum = 0
-            for i in range(1, self.n_folds):
-                key_sum += results_list[i][key]
-            average_result[key] += key_sum
-            average_result[key] /= self.n_folds
-
-        return average_result
-
-    def crossevaluateUCMRecommender(self, recommender_class, on_cold_users=False, **recommender_keywargs):
+    def crossevaluateDemographicRecommender(self, recommender_class, on_cold_users=False, **recommender_keywargs):
         '''
         Cross-evaluate the recommender class passed that uses UCMs.
 
@@ -191,8 +171,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
 
             hold_out_validator = EvaluatorHoldout(URM_test, self.cutoff_list, exclude_seen=self.exclude_seen,
                                                   diversity_object=self.diversity_object,
-                                                  ignore_items=self.ignore_items
-                                                  , ignore_users=ignore_users,
+                                                  ignore_items=self.ignore_items, ignore_users=ignore_users,
                                                   minRatingsPerUser=self.minRatingsPerUser)
 
             print("Recommender holdout...", end="")
@@ -202,18 +181,69 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             print("FOLD RESULT IS: " + str(fold_result))
 
             results_list.append(fold_result)
+        return self._get_average_result(results_list, self.n_folds)
 
+    def crossevaluateCBFRecommender(self, recommender_class, **recommender_keywargs):
+        '''
+        Cross-evaluate the recommender class passed that uses ICMs.
+
+        :param recommender_class: recommender class to recommender
+        :param on_cold_users: evaluate only on cold users if True, otherwise "self.ignore_users" does not change
+        :param recommender_keywargs: non-positional argument of the fit method for the recommender class
+        :return: dictionary containing the various metric calculated in the X-validation
+        '''
+        results_list = []
+
+        data_reader = RecSys2019Reader(self.data_path)
+        data_reader.load_data()
+
+        # For all the folds...
+        for i in range(0, self.n_folds):
+            current_seed = self.seed_list[i]
+            seed(current_seed)
+            data_reader = RecSys2019Reader(self.data_path)
+            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+                                                       force_new_split=True)
+            data_reader.load_data()
+            URM_train, URM_test = data_reader.get_holdout_split()
+            ICM_sub_class = data_reader.get_ICM_from_name("ICM_sub_class")
+            ICM_all, _ = merge_ICM(ICM_sub_class, URM_train.transpose(), {}, {})
+
+            print("Holdout number {}".format(i + 1))
+
+            # Creating recommender instance
+            print("Fitting the recommender...")
+            recommender_instance = recommender_class(URM_train, ICM_all)
+            recommender_instance.fit(**recommender_keywargs)
+
+            hold_out_validator = EvaluatorHoldout(URM_test, self.cutoff_list, exclude_seen=self.exclude_seen,
+                                                  diversity_object=self.diversity_object,
+                                                  ignore_items=self.ignore_items, ignore_users=self.ignore_users,
+                                                  minRatingsPerUser=self.minRatingsPerUser)
+
+            print("Recommender holdout...", end="")
+            fold_result = hold_out_validator.evaluateRecommender(recommender_instance)[0][self.cutoff_list[0]]
+            print("..Fold done")
+
+            print("FOLD RESULT IS: " + str(fold_result))
+
+            results_list.append(fold_result)
+        return self._get_average_result(results_list, self.n_folds)
+
+    def _get_average_result(self, results_list, n_folds):
         average_result = results_list[0]
 
         # Averaging results
         for key in average_result:
             key_sum = 0
-            for i in range(1, self.n_folds):
+            for i in range(1, n_folds):
                 key_sum += results_list[i][key]
             average_result[key] += key_sum
-            average_result[key] /= self.n_folds
+            average_result[key] /= n_folds
 
         return average_result
+
+
 
 
 class EvaluatorCrossValidation(Evaluator):

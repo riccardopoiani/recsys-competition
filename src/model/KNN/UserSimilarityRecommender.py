@@ -3,7 +3,6 @@ from course_lib.Base.Recommender_utils import check_matrix
 from course_lib.Base.BaseSimilarityMatrixRecommender import BaseSimilarityMatrixRecommender
 from course_lib.Base.IR_feature_weighting import okapi_BM_25, TF_IDF
 import numpy as np
-import scipy.sparse as sps
 
 from course_lib.Base.Similarity.Compute_Similarity import Compute_Similarity
 
@@ -56,8 +55,6 @@ class UserSimilarityRecommender(BaseSimilarityMatrixRecommender):
         self.W_sparse = self.W_sparse.tocsr()
 
         self.W_sparse = check_matrix(self.W_sparse, format='csr')
-
-
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):
         """

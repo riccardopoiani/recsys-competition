@@ -130,7 +130,7 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
         self.hybrid_strategy = self.STRATEGY_MAPPER[strategy]
 
     def recommend(self, user_id_array, cutoff=None, remove_seen_flag=True, items_to_compute=None,
-                  remove_top_pop_flag=False, remove_CustomItems_flag=False, return_scores=False):
+                  remove_top_pop_flag=False, remove_custom_items_flag=False, return_scores=False):
         """
         Recommend "number of cutoff" items to a given user_id_array
 
@@ -141,7 +141,7 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
         :param remove_seen_flag:
         :param items_to_compute:
         :param remove_top_pop_flag:
-        :param remove_CustomItems_flag:
+        :param remove_custom_items_flag:
         :param return_scores:
         :return: for each user in user_id_array, a list of recommended items
         """
@@ -165,10 +165,10 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
                                                            remove_seen_flag=remove_seen_flag,
                                                            items_to_compute=items_to_compute,
                                                            remove_top_pop_flag=remove_top_pop_flag,
-                                                           remove_CustomItems_flag=remove_CustomItems_flag,
+                                                           remove_custom_items_flag=remove_custom_items_flag,
                                                            return_scores=True)
 
-            # Fill empty rankings due to cold users TODO: optimize
+            # Fill empty rankings due to cold users
             for i in range(len(rankings)):
                 if len(rankings[i]) == 0:
                     rankings[i] = [-1]*cutoff_model
@@ -199,7 +199,6 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
         copy.models = self.models
         copy.weights = self.weights
         copy.multiplier_cutoff = self.multiplier_cutoff
-        copy.normalize = self.normalize
         return copy
 
     @classmethod

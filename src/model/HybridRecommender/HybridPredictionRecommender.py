@@ -96,11 +96,11 @@ class HybridPredictionRecommenderDebug(BaseRecommender):
         print("Done")
 
     def recommend(self, user_id_array, cutoff=None, remove_seen_flag=True, items_to_compute=None,
-                  remove_top_pop_flag=False, remove_CustomItems_flag=False, return_scores=False):
+                  remove_top_pop_flag=False, remove_custom_items_flag=False, return_scores=False):
         recommendations = []
 
         junk, scores = self.models_object[0].recommend(user_id_array, cutoff=cutoff,
-                                                       remove_CustomItems_flag=remove_CustomItems_flag,
+                                                       remove_custom_items_flag=remove_custom_items_flag,
                                                        items_to_compute=items_to_compute,
                                                        remove_top_pop_flag=remove_top_pop_flag,
                                                        return_scores=True)
@@ -111,13 +111,13 @@ class HybridPredictionRecommenderDebug(BaseRecommender):
             if return_scores:
                 recommendation_for_user = self.models_object[rec_idx].recommend(user_id_array[i],
                                                                                 cutoff=cutoff,
-                                                                                remove_CustomItems_flag=remove_CustomItems_flag,
+                                                                                remove_custom_items_flag=remove_custom_items_flag,
                                                                                 items_to_compute=items_to_compute,
                                                                                 remove_top_pop_flag=remove_top_pop_flag,
                                                                                 return_scores=False)
             else:
                 recommendation_for_user = self.models_object[rec_idx].recommend(user_id_array[i], cutoff=cutoff,
-                                                                                remove_CustomItems_flag=remove_CustomItems_flag,
+                                                                                remove_custom_items_flag=remove_custom_items_flag,
                                                                                 items_to_compute=items_to_compute,
                                                                                 remove_top_pop_flag=remove_top_pop_flag,
                                                                                 return_scores=False)

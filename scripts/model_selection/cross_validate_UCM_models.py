@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     # Setting evaluator
     evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/",  n_folds=num_folds)
-    results = evaluator.crossevaluateUCMRecommender(UserKNNCBFRecommender, on_cold_users=True, **user_cbf_kwargs)
+    results = evaluator.crossevaluateDemographicRecommender(UserKNNCBFRecommender, on_cold_users=True, **user_cbf_kwargs)
 
     # Writing on file cross validation results
     f = open(destination_path, "w")
