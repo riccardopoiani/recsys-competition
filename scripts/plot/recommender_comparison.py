@@ -5,6 +5,7 @@ from src.data_management.data_getter import get_warmer_UCM
 from src.model.FallbackRecommender.AdvancedTopPopular import AdvancedTopPopular
 from src.plots.recommender_plots import *
 from src.data_management.dataframe_preprocesser import get_preprocessed_dataframe
+from src.model import best_models
 
 if __name__ == '__main__':
     # Data reading
@@ -30,67 +31,17 @@ if __name__ == '__main__':
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
     UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
-    # Building the recommenders
-    """
-    item_cf_keywargs = {'topK': 5, 'shrink': 1000, 'similarity': 'cosine', 'normalize': True,
-                        'feature_weighting': 'TF-IDF'}
-    item_cf = ItemKNNCFRecommender(URM_train)
-    item_cf.fit(**item_cf_keywargs)
-
-    user_cf_keywargs = {'topK': 995, 'shrink': 9, 'similarity': 'cosine', 'normalize': True,
-                        'feature_weighting': 'TF-IDF'}
-    user_cf = UserKNNCFRecommender(URM_train)
-    user_cf.fit(**user_cf_keywargs)
-
-    item_cbf_numerical_kwargs = {'feature_weighting': 'none', 'normalize': False, 'normalize_avg_row': True,
-                       'shrink': 0, 'similarity': 'euclidean', 'similarity_from_distance_mode': 'exp',
-                       'topK': 1000}
-    item_cbf_numerical = ItemKNNCBFRecommender(ICM_numerical, URM_train)
-    item_cbf_numerical.fit(**item_cbf_numerical_kwargs)
-    item_cbf_numerical.RECOMMENDER_NAME = "ItemCBFKNNRecommenderNumerical"
-
-    item_cbf_categorical_kwargs = {'topK': 5, 'shrink': 1000, 'similarity': 'asymmetric', 'normalize': True,
-                                   'asymmetric_alpha': 2.0, 'feature_weighting': 'BM25'}
-    item_cbf_categorical = ItemKNNCBFRecommender(ICM_categorical, URM_train)
-    item_cbf_categorical.fit(**item_cbf_categorical_kwargs)
-    item_cbf_categorical.RECOMMENDER_NAME = "ItemCBFKNNRecommenderCategorical"
-    
-
-    p3alpha_kwargs = {'topK': 84, 'alpha': 0.6033770403001427, 'normalize_similarity': True}
-    p3alpha = P3alphaRecommender(URM_train)
-    p3alpha.fit(**p3alpha_kwargs)
-
-    rp3beta_kwargs = {'topK': 5, 'alpha': 0.37829128706576887, 'beta': 0.0, 'normalize_similarity': False}
-    rp3beta = RP3betaRecommender(URM_train)
-    rp3beta.fit(**rp3beta_kwargs)
-
-    slim_bpr_kwargs = {'topK': 5, 'epochs': 1499, 'symmetric': False, 'sgd_mode': 'adagrad',
-                       'lambda_i': 1e-05, 'lambda_j': 0.01, 'learning_rate': 0.0001}
-    slim_bpr = SLIM_BPR_Cython(URM_train)
-    slim_bpr.fit(**slim_bpr_kwargs)
-
-    pure_svd_kwargs = {'num_factors': 350}
-    pure_svd = PureSVDRecommender(URM_train)
-    pure_svd.fit(**pure_svd_kwargs)
-    """
     top_pop = TopPop(URM_train)
     top_pop.fit()
 
-    advanced_top_pop_keywargs = advanced_keywargs =  {'clustering_method': 'kmodes', 'n_clusters': 7, 'init_method': 'Cao'}
+    advanced_top_pop_keywargs =  {'clustering_method': 'kmodes', 'n_clusters': 7, 'init_method': 'Cao'}
     advanced_top_pop = AdvancedTopPopular(URM_train, df, mapper)
     advanced_top_pop.fit(**advanced_top_pop_keywargs)
 
     recommender_list = []
-    #recommender_list.append(item_cf)
-    #recommender_list.append(user_cf)
     recommender_list.append(top_pop)
     recommender_list.append(advanced_top_pop)
-    #recommender_list.append(item_cbf_numerical)
-    #recommender_list.append(item_cbf_categorical)
-    #recommender_list.append(p3alpha)
-    #recommender_list.append(rp3beta)
-    #recommender_list.append(pure_svd_kwargs)
-    #recommender_list.append(slim_bpr)
+    recommender_list.append(best_models.UserCBF().get_model(URM_train, UCM_all))
 
     # Plotting the comparison based on user activity
     #plot_compare_recommender_user_group()

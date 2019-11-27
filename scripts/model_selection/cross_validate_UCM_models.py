@@ -1,18 +1,16 @@
 from datetime import datetime
 
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.model.HybridRecommender import HybridWeightedAverageRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
-import numpy as np
 
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data
-    seed_list = [1247, 8246, 2346, 1535]
+    seed_list = [1247, 8246, 2346, 1535, 3455]
 
     # Parameters
-    user_cbf_kwargs = {'topK': 1905, 'shrink': 94, 'similarity': 'asymmetric', 'normalize': True,
-                       'asymmetric_alpha': 0.02596255855430441, 'feature_weighting': 'TF-IDF'}
+    user_cbf_kwargs = {'topK': 3285, 'shrink': 1189, 'similarity': 'cosine',
+                       'normalize': False, 'feature_weighting': 'BM25'}
 
     destination_path = "../../report/cross_validation/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')

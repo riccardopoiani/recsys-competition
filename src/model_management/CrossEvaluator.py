@@ -178,7 +178,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
 
             ignore_users = self.ignore_users
             if on_cold_users:
-                warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
+                warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 0
                 warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
                 ignore_users = warm_users
 

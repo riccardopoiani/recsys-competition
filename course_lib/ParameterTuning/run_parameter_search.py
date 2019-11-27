@@ -448,7 +448,7 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_las
         if recommender_class is PureSVDRecommender:
 
             hyperparameters_range_dictionary = {}
-            hyperparameters_range_dictionary["num_factors"] = Integer(1, 350)
+            hyperparameters_range_dictionary["num_factors"] = Integer(1, 1000)
 
             recommender_input_args = SearchInputRecommenderArgs(
                 CONSTRUCTOR_POSITIONAL_ARGS = [URM_train],

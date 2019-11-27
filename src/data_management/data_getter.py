@@ -38,7 +38,7 @@ def get_user_demographic(UCM, URM_all, threshold_users):
     :param threshold_users: threshold for warm users
     :return: a list containing all demographics with only users that has profile length more than threshold_users
     """
-    UCM_copy = get_warmer_UCM(UCM, URM_all, threshold_users)
+    UCM_copy = get_warmer_UCM(UCM, URM_all, threshold_users).tocoo()
 
     users = UCM_copy.row
     features = UCM_copy.col

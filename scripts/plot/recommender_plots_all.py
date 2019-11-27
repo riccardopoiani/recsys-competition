@@ -3,11 +3,9 @@ from datetime import datetime
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
-from src.data_management.data_getter import get_warmer_UCM
+from src.data_management.data_getter import get_warmer_UCM, get_user_demographic
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.plots.recommender_plots import basic_plots_recommender
-
-
 
 if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")
@@ -35,6 +33,12 @@ if __name__ == '__main__':
     version_path = version_path + "/" + now
 
     # Plots
+    demographic_age = get_user_demographic(UCM_age, URM_all, 3)
+    demographic_region = get_user_demographic(UCM_region, URM_all, 3)
+    demographic_list = [demographic_age, demographic_region]
+    demographic_list_name = ['age', 'region']
+
     basic_plots_recommender(model, URM_train, URM_test, output_path_folder=version_path, save_on_file=True,
                             compare_top_pop_points=None,
-                            is_compare_top_pop=True, demographic_list=None, demographic_list_name=None)
+                            is_compare_top_pop=True, demographic_list=demographic_list,
+                            demographic_list_name=demographic_list_name)

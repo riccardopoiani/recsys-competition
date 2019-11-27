@@ -1,14 +1,15 @@
+import argparse
+from datetime import datetime
+
+from numpy.random import seed
+
+from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
-from src.data_management.RecSys2019Reader import RecSys2019Reader
-from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.ParameterTuning.run_parameter_search import *
 from src.data_management.New_DataSplitter_leave_k_out import *
-from datetime import datetime
-from numpy.random import seed
-import argparse
-
+from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
+from src.tuning.run_parameter_search_item_content import run_parameter_search_item_content
 
 SEED = 69420
 N_CASES = 35
@@ -71,14 +72,14 @@ def main():
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
 
-    runParameterSearch_Content(URM_train=URM_train, ICM_object=ICM, ICM_name=ICM_name,
-                               recommender_class=ItemKNNCBFRecommender,
-                               evaluator_validation=evaluator,
-                               metric_to_optimize="MAP",
-                               output_folder_path=version_path,
-                               similarity_type_list=similarity_type_list,
-                               parallelizeKNN=True,
-                               n_cases=args.n_cases)
+    run_parameter_search_item_content(URM_train=URM_train, ICM_object=ICM, ICM_name=ICM_name,
+                                      recommender_class=ItemKNNCBFRecommender,
+                                      evaluator_validation=evaluator,
+                                      metric_to_optimize="MAP",
+                                      output_folder_path=version_path,
+                                      similarity_type_list=similarity_type_list,
+                                      parallelizeKNN=True,
+                                      n_cases=args.n_cases)
     print("...tuning ended")
 
 
