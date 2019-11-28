@@ -1,19 +1,62 @@
 import numpy as np
 import scipy.sparse as sps
 import pandas as pd
+
+from src.data_management.data_getter import get_warmer_UCM
 from src.feature.clustering_utils import cluster_data
+
 
 def get_sub_class_demographic():
     raise NotImplemented()
 
+
 def get_asset_demographic():
     raise NotImplemented()
 
-def get_price_demographic(URM_train, ICM):
+
+def get_price_demographic():
     raise NotImplemented()
+
 
 def get_clustering_item_demographic():
     raise NotImplemented()
+
+
+def get_item_popularity_demographic():
+    raise NotImplemented()
+
+
+def get_user_demographic(UCM, URM_all, threshold_users, binned=False):
+    """
+    Return a list containing all demographics with only users that has profile length more than threshold_users.
+    In case there is no demographic for that user, it returns -1
+     - This is useful for plotting the metric based on age demographic
+
+    :param UCM: any UCM age or region
+    :param URM_all: URM containing all users (warm users), basically, it is the one directly from the reader
+    :param threshold_users: threshold for warm users
+    :param binned: true if you want to obtain these demographics in an already grouped way. In which, in each
+    list, we have users from the same region/age/etc., and so on. The number of bins is determined automatically,
+    since the possible features present (region/age) are already discretized)
+    :return: a list containing all demographics with only users that has profile length more than threshold_users
+    """
+    UCM_copy = get_warmer_UCM(UCM, URM_all, threshold_users).tocoo()
+
+    users = UCM_copy.row
+    features = UCM_copy.col
+    user_demographic = np.full(UCM_copy.shape[0], -1)
+    user_demographic[users] = features
+
+    if binned:
+        max = np.max(user_demographic)
+        min = np.min(user_demographic)
+        result = []
+        for i in range(min, max+1):
+            result.append(np.where(user_demographic == i)[0])
+        user_demographic = result
+
+    return user_demographic
+
 
 def get_clustering_user_demographic(dataframe: pd.DataFrame, bins, n_init, init_method="Huang", seed=69420):
     """
@@ -34,6 +77,7 @@ def get_clustering_user_demographic(dataframe: pd.DataFrame, bins, n_init, init_
 
     return clusters, cluster_id_list
 
+
 def get_user_profile_demographic(URM_train, bins):
     """
     Return the user profiles demographic of the URM_train given, splitting equally the bins.
@@ -45,9 +89,9 @@ def get_user_profile_demographic(URM_train, bins):
     """
     # Building user profiles groups
     URM_train = sps.csr_matrix(URM_train)
-    profile_length = np.ediff1d(URM_train.indptr) # Getting the profile length for each user
-    sorted_users = np.argsort(profile_length) # Arg-sorting the user on the basis of their profiles len
-    block_size = int(len(profile_length) * (1/bins)) # Calculating the block size, given the desired number of bins
+    profile_length = np.ediff1d(URM_train.indptr)  # Getting the profile length for each user
+    sorted_users = np.argsort(profile_length)  # Arg-sorting the user on the basis of their profiles len
+    block_size = int(len(profile_length) * (1 / bins))  # Calculating the block size, given the desired number of bins
 
     group_mean_len = []
 
