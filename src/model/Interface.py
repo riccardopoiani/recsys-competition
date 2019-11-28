@@ -15,6 +15,10 @@ class IBestModel(ABC):
     def get_best_parameters(cls):
         return cls.best_parameters
 
+    @classmethod
+    def get_model(cls, *args, **kwargs):
+        raise NotImplementedError("get_model is not implemented for this class")
+
 
 class ICollaborativeModel(IBestModel):
 
