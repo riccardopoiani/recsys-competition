@@ -6,6 +6,7 @@ from course_lib.Base.Evaluation.Evaluator import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
+from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
 from src.tuning.run_parameter_search_collaborative import run_parameter_search_collaborative
 
 SEED = 69420
@@ -34,21 +35,16 @@ if __name__ == '__main__':
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-    version_path = "../../report/hp_tuning/ials/"
+    version_path = "../../report/hp_tuning/mf_bpr/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
 
-    model = ImplicitALSRecommender(URM_train)
-    model.fit(epochs=50, num_factors=1000, regularization=8)
-    print(evaluator.evaluateRecommender(model))
-
-    """
     run_parameter_search_collaborative(URM_train=URM_train,
-                                       recommender_class=ImplicitALSRecommender,
+                                       recommender_class=MF_BPR_Recommender,
                                        evaluator_validation=evaluator,
                                        metric_to_optimize="MAP",
                                        output_folder_path=version_path,
-                                       n_cases=60, n_random_starts=10, save_model="no")
-    """
+                                       n_cases=35, n_random_starts=5, save_model="no")
+
     print("...tuning ended")

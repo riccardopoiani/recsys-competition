@@ -109,6 +109,16 @@ class PureSVD(ICollaborativeModel):
     recommender_class = PureSVDRecommender
 
 
+class IALS(ICollaborativeModel):
+    """
+    IALS recommender
+     - MAP (only warm): 0.029
+    """
+    from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
+    best_parameters = {'epochs':100 ,'num_factors': 1000, 'regularization': 8}
+    recommender_class = ImplicitALSRecommender
+
+
 # ---------------- DEMOGRAPHIC FILTERING -----------------
 class AdvancedTopPop(IBestModel):
     """

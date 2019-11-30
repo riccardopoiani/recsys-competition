@@ -7,6 +7,8 @@ from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 import os
 
+from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
+
 
 def run_parameter_search_collaborative(recommender_class, URM_train, URM_train_last_test=None,
                                      metric_to_optimize="PRECISION",
@@ -39,17 +41,24 @@ def run_parameter_search_collaborative(recommender_class, URM_train, URM_train_l
         parameterSearch = SearchBayesianSkopt(recommender_class, evaluator_validation=evaluator_validation,
                                               evaluator_test=evaluator_test)
 
-        if recommender_class is ImplicitALSRecommender:
-            hyperparameters_range_dictionary = {}
-            hyperparameters_range_dictionary["num_factors"] = Integer(10, 400)
-            hyperparameters_range_dictionary["regularization"] = Real(low=1e-3, high=1e2, prior='log-uniform')
+        recommender_input_args = SearchInputRecommenderArgs(
+            CONSTRUCTOR_POSITIONAL_ARGS=[URM_train],
+            CONSTRUCTOR_KEYWORD_ARGS={},
+            FIT_POSITIONAL_ARGS=[],
+            FIT_KEYWORD_ARGS={}
+        )
+        hyperparameters_range_dictionary = {}
 
-            recommender_input_args = SearchInputRecommenderArgs(
-                CONSTRUCTOR_POSITIONAL_ARGS=[URM_train],
-                CONSTRUCTOR_KEYWORD_ARGS={},
-                FIT_POSITIONAL_ARGS=[],
-                FIT_KEYWORD_ARGS={"epochs": 50}
-            )
+        if recommender_class is ImplicitALSRecommender:
+            hyperparameters_range_dictionary["num_factors"] = Integer(600, 1000)
+            hyperparameters_range_dictionary["regularization"] = Real(low=1e0, high=1e2, prior='log-uniform')
+            hyperparameters_range_dictionary["epochs"] = Categorical([50])
+            
+        if recommender_class is MF_BPR_Recommender:
+            hyperparameters_range_dictionary["num_factors"] = Categorical([600])
+            hyperparameters_range_dictionary["regularization"] = Real(low=1e-4, high=1e-1, prior='log-uniform')
+            hyperparameters_range_dictionary["learning_rate"] = Real(low=1e-2, high=1e-1, prior='log-uniform')
+            hyperparameters_range_dictionary["epochs"] = Categorical([300])
 
         if URM_train_last_test is not None:
             recommender_input_args_last_test = recommender_input_args.copy()
