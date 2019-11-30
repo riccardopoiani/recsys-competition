@@ -8,7 +8,7 @@ from course_lib.Base.Similarity.Compute_Similarity import Compute_Similarity
 
 
 class UserSimilarityRecommender(BaseSimilarityMatrixRecommender):
-    """ UserKNN recommender"""
+    """ UserKNN Similarity Recommender"""
 
     RECOMMENDER_NAME = "UserSimilarityRecommender"
 

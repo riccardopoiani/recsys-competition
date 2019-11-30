@@ -16,7 +16,11 @@ RECOMMENDER_CLASS_DICT = {
     "slim_bpr": SLIM_BPR_Cython,
     "p3alpha": P3alphaRecommender,
     "pure_svd": PureSVDRecommender,
-    "rp3beta": RP3betaRecommender
+    "rp3beta": RP3betaRecommender,
+    "asy_svd": MatrixFactorization_AsySVD_Cython,
+    "nmf": NMFRecommender,
+    "slim_elastic": SLIMElasticNetRecommender,
+    "ials": IALSRecommender
 }
 
 
@@ -48,8 +52,10 @@ def main():
     seed()
 
     # Setting evaluator
+    cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
+    cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
     # HP tuning
     print("Start tuning...")

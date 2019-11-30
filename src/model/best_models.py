@@ -5,7 +5,8 @@ from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
 class ItemCBF_CF(IContentModel):
     """
     Item CBF_CF tuned with URM_train and ICM (containing sub_class and URM_train)
-     - MAP on tuning: 0.0273
+     - MAP (all users): 0.0273
+     - MAP (only warm): 0.03498
     """
     from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 
@@ -17,7 +18,8 @@ class ItemCBF_CF(IContentModel):
 class ItemCBF_numerical(IContentModel):
     """
     Item CBF tuned with URM_train and ICM_numerical (containing price, asset and item popularity)
-     - MAP on tuning: 0.002
+     - MAP (all users): 0.002
+     - MAP (only warm): 0.00258
     """
     from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 
@@ -30,7 +32,8 @@ class ItemCBF_numerical(IContentModel):
 class ItemCBF_categorical(IContentModel):
     """
     Item CBF tuned with URM_train and ICM_categorical (containing sub_class)
-     - MAP on tuning: 0.0041
+     - MAP (all users): 0.0041
+     - MAP (only warm): 0.00528
     """
     from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 
@@ -43,7 +46,8 @@ class ItemCBF_categorical(IContentModel):
 class ItemCF(ICollaborativeModel):
     """
     Item CF tuned with URM_train
-     - MAP on tuning: about 0.0262
+     - MAP (all users): about 0.0262
+     - MAP (only warm): 0.03357
     """
     from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 
@@ -55,7 +59,8 @@ class ItemCF(ICollaborativeModel):
 class UserCF(ICollaborativeModel):
     """
     User CF tuned with URM_train
-     - MAP on tuning: about 0.019
+     - MAP (all users): about 0.019
+     - MAP (only warm): 0.02531
     """
     from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 
@@ -67,7 +72,8 @@ class UserCF(ICollaborativeModel):
 class P3Alpha(ICollaborativeModel):
     """
     P3Alpha recommender tuned with URM_train
-     - MAP on tuning: 0.0247
+     - MAP (all users): 0.0247
+     - MAP (only warm): 0.031678
     """
     from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 
@@ -78,7 +84,8 @@ class P3Alpha(ICollaborativeModel):
 class RP3Beta(ICollaborativeModel):
     """
     RP3Beta recommender tuned with URM_train
-     - MAP on tuning: 0.0241
+     - MAP (all users): 0.0241
+     - MAP (only warm): 0.03093
     """
     from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 
@@ -90,7 +97,8 @@ class SLIM_BPR(ICollaborativeModel):
     """
     SLIM_BPR recommender tuned with URM_train
      - There is still need to be tuned better
-     - MAP on tuning: 0.0217
+     - MAP (all users): 0.0217
+     - MAP (only warm): 0.027958
     """
     from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 
@@ -102,7 +110,8 @@ class SLIM_BPR(ICollaborativeModel):
 class PureSVD(ICollaborativeModel):
     """
     PureSVD recommender tuned with URM_train
-    - MAP on tuning: 0.0147
+     - MAP (all users): 0.0147
+     - MAP (only warm): 0.0187
     """
     from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
     best_parameters = {'num_factors': 376}
@@ -146,8 +155,10 @@ class UserCBF(IBestModel):
 
 class HybridWeightedAvgSubmission1(IBestModel):
     """
-    Hybrid Weighted Average with TopPop Fallback, done for the first submission of Kaggle competition
-     - MAP on tuning (w/o TopPop Fallback): 0.0272
+    Hybrid Weighted Average without TopPop Fallback
+    (done for the first submission of Kaggle competition with TopPop Fallback)
+     - MAP (all users): 0.0272
+     - MAP (only warm): 0.03481
     """
 
     best_parameters = {'ITEM_CF': 0.969586046573504, 'USER_CF': 0.943330450168123,
@@ -168,7 +179,7 @@ class HybridWeightedAvgSubmission1(IBestModel):
     @classmethod
     def get_model(cls, URM_train, ICM_numerical, ICM_categorical):
         from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
-        model = HybridWeightedAverageRecommender(URM_train=URM_train)
+        model = HybridWeightedAverageRecommender(URM_train=URM_train, normalize=True)
         all_models = cls._get_all_models(URM_train=URM_train, ICM_numerical=ICM_numerical,
                                          ICM_categorical=ICM_categorical)
         for model_name, model_object in all_models.items():
