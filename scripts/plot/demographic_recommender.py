@@ -1,7 +1,7 @@
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.feature.demographics import get_user_profile_demographic
+from src.feature.demographics_content import get_profile_demographic
 from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
 from src.plots.recommender_plots import basic_plots_recommender
 from course_lib.Base.NonPersonalizedRecommender import TopPop
@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     # Getting the profile
     bins = 10
-    block_size, profile_length, sorted_users, group_mean_len = get_user_profile_demographic(URM_train, 10)
+    block_size, profile_length, sorted_users, group_mean_len = get_profile_demographic(URM_train, 10)
 
     hybrid = HybridDemographicRecommender(URM_train)
     for group_id in range(0, bins):

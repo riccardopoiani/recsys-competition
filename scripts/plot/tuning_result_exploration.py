@@ -1,4 +1,4 @@
-from src.feature.demographics import get_user_demographic
+from src.feature.demographics_content import get_user_demographic
 from src.plots.recommender_plots import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.New_DataSplitter_leave_k_out import *
