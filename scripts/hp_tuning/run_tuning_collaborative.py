@@ -16,7 +16,11 @@ RECOMMENDER_CLASS_DICT = {
     "slim_bpr": SLIM_BPR_Cython,
     "p3alpha": P3alphaRecommender,
     "pure_svd": PureSVDRecommender,
-    "rp3beta": RP3betaRecommender
+    "rp3beta": RP3betaRecommender,
+    "asy_svd": MatrixFactorization_AsySVD_Cython,
+    "nmf": NMFRecommender,
+    "slim_elastic": SLIMElasticNetRecommender,
+    "ials": IALSRecommender
 }
 
 
@@ -50,6 +54,7 @@ def main():
     seed()
 
     # Setting evaluator
+
     exclude_cold_users = args.exclude_users
     exclude_cold_items = args.exclude_items
     if exclude_cold_users:
@@ -69,7 +74,6 @@ def main():
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users,
                                  ignore_items=ignore_items)
-
     # HP tuning
     print("Start tuning...")
     version_path = "../../report/hp_tuning/{}/".format(args.recommender_name)
