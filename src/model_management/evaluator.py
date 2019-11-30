@@ -5,6 +5,53 @@ import pandas as pd
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 
 
+def evaluate_recommender_by_item_content(recommender_object: BaseRecommender, URM_train, URM_test,
+                                         cutoff: int, content: list, metric="MAP", exclude_cold_items=False):
+    """
+    Evaluate the recommender object, computing a metric score of the given recommender in terms of some item
+    content
+
+    :param recommender_object: object to be analyzed
+    :param URM_train:
+    :param URM_test:
+    :param cutoff:
+    :param content: list of list. In each list, you have the users of the group.
+    The MAP will be evaluated on these groups
+    :param metric: metric to be considered
+    :param exclude_cold_items: if cold items should be excluded from the plot
+    :return: desired metric for each group, number of items present in the URM_test for each group
+    """
+    # Evaluate each group
+    total_items = np.arange(URM_train.shape[1])
+
+    result_per_group = []
+    number_of_items_in_URM_test_per_group = []
+    total_num_ratings_in_test = URM_test.getnnz()
+
+    for group in content:
+        mask_items_of_others_groups = np.logical_not(np.in1d(total_items, group))
+        items_of_others_groups = total_items[mask_items_of_others_groups]
+
+        if exclude_cold_items:
+            cold_items_mask = np.ediff1d(URM_train.tocsc().indptr) == 0
+            cold_items = total_items[cold_items_mask]
+
+            # Mixing the two array
+            items_to_keep_out = np.concatenate((cold_items, items_of_others_groups))
+            items_to_keep_out = np.unique(items_to_keep_out)
+        else:
+            items_to_keep_out = items_of_others_groups
+
+        num_ratings_removed_in_test = URM_test[:, items_to_keep_out].getnnz()
+        number_of_items_in_URM_test_per_group.append(total_num_ratings_in_test - num_ratings_removed_in_test)
+
+        evaluator = EvaluatorHoldout(URM_test, cutoff_list=[cutoff], ignore_items=items_to_keep_out)
+        results = evaluator.evaluateRecommender(recommender_object)
+        result_per_group.append(results[0][cutoff][metric])
+
+    return result_per_group, number_of_items_in_URM_test_per_group
+
+
 def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM_train: sps.csr_matrix,
                                         URM_test: sps.csr_matrix, cutoff: int, demographic: list, metric="MAP",
                                         exclude_cold_users=False):
@@ -20,12 +67,14 @@ def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM
     groups
     :param metric: metric to be considered
     :param exclude_cold_users: if cold users should be excluded from the plot
-    :return: desired metric for each group
+    :return: desired metric for each group, and support for the metric
     """
     # Evaluate each group
     total_users = np.arange(URM_train.shape[0])
 
     result_per_group = []
+    number_of_items_in_URM_test_per_group = []
+    total_num_ratings_in_test = URM_test.getnnz()
 
     for group in demographic:
         mask_users_of_others_groups = np.logical_not(np.in1d(total_users, group))
@@ -41,12 +90,14 @@ def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM
         else:
             users_to_keep_out = users_of_others_groups
 
+        num_ratings_removed_in_test = URM_test[users_to_keep_out].getnnz()
+        number_of_items_in_URM_test_per_group.append(total_num_ratings_in_test - num_ratings_removed_in_test)
+
         evaluator = EvaluatorHoldout(URM_test, cutoff_list=[cutoff], ignore_users=users_to_keep_out)
         results = evaluator.evaluateRecommender(recommender_object)
         result_per_group.append(results[0][cutoff][metric])
 
-    return result_per_group
-
+    return result_per_group, number_of_items_in_URM_test_per_group
 
 
 @DeprecationWarning

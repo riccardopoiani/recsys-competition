@@ -22,15 +22,13 @@ def get_clustering_item_demographic():
     raise NotImplemented()
 
 
-def get_item_popularity_demographic():
-    raise NotImplemented()
-
-
 def get_user_demographic(UCM, URM_all, threshold_users, binned=False):
     """
     Return a list containing all demographics with only users that has profile length more than threshold_users.
     In case there is no demographic for that user, it returns -1
      - This is useful for plotting the metric based on age demographic
+
+     So, we can call this for the purpose of getting user demographic of age and region.
 
     :param UCM: any UCM age or region
     :param URM_all: URM containing all users (warm users), basically, it is the one directly from the reader
@@ -51,7 +49,7 @@ def get_user_demographic(UCM, URM_all, threshold_users, binned=False):
         max = np.max(user_demographic)
         min = np.min(user_demographic)
         result = []
-        for i in range(min, max+1):
+        for i in range(min, max + 1):
             result.append(np.where(user_demographic == i)[0])
         user_demographic = result
 
@@ -78,19 +76,57 @@ def get_clustering_user_demographic(dataframe: pd.DataFrame, bins, n_init, init_
     return clusters, cluster_id_list
 
 
-def get_user_profile_demographic(URM_train, bins):
+def get_profile_demographic_wrapper(URM_train, bins, users=True):
+    """
+    Wrapper to be called if you wish to
+
+    :param URM_train:
+    :param bins: number of bins
+    :param users: true if profile len of users is considered, false for item popularity
+    :return: list of list: in each list, users/items in that cluster are present. Moreover,
+    it also returns a list containing the identifiers of each group
+    """
+    block_size, profile_length, sorted_elems, group_mean_len = get_profile_demographic(URM_train, bins, users)
+
+    clusters = []
+
+    for group_id in range(0, bins):
+        start_pos = group_id * block_size
+        if group_id < bins - 1:
+            end_pos = min((group_id + 1) * block_size, len(profile_length))
+        else:
+            end_pos = len(profile_length)
+        elems_in_group = sorted_elems[start_pos:end_pos]
+        elems_in_group_p_len = profile_length[elems_in_group]
+
+        group_mean_len.append(int(elems_in_group_p_len.mean()))
+
+        print("Group {}, average p.len {:.2f}, min {}, max {}".format(group_id,
+                                                                      elems_in_group_p_len.mean(),
+                                                                      elems_in_group_p_len.min(),
+                                                                      elems_in_group_p_len.max()))
+
+        clusters.append(elems_in_group)
+    return clusters, group_mean_len
+
+
+def get_profile_demographic(URM_train, bins, users=True):
     """
     Return the user profiles demographic of the URM_train given, splitting equally the bins.
 
     :param URM_train: URM used for training the given recommender
     :param bins: number of bins
+    :param users: true if profile len of users is returned, false for items
     :return: user profile demographics described as a tuple containing (size of the block, profile lengths,
     user sorted by the the profile length, mean of each group
     """
     # Building user profiles groups
-    URM_train = sps.csr_matrix(URM_train)
-    profile_length = np.ediff1d(URM_train.indptr)  # Getting the profile length for each user
-    sorted_users = np.argsort(profile_length)  # Arg-sorting the user on the basis of their profiles len
+    if users:
+        URM_train = sps.csr_matrix(URM_train).copy()
+    else:
+        URM_train = sps.csc_matrix(URM_train).copy()
+    profile_length = np.ediff1d(URM_train.indptr)  # Getting the profile length for each element
+    sorted_elems = np.argsort(profile_length)  # Arg-sorting the elems on the basis of their profiles len
     block_size = int(len(profile_length) * (1 / bins))  # Calculating the block size, given the desired number of bins
 
     group_mean_len = []
@@ -102,15 +138,15 @@ def get_user_profile_demographic(URM_train, bins):
             end_pos = min((group_id + 1) * block_size, len(profile_length))
         else:
             end_pos = len(profile_length)
-        users_in_group = sorted_users[start_pos:end_pos]
+        elems_in_group = sorted_elems[start_pos:end_pos]
 
-        users_in_group_p_len = profile_length[users_in_group]
+        elems_in_group_p_len = profile_length[elems_in_group]
 
-        group_mean_len.append(int(users_in_group_p_len.mean()))
+        group_mean_len.append(int(elems_in_group_p_len.mean()))
 
         print("Group {}, average p.len {:.2f}, min {}, max {}".format(group_id,
-                                                                      users_in_group_p_len.mean(),
-                                                                      users_in_group_p_len.min(),
-                                                                      users_in_group_p_len.max()))
+                                                                      elems_in_group_p_len.mean(),
+                                                                      elems_in_group_p_len.min(),
+                                                                      elems_in_group_p_len.max()))
 
-    return block_size, profile_length, sorted_users, group_mean_len
+    return block_size, profile_length, sorted_elems, group_mean_len

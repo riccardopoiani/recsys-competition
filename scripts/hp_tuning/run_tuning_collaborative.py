@@ -16,7 +16,11 @@ RECOMMENDER_CLASS_DICT = {
     "slim_bpr": SLIM_BPR_Cython,
     "p3alpha": P3alphaRecommender,
     "pure_svd": PureSVDRecommender,
-    "rp3beta": RP3betaRecommender
+    "rp3beta": RP3betaRecommender,
+    "asy_svd": MatrixFactorization_AsySVD_Cython,
+    "nmf": NMFRecommender,
+    "slim_elastic": SLIMElasticNetRecommender,
+    "ials": IALSRecommender
 }
 
 
@@ -27,6 +31,8 @@ def get_arguments():
                         help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
     parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyperparameter tuning")
     parser.add_argument("--seed", default=SEED, help="seed used in splitting the dataset")
+    parser.add_argument("-eu", "--exclude_users", default=False, help="1 to exclude cold users, 0 otherwise")
+    parser.add_argument("-ei", "--exclude_items", default=False, help="1 to exclude cold itemrs, 0 otherwise")
 
     return parser.parse_args()
 
@@ -48,9 +54,26 @@ def main():
     seed()
 
     # Setting evaluator
-    cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list)
 
+    exclude_cold_users = args.exclude_users
+    exclude_cold_items = args.exclude_items
+    if exclude_cold_users:
+        print("Excluding cold users...")
+        cold_user_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
+        ignore_users = np.arange(URM_train.shape[0])[cold_user_mask]
+    else:
+        ignore_users = None
+
+    if exclude_cold_items:
+        print("Excluding cold items...")
+        cold_items_mask = np.ediff1d(URM_train.tocsc().indptr) == 0
+        ignore_items = np.arange(URM_train.shape[1])[cold_items_mask]
+    else:
+        ignore_items = None
+
+    cutoff_list = [10]
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users,
+                                 ignore_items=ignore_items)
     # HP tuning
     print("Start tuning...")
     version_path = "../../report/hp_tuning/{}/".format(args.recommender_name)

@@ -1,4 +1,4 @@
-from src.feature.demographics import get_user_profile_demographic
+from src.feature.demographics_content import get_profile_demographic
 from src.model_management.model_result_reader import *
 from src.plots.plot_evaluation_helper import *
 from src.model_management.evaluator import *
@@ -17,9 +17,12 @@ def plot_clustering_demographics(recommender_instance_list: list, URM_train, URM
     """
     Wrapper to plot all the available demographics.
 
-    :param recommender_name_list:
-    :param dataframe:
-    :param cutoff:
+    :param n_init: number of init of the cluster method
+    :param init_method: init method for the clustering alg.
+    :param n_clusters: number of clasters
+    :param recommender_name_list: name of all the recommenders in the list
+    :param dataframe: dataframe contained mixed info of UCM + profile lens
+    :param cutoff: cutoff at which groups will be evaluated
     :param demographic_name: name of the demographics
     :param recommender_instance_list: list of recommenders
     :param URM_train: URM train on which recommenders are trained
@@ -28,7 +31,7 @@ def plot_clustering_demographics(recommender_instance_list: list, URM_train, URM
     :param save_on_file: if you wish to save on file or not
     :param output_folder_path: output path of the picture. If you wish to save it
     :param exclude_cold_users: if cold users should be excluded from the plot
-    :return:
+    :return: None
     """
     # Clustering demographics
     clusters = cluster_data(data=dataframe, n_clusters=n_clusters, n_init=n_init, init_method=init_method)
@@ -36,7 +39,72 @@ def plot_clustering_demographics(recommender_instance_list: list, URM_train, URM
     demographic_plot(recommender_instance_list, URM_train=URM_train, URM_test=URM_test, cutoff=cutoff,
                      recommender_name_list=recommender_name_list,
                      metric=metric, demographic_name=demographic_name, demographic=clusters, save_on_file=save_on_file,
-                     output_folder_path=output_folder_path, demographic_describer_list=cluster_id_list)
+                     output_folder_path=output_folder_path, demographic_describer_list=cluster_id_list,
+                     exclude_cold_users=exclude_cold_users)
+
+
+def content_plot(recommender_instance_list, URM_train, URM_test, cutoff, metric,
+                 content_describer_list: list, content: list, content_name: str, save_on_file=True,
+                 output_folder_path="", recommender_name_list=None, exclude_cold_items=False):
+    """
+    Same thing of demographic plot, but for item contents
+    """
+    # Initial check on the names of the recommenders
+    if recommender_name_list is None:
+        recommender_name_list = []
+        for recommender in recommender_instance_list:
+            if recommender.RECOMMENDER_NAME not in recommender_name_list:
+                recommender_name_list.append(recommender.RECOMMENDER_NAME)
+            else:
+                raise RuntimeError("Recommender names should be unique. Provide a list of names")
+    else:
+        if len(recommender_name_list) != len(recommender_instance_list):
+            raise RuntimeError("Recommender name list and recommender list must have the same size")
+
+    # Recommendation plot
+    plt.figure()
+    bins = len(content)
+    for i, recommender in enumerate(recommender_instance_list):
+        results, support = evaluate_recommender_by_item_content(recommender_object=recommender, URM_train=URM_train,
+                                                                URM_test=URM_test, cutoff=cutoff, metric=metric,
+                                                                content=content, exclude_cold_items=exclude_cold_items)
+        plt.plot(results, label=recommender_name_list[i])
+
+    plt.title("Results of {}, accordingly to {}".format(metric, content_name))
+    plt.xticks(np.arange(bins), content_describer_list)
+    plt.ylabel(metric)
+    plt.xlabel(content_name)
+    plt.legend()
+
+    # Eventually save on file
+    if save_on_file:
+        now = datetime.now().strftime('%b%d_%H-%M-%S')
+        fig = plt.gcf()
+        fig.show()
+        if len(recommender_instance_list) == 1:
+            output_path_file = output_folder_path + "_" + content_name + "_" + now + ".png"
+        else:
+            output_path_file = output_folder_path + "_" + content_name + "_comparison_" + now + ".png"
+        fig.savefig(output_path_file)
+        print("Save on file")
+
+    # Support plot
+    plt.figure()
+    plt.title("Support picture")
+    plt.plot(support)
+    plt.xticks(np.arange(bins), content_describer_list)
+    plt.ylabel("Number or interactions in the URM_test, escluding those items")
+    plt.xlabel("Group id")
+    if save_on_file:
+        now = datetime.now().strftime('%b%d_%H-%M-%S')
+        fig = plt.gcf()
+        fig.show()
+        if len(recommender_instance_list) == 1:
+            output_path_file = output_folder_path + "_" + content_name + "_" + now + ".png"
+        else:
+            output_path_file = output_folder_path + "_" + content_name + "_comparison_support_" + now + ".png"
+        fig.savefig(output_path_file)
+        print("Save on file")
 
 
 def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, metric,
@@ -74,12 +142,11 @@ def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, met
         if len(recommender_name_list) != len(recommender_instance_list):
             raise RuntimeError("Recommender name list and recommender list must have the same size")
 
-
     plt.figure()
     bins = len(demographic)
 
     for i, recommender in enumerate(recommender_instance_list):
-        results = evaluate_recommender_by_demographic(recommender_object=recommender, URM_train=URM_train,
+        results, support = evaluate_recommender_by_demographic(recommender_object=recommender, URM_train=URM_train,
                                                       URM_test=URM_test, cutoff=cutoff, metric=metric,
                                                       demographic=demographic, exclude_cold_users=exclude_cold_users)
         plt.plot(results, label=recommender_name_list[i])
@@ -99,6 +166,24 @@ def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, met
             output_path_file = output_folder_path + "_" + demographic_name + "_" + now + ".png"
         else:
             output_path_file = output_folder_path + "_" + demographic_name + "_comparison_" + now + ".png"
+        fig.savefig(output_path_file)
+        print("Save on file")
+
+    # Support plot
+    plt.figure()
+    plt.title("Support picture")
+    plt.plot(support)
+    plt.xticks(np.arange(bins), demographic_describer_list)
+    plt.ylabel("Number or interactions in the URM_test, escluding those items")
+    plt.xlabel("Group id")
+    if save_on_file:
+        now = datetime.now().strftime('%b%d_%H-%M-%S')
+        fig = plt.gcf()
+        fig.show()
+        if len(recommender_instance_list) == 1:
+            output_path_file = output_folder_path + "_" + demographic_name + "_" + now + ".png"
+        else:
+            output_path_file = output_folder_path + "_" + demographic_name + "_comparison_support_" + now + ".png"
         fig.savefig(output_path_file)
         print("Save on file")
 
@@ -317,7 +402,7 @@ def plot_compare_recommenders_user_profile_len(recommender_list,
     :param: output_folder_path: destination on which to save the the graphics
     :return: None
     '''
-    block_size, profile_length, sorted_users, group_mean_len = get_user_profile_demographic(URM_train, bins)
+    block_size, profile_length, sorted_users, group_mean_len = get_profile_demographic(URM_train, bins)
 
     plot_compare_recommender_user_group(recommender_list, URM_train, URM_test, block_size, profile_length.size,
                                         sorted_users, profile_length, group_mean_len, recommender_name_list,

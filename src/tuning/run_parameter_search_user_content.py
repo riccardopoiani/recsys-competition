@@ -25,8 +25,8 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
     original_parameter_search_space = parameter_search_space
 
     hyperparameters_range_dictionary = {}
-    hyperparameters_range_dictionary["topK"] = Integer(2500, 5000)
-    hyperparameters_range_dictionary["shrink"] = Integer(0, 4000)
+    hyperparameters_range_dictionary["topK"] = Integer(5, 1000)
+    hyperparameters_range_dictionary["shrink"] = Integer(0, 1000)
     hyperparameters_range_dictionary["similarity"] = Categorical([similarity_type])
     hyperparameters_range_dictionary["normalize"] = Categorical([True, False])
 

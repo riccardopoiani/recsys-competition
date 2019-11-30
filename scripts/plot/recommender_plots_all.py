@@ -4,7 +4,7 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
-from src.feature.demographics import get_user_demographic
+from src.feature.demographics_content import get_user_demographic
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.plots.recommender_plots import basic_plots_recommender
 

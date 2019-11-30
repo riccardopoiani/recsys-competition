@@ -10,7 +10,8 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
-from src.feature.demographics import get_user_demographic
+from src.feature.demographics_content import get_user_demographic
+from src.feature.demographics_content import get_profile_demographic_wrapper
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.plots.recommender_plots import *
 from src.data_management.dataframe_preprocesser import get_preprocessed_dataframe
@@ -63,7 +64,6 @@ def _get_all_models(URM_train, ICM_numerical, ICM_categorical):
     all_models['RP3BETA'] = rp3beta
 
     return all_models
-
 
 
 if __name__ == '__main__':
@@ -139,10 +139,10 @@ if __name__ == '__main__':
         hybrid.add_fitted_model(model_name, model_object)
 
     hybrid_param = {'ITEM_CF': 0.969586046573504, 'USER_CF': 0.943330450168123,
-     'ITEM_CBF_NUM': 0.03250599212747674,
-     'ITEM_CBF_CAT': 0.018678076600871066,
-     'SLIM_BPR': 0.03591603993769955,
-     'P3ALPHA': 0.7474845972085382, 'RP3BETA': 0.1234024366177027}
+                    'ITEM_CBF_NUM': 0.03250599212747674,
+                    'ITEM_CBF_CAT': 0.018678076600871066,
+                    'SLIM_BPR': 0.03591603993769955,
+                    'P3ALPHA': 0.7474845972085382, 'RP3BETA': 0.1234024366177027}
     hybrid.fit(**hybrid_param)
 
     recommender_list = []
@@ -159,31 +159,39 @@ if __name__ == '__main__':
     # Building path
     version_path = "../../report/graphics/comparison/"
 
+    # Ploot the comparison on item popularity
+    item_popularity, item_popularity_descriptor = get_profile_demographic_wrapper(URM_train, bins=10, users=False)
+    content_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
+                 URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
+                 output_folder_path=version_path + "item_popularity/", content_name="Item popularity",
+                 content=item_popularity, content_describer_list=item_popularity_descriptor,
+                 exclude_cold_items=False)
+
     # Plotting the comparison on age
-    region_demographic = get_user_demographic(UCM_region, URM_all, 3, binned=True)
-    region_demographic_describer_list = [-1, 0, 2, 3, 4, 5, 6, 7]
-    demographic_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
-                     URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
-                     output_folder_path=version_path + "region/", demographic_name="Region",
-                     demographic=region_demographic, demographic_describer_list=region_demographic_describer_list,
-                     exclude_cold_users=True)
+    #region_demographic = get_user_demographic(UCM_region, URM_all, 3, binned=True)
+    #region_demographic_describer_list = [-1, 0, 2, 3, 4, 5, 6, 7]
+    #demographic_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
+    #                URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
+    #                 output_folder_path=version_path + "region/", demographic_name="Region",
+    #                 demographic=region_demographic, demographic_describer_list=region_demographic_describer_list,
+    #                 exclude_cold_users=True)
 
     # Plotting the comparison on region
-    age_demographic = get_user_demographic(UCM_age, URM_all, 3, binned=True)
-    age_demographic_describer_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    demographic_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
-                     URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
-                     output_folder_path=version_path + "age/", demographic_name="Age",
-                     demographic=age_demographic, demographic_describer_list=age_demographic_describer_list,
-                     exclude_cold_users=True)
+    #age_demographic = get_user_demographic(UCM_age, URM_all, 3, binned=True)
+    #age_demographic_describer_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    #demographic_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
+    #                 URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
+    #                 output_folder_path=version_path + "age/", demographic_name="Age",
+    #                 demographic=age_demographic, demographic_describer_list=age_demographic_describer_list,
+    #                 exclude_cold_users=True)
 
     # Plotting the comparison based on user activity
     #plot_compare_recommenders_user_profile_len(recommender_list, URM_train, URM_test, save_on_file=True,
     #                                           output_folder_path=version_path + "user_activity/")
 
     # Plotting the comparison based on clustering
-    dataframe = get_preprocessed_dataframe(path="../../data/", keep_warm_only=True)
-    plot_clustering_demographics(recommender_list, URM_train, URM_test, dataframe,
-                                 metric="MAP", cutoff=10, save_on_file=True,
-                                 output_folder_path=version_path + "clustering/",
-                                 exclude_cold_users=True)
+    #dataframe = get_preprocessed_dataframe(path="../../data/", keep_warm_only=True)
+    #plot_clustering_demographics(recommender_list, URM_train, URM_test, dataframe,
+    #                             metric="MAP", cutoff=10, save_on_file=True,
+    #                             output_folder_path=version_path + "clustering/",
+    #                             exclude_cold_users=True)
