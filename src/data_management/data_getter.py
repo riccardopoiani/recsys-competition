@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def get_popular_items(URM, popular_threshold=100):
     '''
     Get the items above a certain threshold
@@ -21,30 +22,14 @@ def get_active_users(URM, popular_threshold=100):
     '''
     return _get_popular(URM, popular_threshold, axis=1)
 
+
 def get_unpopular_items(URM, popular_t):
     return _get_unpopular(URM, popular_t, axis=0)
+
 
 def get_unactive_users(URM, popular_t):
     return _get_unpopular(URM, popular_t, axis=1)
 
-def get_user_demographic(UCM, URM_all, threshold_users):
-    """
-    Return a list containing all demographics with only users that has profile length more than threshold_users.
-    In case there is no demographic for that user, it returns -1
-     - This is useful for plotting the metric based on age demographic
-
-    :param UCM: any UCM age or region
-    :param URM_all: URM containing all users (warm users), basically, it is the one directly from the reader
-    :param threshold_users: threshold for warm users
-    :return: a list containing all demographics with only users that has profile length more than threshold_users
-    """
-    UCM_copy = get_warmer_UCM(UCM, URM_all, threshold_users).tocoo()
-
-    users = UCM_copy.row
-    features = UCM_copy.col
-    user_demographic = np.full(UCM_copy.shape[0], -1)
-    user_demographic[users] = features
-    return user_demographic
 
 def get_warmer_UCM(UCM, URM_all, threshold_users):
     """
@@ -60,6 +45,7 @@ def get_warmer_UCM(UCM, URM_all, threshold_users):
 
     return UCM.copy()[warm_users, :]
 
+
 def _get_unpopular(URM, popular_threshold, axis):
     items = (URM > 0).sum(axis=axis)
     items_unsorted = np.array(items).squeeze()
@@ -73,6 +59,7 @@ def _get_unpopular(URM, popular_threshold, axis):
     index_arr = np.array(index_list)
 
     return index_arr
+
 
 def _get_popular(URM, popular_t, axis):
     items = (URM > 0).sum(axis=axis)

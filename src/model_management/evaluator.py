@@ -6,7 +6,8 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 
 
 def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM_train: sps.csr_matrix,
-                                        URM_test: sps.csr_matrix, cutoff: int, demographic: list, metric="MAP"):
+                                        URM_test: sps.csr_matrix, cutoff: int, demographic: list, metric="MAP",
+                                        exclude_cold_users=False):
     """
     Evaluate the recommender object, computing the MAP@10 score of the given recommender in terms of some given
     demographic.
@@ -18,24 +19,27 @@ def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM
     :param demographic: list of list. In each list, you have the users of the group. MAP will be evaluate on these
     groups
     :param metric: metric to be considered
+    :param exclude_cold_users: if cold users should be excluded from the plot
     :return: desired metric for each group
     """
-    # Compute len of the demographic
-    user_count = 0
-    for elem in demographic:
-        user_count += elem.size
-
-    if user_count != URM_train.shape[0]:
-        raise AttributeError("The demographic should contain all the users in the URM_train")
-
     # Evaluate each group
     total_users = np.arange(URM_train.shape[0])
 
     result_per_group = []
 
     for group in demographic:
-        mask_user_to_keep_out = np.logical_not(np.in1d(total_users, group))
-        users_to_keep_out = total_users[mask_user_to_keep_out]
+        mask_users_of_others_groups = np.logical_not(np.in1d(total_users, group))
+        users_of_others_groups = total_users[mask_users_of_others_groups]
+
+        if exclude_cold_users:
+            cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
+            cold_users = total_users[cold_users_mask]
+
+            # Mixing the two arrays
+            users_to_keep_out = np.concatenate((cold_users, users_of_others_groups))
+            users_to_keep_out = np.unique(users_to_keep_out)
+        else:
+            users_to_keep_out = users_of_others_groups
 
         evaluator = EvaluatorHoldout(URM_test, cutoff_list=[cutoff], ignore_users=users_to_keep_out)
         results = evaluator.evaluateRecommender(recommender_object)
