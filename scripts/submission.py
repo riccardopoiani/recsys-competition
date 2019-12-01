@@ -6,6 +6,7 @@ from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_reader import read_target_users, read_URM_cold_all, read_UCM_cold_all
 from src.model import best_models
 from src.model.FallbackRecommender.MapperRecommender import MapperRecommender
+from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.model_management.submission_helper import write_submission_file_batch
 
@@ -22,7 +23,8 @@ if __name__ == '__main__':
     UCM_all, _ = merge_UCM(UCM_all, URM_all, {}, {})
 
     # Main recommender
-    main_recommender = best_models.UserItemKNNCBFCFDemographic.get_model(URM_all, ICM_all, UCM_all)
+    main_recommender = HybridWeightedAverageRecommender(URM_all)
+    main_recommender.add_fitted_model()
 
     # Sub recommender
     URM_cold_all = read_URM_cold_all("../data/data_train.csv")

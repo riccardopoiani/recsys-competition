@@ -1,3 +1,14 @@
+SPLIT_SEED = 69420
+
+
+def get_split_seed():
+    return SPLIT_SEED
+
+
+def get_project_root_path():
+    import os
+    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 def from_string_to_dict(s):
     '''

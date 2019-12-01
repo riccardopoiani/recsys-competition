@@ -40,5 +40,5 @@ class AbstractHybridRecommender(BaseRecommender, ABC):
         raise NotImplementedError("Method not implemented")
 
     def saveModel(self, folder_path, file_name=None):
-        # TODO
+        # No need to save model or load it
         pass

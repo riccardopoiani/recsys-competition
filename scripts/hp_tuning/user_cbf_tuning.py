@@ -1,7 +1,5 @@
 from datetime import datetime
 
-from numpy.random import seed
-
 from course_lib.Base.Evaluation.Evaluator import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
@@ -9,17 +7,13 @@ from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.tuning.run_parameter_search_user_content import run_parameter_search_user_content
-
-SEED = 69420
+from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
-    # Set seed in order to have same splitting of data
-    seed(SEED)
-
     # Data loading
     data_reader = RecSys2019Reader("../../data/")
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
-                                               force_new_split=True)
+                                               force_new_split=True, seed=get_split_seed())
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
     URM_all = data_reader.dataReader_object.get_URM_all()
@@ -32,9 +26,6 @@ if __name__ == '__main__':
 
     warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 0
     warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
-
-    # Reset seed for hyper-parameter tuning
-    seed()
 
     # Setting evaluator
     cutoff_list = [10]

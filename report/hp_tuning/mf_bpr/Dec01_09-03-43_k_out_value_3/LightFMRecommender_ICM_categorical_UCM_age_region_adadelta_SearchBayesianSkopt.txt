@@ -1,0 +1,8 @@
+SearchBayesianSkopt: New best config found. Config 0: {'learning_schedule': 'adadelta', 'learning_rate': 0.00010662110195170545, 'num_factors': 100, 'user_alpha': 0.09048993006808417, 'item_alpha': 0.5091415938163325, 'epochs': 100} - results: ROC_AUC: 0.0004805, PRECISION: 0.0001112, PRECISION_RECALL_MIN_DEN: 0.0003707, RECALL: 0.0003707, MAP: 0.0000879, MRR: 0.0002637, NDCG: 0.0002139, F1: 0.0001711, HIT_RATE: 0.0011120, ARHR: 0.0002637, RMSE: 7351214290466099.0000000, NOVELTY: 0.0059747, AVERAGE_POPULARITY: 0.0106456, DIVERSITY_MEAN_INTER_LIST: 0.3315502, DIVERSITY_HERFINDAHL: 0.9331530, COVERAGE_ITEM: 0.0095161, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.0923979, SHANNON_ENTROPY: 4.2407934, 
+SearchBayesianSkopt: Config 0 Exception. Config: {'learning_schedule': 'adadelta', 'learning_rate': 0.00010662110195170545, 'num_factors': 100, 'user_alpha': 0.09048993006808417, 'item_alpha': 0.5091415938163325, 'epochs': 100} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 401, in _objective_function
+    recommender_instance.save_model(self.output_folder_path, file_name =self.output_file_name_root + "_best_model")
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/BaseMatrixFactorizationRecommender.py", line 84, in save_model
+    data_dict_to_save = {"USER_factors": self.USER_factors,
+AttributeError: 'LightFMRecommender' object has no attribute 'USER_factors'
+

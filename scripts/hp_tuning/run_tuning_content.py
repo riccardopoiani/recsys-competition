@@ -1,8 +1,6 @@
 import argparse
 from datetime import datetime
 
-from numpy.random import seed
-
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
@@ -10,8 +8,8 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
 from src.tuning.run_parameter_search_item_content import run_parameter_search_item_content
+from src.utils.general_utility_functions import get_split_seed
 
-SEED = 69420
 N_CASES = 35
 RECOMMENDER_CLASS_DICT = {
     "item_cbf_numerical": ItemKNNCBFRecommender,
@@ -26,7 +24,7 @@ def get_arguments():
     parser.add_argument("-r", "--recommender_name", required=True,
                         help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
     parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyperparameter tuning")
-    parser.add_argument("--seed", default=SEED, help="seed used in splitting the dataset")
+    parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
 
     return parser.parse_args()
 
@@ -34,13 +32,10 @@ def get_arguments():
 def main():
     args = get_arguments()
 
-    # Set seed in order to have same splitting of data
-    seed(args.seed)
-
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
-                                               force_new_split=True)
+                                               force_new_split=True, seed=args.seed)
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
@@ -57,9 +52,6 @@ def main():
         ICM, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
         ICM_name = "ICM_categorical_and_URM"
         similarity_type_list = None
-
-    # Reset seed for hyper-parameter tuning
-    seed()
 
     # Setting evaluator
     cutoff_list = [10]

@@ -1,31 +1,23 @@
-from src.data_management.RecSys2019Reader import RecSys2019Reader
+from datetime import datetime
+
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
-from datetime import datetime
-from numpy.random import seed
-from src.tuning.run_parameter_search_advanced_top_pop import run_parameter_search_advanced_top_pop
+from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.dataframe_preprocesser import get_preprocessed_dataframe
-import numpy as np
-
-SEED = 69420
+from src.tuning.run_parameter_search_advanced_top_pop import run_parameter_search_advanced_top_pop
+from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
-    # Set seed in order to have same splitting of data
-    seed(SEED)
-
     # Data loading
     data_reader = RecSys2019Reader("../../data/")
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
-                                               force_new_split=True)
+                                               force_new_split=True, seed=get_split_seed())
     data_reader.load_data()
     mapper = data_reader.SPLIT_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
     URM_train, URM_test = data_reader.get_holdout_split()
     ICM_sub_class = data_reader.get_ICM_from_name("ICM_sub_class")
 
     df = get_preprocessed_dataframe("../../data/", keep_warm_only=True)
-
-    # Reset seed for hyper-parameter tuning
-    seed()
 
     # Setting evaluator
     #warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 0

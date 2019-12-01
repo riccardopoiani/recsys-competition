@@ -129,7 +129,7 @@ def plot_sample_evaluations(result: pd.DataFrame, dimensions_list: list, metric_
 
 def plot_recommendation_distribution(recommender_object: BaseRecommender, URM, at=5,
                                      graph_title="Number of recommendations", x_label="Items"):
-    '''
+    """
     Show the distributions of the recommendations made by a certain recommender object on the given URM.
     In the notebooks of the lecture, the URM used is URM_all.
 
@@ -138,10 +138,11 @@ def plot_recommendation_distribution(recommender_object: BaseRecommender, URM, a
     :param recommender_object: recommender that will make the recommendations
     :param URM: URM on which the recommender will do the recommendations
     :return: graph of the recommendation distributions
-    '''
+    """
 
     x_tick = np.arange(URM.shape[1])
     counter = np.zeros(URM.shape[1])
+    # TODO Riccardo boost recommendation by passing batches of 1000 users
     for user_id in range(URM.shape[0]):
         recs = recommender_object.recommend(user_id, cutoff=at)
         counter[recs] += 1

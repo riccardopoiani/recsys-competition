@@ -78,7 +78,7 @@ class UserItemCBFCFDemographicRecommender(BaseRecommender):
                                                      similarity=item_similarity_type, **kwargs)
 
         self.item_W_sparse = item_similarity_compute.compute_similarity()
-        # TODO add identity to the item_W_sparse
+        # TODO add identity to the item_W_sparse ???
         self.item_W_sparse = check_matrix(self.item_W_sparse, format='csr')
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):

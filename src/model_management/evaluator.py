@@ -100,7 +100,6 @@ def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM
     return result_per_group, number_of_items_in_URM_test_per_group
 
 
-@DeprecationWarning
 def evaluate_recommender_by_user_demographic(recommender_object: BaseRecommender, URM_train: sps.csr_matrix,
                                              URM_test: sps.csr_matrix, cutoff_list: list, user_demographic: np.ndarray,
                                              n_folds: int = 5):

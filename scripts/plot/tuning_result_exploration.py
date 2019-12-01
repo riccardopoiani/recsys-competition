@@ -4,10 +4,14 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.New_DataSplitter_leave_k_out import *
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 
+from numpy.random import seed
+
+from src.utils.general_utility_functions import get_split_seed
+
 if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
-                                               force_new_split=True)
+                                               force_new_split=True, seed=get_split_seed())
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
     URM_all = data_reader.dataReader_object.get_URM_all()

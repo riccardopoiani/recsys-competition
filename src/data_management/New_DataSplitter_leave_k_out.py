@@ -41,7 +41,7 @@ class New_DataSplitter_leave_k_out(DataSplitter):
     SPLIT_GLOBAL_MAPPER_DICT = None
 
     def __init__(self, dataReader_object, k_out_value=1, forbid_new_split=False, force_new_split=False,
-                 use_validation_set=True, leave_random_out=True):
+                 use_validation_set=True, leave_random_out=True, seed=None):
         """
 
         :param dataReader_object:
@@ -52,6 +52,7 @@ class New_DataSplitter_leave_k_out(DataSplitter):
 
         assert k_out_value >= 1, "{}: k_out_value must be  greater or equal than 1".format(self.DATA_SPLITTER_NAME)
 
+        self.seed = seed
         self.k_out_value = k_out_value
         self.use_validation_set = use_validation_set
         self.allow_cold_users = False
@@ -188,9 +189,12 @@ class New_DataSplitter_leave_k_out(DataSplitter):
                 self.SPLIT_GLOBAL_MAPPER_DICT["user_original_ID_to_index"],
                 np.arange(0, len(user_to_remove), dtype=np.int)[user_to_remove])
 
+        # set seed to have same split
+        np.random.seed(self.seed)
         splitted_data = split_train_leave_k_out_user_wise(URM, k_out=self.k_out_value,
                                                           use_validation_set=self.use_validation_set,
                                                           leave_random_out=self.leave_random_out)
+        np.random.seed()
 
         if self.use_validation_set:
             URM_train, URM_validation, URM_test = splitted_data

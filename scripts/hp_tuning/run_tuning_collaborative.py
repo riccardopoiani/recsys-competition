@@ -1,14 +1,12 @@
-from src.data_management.RecSys2019Reader import RecSys2019Reader
+import argparse
+from datetime import datetime
+
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.ParameterTuning.run_parameter_search import *
 from src.data_management.New_DataSplitter_leave_k_out import *
-from datetime import datetime
-from numpy.random import seed
+from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.utils.general_utility_functions import get_split_seed
 
-import argparse
-
-
-SEED = 69420
 N_CASES = 35
 RECOMMENDER_CLASS_DICT = {
     "item_cf": ItemKNNCFRecommender,
@@ -30,7 +28,7 @@ def get_arguments():
     parser.add_argument("-r", "--recommender_name", required=True,
                         help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
     parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyperparameter tuning")
-    parser.add_argument("--seed", default=SEED, help="seed used in splitting the dataset")
+    parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
     parser.add_argument("-eu", "--exclude_users", default=False, help="1 to exclude cold users, 0 otherwise")
     parser.add_argument("-ei", "--exclude_items", default=False, help="1 to exclude cold itemrs, 0 otherwise")
 
@@ -40,18 +38,12 @@ def get_arguments():
 def main():
     args = get_arguments()
 
-    # Set seed in order to have same splitting of data
-    seed(args.seed)
-
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
-                                               force_new_split=True)
+                                               force_new_split=True, seed=args.seed)
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
-
-    # Reset seed for hyper-parameter tuning
-    seed()
 
     # Setting evaluator
 
