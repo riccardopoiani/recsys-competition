@@ -6,15 +6,15 @@ from src.data_management.data_getter import get_warmer_UCM
 from src.feature.clustering_utils import cluster_data
 
 
-def get_sub_class_demographic():
+def get_sub_class_demographic(ICM_subclass):
     raise NotImplemented()
 
 
-def get_asset_demographic():
+def get_asset_demographic(ICM_asset, bins):
     raise NotImplemented()
 
 
-def get_price_demographic():
+def get_price_demographic(ICM_price, bins):
     raise NotImplemented()
 
 

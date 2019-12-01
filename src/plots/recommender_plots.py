@@ -288,8 +288,17 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
             recommender_instance = recommender_class(URM_train)
         recommender_instance.fit(**keywargs)
     else:
-        print("Read the best model from file")
+        print("Read the best model from file...")
         raise NotImplemented("Not implemented feature")
+
+    # Store on file keywargs of the recommender under consideration
+    if save_on_file:
+        output_path_file = output_path_folder + "keywargs.txt"
+        f = open(output_path_file, "w")
+        f.write("Recommender name: " + recommender_instance.RECOMMENDER_NAME + "\n")
+        f.write(str(keywargs))
+        f.write("\n")
+        f.close()
 
     basic_plots_recommender(recommender_instance, URM_train, URM_test, output_path_folder, save_on_file,
                             compare_top_pop_points,

@@ -4,12 +4,14 @@ from sklearn import metrics
 from scipy.sparse import coo_matrix
 
 
-def preprocess_URM_for_SGD(URM_train):
+def preprocess_URM_for_SGD(URM_train, proportion_of_negative_samples=1):
     """
     Format an URM in the way that is needed for the FM model.
     - We have #num_ratings row
     - The last column with all the ratings (for implicit dataset it just a col full of 1
     - In each row there are 3 interactions: 1 for the user, 1 for the item, and 1 for the rating
+    - Moreover #num_ratings * proportion_of_negative_samples are inserted, to take into account
+    also for this behavior
 
     Note: this method works only for implicit dataset
 

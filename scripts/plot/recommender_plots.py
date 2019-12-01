@@ -1,34 +1,26 @@
 from datetime import datetime
 
 from src.data_management.New_DataSplitter_leave_k_out import *
-from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.RecSys2019Reader_utils import merge_UCM
-from src.data_management.data_getter import get_warmer_UCM
-from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM
+from src.model.best_models import CFW
 from src.plots.recommender_plots import basic_plots_recommender
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
+    # Data loading
     data_reader = RecSys2019Reader("../../data/")
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=get_split_seed())
+
     data_reader.load_data()
+    mapper = data_reader.SPLIT_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
     URM_train, URM_test = data_reader.get_holdout_split()
-    URM_all = data_reader.dataReader_object.get_URM_all()
-    UCM_age = data_reader.dataReader_object.get_UCM_from_name("UCM_age")
-    UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
-    UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
+    ICM = data_reader.get_ICM_from_name("ICM_sub_class")
+    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
 
-    UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
-    UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
+    model = CFW.get_model(URM_train, ICM_all)
 
-    best_parameters = {'topK': 3285, 'shrink': 1189, 'similarity': 'cosine',
-                       'normalize': False, 'feature_weighting': 'BM25'}
-
-    model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_all)
-    model.fit(**best_parameters)
-
-    version_path = "../../report/graphics/user_cbf_UCM_URM/"
+    version_path = "../../report/graphics/cfw/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now

@@ -2,7 +2,6 @@ import os
 
 from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
 
-
 # ---------------- CONTENT BASED FILTERING -----------------
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -157,6 +156,24 @@ class MF_BPR(ICollaborativeModel):
 
 
 # ---------------- DEMOGRAPHIC FILTERING -----------------
+class CFW(IBestModel):
+    """
+    CFW model tuned with URM train and ICM+URM
+    - Map on tuning (all users): 0.0218353
+    """
+    best_parameters = {'topK': 1271, 'add_zeros_quota': 0.2980393873513228, 'normalize_similarity': False}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM):
+        from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
+        item_cf = ItemCF.get_model(URM_train, load_saved_model=False)
+        W_sparse_CF = item_cf.W_sparse
+
+        model = CFW_D_Similarity_Linalg(URM_train=URM_train, ICM=ICM, S_matrix_target=W_sparse_CF)
+        model.fit(**cls.best_parameters)
+        return model
+
+
 class AdvancedTopPop(IBestModel):
     """
     Advanced Top Popular tuned with URM_train and UCM+user_profile_len
