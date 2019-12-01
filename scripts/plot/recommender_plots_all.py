@@ -1,11 +1,12 @@
 from datetime import datetime
 
+from course_lib.Data_manager.DataReader_utils import merge_ICM
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
 from src.feature.demographics_content import get_user_demographic
-from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+from src.model import best_models
 from src.plots.recommender_plots import basic_plots_recommender
 
 if __name__ == '__main__':
@@ -22,11 +23,10 @@ if __name__ == '__main__':
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
     UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
-    best_parameters = {'topK': 3285, 'shrink': 1189, 'similarity': 'cosine',
-                       'normalize': False, 'feature_weighting': 'BM25'}
+    ICM_categorical = data_reader.get_ICM_from_name("ICM_sub_class")
+    ICM_all, _ = merge_ICM(ICM_categorical, URM_train.T, {}, {})
 
-    model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_all)
-    model.fit(**best_parameters)
+    model = best_models.UserItemKNNCBFCFDemographic.get_model(URM_train, ICM_all, UCM_all)
 
     version_path = "../../report/graphics/user_cbf_UCM_URM/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')

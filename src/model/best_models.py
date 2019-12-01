@@ -124,8 +124,18 @@ class IALS(ICollaborativeModel):
      - MAP (only warm): 0.029
     """
     from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
-    best_parameters = {'epochs':100 ,'num_factors': 1000, 'regularization': 8}
+    best_parameters = {'epochs': 100, 'num_factors': 1000, 'regularization': 8}
     recommender_class = ImplicitALSRecommender
+
+
+class MF_BPR(ICollaborativeModel):
+    """
+    Matrix Factorization with BPR recommender
+     - MAP (only warm): 0.0202
+    """
+    from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
+    best_parameters = {'epochs': 300, 'num_factors': 600, 'regularization': 0.01220345289273659, 'learning_rate': 0.1}
+    recommender_class = MF_BPR_Recommender
 
 
 # ---------------- DEMOGRAPHIC FILTERING -----------------
@@ -163,6 +173,19 @@ class UserCBF(IBestModel):
 
 # ---------------- HYBRIDS -----------------
 
+class UserItemKNNCBFCFDemographic(IBestModel):
+    best_parameters = {'user_similarity_type': 'jaccard', 'item_similarity_type': 'asymmetric',
+                       'user_feature_weighting': 'none', 'item_feature_weighting': 'TF-IDF', 'user_normalize': False,
+                       'item_normalize': True, 'item_asymmetric_alpha': 0.1878964519144738, 'user_topK': 1000,
+                       'user_shrink': 1702, 'item_topK': 5, 'item_shrink': 1163}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train, UCM_train):
+        from src.model.KNN.UserItemCBFCFDemographicRecommender import UserItemCBFCFDemographicRecommender
+        model = UserItemCBFCFDemographicRecommender(URM_train=URM_train, UCM_train=UCM_train, ICM_train=ICM_train)
+        model.fit(**cls.get_best_parameters())
+        return model
+
 class HybridWeightedAvgSubmission1(IBestModel):
     """
     Hybrid Weighted Average without TopPop Fallback
@@ -196,3 +219,4 @@ class HybridWeightedAvgSubmission1(IBestModel):
             model.add_fitted_model(model_name, model_object)
         model.fit(**cls.get_best_parameters())
         return model
+

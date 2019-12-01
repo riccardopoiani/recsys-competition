@@ -24,7 +24,6 @@ class UserItemCBFCFDemographicRecommender(BaseRecommender):
         self.UCM_train = UCM_train
         self.ICM_train = ICM_train
 
-    # TODO fix item_similarity_dict and user_similarity_dict
     def fit(self, user_topK=50, user_shrink=100, user_similarity_type='cosine', user_normalize=True,
             user_feature_weighting="none", user_asymmetric_alpha=0.5,
             item_topK=50, item_shrink=100, item_similarity_type='cosine', item_normalize=True,

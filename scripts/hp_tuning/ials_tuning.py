@@ -6,14 +6,16 @@ from course_lib.Base.Evaluation.Evaluator import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
-from src.tuning.run_parameter_search_collaborative import run_parameter_search_collaborative
+from src.tuning.run_parameter_search_mf import run_parameter_search_mf_collaborative
+import os
 
 SEED = 69420
 
 if __name__ == '__main__':
-    import os
-
+    # Set environment variables to avoid warnings
     os.environ["MKL_NUM_THREADS"] = "1"
+    os.environ["OPENBLAS_NUM_THREADS"] = "1"
+
     # Set seed in order to have same splitting of data
     seed(SEED)
 
@@ -39,16 +41,10 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
 
-    model = ImplicitALSRecommender(URM_train)
-    model.fit(epochs=50, num_factors=1000, regularization=8)
-    print(evaluator.evaluateRecommender(model))
-
-    """
-    run_parameter_search_collaborative(URM_train=URM_train,
-                                       recommender_class=ImplicitALSRecommender,
-                                       evaluator_validation=evaluator,
-                                       metric_to_optimize="MAP",
-                                       output_folder_path=version_path,
-                                       n_cases=60, n_random_starts=10, save_model="no")
-    """
+    run_parameter_search_mf_collaborative(URM_train=URM_train,
+                                          recommender_class=ImplicitALSRecommender,
+                                          evaluator_validation=evaluator,
+                                          metric_to_optimize="MAP",
+                                          output_folder_path=version_path,
+                                          n_cases=35, n_random_starts=5, save_model="no")
     print("...tuning ended")

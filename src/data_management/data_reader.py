@@ -1,7 +1,10 @@
+from src.data_management.RecSys2019Reader_utils import merge_UCM
+
+
 def read_target_users(path="../data/data_target_users_test.csv"):
-    '''
+    """
     :return: list of user to recommend in the target playlist
-    '''
+    """
     target_file = open(path, 'r')
 
     target_file.seek(0)
@@ -14,9 +17,9 @@ def read_target_users(path="../data/data_target_users_test.csv"):
     return target_tuple
 
 def read_URM_cold_all(path="../data/data_train.csv"):
-    '''
+    """
     :return: all the user rating matrix, in csr format
-    '''
+    """
     import scipy.sparse as sps
     import numpy as np
     import pandas as pd
@@ -34,12 +37,42 @@ def read_URM_cold_all(path="../data/data_train.csv"):
 
     return URM_all
 
+def read_UCM_cold_all(num_users, root_path="../data/"):
+    """
+    :return: all the UCM in csr format
+    """
+    import scipy.sparse as sps
+    import numpy as np
+    import pandas as pd
+    import os
+
+    # Reading age data
+    df_age = pd.read_csv(os.path.join(root_path, "data_UCM_age.csv"))
+
+    user_id_list = df_age['row'].values
+    age_id_list = df_age['col'].values
+    UCM_age = sps.coo_matrix((np.ones(len(user_id_list)), (user_id_list, age_id_list)),
+                             shape=(num_users, np.max(age_id_list)+1))
+
+    # Reading region data
+    df_region = pd.read_csv(os.path.join(root_path, "data_UCM_region.csv"))
+    user_id_list = df_region['row'].values
+    region_id_list = df_region['col'].values
+    UCM_region = sps.coo_matrix((np.ones(len(user_id_list)), (user_id_list, region_id_list)),
+                                shape=(num_users, np.max(region_id_list)+1))
+
+    # Merge UCMs
+    UCM_all, _ = merge_UCM(UCM_age, UCM_region, {}, {})
+    UCM_all = UCM_all.tocsr()
+    return UCM_all
+
+
 def row_split(row_string):
-    '''
+    """
     Helper for splitting the URM
     :param row_string: line of the URM train
     :return: splitted row
-    '''
+    """
     row_string = row_string.replace("\n", "")
     split = row_string.split(",")
 
@@ -52,19 +85,19 @@ def row_split(row_string):
 
 
 def row_split_target(row_string):
-    '''
+    """
     Function helper to read the target playlist
     :param row_string:
     :return:
-    '''
+    """
     return int(row_string.replace("\n", ""))
 
 
 def get_warm_user_rating_matrix(user_rating_matrix):
-    '''
+    """
     :param user_rating_matrix: user rating matrix
     :return: warm version of the user rating matrix
-    '''
+    """
     import numpy as np
     warm_items_mask = np.ediff1d(user_rating_matrix.tocsc().indptr) > 0
     warm_items = np.arange(user_rating_matrix.shape[1])[warm_items_mask]

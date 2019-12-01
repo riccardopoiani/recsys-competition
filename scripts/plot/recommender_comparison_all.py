@@ -1,3 +1,4 @@
+from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
@@ -12,6 +13,7 @@ from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_
 from src.data_management.data_getter import get_warmer_UCM
 from src.feature.demographics_content import get_user_demographic
 from src.feature.demographics_content import get_profile_demographic_wrapper
+from src.model import best_models
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.plots.recommender_plots import *
 from src.data_management.dataframe_preprocesser import get_preprocessed_dataframe
@@ -80,6 +82,7 @@ if __name__ == '__main__':
     # Build ICMs
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
     ICM_categorical = data_reader.get_ICM_from_name("ICM_sub_class")
+    ICM_all, _ = merge_ICM(ICM_categorical, URM_train.T, {}, {})
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
@@ -145,27 +148,30 @@ if __name__ == '__main__':
                     'P3ALPHA': 0.7474845972085382, 'RP3BETA': 0.1234024366177027}
     hybrid.fit(**hybrid_param)
 
+    user_cf_cbf_demographic = best_models.UserItemKNNCBFCFDemographic.get_model(URM_train, ICM_train=ICM_all, UCM_train=UCM_all)
+
     recommender_list = []
-    recommender_list.append(item_cf)
-    recommender_list.append(user_cf)
-    recommender_list.append(slim)
-    recommender_list.append(pure_svd)
-    recommender_list.append(p3alpha)
-    recommender_list.append(p3beta)
-    recommender_list.append(item_cbf_numerical)
-    recommender_list.append(item_cbf_categorical)
+    #recommender_list.append(item_cf)
+    #recommender_list.append(user_cf)
+    #recommender_list.append(slim)
+    #recommender_list.append(pure_svd)
+    #recommender_list.append(p3alpha)
+    #recommender_list.append(p3beta)
+    #recommender_list.append(item_cbf_numerical)
+    #recommender_list.append(item_cbf_categorical)
     recommender_list.append(hybrid)
+    recommender_list.append(user_cf_cbf_demographic)
 
     # Building path
     version_path = "../../report/graphics/comparison/"
 
-    # Ploot the comparison on item popularity
-    item_popularity, item_popularity_descriptor = get_profile_demographic_wrapper(URM_train, bins=10, users=False)
+    # Plot the comparison on item popularity
+    """item_popularity, item_popularity_descriptor = get_profile_demographic_wrapper(URM_train, bins=10, users=False)
     content_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
                  URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
                  output_folder_path=version_path + "item_popularity/", content_name="Item popularity",
                  content=item_popularity, content_describer_list=item_popularity_descriptor,
-                 exclude_cold_items=False)
+                 exclude_cold_items=False)"""
 
     # Plotting the comparison on age
     #region_demographic = get_user_demographic(UCM_region, URM_all, 3, binned=True)
@@ -185,9 +191,8 @@ if __name__ == '__main__':
     #                 demographic=age_demographic, demographic_describer_list=age_demographic_describer_list,
     #                 exclude_cold_users=True)
 
-    # Plotting the comparison based on user activity
-    #plot_compare_recommenders_user_profile_len(recommender_list, URM_train, URM_test, save_on_file=True,
-    #                                           output_folder_path=version_path + "user_activity/")
+    plot_compare_recommenders_user_profile_len(recommender_list, URM_train, URM_test, save_on_file=True,
+                                               output_folder_path=version_path + "user_activity/")
 
     # Plotting the comparison based on clustering
     #dataframe = get_preprocessed_dataframe(path="../../data/", keep_warm_only=True)

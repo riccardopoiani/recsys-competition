@@ -7,6 +7,8 @@ from skopt.space import Integer, Categorical, Real
 
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
+from src.model.KNN.UserItemCBFCFDemographicRecommender import UserItemCBFCFDemographicRecommender
+from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 
 
 def _get_feature_weighting_for_similarity_type(similarity_type, allow_weighting):
@@ -78,6 +80,7 @@ def run_parameter_search_user_item_all(recommender_class, URM_train, UCM_train, 
     # Set hyperparameters
     hyperparameters_range_dictionary = {"user_topK": Integer(5, 2000), "user_shrink": Integer(0, 2000),
                                         "item_topK": Integer(5, 2000), "item_shrink": Integer(0, 2000)}
+
 
     # Set args for recommender
     recommender_input_args = SearchInputRecommenderArgs(
