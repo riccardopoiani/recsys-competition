@@ -41,8 +41,10 @@ if __name__ == '__main__':
     cold_items = np.arange(URM_train.shape[1])[cold_items_mask]
 
     # Setting evaluator
+    ignore_users_mask = np.ediff1d(URM_train.tocsc().indptr) < 17
+    ignore_users = np.arange(URM_train.shape[1])[ignore_users_mask]
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
     model = best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
     print(evaluator.evaluateRecommender(model))

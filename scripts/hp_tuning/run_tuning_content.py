@@ -25,7 +25,8 @@ def get_arguments():
                         help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
     parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyperparameter tuning")
     parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
-
+    parser.add_argument("-foh", "--focus_on_high", default=0, help="focus the tuning only on users with profile"
+                                                                   "lengths larger than the one specified here")
     return parser.parse_args()
 
 
@@ -54,12 +55,21 @@ def main():
         similarity_type_list = None
 
     # Setting evaluator
+    h = int(args.focus_on_high)
+    if h != 0:
+        print("Excluding users with less than {} interactions".format(h))
+        ignore_users_mask = np.ediff1d(URM_train.tocsc().indptr) < h
+        ignore_users = np.arange(URM_train.shape[1])[ignore_users_mask]
+    else:
+        ignore_users = None
+
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
     # HP tuning
     print("Start tuning...")
-    version_path = "../../report/hp_tuning/{}/".format(args.recommender_name)
+    #version_path = "../../report/hp_tuning/{}/".format(args.recommender_name)
+    version_path = "../../report/hp_tuning/temp/".format(args.recommender_name)
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now

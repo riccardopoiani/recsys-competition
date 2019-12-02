@@ -11,11 +11,18 @@ class ItemCBF_CF(IContentModel):
     Item CBF_CF tuned with URM_train and ICM (containing sub_class and URM_train)
      - MAP (all users): 0.0273
      - MAP (only warm): 0.03498
+     - Tuned only on the users with more than 30 interactions, we obtain a best-model
+     {'topK': 13, 'shrink': 1045, 'similarity': 'asymmetric', 'normalize': True,
+     'asymmetric_alpha': 0.11207989960736334, 'feature_weighting': 'TF-IDF'}
+     with a Map of 0.0279: it has seems to have improved a bit the score.
+     Indeed, in that case, we have a MAP of 0.0273
     """
     from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
-
     best_parameters = {'topK': 10, 'shrink': 1056, 'similarity': 'asymmetric', 'normalize': True,
                        'asymmetric_alpha': 0.026039165670822324, 'feature_weighting': 'TF-IDF'}
+
+    best_parameters_foh_30 = {'topK': 13, 'shrink': 1045, 'similarity': 'asymmetric', 'normalize': True,
+                              'asymmetric_alpha': 0.11207989960736334, 'feature_weighting': 'TF-IDF'}
     recommender_class = ItemKNNCBFRecommender
     recommender_name = "ItemCBF_CF"
 

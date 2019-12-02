@@ -3,7 +3,7 @@ from typing import List
 import numpy as np
 
 
-class HybridPredictionRecommenderDebug(BaseRecommender):
+class HybridPredictionRecommender(BaseRecommender):
     models_object: List[BaseRecommender] = []
     models_name: List[str] = []
     models_aps: List[np.array] = []

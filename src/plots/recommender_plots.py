@@ -456,6 +456,8 @@ def plot_compare_recommender_user_group(recommender_list,
             if recommender.RECOMMENDER_NAME not in recommender_name_list:
                 recommender_name_list.append(recommender.RECOMMENDER_NAME)
             else:
+                print(recommender_name_list)
+                print(recommender.RECOMMENDER_NAME)
                 raise RuntimeError("Recommender names should be unique. Provide a list of names")
     else:
         if len(recommender_name_list) != len(recommender_list):

@@ -8,7 +8,7 @@ from src.model.FallbackRecommender.AdvancedTopPopular import AdvancedTopPopular
 from functools import partial
 
 
-def run_parameter_search_advanced_top_pop(URM_train, data_frame_ucm, mapper, n_init=5, verbose=0, seed=69420, n_jobs=1,
+def run_parameter_search_advanced_top_pop(URM_train, data_frame_ucm, mapper,
                                           output_folder_path="result_experiments/",
                                           evaluator_validation=None, evaluator_test=None, n_cases=35,
                                           n_random_starts=5, metric_to_optimize="MAP"):
