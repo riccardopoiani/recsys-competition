@@ -39,16 +39,18 @@ if __name__ == '__main__':
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
     UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
+    """
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
     warm_users = np.arange(URM_train.shape[0])[~cold_users_mask]
 
     cold_items_mask = np.ediff1d(URM_train.tocsc().indptr) == 0
     cold_items = np.arange(URM_train.shape[1])[cold_items_mask]
+    """
 
     # Setting evaluator
-    ignore_users_mask = np.ediff1d(URM_train.tocsc().indptr) < 17
-    ignore_users = np.arange(URM_train.shape[1])[ignore_users_mask]
+    ignore_users_mask = np.ediff1d(URM_train.tocsr().indptr) < 30
+    ignore_users = np.arange(URM_train.shape[0])[ignore_users_mask]
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
@@ -57,7 +59,5 @@ if __name__ == '__main__':
     URM_train = URM_train.astype(np.float32)
     URM_train = weight_matrix_by_user_profile(URM_train, URM_train, "log")
 
-    par = best_models.IALS.get_best_parameters()
-    model = ImplicitALSRecommender(URM_train)
-    model.fit(**par)
+    model = best_models.ItemCBF_CF.get_model(URM_train, ICM_all, load_model=False)
     print(evaluator.evaluateRecommender(model))

@@ -28,12 +28,20 @@ if __name__ == '__main__':
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
 
     # Setting evaluator
+    h = 30
+    if h != 0:
+        print("Excluding users with less than {} interactions".format(h))
+        ignore_users_mask = np.ediff1d(URM_train.tocsc().indptr) < h
+        ignore_users = np.arange(URM_train.shape[1])[ignore_users_mask]
+    else:
+        ignore_users = None
+
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
     version_path = "../../report/hp_tuning/ials/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
-    now = now + "_k_out_value_3/"
+    now = now + "_k_out_value_3_foh_30/"
     version_path = version_path + "/" + now
 
     URM_train = URM_train.astype(np.float32)
@@ -44,5 +52,5 @@ if __name__ == '__main__':
                                           evaluator_validation=evaluator,
                                           metric_to_optimize="MAP",
                                           output_folder_path=version_path,
-                                          n_cases=35, n_random_starts=5, save_model="no")
+                                          n_cases=30, n_random_starts=5, save_model="no")
     print("...tuning ended")
