@@ -74,7 +74,7 @@ def main():
     h = int(args.focus_on_high)
     if h != 0:
         print("Excluding users with less than {} interactions".format(h))
-        ignore_users_mask = np.ediff1d(URM_train.tocsc().indptr) < h
+        ignore_users_mask = np.ediff1d(URM_train.tocsr().indptr) < h
         ignore_users = np.arange(URM_train.shape[1])[ignore_users_mask]
     elif exclude_cold_users:
         print("Excluding cold users...")

@@ -16,7 +16,7 @@ class LightFMRecommender(BaseMatrixFactorizationRecommender):
         self.UCM_train = UCM_train
         self.ICM_train = ICM_train
 
-    def fit(self, epochs=300, no_components=50, user_alpha=0.01, item_alpha=0.01, learning_schedule="adadelta",
+    def fit(self, epochs=300, no_components=50, user_alpha=0.01, item_alpha=0.01, learning_schedule="adagrad",
             learning_rate=0.05, loss="warp", max_sampled=10, **kwargs):
         self.model = lightfm.LightFM(no_components=no_components, item_alpha=item_alpha, user_alpha=user_alpha,
                                      loss=loss, learning_schedule=learning_schedule, learning_rate=learning_rate,

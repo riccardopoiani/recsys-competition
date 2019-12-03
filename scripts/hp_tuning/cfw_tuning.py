@@ -3,7 +3,7 @@ from datetime import datetime
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM
-from src.model.best_models import ItemCF
+from src.model import best_models
 from src.tuning.run_parameter_search_cfw_linalg import run_parameter_search
 from src.utils.general_utility_functions import get_split_seed
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    item_cf = ItemCF.get_model(URM_train, load_saved_model=False)
+    item_cf = best_models.ItemCBF_CF.get_model(URM_train, load_model=False)
     W_sparse_CF = item_cf.W_sparse
 
     # Fit ItemKNN best model and get the sparse matrix of the weights

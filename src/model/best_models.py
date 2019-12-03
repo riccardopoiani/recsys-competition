@@ -1,9 +1,6 @@
-import os
-
 from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
 
 # ---------------- CONTENT BASED FILTERING -----------------
-from src.utils.general_utility_functions import get_project_root_path
 
 
 class ItemCBF_CF(IContentModel):

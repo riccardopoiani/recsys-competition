@@ -2,26 +2,26 @@ import argparse
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.Data_manager.DataReader_utils import merge_ICM
-from course_lib.ParameterTuning.run_parameter_search import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
+from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM
+from src.data_management.data_getter import get_warmer_UCM
+from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
+from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
+from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
+from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
+from src.tuning.run_parameter_search_mf import run_parameter_search_mf_collaborative
 from src.utils.general_utility_functions import get_split_seed
+
+import os
 
 N_CASES = 35
 N_RANDOM_STARTS = 5
 RECOMMENDER_CLASS_DICT = {
-    "item_cf": ItemKNNCFRecommender,
-    "user_cf": UserKNNCFRecommender,
-    "slim_bpr": SLIM_BPR_Cython,
-    "p3alpha": P3alphaRecommender,
-    "pure_svd": PureSVDRecommender,
-    "rp3beta": RP3betaRecommender,
-    "asy_svd": MatrixFactorization_AsySVD_Cython,
-    "nmf": NMFRecommender,
-    "slim_elastic": SLIMElasticNetRecommender,
-    "ials": IALSRecommender
+    "light_fm": LightFMRecommender,
+    "ials": ImplicitALSRecommender,
+    "logistic_mf": LogisticMFRecommender,
+    "mf_bpr": MF_BPR_Recommender,
 }
 
 
@@ -34,12 +34,17 @@ def get_arguments():
     parser.add_argument("-nr", "--n_random_starts", default=N_RANDOM_STARTS,
                         help="number of random starts for hyperparameter tuning")
     parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
+    parser.add_argument("-foh", "--focus_on_high", default=0, help="focus the tuning only on users with profile"
+                                                                   "lengths larger than the one specified here")
     parser.add_argument("-eu", "--exclude_users", default=False, help="1 to exclude cold users, 0 otherwise")
 
     return parser.parse_args()
 
 
 def main():
+    os.environ["MKL_NUM_THREADS"] = "1"
+    os.environ["OPENBLAS_NUM_THREADS"] = "1"
+
     args = get_arguments()
 
     # Data loading
@@ -51,17 +56,32 @@ def main():
 
     # Build ICMs
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-    ICM = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
+    ICM_categorical = data_reader.get_ICM_from_name("ICM_sub_class")
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
     UCM_age = data_reader.dataReader_object.get_UCM_from_name("UCM_age")
     UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
 
+    UCM = None
+    ICM = None
+    UCM_name = ""
+    ICM_name = ""
+    if args.recommender_name == "light_fm":
+        UCM, _ = merge_UCM(UCM_age, UCM_region, {}, {})
+        UCM = get_warmer_UCM(UCM, URM_all, threshold_users=3)
+        ICM = ICM_categorical
+        ICM_name = "ICM_categorical"
+        UCM_name = "UCM_age_region"
+
     # Setting evaluator
     exclude_cold_users = args.exclude_users
-    if exclude_cold_users:
+    h = int(args.focus_on_high)
+    if h != 0:
+        print("Excluding users with less than {} interactions".format(h))
+        ignore_users_mask = np.ediff1d(URM_train.tocsr().indptr) < h
+        ignore_users = np.arange(URM_train.shape[1])[ignore_users_mask]
+    elif exclude_cold_users:
         print("Excluding cold users...")
         cold_user_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
         ignore_users = np.arange(URM_train.shape[0])[cold_user_mask]
@@ -70,7 +90,6 @@ def main():
 
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
-
     # HP tuning
     print("Start tuning...")
     version_path = "../../report/hp_tuning/{}/".format(args.recommender_name)
@@ -78,13 +97,14 @@ def main():
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
 
-    runParameterSearch_Collaborative(URM_train=URM_train,
-                                     recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
-                                     evaluator_validation=evaluator,
-                                     metric_to_optimize="MAP",
-                                     output_folder_path=version_path,
-                                     n_cases=int(args.n_cases),
-                                     n_random_starts=int(args.n_random_starts))
+    run_parameter_search_mf_collaborative(URM_train=URM_train, ICM_train=ICM, ICM_name=ICM_name,
+                                          UCM_train=UCM, UCM_name=UCM_name,
+                                          recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
+                                          evaluator_validation=evaluator,
+                                          metric_to_optimize="MAP",
+                                          output_folder_path=version_path,
+                                          n_cases=args.n_cases, n_random_starts=args.n_random_starts,
+                                          save_model="no")
     print("...tuning ended")
 
 

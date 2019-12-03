@@ -1,6 +1,6 @@
-from ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
+from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
 from skopt.space import Real, Integer, Categorical
-from ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
+from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
 import os
 
