@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
+from tqdm import tqdm
+
 from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.NonPersonalizedRecommender import TopPop
 from src.model_management.model_comparison import compare_with_top_popular_recommender
@@ -39,7 +41,6 @@ def plot_metric_results_by_user_demographic(results: list, metric_name: str = "M
         ax2.plot(user_demographic, 'r.', label='{}'.format(user_demographic_name.capitalize()))
         ax2.set_ylabel("Number of user interactions")
         ax2.legend()
-
 
 
 def _get_metric_result(results: list, metric_name: str, cutoff: int):
@@ -127,53 +128,57 @@ def plot_sample_evaluations(result: pd.DataFrame, dimensions_list: list, metric_
     return fig, ax
 
 
-def plot_recommendation_distribution(recommender_object: BaseRecommender, URM, at=5,
-                                     graph_title="Number of recommendations", x_label="Items"):
+def plot_recommendation_distribution(recommender_object: BaseRecommender, URM_test, cutoff=5,
+                                     graph_title="Number of recommendations", x_label="Items", batches=20):
     """
     Show the distributions of the recommendations made by a certain recommender object on the given URM.
     In the notebooks of the lecture, the URM used is URM_all.
 
+    :param recommender_object: recommender that will make the recommendations
+    :param URM_test: URM on which the recommender will do the recommendations
+    :param cutoff:
     :param x_label: label of the x axis of the graph
     :param graph_title: title of the graph
-    :param recommender_object: recommender that will make the recommendations
-    :param URM: URM on which the recommender will do the recommendations
     :return: graph of the recommendation distributions
     """
 
-    x_tick = np.arange(URM.shape[1])
-    counter = np.zeros(URM.shape[1])
-    # TODO Riccardo boost recommendation by passing batches of 1000 users
-    for user_id in range(URM.shape[0]):
-        recs = recommender_object.recommend(user_id, cutoff=at)
-        counter[recs] += 1
-        if user_id % 10000 == 0:
-            print("Recommended to user {}/{}".format(user_id, URM.shape[0]))
+    x_tick = np.arange(URM_test.shape[1])
+    counter = np.zeros(URM_test.shape[1])
+
+    user_list = np.arange(URM_test.shape[0])
+    split_user_list = np.array_split(user_list, batches)
+
+    for split_id in tqdm(range(len(split_user_list)), desc="Plot recommendations distribution"):
+        users = split_user_list[split_id]
+        recommendations = recommender_object.recommend(users, cutoff=cutoff)
+        for rec in recommendations:
+            counter[rec] += 1
 
     plt.ylabel(graph_title)
     plt.xlabel(x_label)
     plt.plot(x_tick, np.sort(counter)[::-1])
 
 
-
 def plot_comparison_with_top_pop(recommender_object: BaseRecommender, top_popular: TopPop, list_of_num_max_points: list,
-                                 URM, cutoff=10, graph_title="Comparison with Top Popular recommender"):
-    '''
+                                 URM_test, cutoff=10, graph_title="Comparison with Top Popular recommender"):
+    """
     Plot the comparison with the top popular recommender and compute the comparison for a number of recommendations
     specified in list_of_num_max_points
 
-
     :param recommender_object: recommender to compare
     :param top_popular: top popular recommender
+    :param URM_test:
+    :param cutoff:
     :param list_of_num_max_points: contains the number of elements that the top pop will recommend (i.e. its cutoff)
     :param graph_title: Title of the graph
     :return: y values of the graph
-    '''
+    """
     list_of_num_max_points.sort()
     y_ticks = []
     for item in list_of_num_max_points:
         comparison_results = compare_with_top_popular_recommender(top_pop_recommender=top_popular,
-                                                                  recommender_to_compare=recommender_object
-                                                                  , cutoff=cutoff, num_most_pop=item, URM=URM)
+                                                                  recommender_to_compare=recommender_object,
+                                                                  cutoff=cutoff, num_most_pop=item, URM_test=URM_test)
         y_ticks.append(comparison_results)
 
     plt.plot(list_of_num_max_points, y_ticks)

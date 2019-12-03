@@ -6,6 +6,7 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 import numpy as np
 from datetime import datetime
 from src.feature.clustering_utils import cluster_data
+from src.utils.general_utility_functions import enable_print
 
 
 def plot_clustering_demographics(recommender_instance_list: list, URM_train, URM_test, dataframe, metric, cutoff,
@@ -147,8 +148,9 @@ def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, met
 
     for i, recommender in enumerate(recommender_instance_list):
         results, support = evaluate_recommender_by_demographic(recommender_object=recommender, URM_train=URM_train,
-                                                      URM_test=URM_test, cutoff=cutoff, metric=metric,
-                                                      demographic=demographic, exclude_cold_users=exclude_cold_users)
+                                                               URM_test=URM_test, cutoff=cutoff, metric=metric,
+                                                               demographic=demographic,
+                                                               exclude_cold_users=exclude_cold_users)
         plt.plot(results, label=recommender_name_list[i])
 
     plt.title("Results of {}, accordingly to {}".format(metric, demographic_name))
@@ -194,7 +196,7 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
                                     compare_top_pop_points=None,
                                     demographic_list_name=None, demographic_list=None, output_path_folder="",
                                     ICM=None):
-    '''
+    """
     Plot some graphics concerning the results of hyperparameter procedure.
     In particular, first samples are plotted (where the bayesian method have searched for solutions).
     Then, it searches for the best model found, and, do some plots about it.
@@ -217,7 +219,7 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
     :param demographic_list: list of additional demographics @DEPRECATED
     :param output_path_folder: where image should be saved, if specified
     :return: None
-    '''
+    """
     results = read_folder_metadata(path)
 
     print("hello")
@@ -308,7 +310,7 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
 def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, URM_test, output_path_folder,
                             save_on_file, compare_top_pop_points, demographic_list, demographic_list_name,
                             is_compare_top_pop):
-    '''
+    """
     Plot some graphics concerning the results of a built recommender system
     In particular:
     - Recommendation distribution
@@ -326,10 +328,8 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
     :param demographic_list: list of additional demographics @DEPRECATED
     :param output_path_folder: where image should be saved, if specified
     :return: None
-    '''
-    if compare_top_pop_points is None:
-        compare_top_pop_points = [10, 100, 500, 1000]
-
+    """
+    # Create directories if saving files
     if save_on_file:
         try:
             if not os.path.exists(output_path_folder):
@@ -338,47 +338,56 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
             os.makedirs(output_path_folder)
 
     # Plot the trend of the predictions
-    plot_recommendation_distribution(recommender_instance, URM_train, at=10)
+    plot_recommendation_distribution(recommender_instance, URM_train, cutoff=10)
     fig_rec_distr = plt.gcf()
     fig_rec_distr.show()
 
     if save_on_file:
-        output_path_file = output_path_folder + "recommendation_distribution.png"
+        file_name = "recommendation_distribution.png"
+        output_path_file = output_path_folder + file_name
         fig_rec_distr.savefig(output_path_file)
-        print("Save on file")
+        print("Plot recommendations distribution: saved as {}".format(file_name))
 
     # Plot comparison with top popular
     if is_compare_top_pop:
+        if compare_top_pop_points is None:
+            compare_top_pop_points = [10, 100, 500, 1000]
+
+        block_print() # Disable useless prints
         top_popular = TopPop(URM_train)
         top_popular.fit()
-        plot_comparison_with_top_pop(recommender_instance, top_popular,
-                                     compare_top_pop_points, URM_train)
+        enable_print()
+
+        plot_comparison_with_top_pop(recommender_instance, top_popular, compare_top_pop_points, URM_train)
         fig_comparison_with_top_pop = plt.gcf()
         fig_comparison_with_top_pop.show()
         if save_on_file:
-            output_path_file = output_path_folder + "comparison_top_pop.png"
+            file_name = "comparison_top_pop.png"
+            output_path_file = output_path_folder + file_name
             fig_comparison_with_top_pop.savefig(output_path_file)
-            print("Save on file")
+            print("Plot comparison with TopPop: saved as {}".format(file_name))
 
     # Plot metrics by user popularity
-    usr_act = (URM_train > 0).sum(axis=1)
-    usr_act = np.squeeze(np.asarray(usr_act))
+    user_activity = (URM_train > 0).sum(axis=1)
+    user_activity = np.squeeze(np.asarray(user_activity))
 
-    res = evaluate_recommender_by_user_demographic(recommender_instance, URM_train, URM_test,
-                                                   [10], usr_act, 10)
+    print("Plot metric results by user activity: init")
+    res = evaluate_recommender_by_user_demographic(recommender_instance, URM_train, URM_test, [10], user_activity, 10)
     plot_metric_results_by_user_demographic(res, metric_name="MAP", cutoff=10,
-                                            user_demographic=usr_act,
+                                            user_demographic=user_activity,
                                             user_demographic_name="User activity")
     fig_usr_act = plt.gcf()
     fig_usr_act.show()
     if save_on_file:
-        output_path_file = output_path_folder + "usr_activity.png"
+        file_name = "user_activity.png"
+        output_path_file = output_path_folder + file_name
         fig_usr_act.savefig(output_path_file)
-        print("Save on file")
+        print("Plot metric by user activity: saved as {}".format(file_name))
 
     # Plot other demographics
     if demographic_list is not None:
         for i in range(0, len(demographic_list)):
+            print("Plot metric results by demographic: {}".format(demographic_list_name[i]))
             res = evaluate_recommender_by_user_demographic(recommender_instance, URM_train, URM_test,
                                                            [10], demographic_list[i], 10)
             plot_metric_results_by_user_demographic(res, metric_name="MAP", cutoff=10,
@@ -387,9 +396,10 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
             fig_dem = plt.gcf()
             fig_dem.show()
             if save_on_file:
-                output_path_file = output_path_folder + demographic_list_name[i] + ".png"
+                file_name = demographic_list_name[i] + ".png"
+                output_path_file = output_path_folder + file_name
                 fig_dem.savefig(output_path_file)
-                print("Save on file")
+                print("Plot metric by demographic: saved as {}".format(file_name))
 
 
 def plot_compare_recommenders_user_profile_len(recommender_list,

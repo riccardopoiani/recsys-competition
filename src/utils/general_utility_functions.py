@@ -1,3 +1,6 @@
+
+
+
 SPLIT_SEED = 69420
 
 
@@ -8,6 +11,17 @@ def get_split_seed():
 def get_project_root_path():
     import os
     return os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
+def block_print():
+    import sys
+    import os
+    sys.stdout = open(os.devnull, 'w')
+
+
+def enable_print():
+    import sys
+    sys.stdout = sys.__stdout__
 
 
 def from_string_to_dict(s):

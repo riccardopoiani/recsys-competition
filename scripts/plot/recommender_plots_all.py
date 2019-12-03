@@ -11,7 +11,6 @@ from src.plots.recommender_plots import basic_plots_recommender
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
-
     data_reader = RecSys2019Reader("../../data/")
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=get_split_seed())
@@ -28,6 +27,7 @@ if __name__ == '__main__':
     ICM_categorical = data_reader.get_ICM_from_name("ICM_sub_class")
     ICM_all, _ = merge_ICM(ICM_categorical, URM_train.T, {}, {})
 
+    # Model definition and fitting
     model = best_models.IALS.get_model(URM_train)
 
     version_path = "../../report/graphics/ials/"

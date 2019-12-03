@@ -1,8 +1,11 @@
 import numpy as np
+from tqdm import tqdm
+
 from course_lib.Base.BaseRecommender import BaseRecommender
 from scipy import sparse as sps
 import pandas as pd
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
+from src.utils.general_utility_functions import block_print
 
 
 def evaluate_recommender_by_item_content(recommender_object: BaseRecommender, URM_train, URM_test,
