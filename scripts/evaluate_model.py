@@ -1,12 +1,17 @@
 import os
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.IR_feature_weighting import TF_IDF, okapi_BM_25
 from course_lib.Data_manager.DataReader_utils import merge_ICM
+from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
 from src.data_management.data_getter import get_warmer_UCM
+from src.feature.feature_weighting import weight_matrix_by_demographic_popularity, weight_matrix_by_user_profile
 from src.model import best_models
+from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
@@ -36,6 +41,7 @@ if __name__ == '__main__':
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
+    warm_users = np.arange(URM_train.shape[0])[~cold_users_mask]
 
     cold_items_mask = np.ediff1d(URM_train.tocsc().indptr) == 0
     cold_items = np.arange(URM_train.shape[1])[cold_items_mask]
@@ -46,6 +52,12 @@ if __name__ == '__main__':
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
-    model = best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
-    print(evaluator.evaluateRecommender(model))
+    UCM_age = get_warmer_UCM(UCM_age, URM_all, threshold_users=3)
+    UCM_region = get_warmer_UCM(UCM_region, URM_all, threshold_users=3)
+    URM_train = URM_train.astype(np.float32)
+    URM_train = weight_matrix_by_user_profile(URM_train, URM_train, "log")
 
+    par = best_models.IALS.get_best_parameters()
+    model = ImplicitALSRecommender(URM_train)
+    model.fit(**par)
+    print(evaluator.evaluateRecommender(model))

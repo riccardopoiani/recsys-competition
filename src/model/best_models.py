@@ -55,6 +55,18 @@ class ItemCBF_categorical(IContentModel):
     recommender_class = ItemKNNCBFRecommender
     recommender_name = "ItemCBF_Categorical"
 
+class ItemCBF_all(IContentModel):
+    """
+    Item CBF tuned with URM_train and ICM_all (containing sub_class, price and asset) done with euclidean similarity
+     - MAP (only warm): 0.0095
+    """
+    from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+
+    best_parameters = {'topK': 499, 'shrink': 1018, 'similarity': 'euclidean', 'normalize': False,
+                       'normalize_avg_row': True, 'similarity_from_distance_mode': 'log', 'feature_weighting': 'none'}
+    recommender_class = ItemKNNCBFRecommender
+    recommender_name = "ItemCBF_all"
+
 
 # ---------------- COLLABORATIVE FILTERING -----------------
 class ItemCF(ICollaborativeModel):
@@ -115,13 +127,13 @@ class SLIM_BPR(ICollaborativeModel):
     """
     SLIM_BPR recommender tuned with URM_train
      - There is still need to be tuned better
-     - MAP (all users): 0.0217
-     - MAP (only warm): 0.027958
+     - MAP (only warm): 0.02861
     """
     from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 
-    best_parameters = {'topK': 5, 'epochs': 1499, 'symmetric': False, 'sgd_mode': 'adagrad',
-                       'lambda_i': 1e-05, 'lambda_j': 0.01, 'learning_rate': 0.0001}
+    best_parameters = {'topK': 10, 'epochs': 1500, 'symmetric': False, 'sgd_mode': 'adagrad',
+                       'lambda_i': 0.6893323214774385, 'lambda_j': 3.7453749998335963e-06,
+                       'learning_rate': 1e-06}
     recommender_class = SLIM_BPR_Cython
     recommender_name = "SLIM_BPR"
 
@@ -242,25 +254,54 @@ class HybridWeightedAvgSubmission1(IBestModel):
                        'SLIM_BPR': 0.03591603993769955, 'P3ALPHA': 0.7474845972085382, 'RP3BETA': 0.1234024366177027}
 
     @classmethod
-    def _get_all_models(cls, URM_train, ICM_numerical, ICM_categorical, load_saved_model):
-        all_models = {'ITEM_CF': ItemCF.get_model(URM_train=URM_train, load_saved_model=load_saved_model),
-                      'USER_CF': UserCF.get_model(URM_train=URM_train, load_saved_model=load_saved_model),
+    def _get_all_models(cls, URM_train, ICM_numerical, ICM_categorical, load_model, save_model):
+        all_models = {'ITEM_CF': ItemCF.get_model(URM_train=URM_train, load_model=load_model, save_model=save_model),
+                      'USER_CF': UserCF.get_model(URM_train=URM_train, load_model=load_model, save_model=save_model),
                       'ITEM_CBF_NUM': ItemCBF_numerical.get_model(URM_train=URM_train, ICM_train=ICM_numerical,
-                                                                  load_saved_model=load_saved_model),
+                                                                  load_model=load_model, save_model=save_model),
                       'ITEM_CBF_CAT': ItemCBF_categorical.get_model(URM_train=URM_train, ICM_train=ICM_categorical,
-                                                                    load_saved_model=load_saved_model),
-                      'SLIM_BPR': SLIM_BPR.get_model(URM_train=URM_train, load_saved_model=load_saved_model),
-                      'P3ALPHA': P3Alpha.get_model(URM_train=URM_train, load_saved_model=load_saved_model),
-                      'RP3BETA': RP3Beta.get_model(URM_train=URM_train, load_saved_model=load_saved_model)}
+                                                                    load_model=load_model, save_model=save_model),
+                      'SLIM_BPR': SLIM_BPR.get_model(URM_train=URM_train, load_model=load_model, save_model=save_model),
+                      'P3ALPHA': P3Alpha.get_model(URM_train=URM_train, load_model=load_model, save_model=save_model),
+                      'RP3BETA': RP3Beta.get_model(URM_train=URM_train, load_model=load_model, save_model=save_model)}
         return all_models
 
     @classmethod
-    def get_model(cls, URM_train, ICM_numerical, ICM_categorical, load_saved_model=True):
+    def get_model(cls, URM_train, ICM_numerical, ICM_categorical, load_model=False, save_model=False):
         from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
         model = HybridWeightedAverageRecommender(URM_train=URM_train, normalize=True)
         all_models = cls._get_all_models(URM_train=URM_train, ICM_numerical=ICM_numerical,
-                                         ICM_categorical=ICM_categorical, load_saved_model=load_saved_model)
+                                         ICM_categorical=ICM_categorical, load_model=load_model, save_model=save_model)
         for model_name, model_object in all_models.items():
             model.add_fitted_model(model_name, model_object)
         model.fit(**cls.get_best_parameters())
         return model
+
+
+class HybridWeightedAvgSubmission2(IBestModel):
+    """
+    Hybrid Weighted Average (only warm, submission on Kaggle with UserCBF as Fallback)
+     - MAP:
+    """
+    best_parameters = {'ITEM_CBF_CF': 1.0, 'P3ALPHA': 1.0, 'IALS': 1.0, 'USER_ITEM_ALL': 1.0}
+
+    @classmethod
+    def _get_all_models(cls, URM_train, ICM_train, UCM_train, load_model, save_model):
+        all_models = {'ITEM_CBF_CF': ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_train,
+                                                          load_model=load_model, save_model=save_model),
+                      'IALS': IALS.get_model(URM_train=URM_train, load_model=load_model, save_model=save_model),
+                      'P3ALPHA': P3Alpha.get_model(URM_train=URM_train, load_model=load_model, save_model=save_model),
+                      'USER_ITEM_ALL': UserItemKNNCBFCFDemographic.get_model(URM_train, ICM_train, UCM_train)}
+        return all_models
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train, UCM_train, load_model=False, save_model=False):
+        from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+        model = HybridWeightedAverageRecommender(URM_train=URM_train, normalize=True)
+        all_models = cls._get_all_models(URM_train=URM_train, ICM_train=ICM_train,
+                                         UCM_train=UCM_train, load_model=load_model, save_model=save_model)
+        for model_name, model_object in all_models.items():
+            model.add_fitted_model(model_name, model_object)
+        model.fit(**cls.get_best_parameters())
+        return model
+

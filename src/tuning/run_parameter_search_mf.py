@@ -54,7 +54,7 @@ def run_parameter_search_mf_collaborative(recommender_class, URM_train, UCM_trai
         hyperparameters_range_dictionary = {}
 
         if recommender_class is ImplicitALSRecommender:
-            hyperparameters_range_dictionary["num_factors"] = Integer(400, 700)
+            hyperparameters_range_dictionary["num_factors"] = Integer(300, 550)
             hyperparameters_range_dictionary["regularization"] = Real(low=1e-2, high=200, prior='log-uniform')
             hyperparameters_range_dictionary["epochs"] = Categorical([50])
             hyperparameters_range_dictionary["confidence_scaling"] = Categorical(["linear"])

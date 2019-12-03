@@ -47,9 +47,9 @@ class IBestModel(ABC):
 class ICollaborativeModel(IBestModel):
 
     @classmethod
-    def get_model(cls, URM_train, load_saved_model=True):
+    def get_model(cls, URM_train, load_model=True, save_model=True):
         try:
-            if load_saved_model:
+            if load_model:
                 model = cls.recommender_class(URM_train)
                 model = cls._load_model(model)
                 return model
@@ -58,16 +58,18 @@ class ICollaborativeModel(IBestModel):
 
         model = cls.recommender_class(URM_train)
         model.fit(**cls.best_parameters)
-        cls._save_model(model)
+
+        if save_model:
+            cls._save_model(model)
         return model
 
 
 class IContentModel(IBestModel):
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train, load_saved_model=True):
+    def get_model(cls, URM_train, ICM_train, load_model=True, save_model=True):
         try:
-            if load_saved_model:
+            if load_model:
                 model = cls.recommender_class(URM_train=URM_train, ICM_train=ICM_train)
                 model = cls._load_model(model)
                 return model
@@ -76,6 +78,8 @@ class IContentModel(IBestModel):
 
         model = cls.recommender_class(URM_train=URM_train, ICM_train=ICM_train)
         model.fit(**cls.best_parameters)
-        cls._save_model(model)
+
+        if save_model:
+            cls._save_model(model)
         return model
 

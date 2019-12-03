@@ -481,13 +481,13 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_las
         if recommender_class is SLIM_BPR_Cython:
 
             hyperparameters_range_dictionary = {}
-            hyperparameters_range_dictionary["topK"] = Integer(5, 1000)
-            hyperparameters_range_dictionary["epochs"] = Categorical([1500])
+            hyperparameters_range_dictionary["topK"] = Integer(5, 2000)
+            hyperparameters_range_dictionary["epochs"] = Categorical([200])
             hyperparameters_range_dictionary["symmetric"] = Categorical([True, False])
-            hyperparameters_range_dictionary["sgd_mode"] = Categorical(["sgd", "adagrad", "adam"])
-            hyperparameters_range_dictionary["lambda_i"] = Real(low = 1e-5, high = 1e-2, prior = 'log-uniform')
-            hyperparameters_range_dictionary["lambda_j"] = Real(low = 1e-5, high = 1e-2, prior = 'log-uniform')
-            hyperparameters_range_dictionary["learning_rate"] = Real(low = 1e-4, high = 1e-1, prior = 'log-uniform')
+            hyperparameters_range_dictionary["sgd_mode"] = Categorical(["adagrad", "adam"])
+            hyperparameters_range_dictionary["lambda_i"] = Real(low = 1e-7, high = 1e1, prior = 'log-uniform')
+            hyperparameters_range_dictionary["lambda_j"] = Real(low = 1e-7, high = 1e1, prior = 'log-uniform')
+            hyperparameters_range_dictionary["learning_rate"] = Real(low = 1e-6, high = 1e-3, prior = 'log-uniform')
 
             recommender_input_args = SearchInputRecommenderArgs(
                 CONSTRUCTOR_POSITIONAL_ARGS = [URM_train],

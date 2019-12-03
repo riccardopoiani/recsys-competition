@@ -3,6 +3,7 @@ from datetime import datetime
 from numpy.random import seed
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.IR_feature_weighting import TF_IDF
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
@@ -34,6 +35,9 @@ if __name__ == '__main__':
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
+
+    URM_train = URM_train.astype(np.float32)
+    URM_train = TF_IDF(URM_train.T).T
 
     run_parameter_search_mf_collaborative(URM_train=URM_train,
                                           recommender_class=ImplicitALSRecommender,
