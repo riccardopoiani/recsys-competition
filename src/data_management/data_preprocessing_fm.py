@@ -2,13 +2,43 @@ from scipy.sparse import csr_matrix, csc_matrix, coo_matrix
 import numpy as np
 
 
-def mix_URM(URM_positive, URM_negative):
+def mix_URM(URM_positive: csr_matrix, URM_negative: csr_matrix):
     raise NotImplemented()
 
 
-def format_URM_negative_sampling_user_compressed(URM):
+#############################################################################
+########################## INTEGRATING EXTERNAL INFORMATION##################
+#############################################################################
+
+def add_UCM_info(fm_matrix: csr_matrix, UCM: csr_matrix):
+    """
+    Given a matrix in the format needed to FM, it adds information concering the UCM
+
+    Note: no group by per items should be applied in this case
+
+    :param matrixFM: matrix containing dataset for FM models
+    :param UCM: UCM information about users
+    :return: new matrix containing also information about the UCM
+    """
     raise NotImplemented()
 
+
+def add_ICM_info(fm_matrix: csr_matrix, ICM: csr_matrix):
+    """
+    Given a matrix in the format needed for FM, it adds information concerning the ICM
+
+    Note: no group by per users should be applied in this case
+
+    :param matrixFM: matrix concerning dataset for FM models
+    :param ICM: ICM information about items
+    :return: new matrix integrating ICM data
+    """
+    raise NotImplemented()
+
+
+#################################################################################
+########################## SAMPLING STRATEGIES ##################################
+#################################################################################
 
 def uniform_sampling_strategy(negative_sample_size, URM):
     """
@@ -33,6 +63,14 @@ def uniform_sampling_strategy(negative_sample_size, URM):
             collected_samples[:, sampled] = t_sample
             sampled += 1
     return collected_samples
+
+
+#################################################################################
+########################## NEGATIVE RATING PREPARATION ##########################
+#################################################################################
+
+def format_URM_negative_sampling_user_compressed(URM: csr_matrix):
+    raise NotImplemented()
 
 
 def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1,
@@ -94,6 +132,10 @@ def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1
 
     return fm_matrix.tocsr()
 
+
+#################################################################################
+########################## POSITIVE RATING PREPARATION ##########################
+#################################################################################
 
 def format_URM_positive_user_compressed(URM: csr_matrix):
     """
