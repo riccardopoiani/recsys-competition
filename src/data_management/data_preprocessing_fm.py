@@ -1,16 +1,101 @@
-from scipy.sparse import coo_matrix
+from scipy.sparse import csr_matrix, csc_matrix, coo_matrix
 import numpy as np
 
 
+def mix_URM(URM_positive, URM_negative):
+    raise NotImplemented()
+
+
 def format_URM_negative_sampling_user_compressed(URM):
-    pass
+    raise NotImplemented()
 
 
-def format_URM_negative_sampling_non_compressed(URM):
-    pass
+def uniform_sampling_strategy(negative_sample_size, URM):
+    """
+    Sample negative samples uniformly from the given URM
+
+    :param negative_sample_size: number of negative samples to be sampled
+    :param URM: URM from which samples are taken
+    :return: bi-dimensional array of shape (2, negative_sample_size): in the first dimensions row-samples are
+    stored, while in the second one col-samples are stored. Therefore, in the i-th col of this returned array
+    you can find a indices of a negative sample in the URM_train
+    """
+    max_row = URM.shape[0]
+    max_col = URM.shape[1]
+    collected_samples = np.zeros(shape=(2, negative_sample_size))
+    sampled = 0
+    while sampled < negative_sample_size:
+        t_row = np.random.randint(low=0, high=max_row, size=1)[0]
+        t_col = np.random.randint(low=0, high=max_col, size=1)[0]
+        t_sample = np.array([[t_row], [t_col]])
+
+        if (not np.isin(collected_samples, t_sample).min(axis=0).max()) and (URM[t_row, t_col] == 0):
+            collected_samples[:, sampled] = t_sample
+            sampled += 1
+    return collected_samples
 
 
-def format_URM_positive_user_compressed(URM):
+def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1,
+                                                sampling_function=None):
+    """
+    Format negative interactions of an URM in the way that is needed for the FM model
+    - We have #positive_interactions * negative_rate @rows
+    - We have #users+items+1 @cols
+    - We have 3 interactions in each row: one for the users, one for the item, and -1 for the rating
+
+    :param URM: URM to be preprocessed and from which negative samples is taken
+    :param negative_rate: it samples
+    :param sampling_function: you can give a sampling function that takes in input. If None, uniform sampling
+    will be applied
+    :return: csr_matrix containing the negative interactions
+    """
+    # Initial set-up
+    item_offset = URM.shape[0]
+    last_col = URM.shape[0] + URM.shape[1]
+    negative_sample_size = int(URM.data.size * negative_rate)
+    fm_matrix = coo_matrix((negative_sample_size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
+
+    # Take samples
+    if sampling_function is None:
+        collected_samples = uniform_sampling_strategy(negative_sample_size=negative_sample_size,
+                                                      URM=URM)
+    else:
+        collected_samples = sampling_function(negative_sample_size=negative_sample_size, URM=URM)
+
+    # Set up initial vectors
+    row_v = np.zeros(negative_sample_size * 3)  # Row should have (i,i,i) repeated for all the size
+    col_v = np.zeros(negative_sample_size * 3)  # This is the "harder" to set
+    data_v = -np.ones(negative_sample_size * 3)  # Already ok, nothing to be added
+
+    # Setting row vector
+    for i in range(0, negative_sample_size):
+        row_v[3 * i] = i
+        row_v[(3 * i) + 1] = i
+        row_v[(3 * i) + 2] = i
+
+    # Setting col vector
+    for i in range(0, negative_sample_size):
+        # Retrieving information
+        user = collected_samples[0, i]
+        item = collected_samples[1, i]
+
+        # Fixing col indices to be added to the new matrix
+        user_index = user
+        item_index = item + item_offset
+
+        col_v[3 * i] = user_index
+        col_v[(3 * i) + 1] = item_index
+        col_v[(3 * i) + 2] = last_col
+
+    # Setting new information
+    fm_matrix.row = row_v
+    fm_matrix.col = col_v
+    fm_matrix.data = data_v
+
+    return fm_matrix.tocsr()
+
+
+def format_URM_positive_user_compressed(URM: csr_matrix):
     """
     Format positive interactions of an URM in the way that is needed for the FM model.
     Here, however, users information are grouped w.r.t. items, meaning that, we will have:
@@ -70,7 +155,7 @@ def format_URM_positive_user_compressed(URM):
     return fm_matrix.tocsr()
 
 
-def format_URM_positive_non_compressed(URM):
+def format_URM_positive_non_compressed(URM: csr_matrix):
     """
     Format positive interactions of an URM in the way that is needed for the FM model.
     - We have #num_ratings row
