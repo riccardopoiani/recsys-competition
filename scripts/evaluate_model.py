@@ -1,18 +1,22 @@
 import os
 
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.Base.IR_feature_weighting import TF_IDF, okapi_BM_25
 from course_lib.Data_manager.DataReader_utils import merge_ICM
+<<<<<<< Updated upstream
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
+=======
+>>>>>>> Stashed changes
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
 from src.data_management.data_getter import get_warmer_UCM
+<<<<<<< Updated upstream
 from src.feature.feature_weighting import weight_matrix_by_user_profile
+=======
+>>>>>>> Stashed changes
 from src.model import best_models
-from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
@@ -56,7 +60,6 @@ if __name__ == '__main__':
 
     UCM_age = get_warmer_UCM(UCM_age, URM_all, threshold_users=3)
     UCM_region = get_warmer_UCM(UCM_region, URM_all, threshold_users=3)
-    print(np.sort(URM_test.indices)[:30])
 
     model = best_models.ItemCF.get_model(URM_train, load_model=False)
     print(evaluator.evaluateRecommender(model))
