@@ -2,20 +2,10 @@ import os
 
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Data_manager.DataReader_utils import merge_ICM
-<<<<<<< Updated upstream
-from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
-from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
-from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
-=======
->>>>>>> Stashed changes
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
 from src.data_management.data_getter import get_warmer_UCM
-<<<<<<< Updated upstream
-from src.feature.feature_weighting import weight_matrix_by_user_profile
-=======
->>>>>>> Stashed changes
 from src.model import best_models
 from src.utils.general_utility_functions import get_split_seed
 
