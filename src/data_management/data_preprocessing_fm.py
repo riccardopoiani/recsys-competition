@@ -1,4 +1,4 @@
-from scipy.sparse import csr_matrix, csc_matrix, coo_matrix
+from scipy.sparse import csr_matrix, csc_matrix, coo_matrix, lil_matrix
 import numpy as np
 
 
@@ -23,18 +23,49 @@ def add_UCM_info(fm_matrix: csr_matrix, UCM: csr_matrix):
     raise NotImplemented()
 
 
-def add_ICM_info(fm_matrix: csr_matrix, ICM: csr_matrix):
+def add_ICM_info(fm_matrix: csr_matrix, ICM: csr_matrix, item_offset):
     """
     Given a matrix in the format needed for FM, it adds information concerning the ICM
 
     Note: no group by per users should be applied in this case
 
-    :param matrixFM: matrix concerning dataset for FM models
+    :param fm_matrix: matrix concerning dataset for FM models
     :param ICM: ICM information about items
+    :param item_offset: starting column index for items in fm_matrix (it should be URM_train.shape[0]
+    of the URM used to construct the fm_matrix)
     :return: new matrix integrating ICM data
     """
-    raise NotImplemented()
+    # Get rid of last column
+    rating_col = fm_matrix[:, -1]
+    fm_matrix = fm_matrix[:, 0:-1].copy()
 
+    # Find the items in a given FM-row and add it to the new ICM
+    new_ICM = lil_matrix((fm_matrix.shape[0], ICM.shape[1]), dtype=np.int8)
+    for row_index in range(0, fm_matrix.shape[0]):
+        if row_index % 10000 == 0:
+            print("Scanned {} over {}".format(row_index, fm_matrix.shape[0]))
+        row_item = fm_matrix[row_index].indices[fm_matrix[row_index].indices >= item_offset]
+        if row_item.size > 1:
+            raise RuntimeError("Illegal state")
+        row_item = row_item[0] - item_offset
+        new_ICM[row_index] = ICM[row_item].copy()
+
+    new_ICM = new_ICM.tocsr()
+
+    # Merging data
+    merged_fm = coo_matrix((new_ICM.shape[0], new_ICM.shape[1] + fm_matrix.shape[1] + 1), dtype=np.float32)
+    fm_matrix = fm_matrix.tocoo()
+
+    merged_fm.data = fm_matrix.data
+    merged_fm.row = fm_matrix.row
+    merged_fm.col = fm_matrix.col
+
+    merged_fm = merged_fm.tocsr()
+    merged_fm[:, fm_matrix.shape[1]:fm_matrix.shape[1] + new_ICM.shape[1]] = new_ICM
+
+    merged_fm[:, -1:] = rating_col
+
+    return merged_fm
 
 #################################################################################
 ########################## SAMPLING STRATEGIES ##################################
