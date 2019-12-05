@@ -69,8 +69,72 @@ def uniform_sampling_strategy(negative_sample_size, URM):
 ########################## NEGATIVE RATING PREPARATION ##########################
 #################################################################################
 
-def format_URM_negative_sampling_user_compressed(URM: csr_matrix):
-    raise NotImplemented()
+def format_URM_negative_sampling_user_compressed(URM: csr_matrix, negative_rate=1, sampling_function=None):
+    """
+    Format negative interactions of an URM in the way that is needed for the FM model. Here, however, users
+    and compressed w.r.t. the items they liked in the negative samples sampled
+
+    In particular you will have:
+    - #different_items_sampled @row
+    - #users+items+1 @cols
+    - #(negative_sample_size)*(different_items_sampled*2) @data
+
+    :param URM: URM to be preprocessed  and from which negative samples are taken
+    :param negative_rate: how much negatives samples do you want in proportion to the negative one
+    :param sampling_function: sampling function that takes in input the negative sample size
+    and the URM from which samples are taken. If None, uniform sampling will be applied
+    :return: csr_matrix containing the negative interactions:
+    """
+    negative_sample_size = int(URM.data.size * negative_rate)
+    new_train = URM.copy().tocoo()
+    item_offset = URM.shape[0]
+
+    if sampling_function is None:
+        collected_samples = uniform_sampling_strategy(negative_sample_size=negative_sample_size, URM=URM)
+    else:
+        collected_samples = sampling_function(negative_sample_size=negative_sample_size, URM=URM)
+
+    # Different items sampled
+    different_items_sampled = np.unique(collected_samples[1])
+
+    fm_matrix = coo_matrix((different_items_sampled.shape.size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
+
+    row_v = np.zeros(new_train.data.size + (different_items_sampled.size * 2))
+    col_v = np.zeros(new_train.data.size + (different_items_sampled.size * 2))
+    data_v = np.zeros(new_train.data.size + (different_items_sampled.size * 2))
+
+    # For all the items, set up its content
+    j = 0  # Index to scan and modify the vectors
+    URM_train_csc = URM.copy().tocsc()
+    for i, item in enumerate(different_items_sampled):
+        # Find all users sampled for that item
+        item_mask = collected_samples[1] == item
+        users_sampled_for_that_item = np.unique(collected_samples[0][item_mask])
+
+        offset = users_sampled_for_that_item.size
+        if offset > 0:
+            col_v[j:j + offset] = users_sampled_for_that_item
+            row_v[j:j + offset] = i
+            data_v[j:j + offset] = 1
+
+            col_v[j + offset] = item + item_offset
+            row_v[j + offset] = i
+            data_v[j + offset] = 1
+
+            col_v[j + offset + 1] = fm_matrix.shape[1] - 1
+            row_v[j + offset + 1] = i
+            data_v[j + offset + 1] = 1
+
+            j = j + offset + 2
+        else:
+            raise RuntimeError("Illegal state")
+
+    # Setting new information
+    fm_matrix.row = row_v
+    fm_matrix.col = col_v
+    fm_matrix.data = data_v
+
+    return fm_matrix.tocsr()
 
 
 def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1,
@@ -82,9 +146,9 @@ def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1
     - We have 3 interactions in each row: one for the users, one for the item, and -1 for the rating
 
     :param URM: URM to be preprocessed and from which negative samples is taken
-    :param negative_rate: it samples
-    :param sampling_function: you can give a sampling function that takes in input. If None, uniform sampling
-    will be applied
+    :param negative_rate: how much negatives samples do you want in proportion to the negative one
+    :param sampling_function: sampling function that takes in input the negative sample size
+    and the URM from which samples are taken. If None, uniform sampling will be applied
     :return: csr_matrix containing the negative interactions
     """
     # Initial set-up
