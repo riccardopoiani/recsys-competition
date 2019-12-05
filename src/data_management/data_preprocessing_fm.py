@@ -67,10 +67,10 @@ def add_ICM_info(fm_matrix: csr_matrix, ICM: csr_matrix, item_offset):
 
     return merged_fm
 
+
 #################################################################################
 ########################## SAMPLING STRATEGIES ##################################
 #################################################################################
-
 def uniform_sampling_strategy(negative_sample_size, URM, check_replacement=False):
     """
     Sample negative samples uniformly from the given URM
@@ -205,7 +205,6 @@ def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1
     item_offset = URM.shape[0]
     last_col = URM.shape[0] + URM.shape[1]
     negative_sample_size = int(URM.data.size * negative_rate)
-    fm_matrix = coo_matrix((negative_sample_size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
 
     print("Start sampling...")
 
@@ -216,6 +215,8 @@ def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1
     else:
         collected_samples = sampling_function(negative_sample_size=negative_sample_size, URM=URM,
                                               check_replacement=check_replacement)
+
+    fm_matrix = coo_matrix((negative_sample_size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
     negative_sample_size = collected_samples[0].size
 
     # Set up initial vectors
