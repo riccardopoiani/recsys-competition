@@ -22,10 +22,8 @@ if __name__ == '__main__':
 
     # Build ICMs
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-    ICM = data_reader.get_ICM_from_name("ICM_all")
-    ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
+    ICM = data_reader.get_ICM_from_name("ICM_sub_class")
     ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-    ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
@@ -36,25 +34,42 @@ if __name__ == '__main__':
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
     UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
+    cold_items_mask = np.ediff1d(URM_train.tocsc().indptr) < 200
+    cold_items = np.arange(URM_train.shape[1])[cold_items_mask]
+
+    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 0
+    warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
+
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
-
-    """
-    cold_items_mask = np.ediff1d(URM_train.tocsc().indptr) == 0
-    cold_items = np.arange(URM_train.shape[1])[cold_items_mask]
-    
-    # Setting evaluator
-    ignore_users_mask = np.ediff1d(URM_train.tocsr().indptr) < 30
-    ignore_users = np.arange(URM_train.shape[0])[ignore_users_mask]
-    """
-
-    cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
     UCM_age = get_warmer_UCM(UCM_age, URM_all, threshold_users=3)
     UCM_region = get_warmer_UCM(UCM_region, URM_all, threshold_users=3)
 
-    hybrid = best_models.MixedItem.get_model(URM_train=URM_train, ICM_all=ICM_all,
-                                             ICM_subclass_all=ICM_subclass_all)
+    model = best_models.ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
 
-    print(evaluator.evaluateRecommender(hybrid))
+    recommendations = model.recommend(user_id_array=warm_users, remove_seen_flag=True, cutoff=10,
+                                      remove_top_pop_flag=False)
+
+    # Number of cold recommendations on warm users
+    count_cold_recommendations = 0
+
+    for i in range(len(recommendations)):
+        if i % 10000 == 0:
+            print("i {}".format(i))
+        count_cold_recommendations += np.isin(np.array(recommendations[i]), cold_items).sum()
+
+    print("Number of cold recommendations {}".format(count_cold_recommendations))
+
+    # Evaluation with cold items
+    cutoff_list = [10]
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+    print("MAP@10 with cold items {}".format(evaluator.evaluateRecommender(model)[0][10]['MAP']))
+
+    # Evaluation preventing the algorithm to recommend cold items
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users,
+                                 ignore_items=cold_items)
+    print("MAP@10 without cold items {}".format(evaluator.evaluateRecommender(model)[0][10]['MAP']))
+
+
+

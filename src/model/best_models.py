@@ -1,4 +1,6 @@
+from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
 from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
+
 
 # ---------------- CONTENT BASED FILTERING -----------------
 
@@ -51,6 +53,7 @@ class ItemCBF_categorical(IContentModel):
                        'asymmetric_alpha': 2.0, 'feature_weighting': 'BM25'}
     recommender_class = ItemKNNCBFRecommender
     recommender_name = "ItemCBF_Categorical"
+
 
 class ItemCBF_all(IContentModel):
     """
@@ -224,6 +227,32 @@ class UserCBF(IBestModel):
 
 # ---------------- HYBRIDS -----------------
 
+class MixedItem(IBestModel):
+    """
+    Improvement from item cbf cf on warm users:
+    from 0.0347 to 0.0349262
+    """
+
+    best_parameters = {'topK': 1145, 'alpha1': 0.5046913488531505, 'alpha2': 0.9370816093542697,
+                       'alpha3': 0.44518202509454385}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_subclass_all, ICM_all, load_model=False):
+        item_cf = ItemCF.get_model(URM_train, load_model=load_model)
+        item_cbf_cf = ItemCBF_CF.get_model(URM_train=URM_train, load_model=load_model,
+                                           ICM_train=ICM_subclass_all)
+        item_cbf_all = ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=load_model)
+
+        hybrid = ItemHybridModelRecommender(URM_train)
+        hybrid.add_similarity_matrix(item_cf.W_sparse)
+        hybrid.add_similarity_matrix(item_cbf_cf.W_sparse)
+        hybrid.add_similarity_matrix(item_cbf_all.W_sparse)
+
+        hybrid.fit(**cls.get_best_parameters())
+
+        return hybrid
+
+
 class UserItemKNNCBFCFDemographic(IBestModel):
     best_parameters = {'user_similarity_type': 'jaccard', 'item_similarity_type': 'asymmetric',
                        'user_feature_weighting': 'none', 'item_feature_weighting': 'TF-IDF', 'user_normalize': False,
@@ -301,4 +330,3 @@ class HybridWeightedAvgSubmission2(IBestModel):
             model.add_fitted_model(model_name, model_object)
         model.fit(**cls.get_best_parameters())
         return model
-
