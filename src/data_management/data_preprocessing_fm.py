@@ -40,12 +40,13 @@ def add_ICM_info(fm_matrix: csr_matrix, ICM: csr_matrix):
 ########################## SAMPLING STRATEGIES ##################################
 #################################################################################
 
-def uniform_sampling_strategy(negative_sample_size, URM):
+def uniform_sampling_strategy(negative_sample_size, URM, check_replacement=False):
     """
     Sample negative samples uniformly from the given URM
 
     :param negative_sample_size: number of negative samples to be sampled
     :param URM: URM from which samples are taken
+    :param check_replacement: whether to check for replacement or not. Checking is expensive
     :return: bi-dimensional array of shape (2, negative_sample_size): in the first dimensions row-samples are
     stored, while in the second one col-samples are stored. Therefore, in the i-th col of this returned array
     you can find a indices of a negative sample in the URM_train
@@ -55,21 +56,29 @@ def uniform_sampling_strategy(negative_sample_size, URM):
     collected_samples = np.zeros(shape=(2, negative_sample_size))
     sampled = 0
     while sampled < negative_sample_size:
+        if sampled % 10000 == 0:
+            print("Sampled {} on {}".format(sampled, negative_sample_size))
         t_row = np.random.randint(low=0, high=max_row, size=1)[0]
         t_col = np.random.randint(low=0, high=max_col, size=1)[0]
         t_sample = np.array([[t_row], [t_col]])
 
-        if (not np.isin(collected_samples, t_sample).min(axis=0).max()) and (URM[t_row, t_col] == 0):
-            collected_samples[:, sampled] = t_sample
-            sampled += 1
-    return collected_samples
+        if check_replacement:
+            if (not np.equal(collected_samples, t_sample).min(axis=0).max()) and (URM[t_row, t_col] == 0):
+                collected_samples[:, sampled] = [t_row, t_col]
+                sampled += 1
+        else:
+            if URM[t_row, t_col] == 0:
+                collected_samples[:, sampled] = [t_row, t_col]
+                sampled += 1
+    return collected_samples if check_replacement else np.unique(collected_samples, axis=1)
 
 
 #################################################################################
 ########################## NEGATIVE RATING PREPARATION ##########################
 #################################################################################
 
-def format_URM_negative_sampling_user_compressed(URM: csr_matrix, negative_rate=1, sampling_function=None):
+def format_URM_negative_sampling_user_compressed(URM: csr_matrix, negative_rate=1, check_replacement=False,
+                                                 sampling_function=None):
     """
     Format negative interactions of an URM in the way that is needed for the FM model. Here, however, users
     and compressed w.r.t. the items they liked in the negative samples sampled
@@ -81,6 +90,7 @@ def format_URM_negative_sampling_user_compressed(URM: csr_matrix, negative_rate=
 
     :param URM: URM to be preprocessed  and from which negative samples are taken
     :param negative_rate: how much negatives samples do you want in proportion to the negative one
+    :param check_replacement: whether to check for replacement or not. Checking costs time
     :param sampling_function: sampling function that takes in input the negative sample size
     and the URM from which samples are taken. If None, uniform sampling will be applied
     :return: csr_matrix containing the negative interactions:
@@ -89,19 +99,24 @@ def format_URM_negative_sampling_user_compressed(URM: csr_matrix, negative_rate=
     new_train = URM.copy().tocoo()
     item_offset = URM.shape[0]
 
-    if sampling_function is None:
-        collected_samples = uniform_sampling_strategy(negative_sample_size=negative_sample_size, URM=URM)
-    else:
-        collected_samples = sampling_function(negative_sample_size=negative_sample_size, URM=URM)
+    print("Start sampling...")
 
+    if sampling_function is None:
+        collected_samples = uniform_sampling_strategy(negative_sample_size=negative_sample_size, URM=URM,
+                                                      check_replacement=check_replacement)
+    else:
+        collected_samples = sampling_function(negative_sample_size=negative_sample_size, URM=URM,
+                                              check_replecement=check_replacement)
     # Different items sampled
     different_items_sampled = np.unique(collected_samples[1])
 
-    fm_matrix = coo_matrix((different_items_sampled.shape.size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
+    fm_matrix = coo_matrix((different_items_sampled.size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
 
     row_v = np.zeros(new_train.data.size + (different_items_sampled.size * 2))
     col_v = np.zeros(new_train.data.size + (different_items_sampled.size * 2))
     data_v = np.zeros(new_train.data.size + (different_items_sampled.size * 2))
+
+    print("Matrix builiding...", end="")
 
     # For all the items, set up its content
     j = 0  # Index to scan and modify the vectors
@@ -129,6 +144,8 @@ def format_URM_negative_sampling_user_compressed(URM: csr_matrix, negative_rate=
         else:
             raise RuntimeError("Illegal state")
 
+    print("Done")
+
     # Setting new information
     fm_matrix.row = row_v
     fm_matrix.col = col_v
@@ -138,7 +155,7 @@ def format_URM_negative_sampling_user_compressed(URM: csr_matrix, negative_rate=
 
 
 def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1,
-                                                sampling_function=None):
+                                                sampling_function=None, check_replacement=False):
     """
     Format negative interactions of an URM in the way that is needed for the FM model
     - We have #positive_interactions * negative_rate @rows
@@ -146,9 +163,11 @@ def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1
     - We have 3 interactions in each row: one for the users, one for the item, and -1 for the rating
 
     :param URM: URM to be preprocessed and from which negative samples is taken
+    :param check_replacement: whether to check for replacement while sampling or not
     :param negative_rate: how much negatives samples do you want in proportion to the negative one
     :param sampling_function: sampling function that takes in input the negative sample size
-    and the URM from which samples are taken. If None, uniform sampling will be applied
+    and the URM from which samples are taken (and if you want to check for replacement).
+    If None, uniform sampling will be applied
     :return: csr_matrix containing the negative interactions
     """
     # Initial set-up
@@ -157,23 +176,31 @@ def format_URM_negative_sampling_non_compressed(URM: csr_matrix, negative_rate=1
     negative_sample_size = int(URM.data.size * negative_rate)
     fm_matrix = coo_matrix((negative_sample_size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
 
+    print("Start sampling...")
+
     # Take samples
     if sampling_function is None:
         collected_samples = uniform_sampling_strategy(negative_sample_size=negative_sample_size,
-                                                      URM=URM)
+                                                      URM=URM, check_replacement=check_replacement)
     else:
-        collected_samples = sampling_function(negative_sample_size=negative_sample_size, URM=URM)
+        collected_samples = sampling_function(negative_sample_size=negative_sample_size, URM=URM,
+                                              check_replacement=check_replacement)
+    negative_sample_size = collected_samples[0].size
 
     # Set up initial vectors
     row_v = np.zeros(negative_sample_size * 3)  # Row should have (i,i,i) repeated for all the size
     col_v = np.zeros(negative_sample_size * 3)  # This is the "harder" to set
     data_v = -np.ones(negative_sample_size * 3)  # Already ok, nothing to be added
 
+    print("Set up row of COO...")
+
     # Setting row vector
     for i in range(0, negative_sample_size):
         row_v[3 * i] = i
         row_v[(3 * i) + 1] = i
         row_v[(3 * i) + 2] = i
+
+    print("Set up col of COO...")
 
     # Setting col vector
     for i in range(0, negative_sample_size):
@@ -251,7 +278,7 @@ def format_URM_positive_user_compressed(URM: csr_matrix):
 
             j = j + offset + 2
         else:
-            raise RuntimeError("Illegale state")
+            raise RuntimeError("Illegal state")
 
     # Setting new information
     fm_matrix.row = row_v
