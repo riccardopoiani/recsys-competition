@@ -283,7 +283,7 @@ class MixedUser(IBestModel):
     @classmethod
     def get_model(cls, URM_train, UCM_all, load_model=False, save_model=False):
         user_cf = UserCF.get_model(URM_train=URM_train, load_model=load_model, save_model=False)
-        user_cbf = UserCBF_CF.get_model_warm(URM_train=URM_train, UCM_train=UCM_all)
+        user_cbf = UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_all)
 
         hybrid = UserHybridModelRecommender(URM_train)
         hybrid.add_similarity_matrix(user_cf.W_sparse)
