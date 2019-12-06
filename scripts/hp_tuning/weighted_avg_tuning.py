@@ -15,12 +15,21 @@ from src.utils.general_utility_functions import get_split_seed
 def _get_all_models(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
     all_models = {}
 
-    all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
-    all_models['ITEM_CF'] = best_models.ItemCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
-    all_models['ITEM_CBF_ALL'] = best_models.ItemCBF_all.get_model(URM_train=URM_train,
-                                                                   load_model=False, save_model=False,
-                                                                   ICM_train=ICM_all)
+    all_models['MIXED_ITEM'] = best_models.MixedItem.get_model(URM_train=URM_train,
+                                                               ICM_subclass_all=ICM_subclass_all,
+                                                               ICM_all=ICM_all,
+                                                               load_model=False)
+    all_models['MIXED_USER'] = best_models.MixedUser.get_model(URM_train=URM_train,
+                                                               UCM_all=UCM_all,
+                                                               load_model=False)
+
+    # all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
+    # all_models['ITEM_CF'] = best_models.ItemCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
+    # all_models['ITEM_CBF_ALL'] = best_models.ItemCBF_all.get_model(URM_train=URM_train,
+    #                                                               load_model=False, save_model=False,
+    #                                                               ICM_train=ICM_all)
     # all_models['USER_CF'] = best_models.UserCF.get_model(URM_train, load_model=False)
+    # all_models['USER_CBF_CF'] = best_models.UserCBF_CF.get_model_warm(URM_train, UCM_train=UCM_all)
     # all_models['SLIM_BPR'] = best_models.SLIM_BPR.get_model(URM_train)
     # all_models['P3ALPHA'] = best_models.P3Alpha.get_model(URM_train, load_model=False)
     # all_models['RP3BETA'] = best_models.RP3Beta.get_model(URM_train, load_model=False)
@@ -79,7 +88,7 @@ if __name__ == '__main__':
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-    version_path = "../../report/hp_tuning/hybrid_weighted_avg/"
+    version_path = "../../report/hp_tuning/hybrid_weighted_avg"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
@@ -87,6 +96,6 @@ if __name__ == '__main__':
     run_parameter_search_hybrid(model, metric_to_optimize="MAP",
                                 evaluator_validation=evaluator,
                                 output_folder_path=version_path,
-                                n_cases=60, n_random_starts=10)
+                                n_cases=50, n_random_starts=10)
 
     print("...tuning ended")

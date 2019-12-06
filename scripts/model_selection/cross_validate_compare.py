@@ -12,24 +12,26 @@ from datetime import datetime
 
 def _get_all_models_weighted_average(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
     all_models = {}
-    all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
-    all_models['ITEM_CF'] = best_models.ItemCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
-    all_models['ITEM_CBF_ALL'] = best_models.ItemCBF_all.get_model(URM_train=URM_train,
-                                                                   load_model=False, save_model=False,
-                                                                   ICM_train=ICM_all)
+
+    all_models['MIXED_ITEM'] = best_models.MixedItem.get_model(URM_train=URM_train,
+                                                               ICM_subclass_all=ICM_subclass_all,
+                                                               ICM_all=ICM_all,
+                                                               load_model=False)
+    all_models['MIXED_USER'] = best_models.MixedUser.get_model(URM_train=URM_train,
+                                                               UCM_all=UCM_all,
+                                                               load_model=False)
+
     return all_models
 
 
 if __name__ == '__main__':
     # Weighted models best parameter - tuning results
-    weighted_best_param = {'ITEM_CBF_CF': 0.09095731575438316, 'ITEM_CF': 0.012943479714417009,
-                           'ITEM_CBF_ALL': 0.0024173339166811973}
-    weighted_best_param_tuning_map = 0.0350374
+    weighted_best_param = {'MIXED_ITEM': 0.014667586445465623, 'MIXED_USER': 0.0013235051989859417}
+    weighted_best_param_tuning_map = 0.0355
 
     # Mixed similarity best parameters - tuning results
-    mixed_best_param = {'topK': 1056, 'alpha1': 0.15663912433996233, 'alpha2': 0.8823526667242283,
-                        'alpha3': 0.28586869725984193}
-    mixed_best_param_map = 0.0350856
+    #mixed_best_param = {'topK': 645, 'alpha1': 0.49939044012800426, 'alpha2': 0.08560351971043635}
+    #mixed_best_param_map = 0.0247
 
     seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
 
@@ -61,7 +63,7 @@ if __name__ == '__main__':
         UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
         # Weighted average recommender
-        model = HybridWeightedAverageRecommender(URM_train)
+        model = HybridWeightedAverageRecommender(URM_train, normalize=True)
         all_models = _get_all_models_weighted_average(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all,
                                                       UCM_all=UCM_all,
                                                       ICM_all=ICM_all, ICM_numerical=ICM_numerical,
@@ -72,17 +74,7 @@ if __name__ == '__main__':
         model.fit(**weighted_best_param)
 
         # Mixed similarity building
-        item_cf = best_models.ItemCF.get_model(URM_train, load_model=False)
-        item_cbf_cf = best_models.ItemCBF_CF.get_model(URM_train=URM_train, load_model=False,
-                                                       ICM_train=ICM_subclass_all)
-        item_cbf_all = best_models.ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
-
-        hybrid = ItemHybridModelRecommender(URM_train)
-        hybrid.add_similarity_matrix(item_cf.W_sparse)
-        hybrid.add_similarity_matrix(item_cbf_cf.W_sparse)
-        hybrid.add_similarity_matrix(item_cbf_all.W_sparse)
-
-        hybrid.fit(**mixed_best_param)
+        #hybrid = best_models.MixedUser.get_model(URM_train=URM_train, UCM_all=UCM_all)
 
         # Setting evaluator
         cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
@@ -91,17 +83,17 @@ if __name__ == '__main__':
         evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
         weighted_current_map = evaluator.evaluateRecommender(model)[0][10]['MAP']
-        mixed_current_map = evaluator.evaluateRecommender(hybrid)[0][10]['MAP']
+        #mixed_current_map = evaluator.evaluateRecommender(hybrid)[0][10]['MAP']
 
         print("SEED: {} \n ".format(seed_list[i]))
         print("WeightedCurrMap {} \n".format(weighted_current_map))
-        print("MixedCurrMap {} \n ".format(mixed_current_map))
+        #print("MixedCurrMap {} \n ".format(mixed_current_map))
 
         weighted_score += weighted_current_map
-        mixed_score += mixed_current_map
+        #mixed_score += mixed_current_map
 
     weighted_score /= len(seed_list)
-    mixed_score /= len(seed_list)
+    #mixed_score /= len(seed_list)
 
     # Store results on file
     destination_path = "../../report/cross_validation/"
@@ -110,19 +102,18 @@ if __name__ == '__main__':
     num_folds = len(seed_list)
 
     f = open(destination_path, "w")
-    f.write("Comparison between MixedItemSimilarity and WeightedAverage on the same models, using best models"
-            "find with hp tuning\n\n")
-    f.write("MixedSimilarity tuning map {} --- MixedSimilarity X-val map {} \n\n".format(mixed_best_param_map,
-                                                                                         mixed_score))
+    f.write("Weighted average of MixedUser and MixedItems best models\n\n")
+    #f.write("MixedSimilarity tuning map {} --- MixedSimilarity X-val map {} \n\n".format(mixed_best_param_map,
+    #                                                                                     mixed_score))
     f.write("Weighted tuning map {} --- Weighted X-val map {} \n\n".format(weighted_best_param_tuning_map,
                                                                            weighted_score))
 
     f.write("Number of folds: " + str(num_folds) + "\n")
     f.write("Seed list: " + str(seed_list) + "\n\n")
 
-    f.write("MixedBestParam:")
-    f.write(str(mixed_best_param))
-    f.write("\n")
+    #f.write("MixedBestParam:")
+    #f.write(str(mixed_best_param))
+    #f.write("\n")
 
     f.write("WeightedBestParam:")
     f.write(str(weighted_best_param))

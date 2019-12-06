@@ -94,9 +94,9 @@ class UserHybridModelRecommender(HybridMixedSimilarityRecommender, BaseUserSimil
     def __init__(self, URM_train):
         super().__init__(URM_train=URM_train)
 
-    def fit(self, topK=100, alpha1=1, alpha2=1, alpha3=1):
+    def fit(self, topK=100, alpha1=1, alpha2=1):
         self.topK = topK
-        alpha_list = [alpha1, alpha2, alpha3]
+        alpha_list = [alpha1, alpha2]
         if len(alpha_list) != len(self.W_sparse_list):
             raise RuntimeError("Weighting list is not right. {} expected, {} found".format(len(self.W_sparse_list),
                                                                                            len(alpha_list)))

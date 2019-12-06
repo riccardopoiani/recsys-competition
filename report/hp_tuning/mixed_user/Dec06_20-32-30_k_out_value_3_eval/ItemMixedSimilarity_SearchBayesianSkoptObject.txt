@@ -1,0 +1,171 @@
+SearchBayesianSkoptObject: Config 0 Exception. Config: {'topK': 1483, 'alpha1': 0.27337642172719107, 'alpha2': 0.6634475993627391, 'alpha3': 0.893660255874764} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 1 Exception. Config: {'topK': 1286, 'alpha1': 0.3743366302733497, 'alpha2': 0.7580451085753381, 'alpha3': 0.06585982513810741} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 2 Exception. Config: {'topK': 774, 'alpha1': 0.38907437171056414, 'alpha2': 0.11535835821073584, 'alpha3': 0.8069988932121307} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 3 Exception. Config: {'topK': 428, 'alpha1': 0.8407745205429524, 'alpha2': 0.9695509630770287, 'alpha3': 0.8300371796980209} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 4 Exception. Config: {'topK': 748, 'alpha1': 0.9118182913316617, 'alpha2': 0.4632862851082421, 'alpha3': 0.10422839683028998} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 5 Exception. Config: {'topK': 941, 'alpha1': 0.04090901573440498, 'alpha2': 0.7484391956002124, 'alpha3': 0.3600575264225861} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 6 Exception. Config: {'topK': 232, 'alpha1': 0.20398424480921323, 'alpha2': 0.05448180578476659, 'alpha3': 0.6810310930865042} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 7 Exception. Config: {'topK': 1643, 'alpha1': 0.42393227657347354, 'alpha2': 0.4330497011389196, 'alpha3': 0.43879231113235273} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 8 Exception. Config: {'topK': 1379, 'alpha1': 0.2871848496082326, 'alpha2': 0.3022270848606083, 'alpha3': 0.4273901818247975} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 9 Exception. Config: {'topK': 1298, 'alpha1': 0.9245374918791875, 'alpha2': 0.5030922199335347, 'alpha3': 0.5250055997940315} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 10 Exception. Config: {'topK': 1924, 'alpha1': 0.9437385011287506, 'alpha2': 0.0019500178606272072, 'alpha3': 0.940439771537057} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 11 Exception. Config: {'topK': 8, 'alpha1': 0.899867178443355, 'alpha2': 0.009856273533776163, 'alpha3': 0.027694548831623707} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 12 Exception. Config: {'topK': 3, 'alpha1': 0.013847166861200803, 'alpha2': 0.925505252522556, 'alpha3': 0.9482880135190649} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 13 Exception. Config: {'topK': 1980, 'alpha1': 0.05332607773399821, 'alpha2': 0.9044091895763019, 'alpha3': 0.03707061264075476} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 14 Exception. Config: {'topK': 39, 'alpha1': 0.9897391848309477, 'alpha2': 0.0006088493397151674, 'alpha3': 0.010432869382470568} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 15 Exception. Config: {'topK': 227, 'alpha1': 0.9940740712382293, 'alpha2': 0.9925889818918986, 'alpha3': 0.9664359461730992} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 16 Exception. Config: {'topK': 1991, 'alpha1': 0.9359290319505605, 'alpha2': 0.023687649099893078, 'alpha3': 0.9900469221934892} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 17 Exception. Config: {'topK': 38, 'alpha1': 0.011494745227227267, 'alpha2': 0.9600462769598954, 'alpha3': 0.010645508145980089} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+
+SearchBayesianSkoptObject: Config 18 Exception. Config: {'topK': 1808, 'alpha1': 0.9846761494144168, 'alpha2': 0.9861723687584553, 'alpha3': 0.023334059843102745} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 191, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 181, in _fit_model
+    **current_fit_parameters)
+TypeError: fit() got an unexpected keyword argument 'alpha3'
+

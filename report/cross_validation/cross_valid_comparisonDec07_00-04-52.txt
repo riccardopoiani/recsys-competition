@@ -1,0 +1,9 @@
+Weighted average of MixedUser and MixedItems best models
+Normalize=False
+
+Weighted tuning map 0.0355 --- Weighted X-val map 0.035516341253660835 
+
+Number of folds: 10
+Seed list: [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
+
+WeightedBestParam:{'MIXED_ITEM': 0.014667586445465623, 'MIXED_USER': 0.0013235051989859417}

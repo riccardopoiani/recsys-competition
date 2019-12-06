@@ -1,4 +1,8 @@
-from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
+from abc import ABC
+
+from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender, \
+    UserHybridModelRecommender
+from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
 
 
@@ -230,7 +234,8 @@ class UserCBF_CF_Warm(IBestModel):
      - MAP (only warm): 0.023
     """
     best_parameters = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
-                            'feature_weighting': 'BM25'}
+                       'feature_weighting': 'BM25'}
+
     @classmethod
     def get_model(cls, URM_train, UCM_train):
         from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
@@ -240,6 +245,54 @@ class UserCBF_CF_Warm(IBestModel):
 
 
 # ---------------- HYBRIDS -----------------
+class WeightedAverageMixed(IBestModel):
+    """
+    X-VAL MAP: 035516 (improvement on the two mixed hybrid)
+    """
+    best_parameters = {'MIXED_ITEM': 0.014667586445465623, 'MIXED_USER': 0.0013235051989859417}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_subclass_all, ICM_all, UCM_all):
+        all_models = {}
+        all_models['MIXED_ITEM'] = MixedItem.get_model(URM_train=URM_train,
+                                                       ICM_subclass_all=ICM_subclass_all,
+                                                       ICM_all=ICM_all,
+                                                       load_model=False)
+        all_models['MIXED_USER'] = MixedUser.get_model(URM_train=URM_train,
+                                                       UCM_all=UCM_all,
+                                                       load_model=False)
+
+        model = HybridWeightedAverageRecommender(URM_train, normalize=False)
+
+        for model_name, model_object in all_models.items():
+            model.add_fitted_model(model_name, model_object)
+
+        model.fit(**cls.get_best_parameters())
+
+        return all_models
+
+
+class MixedUser(IBestModel):
+    """
+    MAP: 0.0247 (improvement on MAP 0.0243 of weighted avg. on the same models)
+    X-VAL MAP: 0.0247 (vs 0.0244)
+    """
+
+    best_parameters = {'topK': 645, 'alpha1': 0.49939044012800426, 'alpha2': 0.08560351971043635}
+
+    @classmethod
+    def get_model(cls, URM_train, UCM_all, load_model=False, save_model=False):
+        user_cf = UserCF.get_model(URM_train=URM_train, load_model=load_model, save_model=False)
+        user_cbf = UserCBF_CF.get_model_warm(URM_train=URM_train, UCM_train=UCM_all)
+
+        hybrid = UserHybridModelRecommender(URM_train)
+        hybrid.add_similarity_matrix(user_cf.W_sparse)
+        hybrid.add_similarity_matrix(user_cbf.W_sparse)
+
+        hybrid.fit(**cls.get_best_parameters())
+
+        return hybrid
+
 
 class MixedItem(IBestModel):
     """
