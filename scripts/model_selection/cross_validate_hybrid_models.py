@@ -28,7 +28,7 @@ if __name__ == '__main__':
     seed_list = [1247, 8246, 2346, 1535]
 
     # Parameters
-    hybrid_kwargs = {'ITEM_CF': 0.5, 'USER_CF': 0.5}
+    hybrid_kwargs = {'MIXED_ITEM': 0.014667586445465623, 'MIXED_USER': 0.0013235051989859417}
     destination_path = "../../report/cross_validation/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     destination_path = destination_path + "cross_valid_item_cf_" + now +".txt"

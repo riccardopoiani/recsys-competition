@@ -2,6 +2,7 @@ from abc import ABC
 
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender, \
     UserHybridModelRecommender
+from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
 
 
@@ -237,6 +238,32 @@ class UserCBF_CF(IBestModel, ABC):
 
 
 # ---------------- HYBRIDS -----------------
+class WeightedAverageMixed(IBestModel):
+    """
+    X-VAL MAP: 035516 (improvement on the two mixed hybrid)
+    """
+    best_parameters = {'MIXED_ITEM': 0.014667586445465623, 'MIXED_USER': 0.0013235051989859417}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_subclass_all, ICM_all, UCM_all):
+        all_models = {}
+        all_models['MIXED_ITEM'] = MixedItem.get_model(URM_train=URM_train,
+                                                       ICM_subclass_all=ICM_subclass_all,
+                                                       ICM_all=ICM_all,
+                                                       load_model=False)
+        all_models['MIXED_USER'] = MixedUser.get_model(URM_train=URM_train,
+                                                       UCM_all=UCM_all,
+                                                       load_model=False)
+
+        model = HybridWeightedAverageRecommender(URM_train, normalize=False)
+
+        for model_name, model_object in all_models.items():
+            model.add_fitted_model(model_name, model_object)
+
+        model.fit(**cls.get_best_parameters())
+
+        return all_models
+
 
 class MixedUser(IBestModel):
     """
