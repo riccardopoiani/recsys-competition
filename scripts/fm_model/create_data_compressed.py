@@ -24,10 +24,9 @@ if __name__ == '__main__':
     URM_positive_FM_matrix = format_URM_positive_user_compressed(URM_train)
     URM_negative_FM_matrix = format_URM_negative_sampling_user_compressed(URM_train, negative_rate=1,
                                                                           sampling_function=uniform_sampling_strategy,
-                                                                          check_replacement=False)
-    URM_positive_FM_matrix_with_ICM = add_ICM_info(URM_positive_FM_matrix, ICM_all, URM_train.shape[0])
-    URM_negative_FM_matrix_with_ICM = add_ICM_info(URM_negative_FM_matrix, ICM_all, URM_train.shape[0])
-    URM_FM_matrix = mix_URM(URM_positive_FM_matrix_with_ICM, URM_negative_FM_matrix_with_ICM)
+                                                                          check_replacement=True)
+    URM_FM_matrix = mix_URM(URM_positive_FM_matrix, URM_negative_FM_matrix)[:, :-1]
+    URM_FM_matrix = add_ICM_info(URM_FM_matrix, ICM_all, URM_train.shape[0])
 
     root_path = get_project_root_path()
     fm_data_path = os.path.join(root_path, "resources", "fm_data")
@@ -35,15 +34,14 @@ if __name__ == '__main__':
     # Prepare train sparse matrix and labels for dumping to file
     FM_sps_matrix = URM_FM_matrix.copy()
     FM_sps_matrix[FM_sps_matrix == -1] = 1
-    FM_sps_matrix = FM_sps_matrix[:, :-1]
     labels = np.concatenate([np.ones(shape=URM_positive_FM_matrix.shape[0], dtype=np.int).tolist(),
                              np.zeros(shape=URM_negative_FM_matrix.shape[0], dtype=np.int).tolist()])
 
     # Shuffle data
-    #index = np.arange(FM_sps_matrix.shape[0])
-    #np.random.shuffle(index)
-    #FM_sps_matrix = FM_sps_matrix[index, :]
-    #labels = labels[index]
+    index = np.arange(FM_sps_matrix.shape[0])
+    np.random.shuffle(index)
+    FM_sps_matrix = FM_sps_matrix[index, :]
+    labels = labels[index]
 
     # Dump libsvm file for train set
     train_file_path = os.path.join(fm_data_path, "URM_ICM_compressed.txt")

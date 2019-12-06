@@ -6,12 +6,14 @@ from skopt.space import Integer, Categorical, Real
 
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
+from src.model.FactorMachines.FactorizationMachineRecommender import FactorizationMachineRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 import os
 
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
+from src.utils.general_utility_functions import get_project_root_path
 
 
 def run_parameter_search_mf_collaborative(recommender_class, URM_train, UCM_train=None, UCM_name="NO_UCM",
@@ -21,7 +23,8 @@ def run_parameter_search_mf_collaborative(recommender_class, URM_train, UCM_trai
                                           evaluator_validation=None, evaluator_test=None,
                                           evaluator_validation_earlystopping=None,
                                           output_folder_path="result_experiments/", parallelize_search=True,
-                                          n_cases=35, n_random_starts=5, resume_from_saved=False, save_model="best"):
+                                          n_cases=35, n_random_starts=5, resume_from_saved=False, save_model="best",
+                                          approximate_recommender=None):
     # If directory does not exist, create
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
@@ -84,6 +87,22 @@ def run_parameter_search_mf_collaborative(recommender_class, URM_train, UCM_trai
                                 n_cases=n_cases, n_random_starts=n_random_starts, output_folder_path=output_folder_path,
                                 output_file_name_root=output_file_name_root, metric_to_optimize=metric_to_optimize,
                                 save_model=save_model)
+
+        if recommender_class is FactorizationMachineRecommender:
+            if approximate_recommender is None:
+                raise ValueError("approximate_recommender has to be set")
+            root_path = get_project_root_path()
+            train_svm_file_path = os.path.join(root_path, "resources", "fm_data", "URM_ICM_UCM_uncompressed.txt")
+            recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS['train_svm_file_path'] = train_svm_file_path
+            recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS['approximate_recommender'] = approximate_recommender
+            recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS['UCM_train'] = UCM_train
+            recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS['ICM_train'] = ICM_train
+
+            hyperparameters_range_dictionary['epochs'] = Categorical([200])
+            hyperparameters_range_dictionary['latent_factors'] = Integer(low=20, high=200)
+            hyperparameters_range_dictionary['regularization'] = Real(low=10e-8, high=10e-3, prior="log-uniform")
+            hyperparameters_range_dictionary['learning_rate'] = Real(low=10e-3, high=10e-1, prior="log-uniform")
+
 
         if URM_train_last_test is not None:
             recommender_input_args_last_test = recommender_input_args.copy()

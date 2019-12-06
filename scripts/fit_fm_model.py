@@ -9,9 +9,9 @@ if __name__ == '__main__':
     fm_data_path = os.path.join(root, "resources", "fm_data")
     model = xl.create_fm()
     #model.setTXTModel("./model.txt")
-    model.setTrain(fm_data_path + "/train_compressed.txt")
+    model.setTrain(fm_data_path + "/URM_ICM_UCM_uncompressed.txt")
 
-    param = {'task': 'binary', 'lr': 0.1, 'k': 200, 'lambda': 0.0001, 'epoch': 100, 'opt': 'adagrad', 'metric': 'acc'}
+    param = {'task': 'binary', 'lr': 0.1, 'k': 200, 'lambda': 0.0001, 'epoch': 100, 'opt': 'adagrad'}
     model.fit(param, "./model.out")
 
     model.setSigmoid()
