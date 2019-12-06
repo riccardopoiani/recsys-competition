@@ -4,7 +4,6 @@ from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
 
 # ---------------- CONTENT BASED FILTERING -----------------
 
-
 class ItemCBF_CF(IContentModel):
     """
     Item CBF_CF tuned with URM_train and ICM (containing sub_class and URM_train)
@@ -185,7 +184,7 @@ class CFW(IBestModel):
     @classmethod
     def get_model(cls, URM_train, ICM):
         from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
-        item_cf = ItemCF.get_model(URM_train, load_saved_model=False)
+        item_cf = ItemCF.get_model(URM_train, load_model=False)
         W_sparse_CF = item_cf.W_sparse
 
         model = CFW_D_Similarity_Linalg(URM_train=URM_train, ICM=ICM, S_matrix_target=W_sparse_CF)
@@ -209,7 +208,7 @@ class AdvancedTopPop(IBestModel):
         return model
 
 
-class UserCBF(IBestModel):
+class UserCBF_CF(IBestModel):
     """
     User CBF tuned with URM_train and UCM (containing age, region and URM_train)
      - MAP on tuning (only cold users): 0.0109
@@ -218,7 +217,16 @@ class UserCBF(IBestModel):
                        'normalize': False, 'feature_weighting': 'BM25'}
 
     @classmethod
-    def get_model(cls, URM_train, UCM_train):
+    def get_model_warm(cls,URM_train, UCM_train):
+        best_parameters_warm = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
+                                'feature_weighting': 'BM25'}
+        from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+        model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
+        model.fit(best_parameters_warm)
+        return model
+
+    @classmethod
+    def get_model_cold(cls, URM_train, UCM_train):
         from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
         model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
         model.fit(**cls.get_best_parameters())
@@ -231,6 +239,8 @@ class MixedItem(IBestModel):
     """
     Improvement from item cbf cf on warm users:
     from 0.0347 to 0.0349262
+
+    X-valid map: 0.035246  (n_folds = 10) (beating weighted average on the same models 0.035213)
     """
 
     best_parameters = {'topK': 1145, 'alpha1': 0.5046913488531505, 'alpha2': 0.9370816093542697,

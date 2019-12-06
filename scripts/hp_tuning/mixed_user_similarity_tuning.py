@@ -2,9 +2,10 @@ from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
-from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM, get_ICM_numerical
+from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM, get_ICM_numerical, merge_UCM
+from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
-from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
+from src.model.HybridRecommender.HybridMixedSimilarityRecommender import UserHybridModelRecommender
 from src.utils.general_utility_functions import get_split_seed
 from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity
 import numpy as np
@@ -24,6 +25,15 @@ if __name__ == '__main__':
     ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
     ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
+    # Build UCMs
+    URM_all = data_reader.dataReader_object.get_URM_all()
+    UCM_age = data_reader.dataReader_object.get_UCM_from_name("UCM_age")
+    UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
+    UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
+
+    UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
+    UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
+
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
@@ -38,14 +48,14 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    item_cf = best_models.ItemCF.get_model(URM_train, load_model=False)
-    item_cbf_cf = best_models.ItemCBF_CF.get_model(URM_train=URM_train, load_model=False, ICM_train=ICM_subclass_all)
-    item_cbf_all = best_models.ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+    user_cbf_cf = best_models.UserItemKNNCBFCFDemographic
+    user_cf = best_models.UserCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
+    user_cbf = best_models.UserCBF_CF.get_model(URM_train=URM_train, UCM_train=UCM_all)
 
-    hybrid = ItemHybridModelRecommender(URM_train)
-    hybrid.add_similarity_matrix(item_cf.W_sparse)
-    hybrid.add_similarity_matrix(item_cbf_cf.W_sparse)
-    hybrid.add_similarity_matrix(item_cbf_all.W_sparse)
+
+    hybrid = UserHybridModelRecommender(URM_train)
+    hybrid.add_similarity_matrix(user_cf.W_sparse)
+    hybrid.add_similarity_matrix(user_cbf.W_sparse)
 
     run_parameter_search_mixed_similarity(hybrid, URM_train=URM_train, output_folder_path=version_path,
                                           evaluator_validation=evaluator_test, evaluator_test=None,

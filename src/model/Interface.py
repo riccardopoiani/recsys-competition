@@ -4,6 +4,7 @@ from course_lib.Base.BaseRecommender import BaseRecommender
 from src.utils.general_utility_functions import get_project_root_path
 import os
 
+
 class IBestModel(ABC):
     """
     Interface for best model classes
@@ -47,7 +48,7 @@ class IBestModel(ABC):
 class ICollaborativeModel(IBestModel):
 
     @classmethod
-    def get_model(cls, URM_train, load_model=True, save_model=True):
+    def get_model(cls, URM_train, load_model=False, save_model=False):
         try:
             if load_model:
                 model = cls.recommender_class(URM_train)
@@ -67,7 +68,7 @@ class ICollaborativeModel(IBestModel):
 class IContentModel(IBestModel):
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train, load_model=True, save_model=True):
+    def get_model(cls, URM_train, ICM_train, load_model=False, save_model=False):
         try:
             if load_model:
                 model = cls.recommender_class(URM_train=URM_train, ICM_train=ICM_train)
@@ -82,4 +83,3 @@ class IContentModel(IBestModel):
         if save_model:
             cls._save_model(model)
         return model
-

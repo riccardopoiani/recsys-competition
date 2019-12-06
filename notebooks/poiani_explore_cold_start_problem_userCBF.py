@@ -43,7 +43,7 @@ from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
 import numpy as np
 
-from src.model.best_models import UserCBF
+from src.model.best_models import UserCBF_CF
 
 # + {"pycharm": {"is_executing": false}, "cell_type": "markdown"}
 # # Cold-start current methods analysis
@@ -76,7 +76,7 @@ cutoff_list = [10]
 evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=warm_users)
 # -
 
-usercbf = UserCBF.get_model(URM_train, UCM_all)
+usercbf = UserCBF_CF.get_model(URM_train, UCM_all)
 
 evaluator.evaluateRecommender(usercbf)[0][10]['MAP']
 
@@ -124,7 +124,7 @@ for i in range(0, n_runs):
     # Setting evaluator
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
-    usercbf = UserCBF.get_model(URM_train, UCM_all)
+    usercbf = UserCBF_CF.get_model(URM_train, UCM_all)
     res = evaluator.evaluateRecommender(usercbf)[0][10]['MAP']
     print(res)
     map_cumulated += res
@@ -159,7 +159,7 @@ for i in range(0, n_runs):
     # Setting evaluator
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
-    usercbf = UserCBF.get_model(URM_train, UCM_all)
+    usercbf = UserCBF_CF.get_model(URM_train, UCM_all)
     res = evaluator.evaluateRecommender(usercbf)[0][10]['MAP']
     print(res)
     map_cumulated += res

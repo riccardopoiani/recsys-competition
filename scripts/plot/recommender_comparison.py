@@ -42,7 +42,7 @@ if __name__ == '__main__':
     recommender_list = []
     recommender_list.append(top_pop)
     recommender_list.append(advanced_top_pop)
-    recommender_list.append(best_models.UserCBF().get_model(URM_train, UCM_all))
+    recommender_list.append(best_models.UserCBF_CF().get_model(URM_train, UCM_all))
 
     # Plotting the comparison based on user activity
     #plot_compare_recommender_user_group()

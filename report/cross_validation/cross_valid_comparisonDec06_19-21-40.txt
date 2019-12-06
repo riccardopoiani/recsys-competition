@@ -1,0 +1,11 @@
+Comparison between MixedItemSimilarity and WeightedAverage on the same models, using best modelsfind with hp tuning
+
+MixedSimilarity tuning map 0.0350856 --- MixedSimilarity X-val map 0.0352461092136444 
+
+Weighted tuning map 0.0350374 --- Weighted X-val map 0.03521389804935192 
+
+Number of folds: 10
+Seed list: [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
+
+MixedBestParam:{'topK': 1056, 'alpha1': 0.15663912433996233, 'alpha2': 0.8823526667242283, 'alpha3': 0.28586869725984193}
+WeightedBestParam:{'ITEM_CBF_CF': 0.09095731575438316, 'ITEM_CF': 0.012943479714417009, 'ITEM_CBF_ALL': 0.0024173339166811973}
