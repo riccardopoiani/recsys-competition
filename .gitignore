@@ -2,6 +2,7 @@
 Data_manager_split_datasets/
 result_experiments/
 data/
+fm_data/
 .idea/
 course_lib/**/*.c
 course_lib/**/*.html

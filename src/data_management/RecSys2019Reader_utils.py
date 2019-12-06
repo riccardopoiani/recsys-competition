@@ -135,6 +135,7 @@ def load_UCM_region(file_path, separator=",", if_new_user="add", user_original_I
     return UCM_builder.get_SparseMatrix(), UCM_builder.get_column_token_to_id_mapper(), \
            UCM_builder.get_row_token_to_id_mapper()
 
+
 def build_ICM_all(ICM_object_dict, ICM_feature_mapper_dict):
     ICM_all = None
     tokenToFeatureMapper_ICM_all = {}
@@ -144,11 +145,12 @@ def build_ICM_all(ICM_object_dict, ICM_feature_mapper_dict):
                 ICM_all = ICM_object.copy()
                 tokenToFeatureMapper_ICM_all = ICM_feature_mapper_dict[ICM_name]
             else:
-                ICM_all, tokenToFeatureMapper_ICM_all = merge_ICM(ICM_all, ICM_object,
+                ICM_all, tokenToFeatureMapper_ICM_all = merge_ICM(ICM_all, ICM_object.copy(),
                                                                   tokenToFeatureMapper_ICM_all,
                                                                   ICM_feature_mapper_dict[ICM_name])
 
     return ICM_all, tokenToFeatureMapper_ICM_all
+
 
 def get_ICM_numerical(reader: DataReader, with_item_popularity = True):
     ICM_asset = reader.get_ICM_from_name("ICM_asset")
@@ -163,6 +165,7 @@ def get_ICM_numerical(reader: DataReader, with_item_popularity = True):
         ICM_numerical, ICM_numerical_mapper = merge_ICM(ICM_numerical, ICM_item_pop, ICM_numerical_mapper,
                                                         ICM_item_pop_mapper)
     return ICM_numerical, ICM_numerical_mapper
+
 
 def merge_UCM(UCM1, UCM2, mapper_UCM1, mapper_UCM2):
 

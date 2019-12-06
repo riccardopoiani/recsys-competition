@@ -1,13 +1,15 @@
 import os
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.NonPersonalizedRecommender import TopPop
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
-from src.utils.general_utility_functions import get_split_seed
+from src.model.FactorMachines.FactorizationMachineRecommender import FactorizationMachineRecommender
+from src.utils.general_utility_functions import get_split_seed, get_project_root_path
 
 if __name__ == '__main__':
     os.environ["MKL_NUM_THREADS"] = "1"
