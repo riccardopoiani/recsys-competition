@@ -1,9 +1,25 @@
 from scipy.sparse import csr_matrix, csc_matrix, coo_matrix, lil_matrix
 import numpy as np
+import scipy.sparse as sps
+
+from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix
 
 
 def mix_URM(URM_positive: csr_matrix, URM_negative: csr_matrix):
-    raise NotImplemented()
+    return sps.vstack([URM_positive, URM_negative], format='csr')
+
+
+def format_URM_slice_uncompressed(users, items_per_users, max_user_id):
+    fm_matrix_builder = IncrementalSparseMatrix()
+    row_list = np.repeat(np.arange(items_per_users.shape[0]*items_per_users.shape[1]), repeats=2)
+    col_list = np.zeros(shape=items_per_users.shape[0]*items_per_users.shape[1]*2)
+    user_col_list = np.repeat(users, repeats=items_per_users.shape[1])
+    items_col_list = np.array(items_per_users).flatten() + max_user_id
+    col_list[np.arange(items_per_users.shape[0]*items_per_users.shape[1])*2] = user_col_list
+    col_list[np.arange(items_per_users.shape[0]*items_per_users.shape[1])*2+1] = items_col_list
+    fm_matrix_builder.add_data_lists(row_list_to_add=row_list, col_list_to_add=col_list,
+                                     data_list_to_add=np.ones(len(row_list)))
+    return fm_matrix_builder.get_SparseMatrix()
 
 
 #############################################################################
@@ -52,18 +68,7 @@ def add_ICM_info(fm_matrix: csr_matrix, ICM: csr_matrix, item_offset):
 
     new_ICM = new_ICM.tocsr()
 
-    # Merging data
-    merged_fm = coo_matrix((new_ICM.shape[0], new_ICM.shape[1] + fm_matrix.shape[1] + 1), dtype=np.float32)
-    fm_matrix = fm_matrix.tocoo()
-
-    merged_fm.data = fm_matrix.data
-    merged_fm.row = fm_matrix.row
-    merged_fm.col = fm_matrix.col
-
-    merged_fm = merged_fm.tocsr()
-    merged_fm[:, fm_matrix.shape[1]:fm_matrix.shape[1] + new_ICM.shape[1]] = new_ICM
-
-    merged_fm[:, -1:] = rating_col
+    merged_fm = sps.hstack([fm_matrix, new_ICM, rating_col], format="csr")
 
     return merged_fm
 
@@ -137,7 +142,7 @@ def format_URM_negative_sampling_user_compressed(URM: csr_matrix, negative_rate=
                                                       check_replacement=check_replacement)
     else:
         collected_samples = sampling_function(negative_sample_size=negative_sample_size, URM=URM,
-                                              check_replecement=check_replacement)
+                                              check_replacement=check_replacement)
     # Different items sampled
     different_items_sampled = np.unique(collected_samples[1])
 

@@ -105,6 +105,7 @@ def weight_matrix_by_item_feature_value(dataMatrix: sps.csr_matrix, ICM: sps.csr
 
     return _weight_matrix(dataMatrix, item_feature_weights, strategy)
 
+
 def weight_matrix_by_user_profile(dataMatrix: sps.csr_matrix, URM, strategy="linear"):
     """
 

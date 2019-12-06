@@ -5,7 +5,7 @@ import numpy as np
 from course_lib.Data_manager.DataReader_utils import reconcile_mapper_with_removed_tokens, merge_ICM
 from src.data_management.RecSys2019Reader_utils import build_ICM_all
 from src.feature.feature_processing import transform_numerical_to_label
-from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs
+from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs, IncrementalSparseMatrix
 
 
 class AbstractDataPreprocessing(DataReader):
@@ -148,16 +148,15 @@ class DataPreprocessingDigitizeICMs(AbstractDataPreprocessing):
                 raise KeyError("ICM name passed is not regarding a single feature, thus, it cannot be digitized")
 
             x = np.array(ICM_object.data)
-            unskewed_x = np.log1p(1 / x)
-            labelled_x = transform_numerical_to_label(unskewed_x, bins)
+            #unskewed_x = np.log1p(1 / x)
+            labelled_x = transform_numerical_to_label(x, bins)
             vectorized_change_label = np.vectorize(lambda elem: "%s-%d" % (ICM_name, elem))
             labelled_x = vectorized_change_label(labelled_x)
 
             item_original_ID_to_index_mapper = self._LOADED_GLOBAL_MAPPER_DICT['item_original_ID_to_index']
             ICM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=item_original_ID_to_index_mapper,
                                                             on_new_row="ignore")
-            ICM_builder.add_data_lists(ICM_object.tocoo().row, labelled_x, np.ones(len(labelled_x), dtype=np.float64))
-
+            ICM_builder.add_data_lists(np.array(ICM_object.tocoo().row, dtype=str), labelled_x, np.ones(len(labelled_x), dtype=np.float32))
             self._LOADED_ICM_DICT[ICM_name] = ICM_builder.get_SparseMatrix()
             self._LOADED_ICM_MAPPER_DICT[ICM_name] = ICM_builder.get_column_token_to_id_mapper()
 
