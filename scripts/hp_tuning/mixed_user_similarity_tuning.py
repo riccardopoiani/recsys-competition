@@ -1,14 +1,15 @@
 from datetime import datetime
 
+import numpy as np
+
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM, get_ICM_numerical, merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import UserHybridModelRecommender
+from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity_user
 from src.utils.general_utility_functions import get_split_seed
-from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity
-import numpy as np
 
 if __name__ == '__main__':
     # Data loading
@@ -43,22 +44,20 @@ if __name__ == '__main__':
 
     # Path setting
     print("Start tuning...")
-    version_path = "../../report/hp_tuning/mixed_item/"
+    version_path = "../../report/hp_tuning/mixed_user/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    user_cbf_cf = best_models.UserItemKNNCBFCFDemographic
     user_cf = best_models.UserCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
-    user_cbf = best_models.UserCBF_CF.get_model(URM_train=URM_train, UCM_train=UCM_all)
-
+    user_cbf = best_models.UserCBF_CF.get_model_warm(URM_train=URM_train, UCM_train=UCM_all)
 
     hybrid = UserHybridModelRecommender(URM_train)
     hybrid.add_similarity_matrix(user_cf.W_sparse)
     hybrid.add_similarity_matrix(user_cbf.W_sparse)
 
-    run_parameter_search_mixed_similarity(hybrid, URM_train=URM_train, output_folder_path=version_path,
-                                          evaluator_validation=evaluator_test, evaluator_test=None,
-                                          n_cases=50, n_random_starts=10, metric_to_optimize="MAP")
+    run_parameter_search_mixed_similarity_user(hybrid, URM_train=URM_train, output_folder_path=version_path,
+                                               evaluator_validation=evaluator_test, evaluator_test=None,
+                                               n_cases=50, n_random_starts=10, metric_to_optimize="MAP")
 
     print("...tuning ended")

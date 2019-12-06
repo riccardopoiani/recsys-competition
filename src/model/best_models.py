@@ -1,4 +1,7 @@
-from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
+from abc import ABC
+
+from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender, \
+    UserHybridModelRecommender
 from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
 
 
@@ -208,7 +211,7 @@ class AdvancedTopPop(IBestModel):
         return model
 
 
-class UserCBF_CF(IBestModel):
+class UserCBF_CF(IBestModel, ABC):
     """
     User CBF tuned with URM_train and UCM (containing age, region and URM_train)
      - MAP on tuning (only cold users): 0.0109
@@ -217,12 +220,12 @@ class UserCBF_CF(IBestModel):
                        'normalize': False, 'feature_weighting': 'BM25'}
 
     @classmethod
-    def get_model_warm(cls,URM_train, UCM_train):
+    def get_model_warm(cls, URM_train, UCM_train):
         best_parameters_warm = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
                                 'feature_weighting': 'BM25'}
         from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
         model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
-        model.fit(best_parameters_warm)
+        model.fit(**best_parameters_warm)
         return model
 
     @classmethod
@@ -234,6 +237,28 @@ class UserCBF_CF(IBestModel):
 
 
 # ---------------- HYBRIDS -----------------
+
+class MixedUser(IBestModel):
+    """
+    MAP: 0.0247 (improvement on MAP 0.0243 of weighted avg. on the same models)
+    X-VAL MAP: 0.0247 (vs 0.0244)
+    """
+
+    best_parameters = {'topK': 645, 'alpha1': 0.49939044012800426, 'alpha2': 0.08560351971043635}
+
+    @classmethod
+    def get_model(cls, URM_train, UCM_all, load_model=False, save_model=False):
+        user_cf = UserCF.get_model(URM_train=URM_train, load_model=load_model, save_model=False)
+        user_cbf = UserCBF_CF.get_model_warm(URM_train=URM_train, UCM_train=UCM_all)
+
+        hybrid = UserHybridModelRecommender(URM_train)
+        hybrid.add_similarity_matrix(user_cf.W_sparse)
+        hybrid.add_similarity_matrix(user_cbf.W_sparse)
+
+        hybrid.fit(**cls.get_best_parameters())
+
+        return hybrid
+
 
 class MixedItem(IBestModel):
     """

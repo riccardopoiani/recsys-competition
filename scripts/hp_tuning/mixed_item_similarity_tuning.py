@@ -6,7 +6,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM, ge
 from src.model import best_models
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
 from src.utils.general_utility_functions import get_split_seed
-from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity
+from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity_item
 import numpy as np
 
 if __name__ == '__main__':
@@ -47,8 +47,8 @@ if __name__ == '__main__':
     hybrid.add_similarity_matrix(item_cbf_cf.W_sparse)
     hybrid.add_similarity_matrix(item_cbf_all.W_sparse)
 
-    run_parameter_search_mixed_similarity(hybrid, URM_train=URM_train, output_folder_path=version_path,
-                                          evaluator_validation=evaluator_test, evaluator_test=None,
-                                          n_cases=50, n_random_starts=10, metric_to_optimize="MAP")
+    run_parameter_search_mixed_similarity_item(hybrid, URM_train=URM_train, output_folder_path=version_path,
+                                               evaluator_validation=evaluator_test, evaluator_test=None,
+                                               n_cases=50, n_random_starts=10, metric_to_optimize="MAP")
 
     print("...tuning ended")

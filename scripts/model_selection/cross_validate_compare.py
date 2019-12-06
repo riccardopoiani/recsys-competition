@@ -12,24 +12,20 @@ from datetime import datetime
 
 def _get_all_models_weighted_average(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
     all_models = {}
-    all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
-    all_models['ITEM_CF'] = best_models.ItemCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
-    all_models['ITEM_CBF_ALL'] = best_models.ItemCBF_all.get_model(URM_train=URM_train,
-                                                                   load_model=False, save_model=False,
-                                                                   ICM_train=ICM_all)
+    all_models['USER_CF'] = best_models.UserCF.get_model(URM_train, load_model=False)
+    all_models['USER_CBF_CF'] = best_models.UserCBF_CF.get_model_warm(URM_train, UCM_train=UCM_all)
+
     return all_models
 
 
 if __name__ == '__main__':
     # Weighted models best parameter - tuning results
-    weighted_best_param = {'ITEM_CBF_CF': 0.09095731575438316, 'ITEM_CF': 0.012943479714417009,
-                           'ITEM_CBF_ALL': 0.0024173339166811973}
-    weighted_best_param_tuning_map = 0.0350374
+    weighted_best_param = {'USER_CF': 0.7542648609454381, 'USER_CBF_CF': 0.043528644627882536}
+    weighted_best_param_tuning_map = 0.0243
 
     # Mixed similarity best parameters - tuning results
-    mixed_best_param = {'topK': 1056, 'alpha1': 0.15663912433996233, 'alpha2': 0.8823526667242283,
-                        'alpha3': 0.28586869725984193}
-    mixed_best_param_map = 0.0350856
+    mixed_best_param = {'topK': 645, 'alpha1': 0.49939044012800426, 'alpha2': 0.08560351971043635}
+    mixed_best_param_map = 0.0247
 
     seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
 
@@ -72,17 +68,7 @@ if __name__ == '__main__':
         model.fit(**weighted_best_param)
 
         # Mixed similarity building
-        item_cf = best_models.ItemCF.get_model(URM_train, load_model=False)
-        item_cbf_cf = best_models.ItemCBF_CF.get_model(URM_train=URM_train, load_model=False,
-                                                       ICM_train=ICM_subclass_all)
-        item_cbf_all = best_models.ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
-
-        hybrid = ItemHybridModelRecommender(URM_train)
-        hybrid.add_similarity_matrix(item_cf.W_sparse)
-        hybrid.add_similarity_matrix(item_cbf_cf.W_sparse)
-        hybrid.add_similarity_matrix(item_cbf_all.W_sparse)
-
-        hybrid.fit(**mixed_best_param)
+        hybrid = best_models.MixedUser.get_model(URM_train=URM_train, UCM_all=UCM_all)
 
         # Setting evaluator
         cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
@@ -110,7 +96,7 @@ if __name__ == '__main__':
     num_folds = len(seed_list)
 
     f = open(destination_path, "w")
-    f.write("Comparison between MixedItemSimilarity and WeightedAverage on the same models, using best models"
+    f.write("Comparison between MixedUserSimilarity and WeightedAverage on the same models, using best models"
             "find with hp tuning\n\n")
     f.write("MixedSimilarity tuning map {} --- MixedSimilarity X-val map {} \n\n".format(mixed_best_param_map,
                                                                                          mixed_score))

@@ -15,12 +15,13 @@ from src.utils.general_utility_functions import get_split_seed
 def _get_all_models(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
     all_models = {}
 
-    all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
-    all_models['ITEM_CF'] = best_models.ItemCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
-    all_models['ITEM_CBF_ALL'] = best_models.ItemCBF_all.get_model(URM_train=URM_train,
-                                                                   load_model=False, save_model=False,
-                                                                   ICM_train=ICM_all)
-    # all_models['USER_CF'] = best_models.UserCF.get_model(URM_train, load_model=False)
+    #all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
+    #all_models['ITEM_CF'] = best_models.ItemCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
+    #all_models['ITEM_CBF_ALL'] = best_models.ItemCBF_all.get_model(URM_train=URM_train,
+    #                                                               load_model=False, save_model=False,
+    #                                                               ICM_train=ICM_all)
+    all_models['USER_CF'] = best_models.UserCF.get_model(URM_train, load_model=False)
+    all_models['USER_CBF_CF'] = best_models.UserCBF_CF.get_model_warm(URM_train, UCM_train=UCM_all)
     # all_models['SLIM_BPR'] = best_models.SLIM_BPR.get_model(URM_train)
     # all_models['P3ALPHA'] = best_models.P3Alpha.get_model(URM_train, load_model=False)
     # all_models['RP3BETA'] = best_models.RP3Beta.get_model(URM_train, load_model=False)
