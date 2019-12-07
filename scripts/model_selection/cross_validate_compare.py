@@ -68,17 +68,13 @@ if __name__ == '__main__':
         ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
         ICM = data_reader.get_ICM_from_name("ICM_all")
         ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
-        ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-        ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
         # Build UCMs
         URM_all = data_reader.dataReader_object.get_URM_all()
         UCM_age = data_reader.dataReader_object.get_UCM_from_name("UCM_age")
         UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
         UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
-
         UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
-        UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
         # Ranked
         # model = HybridRankBasedRecommender(URM_train)
@@ -112,7 +108,7 @@ if __name__ == '__main__':
         evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
         temp_model = best_models.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train,
-                                                                  ICM_sub_class=ICM_subclass_all)
+                                                                  ICM_sub_class=ICM_subclass)
 
         # current_ranked_score = evaluator.evaluateRecommender(model)[0][10]['MAP']
         # weighted_current_map = evaluator.evaluateRecommender(model)[0][10]['MAP']

@@ -20,5 +20,4 @@ def get_bootstrap_URM(URM_train):
     URM_sample.row = row[unique_sample]
     URM_sample.col = col[unique_sample]
     URM_sample.data = counts_sample
-    print("sample %: {}".format(len(counts_sample)/len(data)*100))
     return URM_sample.tocsr()

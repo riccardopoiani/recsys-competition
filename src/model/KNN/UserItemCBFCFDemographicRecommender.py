@@ -3,6 +3,7 @@ from course_lib.Base.DataIO import DataIO
 from course_lib.Base.Recommender_utils import check_matrix
 from course_lib.Base.IR_feature_weighting import okapi_BM_25, TF_IDF
 import numpy as np
+import scipy.sparse as sps
 
 from course_lib.Base.Similarity.Compute_Similarity import Compute_Similarity
 
@@ -21,8 +22,8 @@ class UserItemCBFCFDemographicRecommender(BaseRecommender):
         self._user_W_sparse_format_checked = False
         self._item_W_sparse_format_checked = False
 
-        self.UCM_train = UCM_train
-        self.ICM_train = ICM_train
+        self.UCM_train = sps.hstack([UCM_train, URM_train], format="csr")
+        self.ICM_train = sps.hstack([ICM_train, URM_train.T], format="csr")
 
     def fit(self, user_topK=50, user_shrink=100, user_similarity_type='cosine', user_normalize=True,
             user_feature_weighting="none", user_asymmetric_alpha=0.5,

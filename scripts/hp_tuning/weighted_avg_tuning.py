@@ -12,14 +12,14 @@ from src.tuning.run_parameter_search_hybrid import run_parameter_search_hybrid
 from src.utils.general_utility_functions import get_split_seed
 
 
-def _get_all_models(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
+def _get_all_models(URM_train, ICM_all, UCM_all, ICM_numerical, ICM_categorical):
     all_models = {}
 
-    all_models['ITEMCBFALLFOL'] = best_models.ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train,
-                                                                              ICM_train=ICM_all,
-                                                                              load_model=False)
+    all_models['ITEMCBFALLFOL'] = best_models.ItemCBF_CF_all_EUC1_FOL3.get_model(URM_train=URM_train,
+                                                                                 ICM_train=ICM_all,
+                                                                                 load_model=False)
     all_models['ITEMCBFCFFOL'] = best_models.ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train,
-                                                                              ICM_train=ICM_subclass_all,
+                                                                              ICM_train=ICM_categorical,
                                                                               load_model=False)
     all_models['USERCBFCF'] = best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_all)
     # all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
@@ -59,10 +59,8 @@ if __name__ == '__main__':
 
     # Build ICMs
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-    ICM = data_reader.get_ICM_from_name("ICM_all")
+    ICM_all = data_reader.get_ICM_from_name("ICM_all")
     ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-    ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
@@ -71,11 +69,10 @@ if __name__ == '__main__':
     UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
 
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
-    UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
     model = HybridWeightedAverageRecommender(URM_train, normalize=False)
 
-    all_models = _get_all_models(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all, UCM_all=UCM_all,
+    all_models = _get_all_models(URM_train=URM_train, UCM_all=UCM_age_region,
                                  ICM_all=ICM_all, ICM_numerical=ICM_numerical, ICM_categorical=ICM_subclass)
     for model_name, model_object in all_models.items():
         model.add_fitted_model(model_name, model_object)

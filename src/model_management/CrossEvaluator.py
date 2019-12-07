@@ -154,7 +154,6 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
                                                        force_new_split=True)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
-            UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
             ignore_users = self.ignore_users
             if on_cold_users:
@@ -166,7 +165,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
 
             # Creating recommender instance
             print("Fitting the recommender...")
-            recommender_instance = recommender_class(URM_train, UCM_all)
+            recommender_instance = recommender_class(URM_train, UCM_age_region)
             recommender_instance.fit(**recommender_keywargs)
 
             hold_out_validator = EvaluatorHoldout(URM_test, self.cutoff_list, exclude_seen=self.exclude_seen,
@@ -206,8 +205,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
                                                        force_new_split=True)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
-            ICM_sub_class = data_reader.get_ICM_from_name("ICM_sub_class")
-            ICM_all, _ = merge_ICM(ICM_sub_class, URM_train.transpose(), {}, {})
+            ICM_all = data_reader.get_ICM_from_name("ICM_all")
 
             print("Holdout number {}".format(i + 1))
 

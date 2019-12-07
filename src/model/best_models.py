@@ -65,7 +65,7 @@ class ItemCBF_categorical(IContentModel):
 
 class ItemCBF_CF_all_EUC1_FOL3(IContentModel):
     """
-    ItemCBF_CF with URM_train and ICM (containing sub class, price and asset)
+    ItemCBF_CF with URM_train and ICM (containing sub class, price, asset and item popularity)
     X-VAL MAP FOl3 EUC 1: 0.022020455274798505
     """
     from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
@@ -340,7 +340,8 @@ class FusionMergeItem_CBF_CF(IBestModel):
     def get_model(cls, URM_train, ICM_sub_class):
         from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
         from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
-        model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, ICM_train=ICM_sub_class)
+        model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
+                                                      ICM_train=ICM_sub_class)
         model.fit(num_models=200, hyper_parameters_range=cls.get_hyperparameters())
         return model
 

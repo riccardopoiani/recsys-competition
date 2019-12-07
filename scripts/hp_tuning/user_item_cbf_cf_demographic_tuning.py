@@ -21,17 +21,15 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
 
     # Build ICMs
-    ICM = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
+    ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
     UCM_age = data_reader.dataReader_object.get_UCM_from_name("UCM_age")
     UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
-    UCM_all, _ = merge_UCM(UCM_age, UCM_region, {}, {})
+    UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
 
-    UCM_all = get_warmer_UCM(UCM_all, URM_all, threshold_users=3)
-    UCM_all, _ = merge_UCM(UCM_all, URM_train, {}, {})
+    UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
@@ -46,7 +44,7 @@ if __name__ == '__main__':
     version_path = version_path + "/" + now
 
     run_parameter_search_user_item_all(UserItemCBFCFDemographicRecommender, URM_train,
-                                       UCM_all, ICM_all, UCM_name="UCM_all", ICM_name="ICM_all",
+                                       UCM_age_region, ICM_subclass, UCM_name="UCM_age_region", ICM_name="ICM_subclass",
                                        metric_to_optimize="MAP",
                                        evaluator_validation=evaluator,
                                        output_folder_path=version_path,

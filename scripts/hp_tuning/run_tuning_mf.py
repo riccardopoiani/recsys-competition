@@ -64,14 +64,17 @@ def main():
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
+    data_reader = RecSys2019Reader(args.reader_path)
+    data_reader.load_data()
+
     # Build ICMs
-    ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-    ICM_categorical = data_reader.get_ICM_from_name("ICM_sub_class")
+    ICM_all = data_reader.get_ICM_from_name("ICM_all")
 
     # Build UCMs
-    URM_all = data_reader.dataReader_object.get_URM_all()
-    UCM_age = data_reader.dataReader_object.reader.get_UCM_from_name("UCM_age")
-    UCM_region = data_reader.dataReader_object.reader.get_UCM_from_name("UCM_region")
+    URM_all = data_reader.get_URM_all()
+    UCM_all = get_UCM_all(data_reader, discretize_user_act_bins=20)
+    UCM_all = get_warmer_UCM(UCM_all, URM_all, threshold_users=3)
+
 
     UCM = None
     ICM = None
@@ -79,22 +82,19 @@ def main():
     ICM_name = ""
     approximate_recommender = None
     if args.recommender_name == "light_fm":
-        UCM, _ = merge_UCM(UCM_age, UCM_region, {}, {})
-        UCM = get_warmer_UCM(UCM, URM_all, threshold_users=3)
-        ICM = ICM_categorical
-        ICM_name = "ICM_categorical"
-        UCM_name = "UCM_age_region"
+        UCM = UCM_all
+        ICM = ICM_all
+        ICM_name = "ICM_all"
+        UCM_name = "UCM_all"
 
     if args.recommender_name == "fm":
         if not args.discretize:
             raise ValueError("Cannot use FM without discretizing!")
-        #ICM_all, _ = merge_ICM(ICM_categorical, URM_train.T, {}, {})
         sub = best_models.UserCF.get_model(URM_train)
         approximate_recommender = sub
 
-        UCM = get_UCM_all(data_reader.dataReader_object.reader, discretize_user_act_bins=20)
-        UCM = get_warmer_UCM(UCM, URM_all, threshold_users=3)
-        ICM = data_reader.get_ICM_from_name("ICM_all")
+        UCM = UCM_all
+        ICM = ICM_all
         ICM_name = "ICM_all"
         UCM_name = "UCM_all"
 

@@ -22,7 +22,6 @@ if __name__ == '__main__':
     UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
 
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
-    UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
@@ -40,7 +39,7 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
 
-    run_parameter_search_user_content(URM_train=URM_train, UCM_object=UCM_all, UCM_name="UCM_URM_train",
+    run_parameter_search_user_content(URM_train=URM_train, UCM_object=UCM_age_region, UCM_name="UCM_URM_train",
                                       recommender_class=UserKNNCBFRecommender,
                                       evaluator_validation=evaluator,
                                       metric_to_optimize="MAP",

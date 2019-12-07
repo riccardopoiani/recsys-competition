@@ -23,8 +23,6 @@ if __name__ == '__main__':
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
     ICM = data_reader.get_ICM_from_name("ICM_all")
     ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-    ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
@@ -33,7 +31,6 @@ if __name__ == '__main__':
     UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
 
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
-    UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
@@ -50,7 +47,7 @@ if __name__ == '__main__':
     version_path = version_path + now
 
     user_cf = best_models.UserCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
-    user_cbf = best_models.UserCBF_CF.get_model_warm(URM_train=URM_train, UCM_train=UCM_all)
+    user_cbf = best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_age_region)
 
     hybrid = UserHybridModelRecommender(URM_train)
     hybrid.add_similarity_matrix(user_cf.W_sparse)

@@ -21,10 +21,8 @@ if __name__ == '__main__':
 
     # Build ICMs
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-    ICM = data_reader.get_ICM_from_name("ICM_all")
+    ICM_all = data_reader.get_ICM_from_name("ICM_all")
     ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-    ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
@@ -44,8 +42,10 @@ if __name__ == '__main__':
     version_path = version_path + now
 
     item_cf = best_models.ItemCF_EUC_1_FOL_3.get_model(URM_train, load_model=False)
-    item_cbf_cf = best_models.ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train, load_model=False, ICM_train=ICM_subclass_all)
-    item_cbf_all = best_models.ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+    item_cbf_cf = best_models.ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train, load_model=False,
+                                                               ICM_train=ICM_subclass)
+    item_cbf_all = best_models.ItemCBF_CF_all_EUC1_FOL3.get_model(URM_train=URM_train,
+                                                                  ICM_train=ICM_all, load_model=False)
 
     hybrid = ItemHybridModelRecommender(URM_train)
     hybrid.add_similarity_matrix(item_cf.W_sparse)
