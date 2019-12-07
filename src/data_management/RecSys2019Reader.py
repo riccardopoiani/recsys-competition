@@ -1,16 +1,15 @@
-import pandas as pd
-import numpy as np
 import os
 
 from course_lib.Base.DataIO import DataIO
 from course_lib.Data_manager.DataReader import DataReader
-from src.data_management.RecSys2019Reader_utils import *
+from src.data_management.RecSys2019Reader_utils import load_ICM_sub_class, load_ICM_asset, load_ICM_price, \
+    load_ICM_item_pop, load_URM, load_UCM_age, load_UCM_region, load_UCM_user_act, build_ICM_all
 
 
 class RecSys2019Reader(DataReader):
     DATASET_SUBFOLDER = "data/"
     AVAILABLE_ICM = ["ICM_all", "ICM_price", "ICM_asset", "ICM_sub_class", "ICM_item_pop"]
-    AVAILABLE_UCM = ["UCM_age", "UCM_region"]
+    AVAILABLE_UCM = ["UCM_age", "UCM_region", "UCM_user_act"]
     AVAILABLE_URM = ["URM_all"]
 
     _LOADED_UCM_DICT = None
@@ -20,6 +19,7 @@ class RecSys2019Reader(DataReader):
 
     def __init__(self, root_path="../data/", reload_from_original=False):
         super().__init__(reload_from_original_data=reload_from_original)
+        self.root_path = root_path
         self.URM_path = os.path.join(root_path, "data_train.csv")
         self.ICM_asset_path = os.path.join(root_path, "data_ICM_asset.csv")
         self.ICM_price_path = os.path.join(root_path, "data_ICM_price.csv")
@@ -53,10 +53,9 @@ class RecSys2019Reader(DataReader):
         print("RecSys2019Reader: Loading original data")
 
         print("RecSys2019Reader: loading ICM subclass, asset and price")
-
         ICM_sub_class, tokenToFeatureMapper_ICM_sub_class, self.item_original_ID_to_index = load_ICM_sub_class(
             self.ICM_sub_class_path,
-            separator=',', )
+            separator=',')
 
         self._LOADED_ICM_DICT["ICM_sub_class"] = ICM_sub_class
         self._LOADED_ICM_MAPPER_DICT["ICM_sub_class"] = tokenToFeatureMapper_ICM_sub_class
@@ -112,6 +111,15 @@ class RecSys2019Reader(DataReader):
 
         self._LOADED_UCM_DICT["UCM_region"] = UCM_region
         self._LOADED_UCM_MAPPER_DICT["UCM_region"] = tokenToFeatureMapper_UCM_region
+
+        UCM_user_act, tokenToFeatureMapper_UCM_user_act, self.user_original_ID_to_index = load_UCM_user_act(
+            self.URM_path,
+            separator=",",
+            if_new_user="ignore",
+            user_original_ID_to_index=self.user_original_ID_to_index)
+
+        self._LOADED_UCM_DICT["UCM_user_act"] = UCM_user_act
+        self._LOADED_UCM_MAPPER_DICT["UCM_user_act"] = tokenToFeatureMapper_UCM_user_act
 
         print("RecSys2019Reader: loading ICM all")
 

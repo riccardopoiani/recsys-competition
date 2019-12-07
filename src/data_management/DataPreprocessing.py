@@ -148,6 +148,7 @@ class DataPreprocessingDigitizeICMs(AbstractDataPreprocessing):
                 raise KeyError("ICM name passed is not regarding a single feature, thus, it cannot be digitized")
 
             x = np.array(ICM_object.data)
+            # TODO add transformation with strategy pattern
             #unskewed_x = np.log1p(1 / x)
             labelled_x = transform_numerical_to_label(x, bins)
             vectorized_change_label = np.vectorize(lambda elem: "%s-%d" % (ICM_name, elem))

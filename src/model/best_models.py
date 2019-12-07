@@ -212,7 +212,7 @@ class AdvancedTopPop(IBestModel):
         return model
 
 
-class UserCBF_CF(IBestModel, ABC):
+class UserCBF_CF_Cold(IBestModel):
     """
     User CBF tuned with URM_train and UCM (containing age, region and URM_train)
      - MAP on tuning (only cold users): 0.0109
@@ -221,16 +221,23 @@ class UserCBF_CF(IBestModel, ABC):
                        'normalize': False, 'feature_weighting': 'BM25'}
 
     @classmethod
-    def get_model_warm(cls, URM_train, UCM_train):
-        best_parameters_warm = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
-                                'feature_weighting': 'BM25'}
+    def get_model(cls, URM_train, UCM_train):
         from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
         model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
-        model.fit(**best_parameters_warm)
+        model.fit(**cls.get_best_parameters())
         return model
 
+
+class UserCBF_CF_Warm(IBestModel):
+    """
+    User CBF tuned with URM_train and UCM (containing age, region and URM_train)
+     - MAP (only warm): 0.023
+    """
+    best_parameters = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
+                       'feature_weighting': 'BM25'}
+
     @classmethod
-    def get_model_cold(cls, URM_train, UCM_train):
+    def get_model(cls, URM_train, UCM_train):
         from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
         model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
         model.fit(**cls.get_best_parameters())
@@ -276,7 +283,7 @@ class MixedUser(IBestModel):
     @classmethod
     def get_model(cls, URM_train, UCM_all, load_model=False, save_model=False):
         user_cf = UserCF.get_model(URM_train=URM_train, load_model=load_model, save_model=False)
-        user_cbf = UserCBF_CF.get_model_warm(URM_train=URM_train, UCM_train=UCM_all)
+        user_cbf = UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_all)
 
         hybrid = UserHybridModelRecommender(URM_train)
         hybrid.add_similarity_matrix(user_cf.W_sparse)
@@ -369,7 +376,7 @@ class HybridWeightedAvgSubmission1(IBestModel):
 class HybridWeightedAvgSubmission2(IBestModel):
     """
     Hybrid Weighted Average (only warm, submission on Kaggle with UserCBF as Fallback)
-     - MAP:
+     - MAP (only warm): 0.0358
     """
     best_parameters = {'ITEM_CBF_CF': 1.0, 'P3ALPHA': 1.0, 'IALS': 1.0, 'USER_ITEM_ALL': 1.0}
 

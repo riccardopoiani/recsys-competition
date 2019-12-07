@@ -9,14 +9,14 @@ def mix_URM(URM_positive: csr_matrix, URM_negative: csr_matrix):
     return sps.vstack([URM_positive, URM_negative], format='csr')
 
 
-def format_URM_slice_uncompressed(users, items_per_users, max_user_id):
-    fm_matrix_builder = IncrementalSparseMatrix()
-    row_list = np.repeat(np.arange(items_per_users.shape[0]*items_per_users.shape[1]), repeats=2)
-    col_list = np.zeros(shape=items_per_users.shape[0]*items_per_users.shape[1]*2)
+def format_URM_slice_uncompressed(users, items_per_users, max_user_id, n_cols):
+    fm_matrix_builder = IncrementalSparseMatrix(n_cols=n_cols)
+    row_list = np.repeat(np.arange(items_per_users.shape[0] * items_per_users.shape[1]), repeats=2)
+    col_list = np.zeros(shape=items_per_users.shape[0] * items_per_users.shape[1] * 2)
     user_col_list = np.repeat(users, repeats=items_per_users.shape[1])
     items_col_list = np.array(items_per_users).flatten() + max_user_id
-    col_list[np.arange(items_per_users.shape[0]*items_per_users.shape[1])*2] = user_col_list
-    col_list[np.arange(items_per_users.shape[0]*items_per_users.shape[1])*2+1] = items_col_list
+    col_list[np.arange(items_per_users.shape[0] * items_per_users.shape[1]) * 2] = user_col_list
+    col_list[np.arange(items_per_users.shape[0] * items_per_users.shape[1]) * 2 + 1] = items_col_list
     fm_matrix_builder.add_data_lists(row_list_to_add=row_list, col_list_to_add=col_list,
                                      data_list_to_add=np.ones(len(row_list)))
     return fm_matrix_builder.get_SparseMatrix()
@@ -26,50 +26,40 @@ def format_URM_slice_uncompressed(users, items_per_users, max_user_id):
 ########################## INTEGRATING EXTERNAL INFORMATION##################
 #############################################################################
 
-def add_UCM_info(fm_matrix: csr_matrix, UCM: csr_matrix):
+def add_UCM_info(fm_matrix: csr_matrix, UCM: csr_matrix, user_offset):
     """
-    Given a matrix in the format needed to FM, it adds information concering the UCM
+    Given a matrix in the format needed to FM, it adds information concerning the UCM
 
-    Note: no group by per items should be applied in this case
+    Note: no group by items should be applied in this case
 
-    :param matrixFM: matrix containing dataset for FM models
+    :param fm_matrix: matrix containing dataset for FM models (last column has no rating list)
     :param UCM: UCM information about users
+    :param user_offset: starting column index for items in fm_matrix (should be 0)
     :return: new matrix containing also information about the UCM
     """
-    raise NotImplemented()
+    fm_matrix_copy = fm_matrix.copy()
+    user_fm_matrix = fm_matrix[:, user_offset: user_offset + UCM.shape[0]].copy()
+    UCM_fm_matrix = user_fm_matrix.dot(UCM)
+    merged_fm = sps.hstack([fm_matrix_copy, UCM_fm_matrix], format="csr")
+    return merged_fm
 
 
 def add_ICM_info(fm_matrix: csr_matrix, ICM: csr_matrix, item_offset):
     """
     Given a matrix in the format needed for FM, it adds information concerning the ICM
 
-    Note: no group by per users should be applied in this case
+    Note: no group by users should be applied in this case
 
-    :param fm_matrix: matrix concerning dataset for FM models
+    :param fm_matrix: matrix concerning dataset for FM models (last column has no rating list)
     :param ICM: ICM information about items
     :param item_offset: starting column index for items in fm_matrix (it should be URM_train.shape[0]
-    of the URM used to construct the fm_matrix)
+                        of the URM used to construct the fm_matrix)
     :return: new matrix integrating ICM data
     """
-    # Get rid of last column
-    rating_col = fm_matrix[:, -1]
-    fm_matrix = fm_matrix[:, 0:-1].copy()
-
-    # Find the items in a given FM-row and add it to the new ICM
-    new_ICM = lil_matrix((fm_matrix.shape[0], ICM.shape[1]), dtype=np.int8)
-    for row_index in range(0, fm_matrix.shape[0]):
-        if row_index % 10000 == 0:
-            print("Scanned {} over {}".format(row_index, fm_matrix.shape[0]))
-        row_item = fm_matrix[row_index].indices[fm_matrix[row_index].indices >= item_offset]
-        if row_item.size > 1:
-            raise RuntimeError("Illegal state")
-        row_item = row_item[0] - item_offset
-        new_ICM[row_index] = ICM[row_item].copy()
-
-    new_ICM = new_ICM.tocsr()
-
-    merged_fm = sps.hstack([fm_matrix, new_ICM, rating_col], format="csr")
-
+    fm_matrix_copy = fm_matrix.copy()
+    item_fm_matrix = fm_matrix[:, item_offset: item_offset + ICM.shape[0]].copy()
+    ICM_fm_matrix = item_fm_matrix.dot(ICM)
+    merged_fm = sps.hstack([fm_matrix_copy, ICM_fm_matrix], format="csr")
     return merged_fm
 
 

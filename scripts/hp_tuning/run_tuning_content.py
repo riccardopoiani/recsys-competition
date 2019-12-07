@@ -4,6 +4,7 @@ from datetime import datetime
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
@@ -26,6 +27,7 @@ def get_arguments():
     parser.add_argument("-r", "--recommender_name", required=True,
                         help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
     parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyperparameter tuning")
+    parser.add_argument("-d", "--discretize", default=False, help="if true, it will discretize the ICMs")
     parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
     parser.add_argument("-foh", "--focus_on_high", default=0, help="focus the tuning only on users with profile"
                                                                    "lengths larger than the one specified here")
@@ -39,6 +41,10 @@ def main():
 
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
+    if args.discretize:
+        data_reader = DataPreprocessingDigitizeICMs(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 50,
+                                                                                          "ICM_price": 50,
+                                                                                          "ICM_item_pop": 20})
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=args.seed)
     data_reader.load_data()
@@ -50,7 +56,10 @@ def main():
     if args.recommender_name == "item_cbf_numerical":
         ICM = ICM_numerical
         ICM_name = "ICM_numerical"
-        similarity_type_list = ['euclidean']
+        if args.discretize:
+            similarity_type_list = None
+        else:
+            similarity_type_list = ['euclidean']
     elif args.recommender_name == "item_cbf_categorical":
         ICM = ICM_categorical
         ICM_name = "ICM_categorical"
@@ -58,12 +67,18 @@ def main():
     elif args.recommender_name == "item_cbf_all":
         ICM, _ = merge_ICM(ICM_numerical, ICM_categorical, {}, {})
         ICM_name = "ICM_all"
-        similarity_type_list = ['euclidean']
+        if args.discretize:
+            similarity_type_list = None
+        else:
+            similarity_type_list = ['euclidean']
     elif args.recommender_name == "item_cbf_all_and_URM":
-        ICM, _ = merge_ICM(ICM_numerical, ICM_categorical, {}, {})
+        ICM = data_reader.get_ICM_from_name("ICM_all")
         ICM, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
         ICM_name = "ICM_all_and_URM"
-        similarity_type_list = ['euclidean']
+        if args.discretize:
+            similarity_type_list = None
+        else:
+            similarity_type_list = ['euclidean']
     else:
         ICM, _ = merge_ICM(ICM_categorical, URM_train.transpose(), {}, {})
         ICM_name = "ICM_categorical_and_URM"
