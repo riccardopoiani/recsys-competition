@@ -1,25 +1,25 @@
 from datetime import datetime
 
-from numpy.random import seed
-
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from src.data_management.New_DataSplitter_leave_k_out import *
-from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.RecSys2019Reader import RecSys2019Reader, get_ICM_numerical
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
 from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
-from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.tuning.run_parameter_search_hybrid import run_parameter_search_hybrid
 from src.utils.general_utility_functions import get_split_seed
 
 
-def _get_all_models(URM_train, ICM_all, UCM_all):
+def _get_all_models(URM_train, ICM_all, UCM_all, ICM_subclass_all):
     all_models = {}
 
-    all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
-    all_models['USER_CF'] = best_models.UserCF.get_model(URM_train)
+    all_models['MIXED'] = best_models.WeightedAverageMixed.get_model(URM_train=URM_train,
+                                                                     ICM_all=ICM_all,
+                                                                     ICM_subclass_all=ICM_subclass_all,
+                                                                     UCM_all=UCM_all)
+
     all_models['SLIM_BPR'] = best_models.SLIM_BPR.get_model(URM_train)
     all_models['P3ALPHA'] = best_models.P3Alpha.get_model(URM_train)
     all_models['RP3BETA'] = best_models.RP3Beta.get_model(URM_train)
@@ -38,8 +38,11 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
 
     # Build ICMs
-    ICM_categorical = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM_categorical, URM_train.transpose(), {}, {})
+    ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
+    ICM = data_reader.get_ICM_from_name("ICM_all")
+    ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
+    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
+    ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
@@ -52,7 +55,8 @@ if __name__ == '__main__':
 
     model = HybridRankBasedRecommender(URM_train)
 
-    all_models = _get_all_models(URM_train, ICM_all, UCM_all)
+    all_models = _get_all_models(URM_train=URM_train, ICM_all=ICM_all,
+                                 UCM_all=UCM_all, ICM_subclass_all=ICM_subclass_all)
     for model_name, model_object in all_models.items():
         model.add_fitted_model(model_name, model_object)
     print("The models added in the hybrid are: {}".format(list(all_models.keys())))
@@ -70,6 +74,7 @@ if __name__ == '__main__':
 
     run_parameter_search_hybrid(model, metric_to_optimize="MAP",
                                 evaluator_validation=evaluator,
-                                output_folder_path=version_path, n_cases=35)
+                                output_folder_path=version_path, n_cases=35,
+                                parallelizeKNN=False)
 
     print("...tuning ended")

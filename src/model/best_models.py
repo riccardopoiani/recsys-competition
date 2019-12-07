@@ -262,7 +262,7 @@ class WeightedAverageMixed(IBestModel):
 
         model.fit(**cls.get_best_parameters())
 
-        return all_models
+        return model
 
 
 class MixedUser(IBestModel):

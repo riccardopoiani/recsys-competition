@@ -1,0 +1,456 @@
+SearchBayesianSkoptObject: Config 0 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 7, 'MIXED': 0.7500545515881416, 'SLIM_BPR': 0.9343568996928878, 'P3ALPHA': 0.6040001017431373, 'RP3BETA': 0.4355260612302142, 'IALS': 0.632589656144154, 'USER_ITEM_ALL': 0.33714626647637386} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 1 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 4, 'MIXED': 0.6374687978486892, 'SLIM_BPR': 0.8248902780456812, 'P3ALPHA': 0.8031748172421086, 'RP3BETA': 0.7446833873680789, 'IALS': 0.705436938253765, 'USER_ITEM_ALL': 0.6351296830189249} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 2 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 9, 'MIXED': 0.6682433852305775, 'SLIM_BPR': 0.08452013874667365, 'P3ALPHA': 0.9733938853992955, 'RP3BETA': 0.5311311549043085, 'IALS': 0.2179093595829394, 'USER_ITEM_ALL': 0.8191090733428931} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 3 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 3, 'MIXED': 0.5091081191663752, 'SLIM_BPR': 0.8895757346596992, 'P3ALPHA': 0.4037232096150446, 'RP3BETA': 0.7078906056247564, 'IALS': 0.28164682486957565, 'USER_ITEM_ALL': 0.5053342203677015} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 4 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.4510307495300978, 'SLIM_BPR': 0.20772496765767184, 'P3ALPHA': 0.23247622069615276, 'RP3BETA': 0.8062082876764208, 'IALS': 0.09367194780164446, 'USER_ITEM_ALL': 0.09195199343929218} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 5 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.029430923869249732, 'SLIM_BPR': 0.02767743179195404, 'P3ALPHA': 0.7262988984830613, 'RP3BETA': 0.028849363110666, 'IALS': 0.12952247309068535, 'USER_ITEM_ALL': 0.018330802671872263} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 6 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 2, 'MIXED': 0.6674119598820639, 'SLIM_BPR': 0.07423627746402714, 'P3ALPHA': 0.0690833393802653, 'RP3BETA': 0.0201135052128151, 'IALS': 0.9017534847186116, 'USER_ITEM_ALL': 0.8985343729565711} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 7 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.010331525039379733, 'SLIM_BPR': 0.7784163859944543, 'P3ALPHA': 0.09223176877792773, 'RP3BETA': 0.8085221983227475, 'IALS': 0.020172732273148145, 'USER_ITEM_ALL': 0.9849672897375868} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 8 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 8, 'MIXED': 0.026518629925687216, 'SLIM_BPR': 0.9933610320041926, 'P3ALPHA': 0.03536601139615481, 'RP3BETA': 0.012298025589464582, 'IALS': 0.8139535945025628, 'USER_ITEM_ALL': 0.011707318238935784} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 9 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 3, 'MIXED': 0.9093026994621252, 'SLIM_BPR': 0.012307830792332223, 'P3ALPHA': 0.9658455656770063, 'RP3BETA': 0.9054533523726706, 'IALS': 0.9295087109294983, 'USER_ITEM_ALL': 0.9941436715221273} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 10 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.9603233138615939, 'SLIM_BPR': 0.8745988051648182, 'P3ALPHA': 0.10149664593933874, 'RP3BETA': 0.03190075541143545, 'IALS': 0.11908262018438456, 'USER_ITEM_ALL': 0.9141585544236448} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 11 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.9258488211125936, 'SLIM_BPR': 0.969657581575275, 'P3ALPHA': 0.9829728667628459, 'RP3BETA': 0.1576039628101147, 'IALS': 0.9420893341506513, 'USER_ITEM_ALL': 0.11363611252497599} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 12 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.012706518807042658, 'SLIM_BPR': 0.11125742475202163, 'P3ALPHA': 0.9876645138564305, 'RP3BETA': 0.04412880262425135, 'IALS': 0.9773742584079311, 'USER_ITEM_ALL': 0.6406154579084019} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 13 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 3, 'MIXED': 0.008038488988068361, 'SLIM_BPR': 0.017371502600963654, 'P3ALPHA': 0.0032924260283327964, 'RP3BETA': 0.8885903802443416, 'IALS': 0.9511577634650514, 'USER_ITEM_ALL': 0.04507565473534148} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 14 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.771099465719092, 'SLIM_BPR': 0.07010382862704992, 'P3ALPHA': 0.1015511748831689, 'RP3BETA': 0.9858283096375616, 'IALS': 0.9661159186716726, 'USER_ITEM_ALL': 0.9952029760215697} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 15 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.8770584341404523, 'SLIM_BPR': 0.20002100377268056, 'P3ALPHA': 0.9995821105187856, 'RP3BETA': 0.9138094235321944, 'IALS': 0.10294950017702334, 'USER_ITEM_ALL': 0.0376238267420761} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 16 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 2, 'MIXED': 0.9380535415446641, 'SLIM_BPR': 0.20294981016799613, 'P3ALPHA': 0.01802639497762893, 'RP3BETA': 0.047718633328850506, 'IALS': 0.030469184765286744, 'USER_ITEM_ALL': 0.06359173633134294} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 17 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 8, 'MIXED': 0.03927597472340961, 'SLIM_BPR': 0.9936669253021208, 'P3ALPHA': 0.8408518066450228, 'RP3BETA': 0.9704969395656461, 'IALS': 0.012047264261463412, 'USER_ITEM_ALL': 0.1454944899598785} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 18 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.03551187259811162, 'SLIM_BPR': 0.8441131397783301, 'P3ALPHA': 0.0596923644504266, 'RP3BETA': 0.9391110674956139, 'IALS': 0.8376027517886395, 'USER_ITEM_ALL': 0.9351520759238465} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 19 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.01951892706841343, 'SLIM_BPR': 0.8265733178192546, 'P3ALPHA': 0.9496001058695266, 'RP3BETA': 0.21753609293910292, 'IALS': 0.02937264192461548, 'USER_ITEM_ALL': 0.9574496969230228} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 20 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.9831347895892377, 'SLIM_BPR': 0.9157559171285952, 'P3ALPHA': 0.1173397938792056, 'RP3BETA': 0.9965212672342096, 'IALS': 0.9501917302359899, 'USER_ITEM_ALL': 0.7589576800789438} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 21 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 7, 'MIXED': 0.9810262070683479, 'SLIM_BPR': 0.035521847456331586, 'P3ALPHA': 0.9303799540777131, 'RP3BETA': 0.0018170158054388046, 'IALS': 0.989791799353784, 'USER_ITEM_ALL': 0.04814485687935645} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 22 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.003431964833146732, 'SLIM_BPR': 0.029995367249470255, 'P3ALPHA': 0.8927638313496458, 'RP3BETA': 0.018780301400341405, 'IALS': 0.08268671926603052, 'USER_ITEM_ALL': 0.898120456265741} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 23 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.06469650732198919, 'SLIM_BPR': 0.828078383025841, 'P3ALPHA': 0.9788820536149205, 'RP3BETA': 0.9910266837715008, 'IALS': 0.8919808355548607, 'USER_ITEM_ALL': 0.9837888291895142} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 24 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.9482061130169479, 'SLIM_BPR': 0.8843796569351702, 'P3ALPHA': 0.016851948731259173, 'RP3BETA': 0.8525028403612526, 'IALS': 0.02625768159020781, 'USER_ITEM_ALL': 0.10217178435208477} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 25 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.9801737259942334, 'SLIM_BPR': 0.9546746275831786, 'P3ALPHA': 0.1957385935662171, 'RP3BETA': 0.008171953018036639, 'IALS': 0.9912343239580447, 'USER_ITEM_ALL': 0.1500921503980334} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 26 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 3, 'MIXED': 0.01687345222742798, 'SLIM_BPR': 0.030245027574214663, 'P3ALPHA': 0.006799948149908809, 'RP3BETA': 0.9166912713700771, 'IALS': 0.9491496573361219, 'USER_ITEM_ALL': 0.031306470087281275} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 27 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.9406504552402779, 'SLIM_BPR': 0.9098292341593269, 'P3ALPHA': 0.028927337956287442, 'RP3BETA': 0.9465069051996898, 'IALS': 0.4550453801869483, 'USER_ITEM_ALL': 0.97531606655207} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 28 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.89061073211, 'SLIM_BPR': 0.9754380561037493, 'P3ALPHA': 0.8550445899239317, 'RP3BETA': 0.022670072223467178, 'IALS': 0.9838410208038563, 'USER_ITEM_ALL': 0.8947659239234061} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 29 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 9, 'MIXED': 0.006505078763182183, 'SLIM_BPR': 0.15669024538224133, 'P3ALPHA': 0.018171454656202405, 'RP3BETA': 0.029089976969231775, 'IALS': 0.28979428993641115, 'USER_ITEM_ALL': 0.9875826207672799} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 30 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 10, 'MIXED': 0.01936675420868517, 'SLIM_BPR': 0.03125042273339152, 'P3ALPHA': 0.9550986944049945, 'RP3BETA': 0.06467202711649946, 'IALS': 0.9009502981682661, 'USER_ITEM_ALL': 0.04904267950926623} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 31 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 3, 'MIXED': 0.00324755490900941, 'SLIM_BPR': 0.9776453193554292, 'P3ALPHA': 0.7418782024513886, 'RP3BETA': 0.020936229519718078, 'IALS': 0.9939057655028453, 'USER_ITEM_ALL': 0.02498431051622086} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 32 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 1, 'MIXED': 0.9107450789382384, 'SLIM_BPR': 0.9203079495489789, 'P3ALPHA': 0.9634037482431747, 'RP3BETA': 0.8524026272922266, 'IALS': 0.014679678991328163, 'USER_ITEM_ALL': 0.030941081278988543} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 33 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 2, 'MIXED': 0.9230980926395519, 'SLIM_BPR': 0.24846421998158486, 'P3ALPHA': 0.013734694139851863, 'RP3BETA': 0.012447806425115691, 'IALS': 0.03410012624098451, 'USER_ITEM_ALL': 0.022159271785304056} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Config 34 Exception. Config: {'strategy': 'weighted_rank', 'multiplier_cutoff': 9, 'MIXED': 0.008214109411919999, 'SLIM_BPR': 0.8803622197932227, 'P3ALPHA': 0.047046981322408796, 'RP3BETA': 0.01158622709519029, 'IALS': 0.0, 'USER_ITEM_ALL': 0.988290088397898} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 285, in _objective_function
+    result_dict, result_string, recommender_instance, train_time, evaluation_time = self._evaluate_on_validation(current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\SearchFixedObject.py", line 196, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Evaluation\Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridRankBasedRecommender.py", line 164, in recommend
+    rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
+AttributeError: 'dict' object has no attribute 'recommend'
+
+SearchBayesianSkoptObject: Search complete. Best config is None: None
