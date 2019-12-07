@@ -22,8 +22,9 @@ if __name__ == '__main__':
     UCM_all, _ = merge_UCM(UCM_all, URM_all, {}, {})
 
     # Main recommender
-    main_recommender = best_models.HybridWeightedAvgSubmission2.get_model(URM_all, ICM_all, UCM_all,
-                                                                          load_model=False)
+    main_recommender = best_models.WeightedAverageMixed.get_model(URM_train=URM_all, ICM_all=ICM_all, UCM_all=UCM_all,
+                                                                  ICM_subclass_all=ICM_all)
+
     # Sub recommender
     URM_cold_all = read_URM_cold_all("../data/data_train.csv")
     UCM_cold_all = read_UCM_cold_all(URM_cold_all.shape[0], "../data/")

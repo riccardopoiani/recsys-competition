@@ -1,3 +1,6 @@
+from course_lib.Base.BaseRecommender import BaseRecommender
+
+
 def write_submission_file(recommender, path, userlist):
     """
     :param recommender: tells how to recommend item for the users. It must be a
@@ -22,7 +25,7 @@ def write_submission_file(recommender, path, userlist):
         f.write("\n")
     f.close()
 
-def write_submission_file_batch(recommender, path, userlist, batches=10):
+def write_submission_file_batch(recommender: BaseRecommender, path, userlist, batches=10):
     """
     :param recommender: tells how to recommend item for the users. It must be a
     recommender class

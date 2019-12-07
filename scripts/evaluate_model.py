@@ -11,6 +11,8 @@ from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
 from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.model.Ensemble.BaggingMergeSimilarityRecommender import BaggingMergeItemSimilarityRecommender
+
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
