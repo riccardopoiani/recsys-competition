@@ -111,9 +111,8 @@ if __name__ == '__main__':
         cutoff_list = [10]
         evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-        temp_model = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train,
-                                                                        UCM_train=UCM_all,
-                                                                        ICM_train=ICM_subclass_all)
+        temp_model = best_models.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train,
+                                                                  ICM_sub_class=ICM_subclass_all)
 
         # current_ranked_score = evaluator.evaluateRecommender(model)[0][10]['MAP']
         # weighted_current_map = evaluator.evaluateRecommender(model)[0][10]['MAP']

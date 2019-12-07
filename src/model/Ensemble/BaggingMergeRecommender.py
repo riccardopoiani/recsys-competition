@@ -12,6 +12,8 @@ from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.model.Ensemble.BaggingUtils import get_bootstrap_URM
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
@@ -23,14 +25,14 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
 
     COMPATIBLE_RECOMMENDERS = []
 
-    def __init__(self, URM_train, recommender_class, **recommender_constr_kwargs):
+    def __init__(self, URM_train, recommender_class, do_bootstrap=True, **recommender_constr_kwargs):
         if not (recommender_class in self.COMPATIBLE_RECOMMENDERS):
             raise ValueError("The only compatible recommenders are: {}".format(self.COMPATIBLE_RECOMMENDERS))
 
         super().__init__(URM_train)
+        self.do_bootstrap = do_bootstrap
         self.recommender_class = recommender_class
         self.recommender_kwargs = recommender_constr_kwargs
-        self.models = []
 
     def fit(self, num_models=5, hyper_parameters_range=None, **kwargs):
         """
@@ -44,7 +46,9 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
             hyper_parameters_range = {}
 
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
-            URM_bootstrap = get_bootstrap_URM(self.URM_train)
+            URM_bootstrap = self.URM_train
+            if self.do_bootstrap:
+                URM_bootstrap = get_bootstrap_URM(self.URM_train)
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
                 parameters[parameter_name] = parameter_range.rvs()
@@ -54,7 +58,21 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
             recommender_object.fit(**parameters)
             enable_print()
 
-            self.models.append(recommender_object)
+            self._update_model(recommender_object)
+        self._reconcile_model(num_models)
+
+    def _update_model(self, recommender_object):
+        """
+        Update the model with the recommender system fitted
+        :param recommender_object: a recommender system fitted
+        """
+        raise NotImplementedError("The method is not implemented in this class")
+
+    def _reconcile_model(self, num_models):
+        """
+        Reconcile the model after updating the model (e.g. averaging, apply KNN, ...)
+        """
+        raise NotImplementedError("The method is not implemented in this class")
 
 
 class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSimilarityMatrixRecommender):
@@ -65,23 +83,28 @@ class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSim
 
     RECOMMENDER_NAME = "BaggingMergeItemSimilarityRecommender"
 
-    COMPATIBLE_RECOMMENDERS = [ItemKNNCBFRecommender, ItemKNNCFRecommender, SLIM_BPR_Cython]
+    COMPATIBLE_RECOMMENDERS = [ItemKNNCBFRecommender, ItemKNNCBFCFRecommender, ItemKNNCFRecommender, SLIM_BPR_Cython]
 
     def __init__(self, URM_train, recommender_class, **recommender_constr_kwargs):
         super().__init__(URM_train, recommender_class, **recommender_constr_kwargs)
         self.W_sparse = None
 
     def fit(self, topK=-1, num_models=5, hyper_parameters_range=None):
+        self.topK = topK
         super().fit(num_models, hyper_parameters_range)
 
-        # Build new similarity matrix
-        self.W_sparse = self.models[0].W_sparse
-        for i in range(1, len(self.models)):
-            self.W_sparse = self.W_sparse + self.models[i].W_sparse
-        self.W_sparse = self.W_sparse / len(self.models)
+    def _update_model(self, recommender_object):
+        if self.W_sparse is None:
+            self.W_sparse = recommender_object.W_sparse
+        else:
+            self.W_sparse = self.W_sparse + recommender_object.W_sparse
 
-        if topK >= 0:
-            self.W_sparse = similarityMatrixTopK(self.W_sparse, k=topK).tocsr()
+    def _reconcile_model(self, num_models):
+        self.W_sparse = self.W_sparse / num_models
+
+        if self.topK >= 0:
+            self.W_sparse = similarityMatrixTopK(self.W_sparse, k=self.topK).tocsr()
+
 
 
 class BaggingMergeUserSimilarityRecommender(BaggingMergeRecommender, BaseUserSimilarityMatrixRecommender):
@@ -92,23 +115,27 @@ class BaggingMergeUserSimilarityRecommender(BaggingMergeRecommender, BaseUserSim
 
     RECOMMENDER_NAME = "BaggingMergeUserSimilarityRecommender"
 
-    COMPATIBLE_RECOMMENDERS = [UserKNNCBFRecommender, UserKNNCFRecommender]
+    COMPATIBLE_RECOMMENDERS = [UserKNNCBFRecommender, UserKNNCFRecommender, UserKNNCBFCFRecommender]
 
     def __init__(self, URM_train, recommender_class, **recommender_constr_kwargs):
         super().__init__(URM_train, recommender_class, **recommender_constr_kwargs)
         self.W_sparse = None
 
     def fit(self, topK=-1, num_models=5, hyper_parameters_range=None):
+        self.topK = topK
         super().fit(num_models, hyper_parameters_range)
 
-        # Build new similarity matrix
-        self.W_sparse = self.models[0].W_sparse
-        for i in range(1, len(self.models)):
-            self.W_sparse = self.W_sparse + self.models[i].W_sparse
-        self.W_sparse = self.W_sparse / len(self.models)
+    def _update_model(self, recommender_object):
+        if self.W_sparse is None:
+            self.W_sparse = recommender_object.W_sparse
+        else:
+            self.W_sparse = self.W_sparse + recommender_object.W_sparse
 
-        if topK >= 0:
-            self.W_sparse = similarityMatrixTopK(self.W_sparse, k=topK).tocsr()
+    def _reconcile_model(self, num_models):
+        self.W_sparse = self.W_sparse / num_models
+
+        if self.topK >= 0:
+            self.W_sparse = similarityMatrixTopK(self.W_sparse, k=self.topK).tocsr()
 
 
 class BaggingMergeFactorsRecommender(BaggingMergeRecommender, BaseMatrixFactorizationRecommender):
@@ -125,12 +152,14 @@ class BaggingMergeFactorsRecommender(BaggingMergeRecommender, BaseMatrixFactoriz
     def fit(self, num_models=5, hyper_parameters_range=None, **kwargs):
         super().fit(num_models, hyper_parameters_range, **kwargs)
 
-        # Build new similarity matrix
-        self.USER_factors = self.models[0].USER_factors
-        self.ITEM_factors = self.models[0].ITEM_factors
-        for i in range(1, len(self.models)):
-            self.USER_factors = self.USER_factors + self.models[i].USER_factors
-            self.ITEM_factors = self.ITEM_factors + self.models[i].ITEM_factors
-        self.USER_factors = self.USER_factors / len(self.models)
-        self.ITEM_factors = self.ITEM_factors / len(self.models)
+    def update_model(self, recommender_object):
+        if self.USER_factors is None and self.ITEM_factors is None:
+            self.USER_factors = recommender_object.USER_factors
+            self.ITEM_factors = recommender_object.ITEM_factors
+        else:
+            self.USER_factors = self.USER_factors + recommender_object.USER_factors
+            self.ITEM_factors = self.ITEM_factors + recommender_object.ITEM_factors
 
+    def reconcile_model(self, num_models):
+        self.USER_factors = self.USER_factors / num_models
+        self.ITEM_factors = self.ITEM_factors / num_models

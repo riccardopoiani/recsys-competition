@@ -3,17 +3,14 @@ import os
 from skopt.space import Categorical, Integer, Real
 
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.Data_manager.DataReader_utils import merge_ICM
-from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, get_UCM_all
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
-from src.model.Ensemble.BaggingMergeSimilarityRecommender import BaggingMergeItemSimilarityRecommender, \
-    BaggingMergeUserSimilarityRecommender
-from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
@@ -33,8 +30,6 @@ if __name__ == '__main__':
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
     ICM = data_reader.get_ICM_from_name("ICM_all")
     ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-    ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
@@ -50,7 +45,8 @@ if __name__ == '__main__':
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-    model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFRecommender, ICM_train=ICM_subclass_all)
+    model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
+                                                  ICM_train=ICM_subclass)
     hyperparameters_range = {}
     for par, value in best_models.ItemCBF_CF.get_best_parameters().items():
         hyperparameters_range[par] = Categorical([value])

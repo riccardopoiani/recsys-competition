@@ -13,25 +13,24 @@ class ItemCBF_CF_FOL_3_ECU_1(IContentModel):
     MAP: 0.0264 (vs 0.024 of ItemCBF_CF on the same users)
     X-VAL MAP: 0.026963
     """
-    from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+    from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 
     best_parameters = {'topK': 850, 'shrink': 357, 'similarity': 'tversky', 'normalize': True,
                        'tversky_alpha': 1.9136092361121548, 'tversky_beta': 1.8252726861726165}
-    recommender_class = ItemKNNCBFRecommender
+    recommender_class = ItemKNNCBFCFRecommender
     recommender_name = "ItemCBF_CF_FOL_3_ECU_1"
 
 
 class ItemCBF_CF(IContentModel):
     """
-    Item CBF_CF tuned with URM_train and ICM (containing sub_class and URM_train)
+    Item CBF_CF tuned with URM_train and ICM (containing sub_class)
      - MAP (all users): 0.0273
      - MAP (only warm): 0.03498
     """
-    from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+    from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
     best_parameters = {'topK': 10, 'shrink': 1056, 'similarity': 'asymmetric', 'normalize': True,
                        'asymmetric_alpha': 0.026039165670822324, 'feature_weighting': 'TF-IDF'}
-
-    recommender_class = ItemKNNCBFRecommender
+    recommender_class = ItemKNNCBFCFRecommender
     recommender_name = "ItemCBF_CF"
 
 
@@ -64,18 +63,19 @@ class ItemCBF_categorical(IContentModel):
     recommender_name = "ItemCBF_Categorical"
 
 
-class ItemCBF_all_EUC1_FOL3(IContentModel):
+class ItemCBF_CF_all_EUC1_FOL3(IContentModel):
     """
-    X-VAL MAP FOl3 EUC 1: 0.022020455274798505 (containing sub class price and asset and urm train transpose)
+    ItemCBF_CF with URM_train and ICM (containing sub class, price and asset)
+    X-VAL MAP FOl3 EUC 1: 0.022020455274798505
     """
-    from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+    from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 
     best_parameters = {'topK': 5, 'shrink': 1500, 'similarity': 'euclidean', 'normalize': True,
                        'normalize_avg_row': True,
                        'similarity_from_distance_mode': 'log', 'feature_weighting': 'TF-IDF'}
 
-    recommender_class = ItemKNNCBFRecommender
-    recommender_name = "ItemCBF_all_EUC1_FOL3"
+    recommender_class = ItemKNNCBFCFRecommender
+    recommender_name = "ItemCBF_CF_all_EUC1_FOL3"
 
 
 class ItemCBF_all(IContentModel):
@@ -260,7 +260,7 @@ class AdvancedTopPop(IBestModel):
 
 class UserCBF_CF_Cold(IBestModel):
     """
-    User CBF tuned with URM_train and UCM (containing age, region and URM_train)
+    User CBF tuned with URM_train and UCM (containing age, region)
      - MAP on tuning (only cold users): 0.0109
     """
     best_parameters = {'topK': 3285, 'shrink': 1189, 'similarity': 'cosine',
@@ -268,8 +268,8 @@ class UserCBF_CF_Cold(IBestModel):
 
     @classmethod
     def get_model(cls, URM_train, UCM_train):
-        from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
-        model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
+        from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
+        model = UserKNNCBFCFRecommender(URM_train=URM_train, UCM_train=UCM_train)
         model.fit(**cls.get_best_parameters())
         return model
 
@@ -285,17 +285,17 @@ class UserCBF_CF_Warm(IBestModel):
 
     @classmethod
     def get_model(cls, URM_train, UCM_train):
-        from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
-        model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
+        from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
+        model = UserKNNCBFCFRecommender(URM_train=URM_train, UCM_train=UCM_train)
         model.fit(**cls.get_best_parameters())
         return model
 
 
 # ---------------- ENSEMBLES -----------------
 
-class BaggingAverageItem_CBF_CF(IBestModel):
+class FusionAverageItem_CBF_CF(IBestModel):
     """
-    Bagging average of best models: Item_CBF_CF
+    Fusion average, i.e. bagging w/o bootstrap, of best models: Item_CBF_CF
      - MAP (warm users): 0.03558
     """
     best_parameters = {'num_models': 100}
@@ -311,17 +311,17 @@ class BaggingAverageItem_CBF_CF(IBestModel):
         return hyper_parameters_range
 
     @classmethod
-    def get_model(cls, URM_train, ICM_sub_class_and_URM):
+    def get_model(cls, URM_train, ICM_sub_class):
         from src.model.Ensemble.BaggingAverageRecommender import BaggingAverageRecommender
-        from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
-        model = BaggingAverageRecommender(URM_train, ItemKNNCBFRecommender, ICM_train=ICM_sub_class_and_URM)
+        from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+        model = BaggingAverageRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False, ICM_train=ICM_sub_class)
         model.fit(num_models=100, hyper_parameters_range=cls.get_hyperparameters())
         return model
 
 
-class BaggingMergeItem_CBF_CF(IBestModel):
+class FusionMergeItem_CBF_CF(IBestModel):
     """
-    Bagging merge of best models: Item_CBF_CF
+    Fusion, i.e. bagging w/o bootstrap, merge of best models: Item_CBF_CF
      - MAP (warm users): 0.0358
     """
     best_parameters = {'num_models': 200}
@@ -337,10 +337,10 @@ class BaggingMergeItem_CBF_CF(IBestModel):
         return hyper_parameters_range
 
     @classmethod
-    def get_model(cls, URM_train, ICM_sub_class_and_URM):
-        from src.model.Ensemble.BaggingMergeSimilarityRecommender import BaggingMergeItemSimilarityRecommender
-        from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
-        model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFRecommender, ICM_train=ICM_sub_class_and_URM)
+    def get_model(cls, URM_train, ICM_sub_class):
+        from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
+        from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+        model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, ICM_train=ICM_sub_class)
         model.fit(num_models=200, hyper_parameters_range=cls.get_hyperparameters())
         return model
 
@@ -408,8 +408,8 @@ class MixedItemFOL3EUC1(IBestModel):
         item_cf = ItemCF_EUC_1_FOL_3.get_model(URM_train, load_model=False)
         item_cbf_cf = ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train, load_model=False,
                                                        ICM_train=ICM_subclass_all)
-        item_cbf_all = ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train, ICM_train=ICM_all,
-                                                       load_model=False)
+        item_cbf_all = ItemCBF_CF_all_EUC1_FOL3.get_model(URM_train=URM_train, ICM_train=ICM_all,
+                                                          load_model=False)
 
         hybrid = ItemHybridModelRecommender(URM_train)
         hybrid.add_similarity_matrix(item_cf.W_sparse)
@@ -540,9 +540,9 @@ class WeightedAverageFOL3EUC1(IBestModel):
     def _get_all_models_weighted_average(cls, URM_train, ICM_all, ICM_subclass_all):
         all_models = {}
 
-        all_models['ITEMCBFALLFOL'] = ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train,
-                                                                      ICM_train=ICM_all,
-                                                                      load_model=False)
+        all_models['ITEMCBFALLFOL'] = ItemCBF_CF_all_EUC1_FOL3.get_model(URM_train=URM_train,
+                                                                         ICM_train=ICM_all,
+                                                                         load_model=False)
         all_models['ITEMCBFCFFOL'] = ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train,
                                                                       ICM_train=ICM_subclass_all,
                                                                       load_model=False)

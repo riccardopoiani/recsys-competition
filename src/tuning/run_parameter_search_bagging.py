@@ -7,7 +7,7 @@ from skopt.space import Categorical, Real, Integer
 
 from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
-from src.model.Ensemble.BaggingMergeSimilarityRecommender import BaggingMergeItemSimilarityRecommender, \
+from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender, \
     BaggingMergeUserSimilarityRecommender
 
 

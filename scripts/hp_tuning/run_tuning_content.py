@@ -2,12 +2,12 @@ import argparse
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.tuning.run_parameter_search_item_content import run_parameter_search_item_content
 from src.utils.general_utility_functions import get_split_seed
 
@@ -16,8 +16,8 @@ RECOMMENDER_CLASS_DICT = {
     "item_cbf_numerical": ItemKNNCBFRecommender,
     "item_cbf_categorical": ItemKNNCBFRecommender,
     "item_cbf_all": ItemKNNCBFRecommender,
-    "item_cbf_all_and_URM": ItemKNNCBFRecommender,
-    "item_cbf_categorical_and_URM": ItemKNNCBFRecommender
+    "item_cbf_cf_all": ItemKNNCBFCFRecommender,
+    "item_cbf_cf_categorical": ItemKNNCBFCFRecommender
 }
 
 
@@ -54,6 +54,7 @@ def main():
 
     ICM_categorical = data_reader.get_ICM_from_name("ICM_sub_class")
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
+    ICM_all = data_reader.get_ICM_from_name("ICM_all")
 
     if args.recommender_name == "item_cbf_numerical":
         ICM = ICM_numerical
@@ -67,23 +68,22 @@ def main():
         ICM_name = "ICM_categorical"
         similarity_type_list = None
     elif args.recommender_name == "item_cbf_all":
-        ICM, _ = merge_ICM(ICM_numerical, ICM_categorical, {}, {})
+        ICM = ICM_all
         ICM_name = "ICM_all"
         if args.discretize:
             similarity_type_list = None
         else:
             similarity_type_list = ['euclidean']
-    elif args.recommender_name == "item_cbf_all_and_URM":
-        ICM = data_reader.get_ICM_from_name("ICM_all")
-        ICM, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-        ICM_name = "ICM_all_and_URM"
+    elif args.recommender_name == "item_cbf_cf_all":
+        ICM = ICM_all
+        ICM_name = "ICM_all"
         if args.discretize:
             similarity_type_list = None
         else:
             similarity_type_list = ['euclidean']
     else:
-        ICM, _ = merge_ICM(ICM_categorical, URM_train.transpose(), {}, {})
-        ICM_name = "ICM_categorical_and_URM"
+        ICM = ICM_categorical
+        ICM_name = "ICM_categorical"
         similarity_type_list = None
 
     # Setting evaluator
@@ -115,7 +115,6 @@ def main():
     # HP tuning
     print("Start tuning...")
     version_path = "../../report/hp_tuning/{}/".format(args.recommender_name)
-    #version_path = "../../report/hp_tuning/temp/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now
