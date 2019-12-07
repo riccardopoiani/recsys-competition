@@ -7,6 +7,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
+from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 
 
@@ -23,15 +24,35 @@ def _get_all_models_weighted_average(URM_train, ICM_all, UCM_all, ICM_subclass_a
     return all_models
 
 
+def _get_all_models_ranked(URM_train, ICM_all, UCM_all, ICM_subclass_all):
+    all_models = {}
+
+    all_models['MIXED'] = best_models.WeightedAverageMixed.get_model(URM_train=URM_train,
+                                                                     ICM_all=ICM_all,
+                                                                     ICM_subclass_all=ICM_subclass_all,
+                                                                     UCM_all=UCM_all)
+
+    all_models['SLIM_BPR'] = best_models.SLIM_BPR.get_model(URM_train)
+    all_models['P3ALPHA'] = best_models.P3Alpha.get_model(URM_train)
+    all_models['RP3BETA'] = best_models.RP3Beta.get_model(URM_train)
+    all_models['IALS'] = best_models.IALS.get_model(URM_train)
+    all_models['USER_ITEM_ALL'] = best_models.UserItemKNNCBFCFDemographic.get_model(URM_train, ICM_all, UCM_all)
+
+    return all_models
+
+
 if __name__ == '__main__':
     # Weighted models best parameter - tuning results
-    weighted_best_param = {'ITEMCBFALLFOL': 0.5301487737487677, 'ITEMCBFCFFOL': 0.3878808597351461,
-                           'ITEMCFFOL': 0.14971067748668312}
-    weighted_best_param_tuning_map = 0.0303
+    # weighted_best_param = {'ITEMCBFALLFOL': 0.5301487737487677, 'ITEMCBFCFFOL': 0.3878808597351461,
+    #                       'ITEMCFFOL': 0.14971067748668312}
+    rank_best_param = {'strategy': 'norm_weighted_avg', 'multiplier_cutoff': 10, 'MIXED': 1.0, 'SLIM_BPR': 0.0,
+                       'P3ALPHA': 1.0,
+                       'RP3BETA': 0.0, 'IALS': 1.0, 'USER_ITEM_ALL': 1.0}
 
     seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
 
-    weighted_score = 0
+    ranked_score = 0
+    # weighted_score = 0
     # mixed_score = 0
     # temp_score = 0
 
@@ -59,16 +80,25 @@ if __name__ == '__main__':
         UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
         UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
-        # Weighted average recommender
-        model = HybridWeightedAverageRecommender(URM_train, normalize=False)
-        all_models = _get_all_models_weighted_average(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all,
-                                                      UCM_all=UCM_all,
-                                                      ICM_all=ICM_all, ICM_numerical=ICM_numerical,
-                                                      ICM_categorical=ICM_subclass)
+        # Ranked
+        model = HybridRankBasedRecommender(URM_train)
+
+        all_models = _get_all_models_ranked(URM_train=URM_train, ICM_all=ICM_all,
+                                            UCM_all=UCM_all, ICM_subclass_all=ICM_subclass_all)
         for model_name, model_object in all_models.items():
             model.add_fitted_model(model_name, model_object)
+        print("The models added in the hybrid are: {}".format(list(all_models.keys())))
 
-        model.fit(**weighted_best_param)
+        # Weighted average recommender
+        # model = HybridWeightedAverageRecommender(URM_train, normalize=False)
+        # all_models = _get_all_models_weighted_average(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all,
+        #                                              UCM_all=UCM_all,
+        #                                              ICM_all=ICM_all, ICM_numerical=ICM_numerical,
+        #                                              ICM_categorical=ICM_subclass)
+        # for model_name, model_object in all_models.items():
+        #    model.add_fitted_model(model_name, model_object)
+
+        # model.fit(**weighted_best_param)
 
         # Mixed similarity building
         # hybrid = best_models.MixedUser.get_model(URM_train=URM_train, UCM_all=UCM_all)
@@ -76,12 +106,9 @@ if __name__ == '__main__':
         # Setting evaluator
         cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
         cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
-        warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
-        warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
-        ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
         cutoff_list = [10]
-        evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
+        evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
         # temp_model = best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train,
         #                                                   UCM_train=UCM_all)
@@ -100,11 +127,13 @@ if __name__ == '__main__':
         print("WeightedCurrMap {} \n".format(weighted_current_map))
         # print("MixedCurrMap {} \n ".format(mixed_current_map))
 
+        ranked_score += ranked_score
         # temp_score += curr_map
-        weighted_score += weighted_current_map
+        # weighted_score += weighted_current_map
         # mixed_score += mixed_current_map
 
-    weighted_score /= len(seed_list)
+    ranked_score /= len(seed_list)
+    # weighted_score /= len(seed_list)
     # mixed_score /= len(seed_list)
     # temp_score /= len(seed_list)
 
@@ -115,10 +144,10 @@ if __name__ == '__main__':
     num_folds = len(seed_list)
 
     f = open(destination_path, "w")
-    f.write("X-validation WeightedAvgFOL3 of users with [1,3] interactions \n\n")
+    f.write("X-validation RankedNormAverage of warm users \n\n")
     # f.write("MixedSimilarity tuning map {} --- MixedSimilarity X-val map {} \n\n".format(mixed_best_param_map,
     #                                                                                     mixed_score))
-    f.write("X-val map {} \n\n".format(weighted_score))
+    f.write("X-val map {} \n\n".format(ranked_score))
 
     f.write("Number of folds: " + str(num_folds) + "\n")
     f.write("Seed list: " + str(seed_list) + "\n\n")
