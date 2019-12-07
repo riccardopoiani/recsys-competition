@@ -3,8 +3,8 @@ from datetime import datetime
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from src.data_management.New_DataSplitter_leave_k_out import *
-from src.data_management.RecSys2019Reader import RecSys2019Reader, get_ICM_numerical
-from src.data_management.RecSys2019Reader_utils import merge_UCM
+from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
@@ -15,14 +15,13 @@ from src.utils.general_utility_functions import get_split_seed
 def _get_all_models(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
     all_models = {}
 
-    all_models['MIXED_ITEM'] = best_models.MixedItem.get_model(URM_train=URM_train,
-                                                               ICM_subclass_all=ICM_subclass_all,
-                                                               ICM_all=ICM_all,
-                                                               load_model=False)
-    all_models['MIXED_USER'] = best_models.MixedUser.get_model(URM_train=URM_train,
-                                                               UCM_all=UCM_all,
-                                                               load_model=False)
-
+    all_models['ITEMCBFALLFOL'] = best_models.ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train,
+                                                                              ICM_train=ICM_all,
+                                                                              load_model=False)
+    all_models['ITEMCBFCFFOL'] = best_models.ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train,
+                                                                              ICM_train=ICM_subclass_all,
+                                                                              load_model=False)
+    all_models['ITEMCFFOL'] = best_models.ItemCF_EUC_1_FOL_3.get_model(URM_train=URM_train)
     # all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
     # all_models['ITEM_CF'] = best_models.ItemCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
     # all_models['ITEM_CBF_ALL'] = best_models.ItemCBF_all.get_model(URM_train=URM_train,
@@ -74,7 +73,7 @@ if __name__ == '__main__':
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
     UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
-    model = HybridWeightedAverageRecommender(URM_train)
+    model = HybridWeightedAverageRecommender(URM_train, normalize=False)
 
     all_models = _get_all_models(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all, UCM_all=UCM_all,
                                  ICM_all=ICM_all, ICM_numerical=ICM_numerical, ICM_categorical=ICM_subclass)
@@ -96,6 +95,6 @@ if __name__ == '__main__':
     run_parameter_search_hybrid(model, metric_to_optimize="MAP",
                                 evaluator_validation=evaluator,
                                 output_folder_path=version_path,
-                                n_cases=50, n_random_starts=10)
+                                n_cases=50, n_random_starts=20)
 
     print("...tuning ended")
