@@ -88,6 +88,7 @@ if __name__ == '__main__':
         for model_name, model_object in all_models.items():
             model.add_fitted_model(model_name, model_object)
         print("The models added in the hybrid are: {}".format(list(all_models.keys())))
+        model.fit(**rank_best_param)
 
         # Weighted average recommender
         # model = HybridWeightedAverageRecommender(URM_train, normalize=False)
@@ -118,16 +119,17 @@ if __name__ == '__main__':
         #                    'tversky_alpha': 0.07389665789291368,'tversky_beta': 0.2013116625076397}
         # temp_model.fit(**temp_model_args)
 
-        weighted_current_map = evaluator.evaluateRecommender(model)[0][10]['MAP']
+        current_ranked_score = evaluator.evaluateRecommender(model)[0][10]['MAP']
+        # weighted_current_map = evaluator.evaluateRecommender(model)[0][10]['MAP']
         # mixed_current_map = evaluator.evaluateRecommender(hybrid)[0][10]['MAP']
         # curr_map = evaluator.evaluateRecommender(temp_model)[0][10]['MAP']
 
         print("SEED: {} \n ".format(seed_list[i]))
         # print("TempModelCurrMap {} \n".format(curr_map))
-        print("WeightedCurrMap {} \n".format(weighted_current_map))
+        print("WeightedCurrMap {} \n".format(current_ranked_score))
         # print("MixedCurrMap {} \n ".format(mixed_current_map))
 
-        ranked_score += ranked_score
+        ranked_score += current_ranked_score
         # temp_score += curr_map
         # weighted_score += weighted_current_map
         # mixed_score += mixed_current_map
