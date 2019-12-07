@@ -3,8 +3,8 @@ from datetime import datetime
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from src.data_management.New_DataSplitter_leave_k_out import *
-from src.data_management.RecSys2019Reader import RecSys2019Reader, get_ICM_numerical
-from src.data_management.RecSys2019Reader_utils import merge_UCM
+from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
 from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender

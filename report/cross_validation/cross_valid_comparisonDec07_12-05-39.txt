@@ -1,0 +1,7 @@
+X-validation ITEM_CBF_ALL BEST MODELS of users with [1,3] interactions
+
+X-val map 0.0017654597820705713 
+
+Number of folds: 10
+Seed list: [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
+

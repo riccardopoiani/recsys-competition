@@ -32,6 +32,8 @@ def get_arguments():
     parser.add_argument("-foh", "--focus_on_high", default=0, help="focus the tuning only on users with profile"
                                                                    "lengths larger than the one specified here")
     parser.add_argument("-eu", "--exclude_users", default=False, help="1 to exclude cold users, 0 otherwise")
+    parser.add_argument("-fol", "--focus_on_low", default=0, help="focus the tuning only on users with profile"
+                                                                  "lengths smaller than the one specified here")
 
     return parser.parse_args()
 
@@ -87,10 +89,19 @@ def main():
     # Setting evaluator
     exclude_cold_users = args.exclude_users
     h = int(args.focus_on_high)
+    fol = int(args.focus_on_low)
     if h != 0:
         print("Excluding users with less than {} interactions".format(h))
         ignore_users_mask = np.ediff1d(URM_train.tocsr().indptr) < h
-        ignore_users = np.arange(URM_train.shape[1])[ignore_users_mask]
+        ignore_users = np.arange(URM_train.shape[0])[ignore_users_mask]
+    elif fol != 0:
+        print("Excluding users with more than {} interactions".format(fol))
+        warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > fol
+        ignore_users = np.arange(URM_train.shape[0])[warm_users_mask]
+        if exclude_cold_users:
+            cold_user_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
+            cold_users = np.arange(URM_train.shape[0])[cold_user_mask]
+            ignore_users = np.unique(np.concatenate((cold_users, ignore_users)))
     elif exclude_cold_users:
         print("Excluding cold users...")
         cold_user_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
@@ -104,6 +115,7 @@ def main():
     # HP tuning
     print("Start tuning...")
     version_path = "../../report/hp_tuning/{}/".format(args.recommender_name)
+    #version_path = "../../report/hp_tuning/temp/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
     now = now + "_k_out_value_3/"
     version_path = version_path + "/" + now

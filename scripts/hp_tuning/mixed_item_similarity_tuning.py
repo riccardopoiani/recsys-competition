@@ -1,8 +1,10 @@
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
+from course_lib.Data_manager.DataReader_utils import merge_ICM
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
-from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM, get_ICM_numerical
+from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
 from src.model import best_models
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
 from src.utils.general_utility_functions import get_split_seed
@@ -27,9 +29,12 @@ if __name__ == '__main__':
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
+    very_warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
+    very_warm_users_mask = np.arange(URM_train.shape[0])[very_warm_users_mask]
+    ignore_users = np.unique(np.concatenate((cold_users, very_warm_users_mask)))
 
     cutoff_list = [10]
-    evaluator_test = EvaluatorHoldout(URM_test, cutoff_list=[10], ignore_users=cold_users)
+    evaluator_test = EvaluatorHoldout(URM_test, cutoff_list=[10], ignore_users=ignore_users)
 
     # Path setting
     print("Start tuning...")
@@ -38,9 +43,9 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    item_cf = best_models.ItemCF.get_model(URM_train, load_model=False)
-    item_cbf_cf = best_models.ItemCBF_CF.get_model(URM_train=URM_train, load_model=False, ICM_train=ICM_subclass_all)
-    item_cbf_all = best_models.ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+    item_cf = best_models.ItemCF_EUC_1_FOL_3.get_model(URM_train, load_model=False)
+    item_cbf_cf = best_models.ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train, load_model=False, ICM_train=ICM_subclass_all)
+    item_cbf_all = best_models.ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
 
     hybrid = ItemHybridModelRecommender(URM_train)
     hybrid.add_similarity_matrix(item_cf.W_sparse)
@@ -49,6 +54,6 @@ if __name__ == '__main__':
 
     run_parameter_search_mixed_similarity_item(hybrid, URM_train=URM_train, output_folder_path=version_path,
                                                evaluator_validation=evaluator_test, evaluator_test=None,
-                                               n_cases=50, n_random_starts=10, metric_to_optimize="MAP")
+                                               n_cases=50, n_random_starts=20, metric_to_optimize="MAP")
 
     print("...tuning ended")

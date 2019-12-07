@@ -39,17 +39,13 @@ if __name__ == '__main__':
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
+    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
+    warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
+    ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
-    sub = best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
-
-    ICM_all_digitized = data_reader.get_ICM_from_name("ICM_all")
-    root_path = get_project_root_path()
-    train_svm_file_path = os.path.join(root_path, "resources", "fm_data", "URM_ICM_UCM_uncompressed.txt")
-    model = FactorizationMachineRecommender(URM_train, train_svm_file_path, sub, ICM_train=ICM_all_digitized,
-                                            UCM_train=UCM_train)
-    model.fit(epochs=100, latent_factors=100, regularization=10e-8, learning_rate=0.1)
+    model = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all)
 
     print(evaluator.evaluateRecommender(model))

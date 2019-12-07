@@ -170,7 +170,7 @@ from course_lib.Base.Recommender_utils import check_matrix
 import  scipy.sparse as sps
 
 
-def merge_ICM(ICM1, ICM2, mapper_ICM1, mapper_ICM2):
+def merge_ICM(ICM1: object, ICM2: object, mapper_ICM1: object, mapper_ICM2: object) -> object:
 
     ICM_all = sps.hstack([ICM1, ICM2], format='csr')
 

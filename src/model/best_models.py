@@ -8,23 +8,29 @@ from src.model.Interface import IBestModel, ICollaborativeModel, IContentModel
 
 # ---------------- CONTENT BASED FILTERING -----------------
 
+class ItemCBF_CF_FOL_3_ECU_1(IContentModel):
+    """
+    MAP: 0.0264 (vs 0.024 of ItemCBF_CF on the same users)
+    X-VAL MAP: 0.026963
+    """
+    from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+
+    best_parameters = {'topK': 850, 'shrink': 357, 'similarity': 'tversky', 'normalize': True,
+                       'tversky_alpha': 1.9136092361121548, 'tversky_beta': 1.8252726861726165}
+    recommender_class = ItemKNNCBFRecommender
+    recommender_name = "ItemCBF_CF_FOL_3_ECU_1"
+
+
 class ItemCBF_CF(IContentModel):
     """
     Item CBF_CF tuned with URM_train and ICM (containing sub_class and URM_train)
      - MAP (all users): 0.0273
      - MAP (only warm): 0.03498
-     - Tuned only on the users with more than 30 interactions, we obtain a best-model
-     {'topK': 13, 'shrink': 1045, 'similarity': 'asymmetric', 'normalize': True,
-     'asymmetric_alpha': 0.11207989960736334, 'feature_weighting': 'TF-IDF'}
-     with a Map of 0.0279: it has seems to have improved a bit the score.
-     Indeed, in that case, we have a MAP of 0.0273
     """
     from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
     best_parameters = {'topK': 10, 'shrink': 1056, 'similarity': 'asymmetric', 'normalize': True,
                        'asymmetric_alpha': 0.026039165670822324, 'feature_weighting': 'TF-IDF'}
 
-    best_parameters_foh_30 = {'topK': 13, 'shrink': 1045, 'similarity': 'asymmetric', 'normalize': True,
-                              'asymmetric_alpha': 0.11207989960736334, 'feature_weighting': 'TF-IDF'}
     recommender_class = ItemKNNCBFRecommender
     recommender_name = "ItemCBF_CF"
 
@@ -58,10 +64,25 @@ class ItemCBF_categorical(IContentModel):
     recommender_name = "ItemCBF_Categorical"
 
 
+class ItemCBF_all_EUC1_FOL3(IContentModel):
+    """
+    X-VAL MAP FOl3 EUC 1: 0.022020455274798505 (containing sub class price and asset and urm train transpose)
+    """
+    from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+
+    best_parameters = {'topK': 5, 'shrink': 1500, 'similarity': 'euclidean', 'normalize': True,
+                       'normalize_avg_row': True,
+                       'similarity_from_distance_mode': 'log', 'feature_weighting': 'TF-IDF'}
+
+    recommender_class = ItemKNNCBFRecommender
+    recommender_name = "ItemCBF_all_EUC1_FOL3"
+
+
 class ItemCBF_all(IContentModel):
     """
     Item CBF tuned with URM_train and ICM_all (containing sub_class, price and asset) done with euclidean similarity
      - MAP (only warm): 0.0095
+     - X-VAL MAP FOL 3 EUC 1: 0.001765
     """
     from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 
@@ -72,11 +93,23 @@ class ItemCBF_all(IContentModel):
 
 
 # ---------------- COLLABORATIVE FILTERING -----------------
+class ItemCF_EUC_1_FOL_3(ICollaborativeModel):
+    """
+    X-VAL MAP: 0.025517 (vs 0.02446 of normal ItemCF)
+    """
+    from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+    best_parameters = {'topK': 30, 'shrink': 2, 'similarity': 'tversky', 'normalize': True,
+                       'tversky_alpha': 0.07389665789291368, 'tversky_beta': 0.2013116625076397}
+    recommender_class = ItemKNNCFRecommender
+    recommender_name = "ItemCF_FOL3_EUC1"
+
+
 class ItemCF(ICollaborativeModel):
     """
     Item CF tuned with URM_train
      - MAP (all users): about 0.0262
      - MAP (only warm): 0.03357
+     - X-VAL MAP EUC 1 FOL 3: 0.02446
     """
     from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 
@@ -86,11 +119,24 @@ class ItemCF(ICollaborativeModel):
     recommender_name = "ItemCF"
 
 
+class UserCFFOL3EUC1(ICollaborativeModel):
+    """
+    X-VAL MAP: 0.0024959 (slight improvement over UserCF...)
+    """
+    from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
+
+    best_parameters = {'topK': 1000, 'shrink': 581, 'similarity': 'cosine', 'normalize': True,
+                       'feature_weighting': 'TF-IDF'}
+    recommender_class = UserKNNCFRecommender
+    recommender_name = "UserCF_FOL3_EUC1"
+
+
 class UserCF(ICollaborativeModel):
     """
     User CF tuned with URM_train
      - MAP (all users): about 0.019
      - MAP (only warm): 0.02531
+     - X-VAL MAP FOL: 0.0246525
     """
     from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 
@@ -232,6 +278,7 @@ class UserCBF_CF_Warm(IBestModel):
     """
     User CBF tuned with URM_train and UCM (containing age, region and URM_train)
      - MAP (only warm): 0.023
+     - X-VAL FOL 3 EUC 1: 0.025180
     """
     best_parameters = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
                        'feature_weighting': 'BM25'}
@@ -248,6 +295,7 @@ class UserCBF_CF_Warm(IBestModel):
 class WeightedAverageMixed(IBestModel):
     """
     X-VAL MAP: 035516 (improvement on the two mixed hybrid)
+    X-VAL MAP ECU 1 FOL 3: 02806
     """
     best_parameters = {'MIXED_ITEM': 0.014667586445465623, 'MIXED_USER': 0.0013235051989859417}
 
@@ -288,6 +336,31 @@ class MixedUser(IBestModel):
         hybrid = UserHybridModelRecommender(URM_train)
         hybrid.add_similarity_matrix(user_cf.W_sparse)
         hybrid.add_similarity_matrix(user_cbf.W_sparse)
+
+        hybrid.fit(**cls.get_best_parameters())
+
+        return hybrid
+
+
+class MixedItemFOL3EUC1(IBestModel):
+    """
+    X-VAL FAL FOL 3 EUC1: 0.0260811
+    """
+    best_parameters = {'topK': 169, 'alpha1': 0.06626014236101198, 'alpha2': 0.2303380409426135,
+                       'alpha3': 0.5331369353945914}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_subclass_all, ICM_all):
+        item_cf = ItemCF_EUC_1_FOL_3.get_model(URM_train, load_model=False)
+        item_cbf_cf = ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train, load_model=False,
+                                                       ICM_train=ICM_subclass_all)
+        item_cbf_all = ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train, ICM_train=ICM_all,
+                                                       load_model=False)
+
+        hybrid = ItemHybridModelRecommender(URM_train)
+        hybrid.add_similarity_matrix(item_cf.W_sparse)
+        hybrid.add_similarity_matrix(item_cbf_cf.W_sparse)
+        hybrid.add_similarity_matrix(item_cbf_all.W_sparse)
 
         hybrid.fit(**cls.get_best_parameters())
 
@@ -399,3 +472,37 @@ class HybridWeightedAvgSubmission2(IBestModel):
             model.add_fitted_model(model_name, model_object)
         model.fit(**cls.get_best_parameters())
         return model
+
+
+class WeightedAverageFOL3EUC1(IBestModel):
+    """
+    X-VAL MAP: 0.02660
+    """
+
+    best_parameters = {'ITEMCBFALLFOL': 0.22999993333334007, 'ITEMCBFCFFOL': 0.7771729582321726,
+                       'ITEMCFFOL': 0.7629788621380696}
+
+    @classmethod
+    def _get_all_models_weighted_average(cls, URM_train, ICM_all, ICM_subclass_all):
+        all_models = {}
+
+        all_models['ITEMCBFALLFOL'] = ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train,
+                                                                      ICM_train=ICM_all,
+                                                                      load_model=False)
+        all_models['ITEMCBFCFFOL'] = ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train,
+                                                                      ICM_train=ICM_subclass_all,
+                                                                      load_model=False)
+        all_models['ITEMCFFOL'] = ItemCF_EUC_1_FOL_3.get_model(URM_train=URM_train)
+        return all_models
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_all, ICM_subclass, ICM_numerical, ICM_categorical):
+        # Weighted average recommender
+        model = HybridWeightedAverageRecommender(URM_train, normalize=True)
+        all_models = cls._get_all_models_weighted_average(URM_train=URM_train, ICM_subclass_all=ICM_subclass,
+                                                          ICM_all=ICM_all)
+
+        for model_name, model_object in all_models.items():
+            model.add_fitted_model(model_name, model_object)
+
+        model.fit(**cls.get_best_parameters())

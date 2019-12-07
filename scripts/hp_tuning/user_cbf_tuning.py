@@ -24,12 +24,16 @@ if __name__ == '__main__':
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
     UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
+    # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
+    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
+    warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
+    ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
     # Setting evaluator
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
     version_path = "../../report/hp_tuning/user_cbf_UCM_URM/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
