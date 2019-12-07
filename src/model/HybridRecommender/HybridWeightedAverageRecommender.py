@@ -55,6 +55,7 @@ class HybridWeightedAverageRecommender(AbstractHybridRecommender):
 
             scores_batch = scores_batch * self.weights[recommender_name]
             cum_scores_batch = np.add(cum_scores_batch, scores_batch)
+        cum_scores_batch = cum_scores_batch / len(self.models.keys())
         return cum_scores_batch
 
     def copy(self):
