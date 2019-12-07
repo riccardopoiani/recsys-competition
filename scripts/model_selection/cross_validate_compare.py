@@ -45,16 +45,16 @@ if __name__ == '__main__':
     # Weighted models best parameter - tuning results
     # weighted_best_param = {'ITEMCBFALLFOL': 0.5301487737487677, 'ITEMCBFCFFOL': 0.3878808597351461,
     #                       'ITEMCFFOL': 0.14971067748668312}
-    rank_best_param = {'strategy': 'norm_weighted_avg', 'multiplier_cutoff': 10, 'MIXED': 1.0, 'SLIM_BPR': 0.0,
-                       'P3ALPHA': 1.0,
-                       'RP3BETA': 0.0, 'IALS': 1.0, 'USER_ITEM_ALL': 1.0}
+    # rank_best_param = {'strategy': 'norm_weighted_avg', 'multiplier_cutoff': 10, 'MIXED': 1.0, 'SLIM_BPR': 0.0,
+    #                   'P3ALPHA': 1.0,
+    #                   'RP3BETA': 0.0, 'IALS': 1.0, 'USER_ITEM_ALL': 1.0}
 
     seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
 
-    ranked_score = 0
+    # ranked_score = 0
     # weighted_score = 0
     # mixed_score = 0
-    # temp_score = 0
+    temp_score = 0
 
     for i in range(0, len(seed_list)):
         # Data loading
@@ -81,14 +81,14 @@ if __name__ == '__main__':
         UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
         # Ranked
-        model = HybridRankBasedRecommender(URM_train)
+        # model = HybridRankBasedRecommender(URM_train)
 
-        all_models = _get_all_models_ranked(URM_train=URM_train, ICM_all=ICM_all,
-                                            UCM_all=UCM_all, ICM_subclass_all=ICM_subclass_all)
-        for model_name, model_object in all_models.items():
-            model.add_fitted_model(model_name, model_object)
-        print("The models added in the hybrid are: {}".format(list(all_models.keys())))
-        model.fit(**rank_best_param)
+        # all_models = _get_all_models_ranked(URM_train=URM_train, ICM_all=ICM_all,
+        #                                    UCM_all=UCM_all, ICM_subclass_all=ICM_subclass_all)
+        # for model_name, model_object in all_models.items():
+        #    model.add_fitted_model(model_name, model_object)
+        # print("The models added in the hybrid are: {}".format(list(all_models.keys())))
+        # model.fit(**rank_best_param)
 
         # Weighted average recommender
         # model = HybridWeightedAverageRecommender(URM_train, normalize=False)
@@ -111,33 +111,29 @@ if __name__ == '__main__':
         cutoff_list = [10]
         evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-        # temp_model = best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train,
-        #                                                   UCM_train=UCM_all)
+        temp_model = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train,
+                                                                        UCM_train=UCM_all,
+                                                                        ICM_train=ICM_subclass_all)
 
-        # temp_model = ItemKNNCFRecommender(URM_train=URM_train)
-        # temp_model_args = {'topK': 30, 'shrink': 2, 'similarity': 'tversky', 'normalize': True,
-        #                    'tversky_alpha': 0.07389665789291368,'tversky_beta': 0.2013116625076397}
-        # temp_model.fit(**temp_model_args)
-
-        current_ranked_score = evaluator.evaluateRecommender(model)[0][10]['MAP']
+        # current_ranked_score = evaluator.evaluateRecommender(model)[0][10]['MAP']
         # weighted_current_map = evaluator.evaluateRecommender(model)[0][10]['MAP']
         # mixed_current_map = evaluator.evaluateRecommender(hybrid)[0][10]['MAP']
-        # curr_map = evaluator.evaluateRecommender(temp_model)[0][10]['MAP']
+        curr_map = evaluator.evaluateRecommender(temp_model)[0][10]['MAP']
 
         print("SEED: {} \n ".format(seed_list[i]))
-        # print("TempModelCurrMap {} \n".format(curr_map))
-        print("WeightedCurrMap {} \n".format(current_ranked_score))
+        print("TempModelCurrMap {} \n".format(curr_map))
+        # print("WeightedCurrMap {} \n".format(current_ranked_score))
         # print("MixedCurrMap {} \n ".format(mixed_current_map))
 
-        ranked_score += current_ranked_score
-        # temp_score += curr_map
+        # ranked_score += current_ranked_score
+        temp_score += curr_map
         # weighted_score += weighted_current_map
         # mixed_score += mixed_current_map
 
-    ranked_score /= len(seed_list)
+    # ranked_score /= len(seed_list)
     # weighted_score /= len(seed_list)
     # mixed_score /= len(seed_list)
-    # temp_score /= len(seed_list)
+    temp_score /= len(seed_list)
 
     # Store results on file
     destination_path = "../../report/cross_validation/"
@@ -146,10 +142,10 @@ if __name__ == '__main__':
     num_folds = len(seed_list)
 
     f = open(destination_path, "w")
-    f.write("X-validation RankedNormAverage of warm users \n\n")
+    f.write("X-validation HybridSubmission2 of warm users \n\n")
     # f.write("MixedSimilarity tuning map {} --- MixedSimilarity X-val map {} \n\n".format(mixed_best_param_map,
     #                                                                                     mixed_score))
-    f.write("X-val map {} \n\n".format(ranked_score))
+    f.write("X-val map {} \n\n".format(temp_score))
 
     f.write("Number of folds: " + str(num_folds) + "\n")
     f.write("Seed list: " + str(seed_list) + "\n\n")

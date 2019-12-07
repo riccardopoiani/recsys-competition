@@ -21,7 +21,7 @@ def _get_all_models(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical
     all_models['ITEMCBFCFFOL'] = best_models.ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train,
                                                                               ICM_train=ICM_subclass_all,
                                                                               load_model=False)
-    all_models['ITEMCFFOL'] = best_models.ItemCF_EUC_1_FOL_3.get_model(URM_train=URM_train)
+    all_models['USERCBFCF'] = best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_all)
     # all_models['ITEM_CBF_CF'] = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all, load_model=False)
     # all_models['ITEM_CF'] = best_models.ItemCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
     # all_models['ITEM_CBF_ALL'] = best_models.ItemCBF_all.get_model(URM_train=URM_train,
@@ -84,8 +84,12 @@ if __name__ == '__main__':
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
+    very_warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
+    very_warm_users = np.arange(URM_train.shape[0])[very_warm_users_mask]
+    ignore_users = np.unique(np.concatenate((cold_users, very_warm_users)))
+
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
     version_path = "../../report/hp_tuning/hybrid_weighted_avg"
     now = datetime.now().strftime('%b%d_%H-%M-%S')

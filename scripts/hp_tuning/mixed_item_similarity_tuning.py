@@ -30,8 +30,8 @@ if __name__ == '__main__':
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
     very_warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
-    very_warm_users_mask = np.arange(URM_train.shape[0])[very_warm_users_mask]
-    ignore_users = np.unique(np.concatenate((cold_users, very_warm_users_mask)))
+    very_warm_users = np.arange(URM_train.shape[0])[very_warm_users_mask]
+    ignore_users = np.unique(np.concatenate((cold_users, very_warm_users)))
 
     cutoff_list = [10]
     evaluator_test = EvaluatorHoldout(URM_test, cutoff_list=[10], ignore_users=ignore_users)
