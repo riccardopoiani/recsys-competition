@@ -1,0 +1,198 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'num_models': 50, 'topK': 36} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 1 Exception. Config: {'num_models': 50, 'topK': 2705} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 2 Exception. Config: {'num_models': 50, 'topK': 2984} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 3 Exception. Config: {'num_models': 50, 'topK': 2311} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 4 Exception. Config: {'num_models': 50, 'topK': 510} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 5 Exception. Config: {'num_models': 50, 'topK': 5} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 6 Exception. Config: {'num_models': 50, 'topK': 3000} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 7 Exception. Config: {'num_models': 50, 'topK': 5} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 8 Exception. Config: {'num_models': 50, 'topK': 3000} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 9 Exception. Config: {'num_models': 50, 'topK': 5} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 10 Exception. Config: {'num_models': 50, 'topK': 3000} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 11 Exception. Config: {'num_models': 50, 'topK': 5} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 12 Exception. Config: {'num_models': 50, 'topK': 3000} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 13 Exception. Config: {'num_models': 50, 'topK': 5} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 14 Exception. Config: {'num_models': 50, 'topK': 3000} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 15 Exception. Config: {'num_models': 50, 'topK': 5} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 16 Exception. Config: {'num_models': 50, 'topK': 3000} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+
+SearchBayesianSkopt: Config 17 Exception. Config: {'num_models': 50, 'topK': 5} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/BaggingMergeSimilarityRecommender.py", line 56, in fit
+    recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+TypeError: __init__() got an unexpected keyword argument 'hyper_parameters_range'
+

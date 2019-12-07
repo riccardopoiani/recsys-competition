@@ -2,6 +2,7 @@ import argparse
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.NonPersonalizedRecommender import TopPop
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs
 from src.data_management.New_DataSplitter_leave_k_out import *
@@ -9,7 +10,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM, get_UCM_all
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
-from src.model.FactorMachines.FactorizationMachineRecommender import FactorizationMachineRecommender
+from src.model.FactorizationMachine.FactorizationMachineRecommender import FactorizationMachineRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
@@ -87,8 +88,8 @@ def main():
     if args.recommender_name == "fm":
         if not args.discretize:
             raise ValueError("Cannot use FM without discretizing!")
-        ICM_all, _ = merge_ICM(ICM_categorical, URM_train.T, {}, {})
-        sub = best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
+        #ICM_all, _ = merge_ICM(ICM_categorical, URM_train.T, {}, {})
+        sub = best_models.UserCF.get_model(URM_train)
         approximate_recommender = sub
 
         UCM = get_UCM_all(data_reader.dataReader_object.reader, discretize_user_act_bins=20)

@@ -1,0 +1,1 @@
+On recommender <class 'src.model.FactorMachines.FactorizationMachineRecommender.FactorizationMachineRecommender'> Exception can't multiply sequence by non-int of type 'str'

@@ -6,7 +6,7 @@ from skopt.space import Integer, Categorical, Real
 
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
-from src.model.FactorMachines.FactorizationMachineRecommender import FactorizationMachineRecommender
+from src.model.FactorizationMachine.FactorizationMachineRecommender import FactorizationMachineRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
@@ -99,8 +99,8 @@ def run_parameter_search_mf_collaborative(recommender_class, URM_train, UCM_trai
             recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS['ICM_train'] = ICM_train
 
             hyperparameters_range_dictionary['epochs'] = Categorical([200])
-            hyperparameters_range_dictionary['latent_factors'] = Integer(low=20, high=200)
-            hyperparameters_range_dictionary['regularization'] = Real(low=10e-8, high=10e-3, prior="log-uniform")
+            hyperparameters_range_dictionary['latent_factors'] = Integer(low=20, high=500)
+            hyperparameters_range_dictionary['regularization'] = Real(low=10e-7, high=10e-1, prior="log-uniform")
             hyperparameters_range_dictionary['learning_rate'] = Real(low=10e-3, high=10e-1, prior="log-uniform")
 
 

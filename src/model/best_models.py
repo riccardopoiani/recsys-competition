@@ -1,4 +1,4 @@
-from abc import ABC
+from skopt.space import Integer, Categorical, Real
 
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender, \
     UserHybridModelRecommender
@@ -288,6 +288,60 @@ class UserCBF_CF_Warm(IBestModel):
         from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
         model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
         model.fit(**cls.get_best_parameters())
+        return model
+
+
+# ---------------- ENSEMBLES -----------------
+
+class BaggingAverageItem_CBF_CF(IBestModel):
+    """
+    Bagging average of best models: Item_CBF_CF
+     - MAP (warm users): 0.03558
+    """
+    best_parameters = {'num_models': 100}
+
+    @classmethod
+    def get_hyperparameters(cls):
+        hyper_parameters_range = {}
+        for par, value in ItemCBF_CF.get_best_parameters().items():
+            hyper_parameters_range[par] = Categorical([value])
+        hyper_parameters_range['topK'] = Integer(low=3, high=50)
+        hyper_parameters_range['shrink'] = Integer(low=0, high=2000)
+        hyper_parameters_range['asymmetric_alpha'] = Real(low=1e-2, high=1e-1, prior="log-uniform")
+        return hyper_parameters_range
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_sub_class_and_URM):
+        from src.model.Ensemble.BaggingAverageRecommender import BaggingAverageRecommender
+        from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+        model = BaggingAverageRecommender(URM_train, ItemKNNCBFRecommender, ICM_train=ICM_sub_class_and_URM)
+        model.fit(num_models=100, hyper_parameters_range=cls.get_hyperparameters())
+        return model
+
+
+class BaggingMergeItem_CBF_CF(IBestModel):
+    """
+    Bagging merge of best models: Item_CBF_CF
+     - MAP (warm users): 0.0358
+    """
+    best_parameters = {'num_models': 200}
+
+    @classmethod
+    def get_hyperparameters(cls):
+        hyper_parameters_range = {}
+        for par, value in ItemCBF_CF.get_best_parameters().items():
+            hyper_parameters_range[par] = Categorical([value])
+        hyper_parameters_range['topK'] = Integer(low=3, high=50)
+        hyper_parameters_range['shrink'] = Integer(low=0, high=2000)
+        hyper_parameters_range['asymmetric_alpha'] = Real(low=1e-2, high=1e-1, prior="log-uniform")
+        return hyper_parameters_range
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_sub_class_and_URM):
+        from src.model.Ensemble.BaggingMergeSimilarityRecommender import BaggingMergeItemSimilarityRecommender
+        from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+        model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFRecommender, ICM_train=ICM_sub_class_and_URM)
+        model.fit(num_models=200, hyper_parameters_range=cls.get_hyperparameters())
         return model
 
 

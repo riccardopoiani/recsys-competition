@@ -1,16 +1,20 @@
 import os
 
+from skopt.space import Categorical, Integer, Real
+
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.Base.NonPersonalizedRecommender import TopPop
 from course_lib.Data_manager.DataReader_utils import merge_ICM
+from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical, get_UCM_all
+from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, get_UCM_all
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
-from src.model.FactorMachines.FactorizationMachineRecommender import FactorizationMachineRecommender
-from src.utils.general_utility_functions import get_split_seed, get_project_root_path
+from src.model.Ensemble.BaggingMergeSimilarityRecommender import BaggingMergeItemSimilarityRecommender, \
+    BaggingMergeUserSimilarityRecommender
+from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
     os.environ["MKL_NUM_THREADS"] = "1"
@@ -39,13 +43,21 @@ if __name__ == '__main__':
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
-    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
+    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 0
     warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
     ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-    model = best_models.ItemCBF_CF.get_model(URM_train, ICM_subclass_all)
+    model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFRecommender, ICM_train=ICM_subclass_all)
+    hyperparameters_range = {}
+    for par, value in best_models.ItemCBF_CF.get_best_parameters().items():
+        hyperparameters_range[par] = Categorical([value])
+    hyperparameters_range['topK'] = Integer(low=3, high=50)
+    hyperparameters_range['shrink'] = Integer(low=0, high=2000)
+    hyperparameters_range['asymmetric_alpha'] = Real(low=1e-2, high=1e-1, prior="log-uniform")
+
+    model.fit(num_models=100, hyper_parameters_range=hyperparameters_range)
 
     print(evaluator.evaluateRecommender(model))

@@ -1,0 +1,1 @@
+On recommender <class 'src.model.FactorMachines.FactorizationMachineRecommender.FactorizationMachineRecommender'> Exception argument of type 'type' is not iterable

@@ -38,14 +38,14 @@ if __name__ == '__main__':
                                                               UCM_train=UCM_all)
     sub2.RECOMMENDER_NAME = "SUB2"
 
-    ials = best_models.IALS.get_model(URM_train)
-    ials.RECOMMENDER_NAME = "IASL"
+    bagging = best_models.BaggingMergeItem_CBF_CF.get_model(URM_train, ICM_subclass_all)
+    bagging.RECOMMENDER_NAME = "BAGGING_ITEM_CBF_CF"
 
     mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all,
                                                        ICM_all=ICM_all, UCM_all=UCM_all)
     mixed.RECOMMENDER_NAME = "MIXED"
 
-    recommender_list = [ials, mixed, sub2]
+    recommender_list = [bagging, mixed, sub2]
 
     # Building path
     version_path = "../../report/graphics/comparison/"
