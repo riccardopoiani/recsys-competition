@@ -108,7 +108,7 @@ class DataPreprocessingRemoveColdUsersItems(AbstractDataPreprocessing):
 
 
 class DataPreprocessingAddICMsGroupByCounting(AbstractDataPreprocessing):
-    DATASET_SUBFOLDER = "newICM/"
+    DATASET_SUBFOLDER = "n/"
 
     def __init__(self, reader: DataReader, ICM_names: list, soft_copy=True):
         """
@@ -157,7 +157,7 @@ class DataPreprocessingAddICMsGroupByCounting(AbstractDataPreprocessing):
 
 
 class DataPreprocessingImputationNumericalICMs(AbstractDataPreprocessing):
-    DATASET_SUBFOLDER = "imputed/"
+    DATASET_SUBFOLDER = "i/"
 
     def __init__(self, reader: DataReader, ICM_name_to_agg_mapper: dict, soft_copy=True):
         """
@@ -206,7 +206,7 @@ class DataPreprocessingImputationNumericalICMs(AbstractDataPreprocessing):
         return self._LOADED_ICM_DICT
 
 class DataPreprocessingTransformICMs(AbstractDataPreprocessing):
-    DATASET_SUBFOLDER = "transformed/"
+    DATASET_SUBFOLDER = "t/"
 
     def __init__(self, reader: DataReader, ICM_name_to_transform_mapper: dict, soft_copy=True):
         """
@@ -242,7 +242,7 @@ class DataPreprocessingTransformICMs(AbstractDataPreprocessing):
 
 
 class DataPreprocessingDigitizeICMs(AbstractDataPreprocessing):
-    DATASET_SUBFOLDER = "discretized/"
+    DATASET_SUBFOLDER = "d/"
 
     def __init__(self, reader: DataReader, ICM_name_to_bins_mapper: dict, soft_copy=True):
         super().__init__(reader, soft_copy)
