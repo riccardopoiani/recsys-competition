@@ -14,7 +14,7 @@ from src.data_management.data_getter import get_warmer_UCM
 class EvaluatorCrossValidationKeepKOut(Evaluator):
     EVALUATOR_NAME = "EvaluatorCrossValidationKeepKOut"
 
-    def __init__(self, cutoff, seed_list, data_path, minRatingsPerUser=1, exclude_seen=True,
+    def __init__(self, cutoff, seed_list, data_path, k_out=1, minRatingsPerUser=1, exclude_seen=True,
                  diversity_object=None, ignore_items=None, ignore_users=None, n_folds=10):
         if type(cutoff) != int:
             raise TypeError()
@@ -33,6 +33,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
         self.ignore_items = ignore_items
         self.ignore_users = ignore_users
         self.n_folds = n_folds
+        self.k_out = k_out
 
     def evaluateRecommender(self, recommender_object):
         '''
@@ -53,7 +54,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             current_seed = self.seed_list[i]
             seed(current_seed)
             data_reader = RecSys2019Reader(self.data_path)
-            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=self.k_out, use_validation_set=False,
                                                        force_new_split=True)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
@@ -101,7 +102,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             current_seed = self.seed_list[i]
             seed(current_seed)
             data_reader = RecSys2019Reader(self.data_path)
-            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=self.k_out, use_validation_set=False,
                                                        force_new_split=True)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
@@ -145,14 +146,14 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
         UCM_age = data_reader.get_UCM_from_name("UCM_age")
         UCM_region = data_reader.get_UCM_from_name("UCM_region")
         UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
-        UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
+        UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=self.k_out)
 
         # For all the folds...
         for i in range(0, self.n_folds):
             current_seed = self.seed_list[i]
             seed(current_seed)
             data_reader = RecSys2019Reader(self.data_path)
-            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=self.k_out, use_validation_set=False,
                                                        force_new_split=True)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
@@ -203,7 +204,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             current_seed = self.seed_list[i]
             seed(current_seed)
             data_reader = RecSys2019Reader(self.data_path)
-            """data_reader = DataPreprocessingAddICMsGroupByCounting(data_reader, ICM_names=["ICM_sub_class"])
+            data_reader = DataPreprocessingAddICMsGroupByCounting(data_reader, ICM_names=["ICM_sub_class"])
             data_reader = DataPreprocessingImputationNumericalICMs(data_reader,
                                                                    ICM_name_to_agg_mapper={"ICM_asset": np.median,
                                                                                            "ICM_price": np.median})
@@ -216,8 +217,8 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
             data_reader = DataPreprocessingDigitizeICMs(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 200,
                                                                                               "ICM_price": 200,
                                                                                               "ICM_item_pop": 50,
-                                                                                              "ICM_sub_class_count": 50})"""
-            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
+                                                                                              "ICM_sub_class_count": 50})
+            data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=self.k_out, use_validation_set=False,
                                                        force_new_split=True)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
