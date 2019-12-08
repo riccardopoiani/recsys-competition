@@ -42,7 +42,7 @@ if __name__ == '__main__':
     bagging.RECOMMENDER_NAME = "BAGGING_ITEM_CBF_CF"
 
     mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all,
-                                                       ICM_all=ICM_all, UCM_all=UCM_all)
+                                                       ICM_all=ICM_all, UCM_age_region=UCM_all)
     mixed.RECOMMENDER_NAME = "MIXED"
 
     recommender_list = [bagging, mixed, sub2]

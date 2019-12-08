@@ -1,0 +1,7 @@
+X-validation FusionMergeItemCBFCF of warm users
+
+X-val map 0.03560561450612065 
+
+Number of folds: 10
+Seed list: [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
+

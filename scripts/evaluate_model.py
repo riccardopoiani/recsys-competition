@@ -11,7 +11,6 @@ from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
 from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
-from src.model.Ensemble.BaggingMergeSimilarityRecommender import BaggingMergeItemSimilarityRecommender
 
 from src.utils.general_utility_functions import get_split_seed
 
@@ -21,8 +20,8 @@ if __name__ == '__main__':
 
     # Data loading
     data_reader = RecSys2019Reader("../data/")
-    data_reader = DataPreprocessingDigitizeICMs(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 50, "ICM_price": 50,
-                                                                                      "ICM_item_pop": 20})
+    data_reader = DataPreprocessingDigitizeICMs(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 100, "ICM_price": 100,
+                                                                                      "ICM_item_pop": 50})
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=get_split_seed())
     data_reader.load_data()
@@ -30,13 +29,12 @@ if __name__ == '__main__':
 
     # Build ICMs
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-    ICM = data_reader.get_ICM_from_name("ICM_all")
-    ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
+    ICM_all = data_reader.get_ICM_from_name("ICM_all")
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
-    UCM_all = get_UCM_all(data_reader.dataReader_object.reader, discretize_user_act_bins=20)
-    UCM_train = get_warmer_UCM(UCM_all, URM_all, threshold_users=3)
+    UCM_age_region = get_UCM_all(data_reader.dataReader_object.reader, with_user_act=False, discretize_user_act_bins=20)
+    UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
@@ -48,7 +46,7 @@ if __name__ == '__main__':
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
     model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
-                                                  ICM_train=ICM_subclass)
+                                                  ICM_train=ICM_all)
     hyperparameters_range = {}
     for par, value in best_models.ItemCBF_CF.get_best_parameters().items():
         hyperparameters_range[par] = Categorical([value])

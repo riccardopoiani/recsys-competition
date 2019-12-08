@@ -95,7 +95,7 @@ def load_ICM_item_pop(file_path, separator=',', if_new_item="add", item_original
                               usecols=['row', 'col', 'data'],
                               dtype={'row': str, 'col': str, 'data': float})
     item_pop = df_original.groupby(by='col')['data'].sum()
-    item_pop = (item_pop - 0)/(item_pop.max() - 0)
+    item_pop = (item_pop - 0) / (item_pop.max() - 0)
 
     item_id_list = item_pop.index
     feature_list = ["item_pop"] * len(item_id_list)
@@ -175,7 +175,7 @@ def build_ICM_all(ICM_object_dict, ICM_feature_mapper_dict):
     return ICM_all, tokenToFeatureMapper_ICM_all
 
 
-def get_ICM_numerical(reader: DataReader, with_item_popularity = True):
+def get_ICM_numerical(reader: DataReader, with_item_popularity=True):
     ICM_asset = reader.get_ICM_from_name("ICM_asset")
     ICM_price = reader.get_ICM_from_name("ICM_price")
     ICM_asset_mapper = reader.get_ICM_feature_to_index_mapper_from_name("ICM_asset")
@@ -190,7 +190,7 @@ def get_ICM_numerical(reader: DataReader, with_item_popularity = True):
     return ICM_numerical, ICM_numerical_mapper
 
 
-def get_UCM_all(reader: DataReader, discretize_user_act_bins=20):
+def get_UCM_all(reader: DataReader, with_user_act=True, discretize_user_act_bins=20):
     UCM_age = reader.get_UCM_from_name("UCM_age")
     UCM_region = reader.get_UCM_from_name("UCM_region")
     UCM_user_act = reader.get_UCM_from_name("UCM_user_act")
@@ -207,13 +207,13 @@ def get_UCM_all(reader: DataReader, discretize_user_act_bins=20):
                                np.ones(len(labelled_x), dtype=np.float32))
     UCM_user_act = UCM_builder.get_SparseMatrix()
 
-    UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
-    UCM_all, _ = merge_UCM(UCM_age_region, UCM_user_act, {}, {})
+    UCM_all, _ = merge_UCM(UCM_age, UCM_region, {}, {})
+    if with_user_act:
+        UCM_all, _ = merge_UCM(UCM_all, UCM_user_act, {}, {})
     return UCM_all
 
 
 def merge_UCM(UCM1, UCM2, mapper_UCM1, mapper_UCM2):
-
     UCM_all = sps.hstack([UCM1, UCM2], format='csr')
 
     mapper_UCM_all = mapper_UCM1.copy()
@@ -221,4 +221,4 @@ def merge_UCM(UCM1, UCM2, mapper_UCM1, mapper_UCM2):
     for key in mapper_UCM2.keys():
         mapper_UCM_all[key] = mapper_UCM2[key] + len(mapper_UCM1)
 
-    return  UCM_all, mapper_UCM_all
+    return UCM_all, mapper_UCM_all

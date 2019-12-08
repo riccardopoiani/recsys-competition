@@ -355,14 +355,14 @@ class WeightedAverageMixed(IBestModel):
     best_parameters = {'MIXED_ITEM': 0.014667586445465623, 'MIXED_USER': 0.0013235051989859417}
 
     @classmethod
-    def get_model(cls, URM_train, ICM_subclass_all, ICM_all, UCM_all):
+    def get_model(cls, URM_train, ICM_subclass, ICM_all, UCM_age_region):
         all_models = {}
         all_models['MIXED_ITEM'] = MixedItem.get_model(URM_train=URM_train,
-                                                       ICM_subclass_all=ICM_subclass_all,
+                                                       ICM_subclass_all=ICM_subclass,
                                                        ICM_all=ICM_all,
                                                        load_model=False)
         all_models['MIXED_USER'] = MixedUser.get_model(URM_train=URM_train,
-                                                       UCM_all=UCM_all,
+                                                       UCM_all=UCM_age_region,
                                                        load_model=False)
 
         model = HybridWeightedAverageRecommender(URM_train, normalize=False)

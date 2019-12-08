@@ -18,7 +18,7 @@ def _get_all_models(URM_train, ICM_all, UCM_all, ICM_subclass_all):
     all_models['MIXED'] = best_models.WeightedAverageMixed.get_model(URM_train=URM_train,
                                                                      ICM_all=ICM_all,
                                                                      ICM_subclass_all=ICM_subclass_all,
-                                                                     UCM_all=UCM_all)
+                                                                     UCM_age_region=UCM_all)
 
     all_models['SLIM_BPR'] = best_models.SLIM_BPR.get_model(URM_train)
     all_models['P3ALPHA'] = best_models.P3Alpha.get_model(URM_train)

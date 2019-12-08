@@ -149,7 +149,8 @@ class DataPreprocessingDigitizeICMs(AbstractDataPreprocessing):
 
             x = np.array(ICM_object.data)
             # TODO add transformation with strategy pattern
-            #unskewed_x = np.log1p(1 / x)
+            if ICM_name != "ICM_item_pop":
+                x = np.log1p(1 / x)
             labelled_x = transform_numerical_to_label(x, bins)
             vectorized_change_label = np.vectorize(lambda elem: "%s-%d" % (ICM_name, elem))
             labelled_x = vectorized_change_label(labelled_x)
