@@ -63,6 +63,12 @@ class New_DataSplitter_leave_k_out(DataSplitter):
         super(New_DataSplitter_leave_k_out, self).__init__(dataReader_object, forbid_new_split=forbid_new_split,
                                                            force_new_split=force_new_split)
 
+    def get_original_user_id_to_index_mapper(self):
+        return self.SPLIT_GLOBAL_MAPPER_DICT["user_original_ID_to_index"]
+
+    def get_UCM_from_name(self, UCM_name):
+        pass
+
     def _get_split_subfolder_name(self):
         """
 
