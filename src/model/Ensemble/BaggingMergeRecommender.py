@@ -1,12 +1,15 @@
 from abc import ABC
 
 from tqdm import tqdm
+import numpy as np
 
 from course_lib.Base.BaseMatrixFactorizationRecommender import BaseMatrixFactorizationRecommender
 from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.BaseSimilarityMatrixRecommender import BaseItemSimilarityMatrixRecommender, \
     BaseUserSimilarityMatrixRecommender
 from course_lib.Base.Recommender_utils import similarityMatrixTopK
+from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
+from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
@@ -52,6 +55,9 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
                 parameters[parameter_name] = parameter_range.rvs()
+                # Deals with array since .rvs() does not return always a scalar
+                if type(parameters[parameter_name]) is np.ndarray:
+                    parameters[parameter_name] = parameters[parameter_name][0]
 
             block_print()
             recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
@@ -83,7 +89,8 @@ class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSim
 
     RECOMMENDER_NAME = "BaggingMergeItemSimilarityRecommender"
 
-    COMPATIBLE_RECOMMENDERS = [ItemKNNCBFRecommender, ItemKNNCBFCFRecommender, ItemKNNCFRecommender, SLIM_BPR_Cython]
+    COMPATIBLE_RECOMMENDERS = [ItemKNNCBFRecommender, ItemKNNCBFCFRecommender, ItemKNNCFRecommender,
+                               SLIM_BPR_Cython, P3alphaRecommender, RP3betaRecommender]
 
     def __init__(self, URM_train, recommender_class, **recommender_constr_kwargs):
         super().__init__(URM_train, recommender_class, **recommender_constr_kwargs)
