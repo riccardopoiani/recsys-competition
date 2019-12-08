@@ -314,7 +314,8 @@ class FusionAverageItem_CBF_CF(IBestModel):
     def get_model(cls, URM_train, ICM_sub_class):
         from src.model.Ensemble.BaggingAverageRecommender import BaggingAverageRecommender
         from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
-        model = BaggingAverageRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False, ICM_train=ICM_sub_class)
+        model = BaggingAverageRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
+                                          ICM_train=ICM_sub_class)
         model.fit(num_models=100, hyper_parameters_range=cls.get_hyperparameters())
         return model
 
