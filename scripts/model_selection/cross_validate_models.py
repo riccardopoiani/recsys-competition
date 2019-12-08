@@ -3,7 +3,7 @@ from datetime import datetime
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
-from src.model import best_models
+from src.model import best_models, new_best_models
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     model_parameters = best_models.ItemCBF_CF.get_best_parameters()
 
     # Setting evaluator
-    evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/",  n_folds=num_folds)
+    evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/", k_out=3, n_folds=num_folds)
     results = evaluator.crossevaluateCBFRecommender(ItemKNNCBFCFRecommender, **model_parameters)
 
     # Writing on file cross validation results

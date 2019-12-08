@@ -1,5 +1,6 @@
 from skopt.space import Categorical, Integer, Real
 
+from src.model import best_models
 from src.model.Interface import IContentModel, IBestModel
 
 
@@ -50,6 +51,32 @@ class FusionMergeItem_CBF_CF(IBestModel):
         hyper_parameters_range['topK'] = Integer(low=3, high=50)
         hyper_parameters_range['shrink'] = Integer(low=0, high=2000)
         hyper_parameters_range['asymmetric_alpha'] = Real(low=1e-2, high=1e-1, prior="log-uniform")
+        return hyper_parameters_range
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_all):
+        from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
+        from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+        model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
+                                                      ICM_train=ICM_all)
+        model.fit(num_models=100, hyper_parameters_range=cls.get_hyperparameters())
+        return model
+
+
+class FusionMergeP3Alpha(IBestModel):
+    """
+    Fusion, i.e. bagging w/o bootstrap, merge of best models: P3Alpha
+     - MAP (warm users): range  of [0.0331] (not explored so well)
+    """
+    best_parameters = {'num_models': 100}
+
+    @classmethod
+    def get_hyperparameters(cls):
+        hyper_parameters_range = {}
+        for par, value in best_models.P3Alpha.get_best_parameters().items():
+            hyper_parameters_range[par] = Categorical([value])
+        hyper_parameters_range['topK'] = Integer(low=20, high=150)
+        hyper_parameters_range['alpha'] = Real(low=1e-2, high=1e0, prior="log-uniform")
         return hyper_parameters_range
 
     @classmethod

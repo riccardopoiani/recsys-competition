@@ -3,13 +3,18 @@ import os
 from skopt.space import Categorical, Integer, Real
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
+from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
+from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs,\
     DataPreprocessingImputationNumericalICMs, DataPreprocessingAddICMsGroupByCounting, DataPreprocessingTransformICMs
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, get_UCM_all
 from src.data_management.data_getter import get_warmer_UCM
-from src.model import best_models
+from src.model import best_models, new_best_models
 from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 
@@ -57,15 +62,16 @@ if __name__ == '__main__':
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-    model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
-                                                  ICM_train=ICM_all)
+    model = BaggingMergeItemSimilarityRecommender(URM_train, SLIM_BPR_Cython, do_bootstrap=False)
     hyperparameters_range = {}
-    for par, value in best_models.ItemCBF_CF.get_best_parameters().items():
+    for par, value in best_models.SLIM_BPR.get_best_parameters().items():
         hyperparameters_range[par] = Categorical([value])
-    hyperparameters_range['topK'] = Integer(low=3, high=50)
-    hyperparameters_range['shrink'] = Integer(low=0, high=2000)
-    hyperparameters_range['asymmetric_alpha'] = Real(low=1e-2, high=1e-1, prior="log-uniform")
+    hyperparameters_range['topK'] = Integer(low=5, high=30)
+    hyperparameters_range['lambda_i'] = Real(low=1e-1, high=1e0, prior="log_uniform")
+    hyperparameters_range['lambda_j'] = Real(low=1e-6, high=1e-5, prior="log_uniform")
+    hyperparameters_range['learning_rate'] = Real(low=1e-6, high=1e-5)
+    hyperparameters_range['epochs'] = Integer(low=200, high=500)
 
-    model.fit(num_models=100, hyper_parameters_range=hyperparameters_range)
+    model.fit(num_models=50, hyper_parameters_range=hyperparameters_range)
 
     print(evaluator.evaluateRecommender(model))
