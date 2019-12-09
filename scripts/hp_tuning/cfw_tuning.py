@@ -2,7 +2,7 @@ from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
-from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM
+from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.model import best_models
 from src.tuning.run_parameter_search_cfw_linalg import run_parameter_search
 from src.utils.general_utility_functions import get_split_seed
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     mapper = data_reader.SPLIT_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
     URM_train, URM_test = data_reader.get_holdout_split()
     ICM = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
+    ICM_all = data_reader.get_ICM_from_name("ICM_all")
 
     # Setting evaluator
     cutoff_list = [10]
@@ -37,5 +37,5 @@ if __name__ == '__main__':
     # Fit ItemKNN best model and get the sparse matrix of the weights
     run_parameter_search(URM_train=URM_train, output_folder_path=version_path,
                          evaluator_test=evaluator_test,
-                         W_sparse_CF=W_sparse_CF, ICM_all=ICM_all)
+                         W_sparse_CF=W_sparse_CF, ICM_all=ICM_all, n_cases=60, n_random_starts=20)
     print("...tuning ended")

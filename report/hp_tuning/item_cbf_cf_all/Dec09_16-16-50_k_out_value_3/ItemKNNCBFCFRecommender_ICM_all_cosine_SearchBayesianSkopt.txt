@@ -1,0 +1,15 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'topK': 649, 'shrink': 737, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'none', 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 278, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/BaseRecommender.py", line 126, in recommend
+    scores_batch[user_index, :] = self._remove_seen_on_scores(user_id, scores_batch[user_index, :])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/BaseRecommender.py", line 86, in _remove_seen_on_scores
+    assert self.URM_train.getformat() == "csr", "Recommender_Base_Class: URM_train is not CSR, this will cause errors in filtering seen items"
+AssertionError: Recommender_Base_Class: URM_train is not CSR, this will cause errors in filtering seen items
+

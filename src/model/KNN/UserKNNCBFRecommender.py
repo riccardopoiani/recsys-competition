@@ -19,10 +19,23 @@ class UserKNNCBFRecommender(BaseUserSimilarityMatrixRecommender):
         self.UCM_train = UCM_train
 
     def fit(self, topK=50, shrink=100, similarity='cosine', normalize=True, feature_weighting="none",
-            **similarity_args):
+            interactions_feature_weighting="none", **similarity_args):
 
         self.topK = topK
         self.shrink = shrink
+
+        if interactions_feature_weighting not in self.FEATURE_WEIGHTING_VALUES:
+            raise ValueError(
+                "Value for 'feature_weighting' not recognized. Acceptable values are {}, provided was '{}'".format(
+                    self.FEATURE_WEIGHTING_VALUES, interactions_feature_weighting))
+
+        if interactions_feature_weighting == "BM25":
+            self.URM_train = self.URM_train.astype(np.float32)
+            self.URM_train = okapi_BM_25(self.URM_train)
+
+        elif interactions_feature_weighting == "TF-IDF":
+            self.URM_train = self.URM_train.astype(np.float32)
+            self.URM_train = TF_IDF(self.URM_train)
 
         if feature_weighting not in self.FEATURE_WEIGHTING_VALUES:
             raise ValueError(

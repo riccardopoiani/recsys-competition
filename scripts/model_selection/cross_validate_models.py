@@ -18,10 +18,10 @@ if __name__ == '__main__':
     destination_path = destination_path + "cross_valid_item_cf_" + now +".txt"
     num_folds = len(seed_list)
 
-    model_parameters = best_models.ItemCBF_CF.get_best_parameters()
+    model_parameters = new_best_models.ItemCBF_CF.get_best_parameters()
 
     # Setting evaluator
-    evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/", k_out=3, n_folds=num_folds)
+    evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/",  k_out=1, n_folds=num_folds)
     results = evaluator.crossevaluateCBFRecommender(ItemKNNCBFCFRecommender, **model_parameters)
 
     # Writing on file cross validation results

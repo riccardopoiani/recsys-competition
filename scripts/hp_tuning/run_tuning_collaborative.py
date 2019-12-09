@@ -9,8 +9,8 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
 from src.utils.general_utility_functions import get_split_seed
 
-N_CASES = 35
-N_RANDOM_STARTS = 5
+N_CASES = 60
+N_RANDOM_STARTS = 20
 RECOMMENDER_CLASS_DICT = {
     "item_cf": ItemKNNCFRecommender,
     "user_cf": UserKNNCFRecommender,

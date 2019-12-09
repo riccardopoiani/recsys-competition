@@ -63,6 +63,6 @@ if __name__ == '__main__':
                                  metric_to_optimize="MAP",
                                  evaluator_validation=evaluator,
                                  output_folder_path=version_path,
-                                 n_cases=35)
+                                 n_cases=40, n_random_starts=15)
 
     print("...tuning ended")

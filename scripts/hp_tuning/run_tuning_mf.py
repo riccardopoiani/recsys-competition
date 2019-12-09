@@ -4,7 +4,7 @@ from datetime import datetime
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Base.NonPersonalizedRecommender import TopPop
 from course_lib.Data_manager.DataReader_utils import merge_ICM
-from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs
+from src.data_management.DataPreprocessing import DataPreprocessingDiscretization
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM, get_UCM_all
@@ -20,8 +20,8 @@ from src.utils.general_utility_functions import get_split_seed
 
 import os
 
-N_CASES = 35
-N_RANDOM_STARTS = 5
+N_CASES = 60
+N_RANDOM_STARTS = 20
 RECOMMENDER_CLASS_DICT = {
     "light_fm": LightFMRecommender,
     "ials": ImplicitALSRecommender,
@@ -57,7 +57,7 @@ def main():
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
     if args.discretize:
-        data_reader = DataPreprocessingDigitizeICMs(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 50, "ICM_price": 50,
+        data_reader = DataPreprocessingDiscretization(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 50, "ICM_price": 50,
                                                                                       "ICM_item_pop": 20})
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=args.seed)

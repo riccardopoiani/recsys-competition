@@ -55,6 +55,6 @@ if __name__ == '__main__':
 
     run_parameter_search_mixed_similarity_user(hybrid, URM_train=URM_train, output_folder_path=version_path,
                                                evaluator_validation=evaluator_test, evaluator_test=None,
-                                               n_cases=50, n_random_starts=10, metric_to_optimize="MAP")
+                                               n_cases=50, n_random_starts=15, metric_to_optimize="MAP")
 
     print("...tuning ended")

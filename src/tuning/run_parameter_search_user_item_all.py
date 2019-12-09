@@ -7,8 +7,6 @@ from skopt.space import Integer, Categorical, Real
 
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
-from src.model.KNN.UserItemCBFCFDemographicRecommender import UserItemCBFCFDemographicRecommender
-from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 
 
 def _get_feature_weighting_for_similarity_type(similarity_type, allow_weighting):
@@ -39,15 +37,17 @@ def run_user_item_all_on_combination_similarity_type(similarity_types, parameter
                                             user_similarity_type, allow_user_weighting),
                                         "item_feature_weighting": _get_feature_weighting_for_similarity_type(
                                             item_similarity_type, allow_item_weighting),
+                                        "interactions_feature_weighting": _get_feature_weighting_for_similarity_type(
+                                            user_similarity_type, allow_user_weighting or allow_item_weighting),
                                         "user_normalize": Categorical([True, False]),
                                         "item_normalize": Categorical([True, False])
                                         }
     if user_similarity_type in ["asymmetric"]:
-        hyperparameters_range_dictionary["user_asymmetric_alpha"] = Real(low=0, high=4, prior='uniform')
+        hyperparameters_range_dictionary["user_asymmetric_alpha"] = Real(low=0, high=2, prior='uniform')
         hyperparameters_range_dictionary["user_normalize"] = Categorical([True])
 
     if item_similarity_type in ["asymmetric"]:
-        hyperparameters_range_dictionary["item_asymmetric_alpha"] = Real(low=0, high=4, prior='uniform')
+        hyperparameters_range_dictionary["item_asymmetric_alpha"] = Real(low=0, high=2, prior='uniform')
         hyperparameters_range_dictionary["item_normalize"] = Categorical([True])
 
     local_parameter_search_space = {**hyperparameters_range_dictionary, **original_parameter_search_space}

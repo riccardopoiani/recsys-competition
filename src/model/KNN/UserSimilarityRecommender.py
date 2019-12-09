@@ -3,6 +3,7 @@ from course_lib.Base.Recommender_utils import check_matrix
 from course_lib.Base.BaseSimilarityMatrixRecommender import BaseSimilarityMatrixRecommender
 from course_lib.Base.IR_feature_weighting import okapi_BM_25, TF_IDF
 import numpy as np
+import scipy.sparse as sps
 
 from course_lib.Base.Similarity.Compute_Similarity import Compute_Similarity
 
@@ -19,7 +20,7 @@ class UserSimilarityRecommender(BaseSimilarityMatrixRecommender):
 
         cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
         self.cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
-        self.UCM_train = UCM_train
+        self.UCM_train = sps.hstack([UCM_train, URM_train], format="csr")
         self.recommender = recommender
 
     def fit(self, topK=50, shrink=100, similarity='cosine', normalize=True, feature_weighting="none",
@@ -78,7 +79,7 @@ class UserSimilarityRecommender(BaseSimilarityMatrixRecommender):
 
             scores = self.recommender._compute_item_score(topK_users, items_to_compute=None)
 
-            if True:
+            """if True:
                 maximum = np.max(scores, axis=1).reshape((len(topK_users), 1))
 
                 scores_batch_for_minimum = scores.copy()
@@ -88,7 +89,7 @@ class UserSimilarityRecommender(BaseSimilarityMatrixRecommender):
                 denominator = maximum - minimum
                 denominator[denominator == 0] = 1.0
 
-                scores = (scores - minimum) / denominator
+                scores = (scores - minimum) / denominator"""  # Avoid normalization
 
             weighted_scores = np.multiply(scores, np.reshape(topK_weights, newshape=(len(topK_weights), 1)))
             return np.sum(weighted_scores, axis=0)

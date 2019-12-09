@@ -3,7 +3,7 @@ import os
 import numpy as np
 import xlearn as xl
 
-from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs
+from src.data_management.DataPreprocessing import DataPreprocessingDiscretization
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_preprocessing_fm import format_URM_positive_non_compressed, \
@@ -13,7 +13,7 @@ from src.utils.general_utility_functions import get_split_seed, get_project_root
 
 if __name__ == '__main__':
     dataset = RecSys2019Reader("../../data/")
-    dataset = DataPreprocessingDigitizeICMs(dataset, ICM_name_to_bins_mapper={"ICM_asset": 50, "ICM_price": 50,
+    dataset = DataPreprocessingDiscretization(dataset, ICM_name_to_bins_mapper={"ICM_asset": 50, "ICM_price": 50,
                                                                               "ICM_item_pop": 20})
     dataset = New_DataSplitter_leave_k_out(dataset, k_out_value=3, use_validation_set=False, force_new_split=True,
                                            seed=get_split_seed())

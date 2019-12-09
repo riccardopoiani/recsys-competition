@@ -1,5 +1,6 @@
-from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 import scipy.sparse as sps
+
+from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 
 
 class UserKNNCBFCFRecommender(UserKNNCBFRecommender):
@@ -13,4 +14,3 @@ class UserKNNCBFCFRecommender(UserKNNCBFRecommender):
         super(UserKNNCBFRecommender, self).__init__(URM_train, verbose=verbose)
 
         self.UCM_train = sps.hstack([UCM_train, URM_train], format="csr")
-

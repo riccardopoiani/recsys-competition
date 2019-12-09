@@ -175,6 +175,22 @@ def build_ICM_all(ICM_object_dict, ICM_feature_mapper_dict):
     return ICM_all, tokenToFeatureMapper_ICM_all
 
 
+def build_UCM_all(UCM_object_dict, UCM_feature_mapper_dict):
+    UCM_all = None
+    tokenToFeatureMapper_UCM_all = {}
+    for UCM_name, UCM_object in UCM_object_dict.items():
+        if UCM_name != "UCM_all":
+            if UCM_all is None:
+                UCM_all = UCM_object.copy()
+                tokenToFeatureMapper_UCM_all = UCM_feature_mapper_dict[UCM_name]
+            else:
+                UCM_all, tokenToFeatureMapper_UCM_all = merge_UCM(UCM_all, UCM_object.copy(),
+                                                                  tokenToFeatureMapper_UCM_all,
+                                                                  UCM_feature_mapper_dict[UCM_name])
+
+    return UCM_all, tokenToFeatureMapper_UCM_all
+
+
 def get_ICM_numerical(reader: DataReader, with_item_popularity=True):
     ICM_asset = reader.get_ICM_from_name("ICM_asset")
     ICM_price = reader.get_ICM_from_name("ICM_price")
@@ -196,6 +212,7 @@ def get_UCM_all(reader: DataReader, with_user_act=True, discretize_user_act_bins
     UCM_user_act = reader.get_UCM_from_name("UCM_user_act")
 
     x = np.array(UCM_user_act.data)
+    x = np.log1p(x)
     labelled_x = transform_numerical_to_label(x, discretize_user_act_bins)
     vectorized_change_label = np.vectorize(lambda elem: "%s-%d" % ("UCM_user_act", elem))
     labelled_x = vectorized_change_label(labelled_x)

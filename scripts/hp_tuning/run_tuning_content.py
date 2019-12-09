@@ -3,8 +3,8 @@ from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
-from src.data_management.DataPreprocessing import DataPreprocessingDigitizeICMs, \
-    DataPreprocessingAddICMsGroupByCounting, DataPreprocessingImputationNumericalICMs, DataPreprocessingTransformICMs
+from src.data_management.DataPreprocessing import DataPreprocessingDiscretization, \
+    DataPreprocessingFeatureEngineering, DataPreprocessingImputation, DataPreprocessingTransform
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
@@ -12,7 +12,8 @@ from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.tuning.run_parameter_search_item_content import run_parameter_search_item_content
 from src.utils.general_utility_functions import get_split_seed
 
-N_CASES = 35
+N_RANDOM_STARTS = 20
+N_CASES = 60
 RECOMMENDER_CLASS_DICT = {
     "item_cbf_numerical": ItemKNNCBFRecommender,
     "item_cbf_categorical": ItemKNNCBFRecommender,
@@ -27,7 +28,7 @@ def get_arguments():
     parser.add_argument("-r", "--recommender_name", required=True,
                         help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
     parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyperparameter tuning")
-    parser.add_argument("-d", "--discretize", default=False, help="if true, it will discretize the ICMs")
+    parser.add_argument("-nr", "--n_random_starts", default=N_RANDOM_STARTS, help="If true, the search is random")
     parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
     parser.add_argument("-foh", "--focus_on_high", default=0, help="focus the tuning only on users with profile"
                                                                    "lengths larger than the one specified here")
@@ -43,19 +44,19 @@ def main():
 
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
-    data_reader = DataPreprocessingAddICMsGroupByCounting(data_reader, ICM_names=["ICM_sub_class"])
-    data_reader = DataPreprocessingImputationNumericalICMs(data_reader,
-                                                           ICM_name_to_agg_mapper={"ICM_asset": np.median,
+    data_reader = DataPreprocessingFeatureEngineering(data_reader, ICM_names=["ICM_sub_class"])
+    data_reader = DataPreprocessingImputation(data_reader,
+                                              ICM_name_to_agg_mapper={"ICM_asset": np.median,
                                                                                    "ICM_price": np.median})
-    data_reader = DataPreprocessingTransformICMs(data_reader,
-                                                 ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
+    data_reader = DataPreprocessingTransform(data_reader,
+                                             ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
                                                                                "ICM_price": lambda x: np.log1p(1 / x),
                                                                                "ICM_item_pop": np.log1p,
                                                                                "ICM_sub_class_count": np.log1p})
-    data_reader = DataPreprocessingDigitizeICMs(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 200,
+    data_reader = DataPreprocessingDiscretization(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 200,
                                                                                       "ICM_price": 200,
                                                                                       "ICM_item_pop": 50,
-                                                                                      "ICM_sub_class_count": 20})
+                                                                                      "ICM_sub_class_count": 50})
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=args.seed)
     data_reader.load_data()
@@ -118,13 +119,14 @@ def main():
     version_path = version_path + "/" + now
 
     run_parameter_search_item_content(URM_train=URM_train, ICM_object=ICM, ICM_name=ICM_name,
-                                      recommender_class=ItemKNNCBFRecommender,
+                                      recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
                                       evaluator_validation=evaluator,
                                       metric_to_optimize="MAP",
                                       output_folder_path=version_path,
                                       similarity_type_list=similarity_type_list,
                                       parallelizeKNN=True,
-                                      n_cases=int(args.n_cases))
+                                      n_cases=int(args.n_cases),
+                                      n_random_starts=int(args.n_random_starts))
     print("...tuning ended")
 
 

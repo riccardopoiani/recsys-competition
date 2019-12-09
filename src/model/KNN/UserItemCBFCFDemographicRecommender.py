@@ -28,8 +28,21 @@ class UserItemCBFCFDemographicRecommender(BaseRecommender):
     def fit(self, user_topK=50, user_shrink=100, user_similarity_type='cosine', user_normalize=True,
             user_feature_weighting="none", user_asymmetric_alpha=0.5,
             item_topK=50, item_shrink=100, item_similarity_type='cosine', item_normalize=True,
-            item_feature_weighting="none", item_asymmetric_alpha=0.5, scores_weight=0.5):
-        self.scores_weight = scores_weight
+            item_feature_weighting="none", item_asymmetric_alpha=0.5,
+            interactions_feature_weighting="none"):
+
+        if interactions_feature_weighting not in self.FEATURE_WEIGHTING_VALUES:
+            raise ValueError(
+                "Value for 'feature_weighting' not recognized. Acceptable values are {}, provided was '{}'".format(
+                    self.FEATURE_WEIGHTING_VALUES, interactions_feature_weighting))
+
+        if interactions_feature_weighting == "BM25":
+            self.URM_train = self.URM_train.astype(np.float32)
+            self.URM_train = okapi_BM_25(self.URM_train)
+
+        elif interactions_feature_weighting == "TF-IDF":
+            self.URM_train = self.URM_train.astype(np.float32)
+            self.URM_train = TF_IDF(self.URM_train)
 
         # User Similarity Computation
         self.user_topK = user_topK
@@ -79,7 +92,6 @@ class UserItemCBFCFDemographicRecommender(BaseRecommender):
                                                      similarity=item_similarity_type, **kwargs)
 
         self.item_W_sparse = item_similarity_compute.compute_similarity()
-        # TODO add identity to the item_W_sparse ???
         self.item_W_sparse = check_matrix(self.item_W_sparse, format='csr')
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):

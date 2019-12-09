@@ -2,6 +2,8 @@ from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Data_manager.DataReader_utils import merge_ICM
+from src.data_management.DataPreprocessing import DataPreprocessingFeatureEngineering, DataPreprocessingImputation, \
+    DataPreprocessingTransform, DataPreprocessingDiscretization
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
@@ -9,6 +11,7 @@ from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
 from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+from src.model.KNN.UserItemCBFCFDemographicRecommender import UserItemCBFCFDemographicRecommender
 
 
 def _get_all_models_weighted_average(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
@@ -59,22 +62,41 @@ if __name__ == '__main__':
     for i in range(0, len(seed_list)):
         # Data loading
         data_reader = RecSys2019Reader("../../data/")
-        data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+        data_reader = DataPreprocessingFeatureEngineering(data_reader,
+                                                          ICM_names_to_count=["ICM_sub_class"],
+                                                          ICM_names_to_UCM=["ICM_sub_class", "ICM_price", "ICM_asset"],
+                                                          UCM_names_to_ICM=[])
+        data_reader = DataPreprocessingImputation(data_reader,
+                                                  ICM_name_to_agg_mapper={"ICM_asset": np.median,
+                                                                          "ICM_price": np.median})
+        data_reader = DataPreprocessingTransform(data_reader,
+                                                 ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
+                                                                               "ICM_price": lambda x: np.log1p(1 / x),
+                                                                               "ICM_item_pop": np.log1p,
+                                                                               "ICM_sub_class_count": np.log1p},
+                                                 UCM_name_to_transform_mapper={"UCM_price": lambda x: np.log1p(1 / x),
+                                                                               "UCM_asset": lambda x: np.log1p(1 / x)})
+        data_reader = DataPreprocessingDiscretization(data_reader,
+                                                      ICM_name_to_bins_mapper={"ICM_asset": 200,
+                                                                               "ICM_price": 200,
+                                                                               "ICM_item_pop": 50,
+                                                                               "ICM_sub_class_count": 50},
+                                                      UCM_name_to_bins_mapper={"UCM_price": 200,
+                                                                               "UCM_asset": 200,
+                                                                               "UCM_user_act": 50})
+        data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
                                                    force_new_split=True, seed=seed_list[i])
         data_reader.load_data()
         URM_train, URM_test = data_reader.get_holdout_split()
 
         # Build ICMs
         ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-        ICM = data_reader.get_ICM_from_name("ICM_all")
-        ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
+        ICM_all = data_reader.get_ICM_from_name("ICM_all")
 
         # Build UCMs
         URM_all = data_reader.dataReader_object.get_URM_all()
-        UCM_age = data_reader.dataReader_object.get_UCM_from_name("UCM_age")
-        UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
-        UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
-        UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
+        UCM_all = data_reader.get_UCM_from_name("UCM_all")
+        UCM_all = get_warmer_UCM(UCM_all, URM_all, threshold_users=1)
 
         # Ranked
         # model = HybridRankBasedRecommender(URM_train)
@@ -107,8 +129,12 @@ if __name__ == '__main__':
         cutoff_list = [10]
         evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-        temp_model = best_models.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train,
-                                                                  ICM_sub_class=ICM_subclass)
+        par = {'user_similarity_type': 'cosine', 'item_similarity_type': 'asymmetric', 'user_feature_weighting': 'BM25',
+               'item_feature_weighting': 'TF-IDF', 'user_normalize': True,
+               'item_normalize': True, 'item_asymmetric_alpha': 0.1539884061705812,
+               'user_topK': 16, 'user_shrink': 1000, 'item_topK': 12, 'item_shrink': 1374}
+        temp_model = UserItemCBFCFDemographicRecommender(URM_train, UCM_all, ICM_all)
+        temp_model.fit(**par)
 
         # current_ranked_score = evaluator.evaluateRecommender(model)[0][10]['MAP']
         # weighted_current_map = evaluator.evaluateRecommender(model)[0][10]['MAP']

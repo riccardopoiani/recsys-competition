@@ -67,7 +67,7 @@ class New_DataSplitter_leave_k_out(DataSplitter):
         return self.SPLIT_GLOBAL_MAPPER_DICT["user_original_ID_to_index"]
 
     def get_UCM_from_name(self, UCM_name):
-        pass
+        return self.dataReader_object.get_UCM_from_name(UCM_name)
 
     def _get_split_subfolder_name(self):
         """

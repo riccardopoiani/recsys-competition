@@ -25,8 +25,8 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
     original_parameter_search_space = parameter_search_space
 
     hyperparameters_range_dictionary = {}
-    hyperparameters_range_dictionary["topK"] = Integer(5, 1000)
-    hyperparameters_range_dictionary["shrink"] = Integer(0, 1000)
+    hyperparameters_range_dictionary["topK"] = Integer(5, 2000)
+    hyperparameters_range_dictionary["shrink"] = Integer(0, 2000)
     hyperparameters_range_dictionary["similarity"] = Categorical([similarity_type])
     hyperparameters_range_dictionary["normalize"] = Categorical([True, False])
 
@@ -51,6 +51,7 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
 
         if allow_weighting:
             hyperparameters_range_dictionary["feature_weighting"] = Categorical(["none", "BM25", "TF-IDF"])
+            hyperparameters_range_dictionary["interactions_feature_weighting"] = Categorical(["none", "BM25", "TF-IDF"])
 
 
     local_parameter_search_space = {**hyperparameters_range_dictionary, **original_parameter_search_space}

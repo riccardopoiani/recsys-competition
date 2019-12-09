@@ -3,13 +3,13 @@ import os
 from course_lib.Base.DataIO import DataIO
 from course_lib.Data_manager.DataReader import DataReader
 from src.data_management.RecSys2019Reader_utils import load_ICM_sub_class, load_ICM_asset, load_ICM_price, \
-    load_ICM_item_pop, load_URM, load_UCM_age, load_UCM_region, load_UCM_user_act, build_ICM_all
+    load_ICM_item_pop, load_URM, load_UCM_age, load_UCM_region, load_UCM_user_act, build_ICM_all, build_UCM_all
 
 
 class RecSys2019Reader(DataReader):
     DATASET_SUBFOLDER = "data/"
     AVAILABLE_ICM = ["ICM_all", "ICM_price", "ICM_asset", "ICM_sub_class", "ICM_item_pop"]
-    AVAILABLE_UCM = ["UCM_age", "UCM_region", "UCM_user_act"]
+    AVAILABLE_UCM = ["UCM_age", "UCM_region", "UCM_user_act", "UCM_all"]
     AVAILABLE_URM = ["URM_all"]
 
     _LOADED_UCM_DICT = None
@@ -33,6 +33,14 @@ class RecSys2019Reader(DataReader):
     def _get_dataset_name_root(self):
         return self.DATASET_SUBFOLDER
 
+    def get_loaded_UCM_dict(self):
+        UCM_dict = {}
+
+        for UCM_name in self.get_loaded_UCM_names():
+            UCM_dict[UCM_name] = self.get_UCM_from_name(UCM_name)
+
+        return UCM_dict
+
     def get_UCM_from_name(self, UCM_name):
         self._assert_is_initialized()
         return self._LOADED_UCM_DICT[UCM_name].copy()
@@ -52,7 +60,7 @@ class RecSys2019Reader(DataReader):
 
         print("RecSys2019Reader: Loading original data")
 
-        print("RecSys2019Reader: loading ICM subclass, asset and price")
+        print("RecSys2019Reader: loading ICM subclass, asset, price and item_pop")
         ICM_sub_class, tokenToFeatureMapper_ICM_sub_class, self.item_original_ID_to_index = load_ICM_sub_class(
             self.ICM_sub_class_path,
             separator=',')
@@ -90,10 +98,8 @@ class RecSys2019Reader(DataReader):
         self._LOADED_GLOBAL_MAPPER_DICT["user_original_ID_to_index"] = self.user_original_ID_to_index
         self._LOADED_GLOBAL_MAPPER_DICT["item_original_ID_to_index"] = self.item_original_ID_to_index
 
-        print("RecSys2019Reader: loading UCM age, region and all")
+        print("RecSys2019Reader: loading UCM age, region and user_act")
         print("RecSys2019Reader: WARNING --> There is no verification in the consistency of UCMs")
-        print("RecSys2019Reader: WARNING --> The number of data in UCM is much lower than the original")
-        print("RecSys2019Reader: WARNING --> UCM will be ignored by any preprocessing or data splitter class")
 
         UCM_age, tokenToFeatureMapper_UCM_age, self.user_original_ID_to_index = load_UCM_age(self.UCM_age_path,
                                                                                              separator=",",
@@ -125,6 +131,11 @@ class RecSys2019Reader(DataReader):
 
         self._LOADED_ICM_DICT["ICM_all"], self._LOADED_ICM_MAPPER_DICT["ICM_all"] = build_ICM_all(self._LOADED_ICM_DICT,
                                                                                                   self._LOADED_ICM_MAPPER_DICT)
+
+        print("RecSys2019Reader: loading UCM all")
+
+        self._LOADED_UCM_DICT["UCM_all"], self._LOADED_UCM_MAPPER_DICT["UCM_all"] = build_UCM_all(self._LOADED_UCM_DICT,
+                                                                                                  self._LOADED_UCM_MAPPER_DICT)
 
         print("RecSys2019Reader: loading complete")
 
@@ -174,6 +185,4 @@ class RecSys2019Reader(DataReader):
             self._LOADED_UCM_DICT = dataIO.load_data(file_name="dataset_UCM")
             self._LOADED_UCM_MAPPER_DICT = dataIO.load_data(file_name="dataset_UCM_mappers")
             print("RecSys2019Reader: WARNING --> There is no verification in the consistency of UCMs")
-            print("RecSys2019Reader: WARNING --> The number of data in UCM is much lower than the original")
-            print("RecSys2019Reader: WARNING --> UCM will be ignored by any preprocessing or data splitter class")
 
