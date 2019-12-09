@@ -10,7 +10,7 @@ from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")
-    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
                                                force_new_split=True, seed=get_split_seed())
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
@@ -28,24 +28,21 @@ if __name__ == '__main__':
     UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
     UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
 
-    UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=3)
+    UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=1)
     UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
-    UCM_region_warm = get_warmer_UCM(UCM_region, URM_all, threshold_users=3)
-    UCM_age_warm = get_warmer_UCM(UCM_age, URM_all, threshold_users=3)
+    UCM_region_warm = get_warmer_UCM(UCM_region, URM_all, threshold_users=1)
+    UCM_age_warm = get_warmer_UCM(UCM_age, URM_all, threshold_users=1)
 
     sub2 = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train, ICM_train=ICM_subclass_all,
                                                               UCM_train=UCM_all)
     sub2.RECOMMENDER_NAME = "SUB2"
 
-    bagging = best_models.BaggingMergeItem_CBF_CF.get_model(URM_train, ICM_subclass_all)
-    bagging.RECOMMENDER_NAME = "BAGGING_ITEM_CBF_CF"
-
     mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all,
                                                        ICM_all=ICM_all, UCM_age_region=UCM_all)
     mixed.RECOMMENDER_NAME = "MIXED"
 
-    recommender_list = [bagging, mixed, sub2]
+    recommender_list = [mixed, sub2]
 
     # Building path
     version_path = "../../report/graphics/comparison/"
@@ -59,7 +56,7 @@ if __name__ == '__main__':
                  exclude_cold_items=False)"""
 
     # Plotting the comparison on age
-    region_demographic = get_user_demographic(UCM_region_warm, URM_train, 3, binned=True)
+    region_demographic = get_user_demographic(UCM_region_warm, URM_train, 1, binned=True)
     region_demographic_describer_list = [-1, 0, 2, 3, 4, 5, 6, 7]
     demographic_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
                      URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
@@ -68,7 +65,7 @@ if __name__ == '__main__':
                      exclude_cold_users=True)
 
     # Plotting the comparison on region
-    age_demographic = get_user_demographic(UCM_age, URM_all, 3, binned=True)
+    age_demographic = get_user_demographic(UCM_age, URM_all, 1, binned=True)
     age_demographic_describer_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     demographic_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
                      URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,

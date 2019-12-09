@@ -9,6 +9,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM, get_ICM_numerical
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
+from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
 from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.model.KNN.UserItemCBFCFDemographicRecommender import UserItemCBFCFDemographicRecommender
@@ -45,19 +46,9 @@ def _get_all_models_ranked(URM_train, ICM_all, UCM_all, ICM_subclass_all):
 
 
 if __name__ == '__main__':
-    # Weighted models best parameter - tuning results
-    # weighted_best_param = {'ITEMCBFALLFOL': 0.5301487737487677, 'ITEMCBFCFFOL': 0.3878808597351461,
-    #                       'ITEMCFFOL': 0.14971067748668312}
-    # rank_best_param = {'strategy': 'norm_weighted_avg', 'multiplier_cutoff': 10, 'MIXED': 1.0, 'SLIM_BPR': 0.0,
-    #                   'P3ALPHA': 1.0,
-    #                   'RP3BETA': 0.0, 'IALS': 1.0, 'USER_ITEM_ALL': 1.0}
+    seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467, 6, 151, 86, 99, 4444]
 
-    seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]
-
-    # ranked_score = 0
-    # weighted_score = 0
-    # mixed_score = 0
-    temp_score = 0
+    hybrid_score_all = 0
 
     for i in range(0, len(seed_list)):
         # Data loading
@@ -84,6 +75,7 @@ if __name__ == '__main__':
                                                       UCM_name_to_bins_mapper={"UCM_price": 200,
                                                                                "UCM_asset": 200,
                                                                                "UCM_user_act": 50})
+
         data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
                                                    force_new_split=True, seed=seed_list[i])
         data_reader.load_data()
@@ -95,39 +87,41 @@ if __name__ == '__main__':
 
         # Build UCMs
         URM_all = data_reader.dataReader_object.get_URM_all()
+
         UCM_all = data_reader.get_UCM_from_name("UCM_all")
         UCM_all = get_warmer_UCM(UCM_all, URM_all, threshold_users=1)
-
-        # Ranked
-        # model = HybridRankBasedRecommender(URM_train)
-
-        # all_models = _get_all_models_ranked(URM_train=URM_train, ICM_all=ICM_all,
-        #                                    UCM_all=UCM_all, ICM_subclass_all=ICM_subclass_all)
-        # for model_name, model_object in all_models.items():
-        #    model.add_fitted_model(model_name, model_object)
-        # print("The models added in the hybrid are: {}".format(list(all_models.keys())))
-        # model.fit(**rank_best_param)
-
-        # Weighted average recommender
-        # model = HybridWeightedAverageRecommender(URM_train, normalize=False)
-        # all_models = _get_all_models_weighted_average(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all,
-        #                                              UCM_all=UCM_all,
-        #                                              ICM_all=ICM_all, ICM_numerical=ICM_numerical,
-        #                                              ICM_categorical=ICM_subclass)
-        # for model_name, model_object in all_models.items():
-        #    model.add_fitted_model(model_name, model_object)
-
-        # model.fit(**weighted_best_param)
-
-        # Mixed similarity building
-        # hybrid = best_models.MixedUser.get_model(URM_train=URM_train, UCM_all=UCM_all)
 
         # Setting evaluator
         cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
         cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
 
+        fol3_mask = np.ediff1d(URM_train.tocsr().indptr) > 2
+        fol3_users = np.arange(URM_train.shape[0])[fol3_mask]
+
+        fol3_mask_neg = np.logical_not(fol3_mask)
+
+        ignore_users_group_2 = np.arange(URM_train.shape[0])[fol3_mask_neg]
+
         cutoff_list = [10]
-        evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+        evaluator_total = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+
+        # Building the models
+        sub2_model = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train,
+                                                                        ICM_train=ICM_subclass,
+                                                                        UCM_train=UCM_age_region)
+
+        weighted_mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train,
+                                                                    ICM_subclass_all=ICM_subclass,
+                                                                    ICM_all=ICM,
+                                                                    UCM_all=UCM_age_region)
+
+        hybrid_demographic = HybridDemographicRecommender(URM_train)
+        hybrid_demographic.reset_groups()
+        hybrid_demographic.add_user_group(group_id=1, user_group=fol3_users)
+        hybrid_demographic.add_user_group(group_id=2, user_group=ignore_users_group_2)
+
+        hybrid_demographic.add_relation_recommender_group(group_id=1, recommender_object=sub2_model)
+        hybrid_demographic.add_relation_recommender_group(group_id=2, recommender_object=weighted_mixed)
 
         par = {'user_similarity_type': 'cosine', 'item_similarity_type': 'asymmetric', 'user_feature_weighting': 'BM25',
                'item_feature_weighting': 'TF-IDF', 'user_normalize': True,
@@ -136,25 +130,14 @@ if __name__ == '__main__':
         temp_model = UserItemCBFCFDemographicRecommender(URM_train, UCM_all, ICM_all)
         temp_model.fit(**par)
 
-        # current_ranked_score = evaluator.evaluateRecommender(model)[0][10]['MAP']
-        # weighted_current_map = evaluator.evaluateRecommender(model)[0][10]['MAP']
-        # mixed_current_map = evaluator.evaluateRecommender(hybrid)[0][10]['MAP']
-        curr_map = evaluator.evaluateRecommender(temp_model)[0][10]['MAP']
+        curr_map = evaluator_total.evaluateRecommender(hybrid_demographic)[0][10]['MAP']
 
         print("SEED: {} \n ".format(seed_list[i]))
-        print("TempModelCurrMap {} \n".format(curr_map))
-        # print("WeightedCurrMap {} \n".format(current_ranked_score))
-        # print("MixedCurrMap {} \n ".format(mixed_current_map))
+        print("CURR MAP {} \n ".format(curr_map))
 
-        # ranked_score += current_ranked_score
-        temp_score += curr_map
-        # weighted_score += weighted_current_map
-        # mixed_score += mixed_current_map
+        hybrid_score_all += curr_map
 
-    # ranked_score /= len(seed_list)
-    # weighted_score /= len(seed_list)
-    # mixed_score /= len(seed_list)
-    temp_score /= len(seed_list)
+    hybrid_score_all /= len(seed_list)
 
     # Store results on file
     destination_path = "../../report/cross_validation/"
@@ -163,10 +146,10 @@ if __name__ == '__main__':
     num_folds = len(seed_list)
 
     f = open(destination_path, "w")
-    f.write("X-validation HybridSubmission2 of warm users \n\n")
+    f.write("X-validation Hybrid demographic SUB2+WEIGHTED on USER PROFILE <> 3 \n\n")
     # f.write("MixedSimilarity tuning map {} --- MixedSimilarity X-val map {} \n\n".format(mixed_best_param_map,
     #                                                                                     mixed_score))
-    f.write("X-val map {} \n\n".format(temp_score))
+    f.write("X-val map {} \n\n".format(hybrid_score_all))
 
     f.write("Number of folds: " + str(num_folds) + "\n")
     f.write("Seed list: " + str(seed_list) + "\n\n")
