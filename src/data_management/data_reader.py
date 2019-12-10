@@ -1,5 +1,11 @@
+from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
+from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
+from src.data_management.data_preprocessing import apply_feature_engineering_ICM, apply_filtering_ICM, \
+    apply_transformation_ICM, apply_discretization_ICM, build_ICM_all_from_dict, apply_feature_engineering_UCM, \
+    apply_transformation_UCM, apply_discretization_UCM, build_UCM_all_from_dict
 
+import numpy as np
 
 def read_target_users(path="../data/data_target_users_test.csv"):
     """
@@ -64,6 +70,66 @@ def read_UCM_cold_all(num_users, root_path="../data/"):
     # Merge UCMs
     UCM_all, _ = merge_UCM(UCM_age, UCM_region, {}, {})
     UCM_all = UCM_all.tocsr()
+    return UCM_all
+
+
+def get_ICM_train(reader: New_DataSplitter_leave_k_out):
+    """
+    It returns all the ICM_all after applying feature engineering
+
+    :param reader: data splitter
+    :return: return ICM_all
+    """
+    URM_train, _ = reader.get_holdout_split()
+    UCM_all_dict = reader.get_loaded_UCM_dict()
+    ICM_all_dict = reader.get_loaded_ICM_dict()
+    ICM_all_dict.pop("ICM_all")
+    ICM_all_dict = apply_feature_engineering_ICM(ICM_all_dict, URM_train, UCM_all_dict,
+                                                 ICM_names_to_count=["ICM_sub_class"], UCM_names_to_list=["UCM_age"])
+    ICM_all_dict = apply_filtering_ICM(ICM_all_dict,
+                                       ICM_name_to_filter_mapper={"ICM_asset": lambda x: x < np.quantile(x, q=0.75) +
+                                                                  0.72 * (np.quantile(x, q=0.75) -
+                                                                          np.quantile(x, q=0.25)),
+                                                                  "ICM_price": lambda x: x < np.quantile(x, q=0.75) +
+                                                                  4 * (np.quantile(x, q=0.75) -
+                                                                       np.quantile(x, q=0.25))})
+    ICM_all_dict = apply_transformation_ICM(ICM_all_dict,
+                                            ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
+                                                                          "ICM_price": lambda x: np.log1p(1 / x),
+                                                                          "ICM_item_pop": np.log1p,
+                                                                          "ICM_sub_class_count": np.log1p,
+                                                                          "ICM_age": lambda x: x**(1/2.5)})
+    ICM_all_dict = apply_discretization_ICM(ICM_all_dict,
+                                            ICM_name_to_bins_mapper={"ICM_asset": 200,
+                                                                     "ICM_price": 200,
+                                                                     "ICM_item_pop": 50,
+                                                                     "ICM_sub_class_count": 50})
+    ICM_all = build_ICM_all_from_dict(ICM_all_dict)
+    return ICM_all
+
+
+def get_UCM_train(reader: New_DataSplitter_leave_k_out, root_data_path: str):
+    """
+    It returns all the UCM_all after applying feature engineering
+
+    :param reader: data splitter
+    :param root_data_path: the root path of the data folder
+    :return: return UCM_all
+    """
+    URM_train, _ = reader.get_holdout_split()
+    UCM_all_dict = reader.get_loaded_UCM_dict()
+    data_reader = RecSys2019Reader(root_data_path)
+    data_reader.load_data()
+    ICM_dict = data_reader.get_loaded_ICM_dict()
+    UCM_all_dict = apply_feature_engineering_UCM(UCM_all_dict, URM_train, ICM_dict,
+                                                 ICM_names_to_UCM=["ICM_sub_class"])
+
+    # These are useful feature weighting for UserCBF_CF_Warm
+    UCM_all_dict = apply_transformation_UCM(UCM_all_dict,
+                                            UCM_name_to_transform_mapper={"UCM_sub_class": lambda x: x / 2,
+                                                                          "UCM_user_act": np.log1p})
+    UCM_all_dict = apply_discretization_UCM(UCM_all_dict, UCM_name_to_bins_mapper={"UCM_user_act": 50})
+    UCM_all = build_UCM_all_from_dict(UCM_all_dict)
     return UCM_all
 
 

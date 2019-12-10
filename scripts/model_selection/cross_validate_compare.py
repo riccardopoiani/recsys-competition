@@ -1,15 +1,41 @@
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
-from src.data_management.DataPreprocessing import DataPreprocessingFeatureEngineering, DataPreprocessingImputation, \
-    DataPreprocessingTransform, DataPreprocessingDiscretization
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
-from src.data_management.data_getter import get_UCM_train
-from src.model import new_best_models
-from src.utils.general_utility_functions import get_split_seed
-from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.data_management.data_reader import get_ICM_train, get_UCM_train
+from src.model import best_models, new_best_models
+
+
+def _get_all_models_weighted_average(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
+    all_models = {}
+
+    all_models['ITEMCBFALLFOL'] = best_models.ItemCBF_all_EUC1_FOL3.get_model(URM_train=URM_train,
+                                                                              ICM_train=ICM_all,
+                                                                              load_model=False)
+    all_models['ITEMCBFCFFOL'] = best_models.ItemCBF_CF_FOL_3_ECU_1.get_model(URM_train=URM_train,
+                                                                              ICM_train=ICM_subclass_all,
+                                                                              load_model=False)
+    all_models['ITEMCFFOL'] = best_models.ItemCF_EUC_1_FOL_3.get_model(URM_train=URM_train)
+    return all_models
+
+
+def _get_all_models_ranked(URM_train, ICM_all, UCM_all, ICM_subclass_all):
+    all_models = {}
+
+    all_models['MIXED'] = best_models.WeightedAverageMixed.get_model(URM_train=URM_train,
+                                                                     ICM_all=ICM_all,
+                                                                     ICM_subclass_all=ICM_subclass_all,
+                                                                     UCM_age_region=UCM_all)
+
+    all_models['SLIM_BPR'] = best_models.SLIM_BPR.get_model(URM_train)
+    all_models['P3ALPHA'] = best_models.P3Alpha.get_model(URM_train)
+    all_models['RP3BETA'] = best_models.RP3Beta.get_model(URM_train)
+    all_models['IALS'] = best_models.IALS.get_model(URM_train)
+    all_models['USER_ITEM_ALL'] = best_models.UserItemKNNCBFCFDemographic.get_model(URM_train, ICM_all, UCM_all)
+
+    return all_models
 
 if __name__ == '__main__':
     seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467, 6, 151, 86, 99, 4444]
@@ -22,32 +48,17 @@ if __name__ == '__main__':
         # Data loading
         root_data_path = "../data/"
         data_reader = RecSys2019Reader(root_data_path)
-        data_reader = DataPreprocessingFeatureEngineering(data_reader,
-                                                          ICM_names_to_count=["ICM_sub_class"])
-        data_reader = DataPreprocessingImputation(data_reader,
-                                                  ICM_name_to_agg_mapper={"ICM_asset": np.median,
-                                                                          "ICM_price": np.median})
-        data_reader = DataPreprocessingTransform(data_reader,
-                                                 ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
-                                                                               "ICM_price": lambda x: np.log1p(1 / x),
-                                                                               "ICM_item_pop": np.log1p,
-                                                                               "ICM_sub_class_count": np.log1p})
-        data_reader = DataPreprocessingDiscretization(data_reader,
-                                                      ICM_name_to_bins_mapper={"ICM_asset": 200,
-                                                                               "ICM_price": 200,
-                                                                               "ICM_item_pop": 50,
-                                                                               "ICM_sub_class_count": 50})
-        data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
-                                                   force_new_split=True, seed=get_split_seed())
+        data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+                                                   force_new_split=True, seed=seed_list[i])
         data_reader.load_data()
         URM_train, URM_test = data_reader.get_holdout_split()
 
         # Build ICMs
-        ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-        ICM_all = data_reader.get_ICM_from_name("ICM_all")
+        ICM_all = get_ICM_train(data_reader)
 
         # Build UCMs: do not change the order of ICMs and UCMs
         UCM_all = get_UCM_train(data_reader, root_data_path)
+        # Build UCMs
 
         # Setting evaluator
         cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
@@ -57,14 +68,12 @@ if __name__ == '__main__':
         ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
         cutoff_list = [10]
-        evaluator_total = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
+        evaluator_total = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-        # model = new_best_models.ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
-        #model = ItemKNNCBFCFRecommender(URM_train=URM_train, ICM_train=ICM_all)
-        #model.fit(**new_best_param)
-        model = new_best_models.ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
+        # Building the models
+        fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all)
 
-        curr_map = evaluator_total.evaluateRecommender(model)[0][10]['MAP']
+        curr_map = evaluator_total.evaluateRecommender(fusion)[0][10]['MAP']
 
         print("SEED: {} \n ".format(seed_list[i]))
         print("CURR MAP {} \n ".format(curr_map))

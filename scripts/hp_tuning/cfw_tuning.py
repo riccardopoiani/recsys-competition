@@ -3,6 +3,7 @@ from datetime import datetime
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.data_reader import get_ICM_train
 from src.model import best_models
 from src.tuning.run_parameter_search_cfw_linalg import run_parameter_search
 from src.utils.general_utility_functions import get_split_seed
@@ -15,10 +16,8 @@ if __name__ == '__main__':
                                                force_new_split=True, seed=get_split_seed())
 
     data_reader.load_data()
-    mapper = data_reader.SPLIT_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
     URM_train, URM_test = data_reader.get_holdout_split()
-    ICM = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all = data_reader.get_ICM_from_name("ICM_all")
+    ICM_all = get_ICM_train(data_reader)
 
     # Setting evaluator
     cutoff_list = [10]

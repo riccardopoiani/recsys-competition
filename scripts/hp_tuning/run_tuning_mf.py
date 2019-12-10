@@ -1,14 +1,11 @@
 import argparse
+import os
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.Base.NonPersonalizedRecommender import TopPop
-from course_lib.Data_manager.DataReader_utils import merge_ICM
-from src.data_management.DataPreprocessing import DataPreprocessingDiscretization
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM, get_UCM_all
-from src.data_management.data_getter import get_warmer_UCM
+from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import best_models
 from src.model.FactorizationMachine.FactorizationMachineRecommender import FactorizationMachineRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
@@ -17,8 +14,6 @@ from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecomm
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
 from src.tuning.run_parameter_search_mf import run_parameter_search_mf_collaborative
 from src.utils.general_utility_functions import get_split_seed
-
-import os
 
 N_CASES = 60
 N_RANDOM_STARTS = 20
@@ -56,25 +51,16 @@ def main():
 
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
-    if args.discretize:
-        data_reader = DataPreprocessingDiscretization(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 50, "ICM_price": 50,
-                                                                                      "ICM_item_pop": 20})
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=args.seed)
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
-    data_reader = RecSys2019Reader(args.reader_path)
-    data_reader.load_data()
-
     # Build ICMs
-    ICM_all = data_reader.get_ICM_from_name("ICM_all")
+    ICM_all = get_ICM_train(data_reader)
 
     # Build UCMs
-    URM_all = data_reader.get_URM_all()
-    UCM_all = get_UCM_all(data_reader, discretize_user_act_bins=20)
-    UCM_all = get_warmer_UCM(UCM_all, URM_all, threshold_users=3)
-
+    UCM_all = get_UCM_train(data_reader, args.reader_path)
 
     UCM = None
     ICM = None
@@ -97,7 +83,6 @@ def main():
         ICM = ICM_all
         ICM_name = "ICM_all"
         UCM_name = "UCM_all"
-
 
     # Setting evaluator
     exclude_cold_users = args.exclude_users

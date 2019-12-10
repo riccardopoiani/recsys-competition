@@ -1,5 +1,5 @@
 from course_lib.Base.BaseRecommender import BaseRecommender
-from course_lib.Base.Recommender_utils import check_matrix
+from course_lib.Base.Recommender_utils import check_matrix, similarityMatrixTopK
 from course_lib.Base.BaseSimilarityMatrixRecommender import BaseSimilarityMatrixRecommender
 from course_lib.Base.IR_feature_weighting import okapi_BM_25, TF_IDF
 import numpy as np
@@ -55,7 +55,12 @@ class UserSimilarityRecommender(BaseSimilarityMatrixRecommender):
         self.W_sparse.eliminate_zeros()
         self.W_sparse = self.W_sparse.tocsr()
 
+        self.W_sparse = similarityMatrixTopK(self.W_sparse, k=self.topK).tocsr()
         self.W_sparse = check_matrix(self.W_sparse, format='csr')
+
+        # Add identity matrix to the recommender
+        self.recommender.W_sparse = self.recommender.W_sparse + sps.identity(self.recommender.W_sparse.shape[0],
+                                                                             format="csr")
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):
         """
@@ -70,28 +75,12 @@ class UserSimilarityRecommender(BaseSimilarityMatrixRecommender):
         def calculate_scores(user):
             user = user[0]
             user_weights = self.W_sparse.data[self.W_sparse.indptr[user]:self.W_sparse.indptr[user + 1]]
-            topK = min(self.topK, len(user_weights))
-            topK_weights_mask = np.argpartition(user_weights, -topK)[-topK:]
-            topK_weights = user_weights[topK_weights_mask]
 
             significant_users = self.W_sparse.indices[self.W_sparse.indptr[user]: self.W_sparse.indptr[user + 1]]
-            topK_users = significant_users[topK_weights_mask]
 
-            scores = self.recommender._compute_item_score(topK_users, items_to_compute=None)
+            scores = self.recommender._compute_item_score(significant_users, items_to_compute=None)
 
-            """if True:
-                maximum = np.max(scores, axis=1).reshape((len(topK_users), 1))
-
-                scores_batch_for_minimum = scores.copy()
-                scores_batch_for_minimum[scores_batch_for_minimum == float('-inf')] = np.inf
-                minimum = np.min(scores_batch_for_minimum, axis=1).reshape((len(topK_users), 1))
-
-                denominator = maximum - minimum
-                denominator[denominator == 0] = 1.0
-
-                scores = (scores - minimum) / denominator"""  # Avoid normalization
-
-            weighted_scores = np.multiply(scores, np.reshape(topK_weights, newshape=(len(topK_weights), 1)))
+            weighted_scores = np.multiply(scores, np.reshape(user_weights, newshape=(len(user_weights), 1)))
             return np.sum(weighted_scores, axis=0)
 
         item_scores = np.apply_along_axis(calculate_scores, 1, np.reshape(user_id_array,

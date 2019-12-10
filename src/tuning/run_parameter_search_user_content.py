@@ -81,8 +81,6 @@ def run_parameter_search_user_demographic(recommender_class, URM_train, UCM_obje
     if URM_train_last_test is not None:
         URM_train_last_test = URM_train_last_test.copy()
 
-    ##########################################################################################################
-
     output_file_name_root = recommender_class.RECOMMENDER_NAME + "_{}".format(UCM_name)
 
     parameterSearch = SearchBayesianSkopt(recommender_class, evaluator_validation=evaluator_validation,

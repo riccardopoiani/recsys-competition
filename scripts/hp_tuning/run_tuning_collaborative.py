@@ -2,11 +2,9 @@ import argparse
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.ParameterTuning.run_parameter_search import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
 from src.utils.general_utility_functions import get_split_seed
 
 N_CASES = 60
@@ -53,17 +51,6 @@ def main():
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
-    # Build ICMs
-    ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-    ICM = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-
-    # Build UCMs
-    URM_all = data_reader.dataReader_object.get_URM_all()
-    UCM_age = data_reader.dataReader_object.get_UCM_from_name("UCM_age")
-    UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
-
-    # Setting evaluator
     # Setting evaluator
     exclude_cold_users = args.exclude_users
     h = int(args.focus_on_high)

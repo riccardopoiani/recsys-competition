@@ -1,38 +1,19 @@
 from datetime import datetime
 
+import numpy as np
+
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
-from course_lib.Data_manager.DataReader_utils import merge_ICM
-from src.data_management.DataPreprocessing import DataPreprocessingFeatureEngineering, \
-    DataPreprocessingImputation, DataPreprocessingTransform, DataPreprocessingDiscretization
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
+from src.data_management.data_reader import get_ICM_train
 from src.model import best_models, new_best_models
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
-from src.utils.general_utility_functions import get_split_seed
 from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity_item
-import numpy as np
+from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
     # Data loading
     data_reader = RecSys2019Reader("../../data/")
-    data_reader = DataPreprocessingFeatureEngineering(data_reader,
-                                                      ICM_names_to_count=["ICM_sub_class"])
-    data_reader = DataPreprocessingImputation(data_reader,
-                                              ICM_name_to_agg_mapper={"ICM_asset": np.median,
-                                                                      "ICM_price": np.median})
-    data_reader = DataPreprocessingTransform(data_reader,
-                                             ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
-                                                                           "ICM_price": lambda x: np.log1p(1 / x),
-                                                                           "ICM_item_pop": np.log1p,
-                                                                           "ICM_sub_class_count": np.log1p})
-    data_reader = DataPreprocessingDiscretization(data_reader,
-                                                  ICM_name_to_bins_mapper={"ICM_asset": 200,
-                                                                           "ICM_price": 200,
-                                                                           "ICM_item_pop": 50,
-                                                                           "ICM_sub_class_count": 50})
-    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
-                                               force_new_split=True, seed=args.seed)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=get_split_seed())
 
@@ -40,7 +21,7 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
 
     # Build ICMs
-    ICM_all = data_reader.get_ICM_from_name("ICM_all")
+    ICM_all = get_ICM_train(data_reader)
 
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0

@@ -78,7 +78,6 @@ class New_DataSplitter_leave_k_out(DataSplitter):
             UCM_dict[UCM_name] = UCM_dict[UCM_name][self.user_to_preserve, :]
         return UCM_dict
 
-
     def _get_split_subfolder_name(self):
         """
 
@@ -379,4 +378,6 @@ class New_DataSplitter_leave_k_out(DataSplitter):
                                           ICM_DICT=self.SPLIT_ICM_DICT,
                                           ICM_MAPPER_DICT=self.SPLIT_ICM_MAPPER_DICT,
                                           DATA_SPLITTER_NAME=self.DATA_SPLITTER_NAME)
+
+
 

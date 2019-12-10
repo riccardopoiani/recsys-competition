@@ -1,0 +1,44 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'topK': 1787, 'shrink': 654, 'similarity': 'asymmetric', 'normalize': True, 'asymmetric_alpha': 0.2259962324441665, 'feature_weighting': 'none', 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 413, in evaluateRecommender
+    results_run_string = get_result_string(results_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 103, in get_result_string
+    n_decimals=n_decimals)
+TypeError: unsupported format string passed to MAP.__format__
+
+SearchBayesianSkopt: Config 1 Exception. Config: {'topK': 1903, 'shrink': 1981, 'similarity': 'asymmetric', 'normalize': True, 'asymmetric_alpha': 0.1448839535319462, 'feature_weighting': 'none', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 413, in evaluateRecommender
+    results_run_string = get_result_string(results_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 103, in get_result_string
+    n_decimals=n_decimals)
+TypeError: unsupported format string passed to MAP.__format__
+
+SearchBayesianSkopt: Config 2 Exception. Config: {'topK': 1107, 'shrink': 1281, 'similarity': 'asymmetric', 'normalize': True, 'asymmetric_alpha': 0.980986645035562, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 413, in evaluateRecommender
+    results_run_string = get_result_string(results_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 103, in get_result_string
+    n_decimals=n_decimals)
+TypeError: unsupported format string passed to MAP.__format__
+
+SearchBayesianSkopt: Config 3 Exception. Config: {'topK': 982, 'shrink': 305, 'similarity': 'asymmetric', 'normalize': True, 'asymmetric_alpha': 0.6716278491452158, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 413, in evaluateRecommender
+    results_run_string = get_result_string(results_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 103, in get_result_string
+    n_decimals=n_decimals)
+TypeError: unsupported format string passed to MAP.__format__
+
