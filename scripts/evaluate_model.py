@@ -58,15 +58,13 @@ if __name__ == '__main__':
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
-    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 0
+    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) < 80
     warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
     ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=warm_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
 
-    par = best_models.UserCBF_CF_Cold.get_best_parameters()
-    model = UserKNNCBFCFRecommender(URM_train, UCM_all)
-    model.fit(**par)
+    model = new_best_models.ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
 
     print(evaluator.evaluateRecommender(model))

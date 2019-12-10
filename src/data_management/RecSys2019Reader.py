@@ -9,7 +9,7 @@ from src.data_management.RecSys2019Reader_utils import load_ICM_sub_class, load_
 class RecSys2019Reader(DataReader):
     DATASET_SUBFOLDER = "data/"
     AVAILABLE_ICM = ["ICM_all", "ICM_price", "ICM_asset", "ICM_sub_class", "ICM_item_pop"]
-    AVAILABLE_UCM = ["UCM_age", "UCM_region", "UCM_user_act", "UCM_all"]
+    AVAILABLE_UCM = ["UCM_age", "UCM_region", "UCM_user_act"]
     AVAILABLE_URM = ["URM_all"]
 
     _LOADED_UCM_DICT = None
