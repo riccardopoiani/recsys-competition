@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.sparse as sps
 
+
 def get_bootstrap_URM(URM_train):
     """
     Return a bootstrap of URM in csr matrix

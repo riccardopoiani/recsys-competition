@@ -1,5 +1,4 @@
 import numpy as np
-import scipy.sparse as sps
 from tqdm import tqdm
 
 from course_lib.Base.BaseRecommender import BaseRecommender
