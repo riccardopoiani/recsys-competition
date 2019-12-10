@@ -67,7 +67,17 @@ class New_DataSplitter_leave_k_out(DataSplitter):
         return self.SPLIT_GLOBAL_MAPPER_DICT["user_original_ID_to_index"]
 
     def get_UCM_from_name(self, UCM_name):
-        return self.dataReader_object.get_UCM_from_name(UCM_name)
+        user_mapper = self.get_original_user_id_to_index_mapper()
+        train_users = list(user_mapper.values())
+        return self.dataReader_object.get_UCM_from_name(UCM_name)[train_users, :]
+
+    def get_loaded_UCM_dict(self):
+        UCM_dict = self.dataReader_object.get_loaded_UCM_dict()
+
+        for UCM_name in UCM_dict.keys():
+            UCM_dict[UCM_name] = UCM_dict[UCM_name][self.user_to_preserve, :]
+        return UCM_dict
+
 
     def _get_split_subfolder_name(self):
         """
@@ -190,7 +200,7 @@ class New_DataSplitter_leave_k_out(DataSplitter):
                     URM.shape[0], min_user_interactions, split_number, self.k_out_value))
 
             URM = URM[user_to_preserve, :]
-
+            self.user_to_preserve = user_to_preserve
             self.SPLIT_GLOBAL_MAPPER_DICT["user_original_ID_to_index"] = reconcile_mapper_with_removed_tokens(
                 self.SPLIT_GLOBAL_MAPPER_DICT["user_original_ID_to_index"],
                 np.arange(0, len(user_to_remove), dtype=np.int)[user_to_remove])

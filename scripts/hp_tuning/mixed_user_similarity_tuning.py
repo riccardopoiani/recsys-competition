@@ -4,7 +4,8 @@ import numpy as np
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
-from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM, get_ICM_numerical, merge_UCM
+from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
 from src.model import best_models
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import UserHybridModelRecommender

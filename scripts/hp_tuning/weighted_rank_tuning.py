@@ -31,21 +31,23 @@ def _get_all_models(URM_train, ICM_all, UCM_all, ICM_subclass_all):
 if __name__ == '__main__':
     # Data loading
     data_reader = RecSys2019Reader("../../data/")
-    data_reader = DataPreprocessingFeatureEngineering(data_reader, ICM_names=["ICM_sub_class"])
+    data_reader = DataPreprocessingFeatureEngineering(data_reader,
+                                                      ICM_names_to_count=["ICM_sub_class"])
     data_reader = DataPreprocessingImputation(data_reader,
                                               ICM_name_to_agg_mapper={"ICM_asset": np.median,
-                                                                                   "ICM_price": np.median})
+                                                                      "ICM_price": np.median})
     data_reader = DataPreprocessingTransform(data_reader,
                                              ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
-                                                                               "ICM_price": lambda x: np.log1p(1 / x),
-                                                                               "ICM_item_pop": np.log1p,
-                                                                               "ICM_sub_class_count": np.log1p})
-    data_reader = DataPreprocessingDiscretization(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 200,
-                                                                                      "ICM_price": 200,
-                                                                                      "ICM_item_pop": 50,
-                                                                                      "ICM_sub_class_count": 50})
+                                                                           "ICM_price": lambda x: np.log1p(1 / x),
+                                                                           "ICM_item_pop": np.log1p,
+                                                                           "ICM_sub_class_count": np.log1p})
+    data_reader = DataPreprocessingDiscretization(data_reader,
+                                                  ICM_name_to_bins_mapper={"ICM_asset": 200,
+                                                                           "ICM_price": 200,
+                                                                           "ICM_item_pop": 50,
+                                                                           "ICM_sub_class_count": 50})
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
-                                               force_new_split=True, seed=get_split_seed())
+                                               force_new_split=True, seed=args.seed)
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 

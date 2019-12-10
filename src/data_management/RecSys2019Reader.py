@@ -3,7 +3,7 @@ import os
 from course_lib.Base.DataIO import DataIO
 from course_lib.Data_manager.DataReader import DataReader
 from src.data_management.RecSys2019Reader_utils import load_ICM_sub_class, load_ICM_asset, load_ICM_price, \
-    load_ICM_item_pop, load_URM, load_UCM_age, load_UCM_region, load_UCM_user_act, build_ICM_all, build_UCM_all
+    load_ICM_item_pop, load_URM, load_UCM_age, load_UCM_region, load_UCM_user_act, build_ICM_all
 
 
 class RecSys2019Reader(DataReader):
@@ -131,11 +131,6 @@ class RecSys2019Reader(DataReader):
 
         self._LOADED_ICM_DICT["ICM_all"], self._LOADED_ICM_MAPPER_DICT["ICM_all"] = build_ICM_all(self._LOADED_ICM_DICT,
                                                                                                   self._LOADED_ICM_MAPPER_DICT)
-
-        print("RecSys2019Reader: loading UCM all")
-
-        self._LOADED_UCM_DICT["UCM_all"], self._LOADED_UCM_MAPPER_DICT["UCM_all"] = build_UCM_all(self._LOADED_UCM_DICT,
-                                                                                                  self._LOADED_UCM_MAPPER_DICT)
 
         print("RecSys2019Reader: loading complete")
 

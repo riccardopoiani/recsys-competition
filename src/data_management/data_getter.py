@@ -1,5 +1,11 @@
 import numpy as np
 
+from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
+from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
+from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.data_preprocessing import apply_feature_engineering_UCM, apply_transformation_UCM, \
+    apply_discretization_UCM, build_UCM_all_from_dict
+
 
 def get_popular_items(URM, popular_threshold=100):
     '''
@@ -59,6 +65,31 @@ def _get_unpopular(URM, popular_threshold, axis):
     index_arr = np.array(index_list)
 
     return index_arr
+
+
+def get_UCM_train(reader: New_DataSplitter_leave_k_out, root_data_path: str):
+    """
+    It returns all the UCM_all after applying feature engineering
+
+    :param reader: data splitter
+    :param root_data_path: the root path of the data folder
+    :return: return UCM_all
+    """
+    URM_train, _ = reader.get_holdout_split()
+    UCM_all_dict = reader.get_loaded_UCM_dict()
+    data_reader = RecSys2019Reader(root_data_path)
+    data_reader.load_data()
+    ICM_dict = data_reader.get_loaded_ICM_dict()
+    UCM_all_dict = apply_feature_engineering_UCM(UCM_all_dict, URM_train, ICM_dict,
+                                                 ICM_names_to_UCM=["ICM_sub_class", "ICM_price"])
+
+    # These are useful feature weighting for UserCBF_CF_Warm
+    UCM_all_dict = apply_transformation_UCM(UCM_all_dict,
+                                            UCM_name_to_transform_mapper={"UCM_sub_class": lambda x: x / 2,
+                                                                          "UCM_user_act": np.log1p})
+    UCM_all_dict = apply_discretization_UCM(UCM_all_dict, UCM_name_to_bins_mapper={"UCM_user_act": 50})
+    UCM_all = build_UCM_all_from_dict(UCM_all_dict)
+    return UCM_all
 
 
 def _get_popular(URM, popular_t, axis):

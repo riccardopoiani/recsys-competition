@@ -38,9 +38,6 @@ class AbstractDataPreprocessing(DataReader, ABC):
     def _preprocess_ICMs(self):
         raise NotImplementedError("_preprocess_ICMs is not implemented in the abstract class")
 
-    def _preprocess_UCMs(self):
-        raise NotImplementedError("_preprocess_UCMs is not implemented in the abstract class")
-
     def load_data(self, save_folder_path=None):
         self.reader.load_data()
 
@@ -51,11 +48,10 @@ class AbstractDataPreprocessing(DataReader, ABC):
 
         self._LOADED_URM_DICT["URM_all"] = self._preprocess_URM_all(URM_all)
         self._preprocess_ICMs()
-        self._preprocess_UCMs()
 
     def _copy_static_data_reader(self):
         self.IS_IMPLICIT = self.reader.IS_IMPLICIT
-        self.AVAILABLE_UCM = self.reader.get_all_available_ICM_names()
+        self.AVAILABLE_ICM = self.reader.get_all_available_ICM_names()
         self.ICM_to_load_list = self.reader.get_loaded_ICM_names()
         self.AVAILABLE_URM = self.reader.get_loaded_URM_names()
         self.AVAILABLE_UCM = self.reader.get_loaded_UCM_names()  # ignore this error since there is for us
@@ -133,16 +129,11 @@ class DataPreprocessingRemoveColdUsersItems(AbstractDataPreprocessing):
         for ICM_name, ICM_object in self._LOADED_ICM_DICT.items():
             self._LOADED_ICM_DICT[ICM_name] = ICM_object[self.warm_items, :]
 
-    def _preprocess_UCMs(self):
-        for UCM_name, UCM_object in self._LOADED_UCM_DICT.items():
-            self._LOADED_UCM_DICT[UCM_name] = UCM_object[self.warm_users, :]
-
 
 class DataPreprocessingFeatureEngineering(AbstractDataPreprocessing):
     DATASET_SUBFOLDER = "n/"
 
-    def __init__(self, reader: DataReader, ICM_names_to_count: list, ICM_names_to_UCM: list,
-                 UCM_names_to_ICM: list, soft_copy=True):
+    def __init__(self, reader: DataReader, ICM_names_to_count: list, UCM_names_to_ICM=None, soft_copy=True):
         """
         Preprocessing operation to add new ICMs and UCMs.
          - The new UCM names from ICMs are called UCM_{}.format(ICM_suffix_name). For example, for ICM_age, the name of the new UCM is UCM_age
@@ -155,8 +146,10 @@ class DataPreprocessingFeatureEngineering(AbstractDataPreprocessing):
         :param soft_copy:
         """
         super().__init__(reader, soft_copy)
+        if UCM_names_to_ICM is None:
+            UCM_names_to_ICM = []
+
         self.ICM_names_to_count = ICM_names_to_count
-        self.ICM_names_to_UCM = ICM_names_to_UCM
         self.UCM_names_to_ICM = UCM_names_to_ICM
 
     def _preprocess_URM_all(self, URM_all: sps.csr_matrix):
@@ -183,7 +176,7 @@ class DataPreprocessingFeatureEngineering(AbstractDataPreprocessing):
             ICM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=item_original_ID_to_index_mapper,
                                                             on_new_row="ignore")
             ICM_builder.add_data_lists(new_row, new_col, new_data)
-            self.AVAILABLE_UCM.append(new_ICM_name)
+            self.AVAILABLE_ICM.append(new_ICM_name)
             self.ICM_to_load_list.append(new_ICM_name)
             self._LOADED_ICM_DICT[new_ICM_name] = ICM_builder.get_SparseMatrix()
             self._LOADED_ICM_MAPPER_DICT[new_ICM_name] = ICM_builder.get_column_token_to_id_mapper()
@@ -205,7 +198,7 @@ class DataPreprocessingFeatureEngineering(AbstractDataPreprocessing):
                                                             on_new_row="ignore")
             ICM_builder.add_data_lists(new_row, new_col, new_data)
 
-            self.AVAILABLE_UCM.append(new_ICM_name)
+            self.AVAILABLE_ICM.append(new_ICM_name)
             self.ICM_to_load_list.append(new_ICM_name)
             self._LOADED_ICM_DICT[new_ICM_name] = new_ICM
             self._LOADED_ICM_MAPPER_DICT[new_ICM_name] = ICM_builder.get_column_token_to_id_mapper()
@@ -215,37 +208,6 @@ class DataPreprocessingFeatureEngineering(AbstractDataPreprocessing):
             self._LOADED_ICM_DICT["ICM_all"], self._LOADED_ICM_MAPPER_DICT["ICM_all"] = build_ICM_all(
                 self._LOADED_ICM_DICT,
                 self._LOADED_ICM_MAPPER_DICT)
-
-    def _preprocess_UCMs(self):
-        if ~np.all(np.in1d(list(self.ICM_names_to_UCM), list(self._LOADED_ICM_DICT.keys()))):
-            raise KeyError("Mapper contains wrong UCM names")
-
-        for ICM_name in self.ICM_names_to_UCM:
-            ICM_object: sps.csr_matrix = self._LOADED_ICM_DICT[ICM_name]
-            ICM_suffix_name = ICM_name.replace("ICM", "")
-
-            new_UCM = self.get_URM_all().dot(ICM_object).tocoo()
-            new_UCM_name = "UCM{}".format(ICM_suffix_name)
-            vectorized_change_label = np.vectorize(lambda elem: "%s-%d" % (ICM_suffix_name, elem))
-
-            new_row = np.array(new_UCM.row, dtype="str")
-            new_col = vectorized_change_label(new_UCM.col)
-            new_data = np.array(new_UCM.data, dtype=np.float32)
-
-            user_original_ID_to_index = self._LOADED_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
-            UCM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=user_original_ID_to_index,
-                                                            on_new_row="ignore")
-            UCM_builder.add_data_lists(new_row, new_col, new_data)
-
-            self.AVAILABLE_UCM.append(new_UCM_name)
-            self._LOADED_UCM_DICT[new_UCM_name] = new_UCM
-            self._LOADED_UCM_MAPPER_DICT[new_UCM_name] = UCM_builder.get_column_token_to_id_mapper()
-
-        # Rebuild UCM_all
-        if "UCM_all" in self.get_loaded_UCM_names():
-            self._LOADED_UCM_DICT["UCM_all"], self._LOADED_UCM_MAPPER_DICT["UCM_all"] = build_UCM_all(
-                self._LOADED_UCM_DICT,
-                self._LOADED_UCM_MAPPER_DICT)
 
 
 class DataPreprocessingImputation(AbstractDataPreprocessing):
@@ -296,29 +258,21 @@ class DataPreprocessingImputation(AbstractDataPreprocessing):
                 self._LOADED_ICM_DICT,
                 self._LOADED_ICM_MAPPER_DICT)
 
-    def _preprocess_UCMs(self):
-        # TODO: add imputation implementation for UCMs
-        pass
-
 
 class DataPreprocessingTransform(AbstractDataPreprocessing):
 
     DATASET_SUBFOLDER = "t/"
 
-    def __init__(self, reader: DataReader, ICM_name_to_transform_mapper: dict,
-                 UCM_name_to_transform_mapper: dict, soft_copy=True):
+    def __init__(self, reader: DataReader, ICM_name_to_transform_mapper: dict, soft_copy=True):
         """
         Transform ICM data by a function given in the mapper
         :param reader: data reader
         :param ICM_name_to_transform_mapper: A mapper from ICM name to a function that takes as input an array and
                                              give as output another array with the same size
-        :param UCM_name_to_transform_mapper: A mapper from UCM name to a function that takes as input an array and
-                                             give as output another array with the same size
         :param soft_copy:
         """
         super().__init__(reader, soft_copy)
         self.ICM_name_to_transform_mapper = ICM_name_to_transform_mapper
-        self.UCM_name_to_transform_mapper = UCM_name_to_transform_mapper
 
     def _preprocess_URM_all(self, URM_all: sps.csr_matrix):
         return URM_all
@@ -339,41 +293,22 @@ class DataPreprocessingTransform(AbstractDataPreprocessing):
                 self._LOADED_ICM_DICT,
                 self._LOADED_ICM_MAPPER_DICT)
 
-    def _preprocess_UCMs(self):
-        if ~np.all(np.in1d(list(self.UCM_name_to_transform_mapper.keys()), list(self._LOADED_UCM_DICT.keys()))):
-            raise KeyError("Mapper contains wrong UCM names")
-
-        for UCM_name, transformer in self.UCM_name_to_transform_mapper.items():
-            UCM_object: sps.csr_matrix = self._LOADED_UCM_DICT[UCM_name]
-
-            UCM_object.data = transformer(UCM_object.data)
-            self._LOADED_UCM_DICT[UCM_name] = UCM_object
-
-        # Re-build UCM_all
-        if "UCM_all" in self.get_loaded_UCM_names():
-            self._LOADED_UCM_DICT["UCM_all"], self._LOADED_UCM_MAPPER_DICT["UCM_all"] = build_UCM_all(
-                self._LOADED_UCM_DICT,
-                self._LOADED_UCM_MAPPER_DICT)
-
 
 class DataPreprocessingDiscretization(AbstractDataPreprocessing):
     DATASET_SUBFOLDER = "d/"
 
-    def __init__(self, reader: DataReader, ICM_name_to_bins_mapper: dict,
-                 UCM_name_to_bins_mapper: dict, soft_copy=True):
+    def __init__(self, reader: DataReader, ICM_name_to_bins_mapper: dict, soft_copy=True):
         """
         Digitize ICMs and UCMs whose name is inside the ICM_name_to_bins_mapper and UCM_name_to_bins_mapper
         and re-merge ICMs/UCMs in order to obtain ICM_all/UCM_all
 
         :param reader: data reader
         :param ICM_name_to_bins_mapper: mapper from ICM_name to number of bins
-        :param UCM_name_to_bins_mapper: mapper from UCM_name to number of bins
         :param soft_copy
 
         """
         super().__init__(reader, soft_copy)
         self.ICM_name_to_bins_mapper = ICM_name_to_bins_mapper
-        self.UCM_name_to_bins_mapper = UCM_name_to_bins_mapper
 
     def _preprocess_URM_all(self, URM_all: sps.csr_matrix):
         return URM_all
@@ -407,33 +342,3 @@ class DataPreprocessingDiscretization(AbstractDataPreprocessing):
             self._LOADED_ICM_DICT["ICM_all"], self._LOADED_ICM_MAPPER_DICT["ICM_all"] = build_ICM_all(
                 self._LOADED_ICM_DICT,
                 self._LOADED_ICM_MAPPER_DICT)
-
-    def _preprocess_UCMs(self):
-        if ~np.all(np.in1d(list(self.UCM_name_to_bins_mapper.keys()), list(self._LOADED_UCM_DICT.keys()))):
-            raise KeyError("Mapper contains wrong UCM names")
-
-        # Digitize unskewed data of ICMs
-        for UCM_name, bins in self.UCM_name_to_bins_mapper.items():
-            UCM_object: sps.csr_matrix = self._LOADED_UCM_DICT[UCM_name]
-            if UCM_object.shape[1] != 1:
-                raise KeyError("Given ICM name is not regarding a single feature, thus, it cannot be discretized")
-
-            x = np.array(UCM_object.data)
-            labelled_x = transform_numerical_to_label(x, bins)
-            vectorized_change_label = np.vectorize(lambda elem: "%s-%d" % (UCM_name, elem))
-            labelled_x = vectorized_change_label(labelled_x)
-
-            user_original_ID_to_index = self._LOADED_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
-            UCM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=user_original_ID_to_index,
-                                                            on_new_row="ignore")
-            UCM_builder.add_data_lists(np.array(UCM_object.tocoo().row, dtype=str), labelled_x,
-                                       np.ones(len(labelled_x), dtype=np.float32))
-
-            self._LOADED_UCM_DICT[UCM_name] = UCM_builder.get_SparseMatrix()
-            self._LOADED_UCM_MAPPER_DICT[UCM_name] = UCM_builder.get_column_token_to_id_mapper()
-
-        # Re-build UCM_all
-        if "UCM_all" in self.get_loaded_UCM_names():
-            self._LOADED_UCM_DICT["UCM_all"], self._LOADED_UCM_MAPPER_DICT["UCM_all"] = build_UCM_all(
-                self._LOADED_UCM_DICT,
-                self._LOADED_UCM_MAPPER_DICT)

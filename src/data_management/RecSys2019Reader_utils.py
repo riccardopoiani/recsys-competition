@@ -1,11 +1,10 @@
+import numpy as np
+import pandas as pd
+import scipy.sparse as sps
+
 from course_lib.Data_manager.DataReader import DataReader
 from course_lib.Data_manager.DataReader_utils import merge_ICM
 from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs
-import pandas as pd
-import numpy as np
-import scipy.sparse as sps
-
-from src.feature.feature_processing import transform_numerical_to_label
 
 
 def load_URM(file_path, separator=",", if_new_user="add", if_new_item="add", item_original_ID_to_index=None,
@@ -204,30 +203,6 @@ def get_ICM_numerical(reader: DataReader, with_item_popularity=True):
         ICM_numerical, ICM_numerical_mapper = merge_ICM(ICM_numerical, ICM_item_pop, ICM_numerical_mapper,
                                                         ICM_item_pop_mapper)
     return ICM_numerical, ICM_numerical_mapper
-
-
-def get_UCM_all(reader: DataReader, with_user_act=True, discretize_user_act_bins=20):
-    UCM_age = reader.get_UCM_from_name("UCM_age")
-    UCM_region = reader.get_UCM_from_name("UCM_region")
-    UCM_user_act = reader.get_UCM_from_name("UCM_user_act")
-
-    x = np.array(UCM_user_act.data)
-    x = np.log1p(x)
-    labelled_x = transform_numerical_to_label(x, discretize_user_act_bins)
-    vectorized_change_label = np.vectorize(lambda elem: "%s-%d" % ("UCM_user_act", elem))
-    labelled_x = vectorized_change_label(labelled_x)
-
-    get_user_original_ID_to_index_mapper = reader.get_user_original_ID_to_index_mapper()
-    UCM_builder = IncrementalSparseMatrix_FilterIDs(preinitialized_row_mapper=get_user_original_ID_to_index_mapper,
-                                                    on_new_row="ignore")
-    UCM_builder.add_data_lists(np.array(UCM_user_act.tocoo().row, dtype=str), labelled_x,
-                               np.ones(len(labelled_x), dtype=np.float32))
-    UCM_user_act = UCM_builder.get_SparseMatrix()
-
-    UCM_all, _ = merge_UCM(UCM_age, UCM_region, {}, {})
-    if with_user_act:
-        UCM_all, _ = merge_UCM(UCM_all, UCM_user_act, {}, {})
-    return UCM_all
 
 
 def merge_UCM(UCM1, UCM2, mapper_UCM1, mapper_UCM2):

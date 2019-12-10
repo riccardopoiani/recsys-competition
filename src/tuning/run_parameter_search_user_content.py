@@ -19,9 +19,8 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
                                           output_folder_path,
                                           output_file_name_root,
                                           metric_to_optimize,
-                                          allow_weighting = False,
-                                          recommender_input_args_last_test = None):
-
+                                          allow_weighting=False,
+                                          recommender_input_args_last_test=None):
     original_parameter_search_space = parameter_search_space
 
     hyperparameters_range_dictionary = {}
@@ -33,12 +32,12 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
     is_set_similarity = similarity_type in ["tversky", "dice", "jaccard", "tanimoto"]
 
     if similarity_type == "asymmetric":
-        hyperparameters_range_dictionary["asymmetric_alpha"] = Real(low = 0, high = 2, prior = 'uniform')
+        hyperparameters_range_dictionary["asymmetric_alpha"] = Real(low=0, high=2, prior='uniform')
         hyperparameters_range_dictionary["normalize"] = Categorical([True])
 
     elif similarity_type == "tversky":
-        hyperparameters_range_dictionary["tversky_alpha"] = Real(low = 0, high = 2, prior = 'uniform')
-        hyperparameters_range_dictionary["tversky_beta"] = Real(low = 0, high = 2, prior = 'uniform')
+        hyperparameters_range_dictionary["tversky_alpha"] = Real(low=0, high=2, prior='uniform')
+        hyperparameters_range_dictionary["tversky_beta"] = Real(low=0, high=2, prior='uniform')
         hyperparameters_range_dictionary["normalize"] = Categorical([True])
 
     elif similarity_type == "euclidean":
@@ -46,33 +45,32 @@ def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
         hyperparameters_range_dictionary["normalize_avg_row"] = Categorical([True, False])
         hyperparameters_range_dictionary["similarity_from_distance_mode"] = Categorical(["lin", "log", "exp"])
 
-
     if not is_set_similarity:
 
         if allow_weighting:
             hyperparameters_range_dictionary["feature_weighting"] = Categorical(["none", "BM25", "TF-IDF"])
             hyperparameters_range_dictionary["interactions_feature_weighting"] = Categorical(["none", "BM25", "TF-IDF"])
 
-
     local_parameter_search_space = {**hyperparameters_range_dictionary, **original_parameter_search_space}
 
     parameterSearch.search(recommender_input_args,
-                           parameter_search_space = local_parameter_search_space,
-                           n_cases = n_cases,
-                           n_random_starts = n_random_starts,
-                           resume_from_saved = resume_from_saved,
-                           save_model = save_model,
-                           output_folder_path = output_folder_path,
-                           output_file_name_root = output_file_name_root + "_" + similarity_type,
-                           metric_to_optimize = metric_to_optimize,
-                           recommender_input_args_last_test = recommender_input_args_last_test)
+                           parameter_search_space=local_parameter_search_space,
+                           n_cases=n_cases,
+                           n_random_starts=n_random_starts,
+                           resume_from_saved=resume_from_saved,
+                           save_model=save_model,
+                           output_folder_path=output_folder_path,
+                           output_file_name_root=output_file_name_root + "_" + similarity_type,
+                           metric_to_optimize=metric_to_optimize,
+                           recommender_input_args_last_test=recommender_input_args_last_test)
 
 
-def run_parameter_search_user_content(recommender_class, URM_train, UCM_object, UCM_name, URM_train_last_test=None,
-                               n_cases=30, n_random_starts=5, resume_from_saved=False, save_model="best",
-                               evaluator_validation=None, evaluator_test=None, metric_to_optimize="PRECISION",
-                               output_folder_path="result_experiments/", parallelizeKNN=False, allow_weighting=True,
-                               similarity_type_list=None):
+def run_parameter_search_user_demographic(recommender_class, URM_train, UCM_object, UCM_name, URM_train_last_test=None,
+                                          n_cases=30, n_random_starts=5, resume_from_saved=False, save_model="best",
+                                          evaluator_validation=None, evaluator_test=None, metric_to_optimize="PRECISION",
+                                          output_folder_path="result_experiments/", parallelizeKNN=False,
+                                          allow_weighting=True,
+                                          similarity_type_list=None):
     # If directory does not exist, create
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
