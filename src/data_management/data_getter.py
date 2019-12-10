@@ -8,24 +8,24 @@ from src.data_management.data_preprocessing import apply_feature_engineering_UCM
 
 
 def get_popular_items(URM, popular_threshold=100):
-    '''
+    """
     Get the items above a certain threshold
 
     :param URM: URM on which items will be extracted
     :param popular_threshold: popularity threshold
     :return:
-    '''
+    """
     return _get_popular(URM, popular_threshold, axis=0)
 
 
 def get_active_users(URM, popular_threshold=100):
-    '''
+    """
     Get the users with activity above a certain threshold
 
     :param URM: URM on which users will be extracted
     :param popular_threshold: popularty threshold
     :return:
-    '''
+    """
     return _get_popular(URM, popular_threshold, axis=1)
 
 

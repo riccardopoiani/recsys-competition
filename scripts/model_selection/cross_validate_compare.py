@@ -111,9 +111,9 @@ if __name__ == '__main__':
                                                                         UCM_train=UCM_age_region)
 
         weighted_mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train,
-                                                                    ICM_subclass_all=ICM_subclass,
                                                                     ICM_all=ICM,
-                                                                    UCM_all=UCM_age_region)
+                                                                    ICM_subclass=ICM_subclass,
+                                                                    UCM_age_region=UCM_age_region)
 
         hybrid_demographic = HybridDemographicRecommender(URM_train)
         hybrid_demographic.reset_groups()
