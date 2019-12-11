@@ -1,8 +1,9 @@
 
-
-
 SPLIT_SEED = 69420
+TOTAL_USERS = 30911
 
+def get_total_number_of_users():
+    return TOTAL_USERS
 
 def get_split_seed():
     return SPLIT_SEED

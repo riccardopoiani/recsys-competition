@@ -2,20 +2,62 @@ from course_lib.Base.BaseRecommender import BaseRecommender
 from scipy.sparse import csr_matrix
 import numpy as np
 import pandas as pd
+from src.utils.general_utility_functions import get_total_number_of_users
+
 import xgboost
 
 
-def add_item_popularity():
-    raise NotImplemented()
+def add_user_len_information(data_frame: pd.DataFrame, URM_train: csr_matrix):
+    """
+    Add information concerning the user profile length to the row of the dataframe
 
+    :param data_frame: data frame that is being pre-processed from boosting
+    :param URM_train: URM train from which to take profile length information
+    :return: data frame with new content inserted
+    """
+    data_frame = data_frame.copy()
 
-def add_user_len_information(data_frame: pd.DataFrame, URM_train):
-    raise NotImplemented()
+    user_act = (URM_train > 0).sum(axis=1)
+    user_act = np.array(user_act).squeeze()
+    user_ids = np.arange(URM_train.shape[0])
+    data = np.array([user_ids, user_act])
+    data = np.transpose(data)
+    new_df = pd.DataFrame(data=data, columns=["row", "user_act"])
+
+    data_frame = pd.merge(data_frame, new_df, left_on="user_id", right_on="row")
+    data_frame = data_frame.drop(columns=["row"], inplace=False)
+
+    return data_frame
 
 
 def remap_data_frame(df: pd.DataFrame, mapper):
+    """
+    Change user_id columns of the df given in input, according to the mapper.
+    Users that are not present will be removed, and the others will be mapped to the correct number.
+
+
+    :param df: dataframe that will be modified
+    :param mapper: mapper according to which the dataframe will be modified
+    :return: dataframe with "user_id" column modified properly
+    """
     df = df.copy()
-    raise NotImplemented()
+
+    # Remove users that are not present in the mapper
+    original_users = df['row'].values
+    new_users_key = list(mapper.keys())
+    new_users_key = list(map(int, new_users_key))
+    new_users_key = np.array(new_users_key)
+    mask = np.in1d(original_users, new_users_key, invert=True)
+    remove = original_users[mask]
+    df = df.set_index("row")
+    mask = np.in1d(df.index, remove)
+    df = df.drop(df.index[mask])
+
+    # Map the index to the new one
+    df = df.reset_index()
+    df['row'] = df['row'].map(lambda x: mapper[str(x)])
+
+    return df
 
 
 def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/", use_region=True, use_age=True):
@@ -29,20 +71,50 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
     :param use_age: True if age information should be used, false otherwise
     :return: pd.DataFrame containing the original data frame+ UCM information
     """
+    total_users = get_total_number_of_users()  # Total number of users (-1 since indexing from 0)
+
     data_frame = data_frame.copy()
     df_region: pd.DataFrame = pd.read_csv(path + "data_UCM_age.csv")
     df_age: pd.DataFrame = pd.read_csv(path + "data_UCM_region.csv")
 
     # Re-map UCM data frame in order to have the correct user information
     if use_region:
-        df_region = remap_data_frame(df=df_region, mapper=user_mapper)
         df_region = df_region[['row', 'col']]
-        df_region = df_region.rename(columns={"col": "region"})
+
+        dfDummies = pd.get_dummies(df_region['col'], prefix='region')
+        dfDummies = dfDummies.join(df_region['row'])
+        dfDummies = dfDummies.groupby(['row'], as_index=False).sum()
+
+        # Fill missing values
+        user_present = dfDummies['row'].values
+        total_users = np.arange(total_users)
+        mask = np.in1d(total_users, user_present, invert=True)
+        missing_users = total_users[mask]
+        num_col = dfDummies.columns.size
+        missing_val = np.zeros(shape=(num_col, missing_users.size))
+        missing_val[0] = missing_users
+        missing_df = pd.DataFrame(data=np.transpose(missing_val), dtype=np.int32, columns=dfDummies.columns)
+        df_region = dfDummies.append(missing_df)
+
+        df_region = remap_data_frame(df=df_region, mapper=user_mapper)
         data_frame = pd.merge(data_frame, df_region, right_on="row", left_on="user_id")
         data_frame = data_frame.drop(columns=["row"], inplace=True)
     if use_age:
-        df_age = remap_data_frame(df=df_age, mapper=user_mapper)
         df_age = df_age[['row', 'col']]
+
+        # Handle missing values: fill with mode + 1
+        users_present = df_age['row'].values
+        total_users = np.arange(total_users)
+        mask = np.in1d(total_users, users_present, invert=True)
+        missing_users = total_users[mask].astype(np.int32)
+        missing_val_filled = np.ones(missing_users.size) * (int(df_age['col'].mode())+1)
+        missing = np.array([missing_users, missing_val_filled], dtype=np.int32)
+        missing_df = pd.DataFrame(data=np.transpose(missing), columns=["row", "col"])
+        df_age = df_age.append(missing_df)
+        df_age = df_age.reset_index()
+        df_age = df_age[['row', 'col']]
+
+        df_age = remap_data_frame(df=df_age, mapper=user_mapper)
         df_age = df_age.rename(columns={"col": "age"})
         data_frame = pd.merge(data_frame, df_age, right_on="row", left_on="user_id")
         data_frame = data_frame.drop(columns=["row"], inplace=True)

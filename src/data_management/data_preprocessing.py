@@ -4,6 +4,7 @@ import scipy.sparse as sps
 from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix
 from src.data_management.RecSys2019Reader_utils import build_UCM_all
 
+
 # ----------- FEATURE ENGINEERING -----------
 
 def apply_feature_engineering_ICM(ICM_dict: dict, URM, UCM_dict: dict, ICM_names_to_count: list,
@@ -39,7 +40,7 @@ def apply_feature_engineering_ICM(ICM_dict: dict, URM, UCM_dict: dict, ICM_names
     return ICM_dict
 
 
-def apply_feature_engineering_UCM(UCM_dict: dict , URM, ICM_dict: dict, ICM_names_to_UCM: list):
+def apply_feature_engineering_UCM(UCM_dict: dict, URM, ICM_dict: dict, ICM_names_to_UCM: list):
     if ~np.all(np.in1d(ICM_names_to_UCM, list(ICM_dict.keys()))):
         raise KeyError("Mapper contains wrong UCM names")
 
@@ -132,6 +133,7 @@ def apply_discretization_UCM(UCM_dict, UCM_name_to_bins_mapper: dict):
         UCM_dict[UCM_name] = UCM_builder.get_SparseMatrix()
     return UCM_dict
 
+
 # ----------- BUILD ALL -----------
 
 def build_ICM_all_from_dict(ICM_dict: dict):
@@ -149,6 +151,7 @@ def build_UCM_all_from_dict(UCM_dict: dict):
     UCM_all, _ = build_UCM_all(UCM_dict, mapper_dict)
     return UCM_all
 
+
 # ----------- UTILS -----------
 
 def transform_numerical_to_label(x: np.ndarray, bins=20):
@@ -162,7 +165,6 @@ def transform_numerical_to_label(x: np.ndarray, bins=20):
     """
     eps = 10e-6
     norm_x = (x - x.min()) / (x.max() - x.min() + eps) * 100
-    bins_list = [i * (norm_x.max()/bins) for i in range(bins)]
+    bins_list = [i * (norm_x.max() / bins) for i in range(bins)]
     labelled_x = np.digitize(norm_x, bins_list, right=True)
     return labelled_x
-

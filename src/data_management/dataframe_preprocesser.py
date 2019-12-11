@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import scipy.sparse as sps
 from sklearn.preprocessing import Normalizer
-
+from src.utils.general_utility_functions import get_total_number_of_users
 
 def get_preprocessed_dataframe(path="../data/", age_transformer=None, activity_transformer=None,
                                keep_warm_only=False):
