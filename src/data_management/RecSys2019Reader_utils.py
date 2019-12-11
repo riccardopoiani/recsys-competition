@@ -20,7 +20,7 @@ def load_URM(file_path, separator=",", if_new_user="add", if_new_item="add", ite
 
     user_id_list = df_original['row'].values
     item_id_list = df_original['col'].values
-    rating_list = np.ones(len(user_id_list), dtype=np.float64)
+    rating_list = np.ones(len(user_id_list), dtype=np.float32)
 
     URM_all_builder.add_data_lists(user_id_list, item_id_list, rating_list)
     return URM_all_builder.get_SparseMatrix(), \
@@ -60,7 +60,7 @@ def load_ICM_sub_class(file_path, separator=",", if_new_item="add", item_origina
     item_id_list = df_original['row'].values
     sub_class_id_list = df_original['col'].values
 
-    ICM_builder.add_data_lists(item_id_list, sub_class_id_list, np.ones(len(item_id_list), dtype=np.float64))
+    ICM_builder.add_data_lists(item_id_list, sub_class_id_list, np.ones(len(item_id_list), dtype=np.float32))
 
     return ICM_builder.get_SparseMatrix(), \
            ICM_builder.get_column_token_to_id_mapper(), \
@@ -98,7 +98,7 @@ def load_ICM_item_pop(file_path, separator=',', if_new_item="add", item_original
 
     item_id_list = item_pop.index
     feature_list = ["item_pop"] * len(item_id_list)
-    data_list = item_pop.values.astype(np.float64)
+    data_list = item_pop.values.astype(np.float32)
 
     ICM_builder.add_data_lists(item_id_list, feature_list, data_list)
 
@@ -116,7 +116,7 @@ def load_UCM_age(file_path, separator=",", if_new_user="add", user_original_ID_t
     user_id_list = df_original['row'].values
     age_id_list = df_original['col'].values
 
-    UCM_builder.add_data_lists(user_id_list, age_id_list, np.ones(len(user_id_list), dtype=np.float64))
+    UCM_builder.add_data_lists(user_id_list, age_id_list, np.ones(len(user_id_list), dtype=np.float32))
 
     return UCM_builder.get_SparseMatrix(), UCM_builder.get_column_token_to_id_mapper(), \
            UCM_builder.get_row_token_to_id_mapper()
@@ -131,7 +131,7 @@ def load_UCM_region(file_path, separator=",", if_new_user="add", user_original_I
     user_id_list = df_original['row'].values
     region_id_list = df_original['col'].values
 
-    UCM_builder.add_data_lists(user_id_list, region_id_list, np.ones(len(user_id_list), dtype=np.float64))
+    UCM_builder.add_data_lists(user_id_list, region_id_list, np.ones(len(user_id_list), dtype=np.float32))
 
     return UCM_builder.get_SparseMatrix(), UCM_builder.get_column_token_to_id_mapper(), \
            UCM_builder.get_row_token_to_id_mapper()
@@ -150,7 +150,7 @@ def load_UCM_user_act(file_path, separator=",", if_new_user="add", user_original
 
     user_id_list = user_act.index
     feature_list = ["user_act"] * len(user_id_list)
-    data_list = user_act.values.astype(np.float64)
+    data_list = user_act.values.astype(np.float32)
 
     UCM_builder.add_data_lists(user_id_list, feature_list, data_list)
 
