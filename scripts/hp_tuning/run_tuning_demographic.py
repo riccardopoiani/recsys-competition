@@ -17,6 +17,7 @@ RECOMMENDER_CLASS_DICT = {
     "user_cbf_cf_all": UserKNNCBFCFRecommender
 }
 
+
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--reader_path", default="../../data/", help="path to the root of data files")
@@ -26,12 +27,13 @@ def get_arguments():
     parser.add_argument("-nr", "--n_random_starts", default=N_RANDOM_STARTS, help="If true, the search is random")
     parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
     parser.add_argument("-foh", "--focus_on_high", default=-1, help="focus the tuning only on users with profile"
-                                                                   "lengths larger than the one specified here")
+                                                                    "lengths larger than the one specified here")
     parser.add_argument("-eu", "--exclude_users", default=False, help="1 to exclude cold users, 0 otherwise")
     parser.add_argument("-fol", "--focus_on_low", default=-1, help="focus the tuning only on users with profile"
-                                                                  "lengths smaller than the one specified here")
+                                                                   "lengths smaller than the one specified here")
 
     return parser.parse_args()
+
 
 def main():
     args = get_arguments()
