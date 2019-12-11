@@ -3,8 +3,38 @@ from scipy.sparse import csr_matrix
 import numpy as np
 import pandas as pd
 from src.utils.general_utility_functions import get_total_number_of_users
+from sklearn.model_selection import train_test_split
+from src.utils.general_utility_functions import get_split_seed
 
-import xgboost
+import xgboost as xgb
+
+
+def add_label(data_frame: pd.DataFrame, URM_train: csr_matrix):
+    """
+    Create a dataframe with a single column with the correct predictions
+
+    :param data_frame: data frame containing information for boosting
+    :param URM_train: URM train matrix
+    :return: numpy array containing y information
+    """
+    user_ids = data_frame['user_id'].values
+    item_ids = data_frame['item_id'].values
+
+    y = np.zeros(user_ids.size)
+
+    for i in range(0, user_ids.size):
+        if i % 5000 == 0:
+            print("{} done over {}".format(i, user_ids.size))
+        true_ratings = URM_train[user_ids[i]].indices
+        if item_ids[i] in true_ratings:
+            y[i] = 1
+        else:
+            y[i] = 0
+
+    non_zero_count = np.count_nonzero(y)
+    print("There are {} non-zero ratings in {}".format(non_zero_count, y.size))
+
+    return y
 
 
 def add_user_len_information(data_frame: pd.DataFrame, URM_train: csr_matrix):
@@ -107,7 +137,7 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
         total_users = np.arange(total_users)
         mask = np.in1d(total_users, users_present, invert=True)
         missing_users = total_users[mask].astype(np.int32)
-        missing_val_filled = np.ones(missing_users.size) * (int(df_age['col'].mode())+1)
+        missing_val_filled = np.ones(missing_users.size) * (int(df_age['col'].mode()) + 1)
         missing = np.array([missing_users, missing_val_filled], dtype=np.int32)
         missing_df = pd.DataFrame(data=np.transpose(missing), columns=["row", "col"])
         df_age = df_age.append(missing_df)
@@ -189,7 +219,8 @@ def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecom
     return df
 
 
-def get_boosting_base_dataframe(URM_train: csr_matrix, top_recommender: BaseRecommender, cutoff: int):
+def get_boosting_base_dataframe(URM_train: csr_matrix, top_recommender: BaseRecommender, cutoff: int,
+                                exclude_seen=False):
     """
     Get boosting data-frame preprocessed
 
@@ -201,12 +232,15 @@ def get_boosting_base_dataframe(URM_train: csr_matrix, top_recommender: BaseReco
     :return:
     """
     # Setting items
-    recommendations = np.array(top_recommender.recommend(user_id_array=np.arange(URM_train.shape[0]), cutoff=cutoff))
+    recommendations = np.array(top_recommender.recommend(user_id_array=np.arange(URM_train.shape[0]), cutoff=cutoff,
+                                                         remove_seen_flag=exclude_seen))
     user_recommendations_items = recommendations.reshape((recommendations.size, 1)).squeeze()
 
     # Setting users
     user_recommendations_user_id = np.zeros(user_recommendations_items.size)
     for user in range(0, URM_train.shape[0]):
+        if user % 5000 == 0:
+            print("{} done over {}".format(user, URM_train.shape[0]))
         user_recommendations_user_id[(user * cutoff):(user * cutoff) + cutoff] = user
 
     data_frame = pd.DataFrame({"user_id": user_recommendations_user_id, "item_id": user_recommendations_items})
@@ -216,8 +250,17 @@ def get_boosting_base_dataframe(URM_train: csr_matrix, top_recommender: BaseReco
 
 class Boosting(BaseRecommender):
 
-    def __init__(self, URM_train, dataframe):
+    def __init__(self, URM_train, x, y, test_size=0.2):
         super().__init__(URM_train)
+        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=get_split_seed())
+        self.dtrain = xgb.DMatrix(data=X_train, label=y_train)
+        self.dtest = xgb.DMatrix(data=X_test, label=y_test)
+        self.evallist = [(self.dtest, 'eval'), (self.dtrain, 'train')]
+
+    def train(self, num_round, param, early_stopping_round):
+        bst = xgb.train(params=param, dtrain=self.dtrain, num_boost_round=num_round, evals=self.evallist,
+                        early_stopping_rounds=early_stopping_round)
+        return bst
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):
         raise NotImplemented()
