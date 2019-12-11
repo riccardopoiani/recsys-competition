@@ -4,7 +4,7 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train
-from src.model import best_models
+from src.model import best_models, new_best_models
 from src.tuning.run_parameter_search_cfw_linalg import run_parameter_search
 from src.utils.general_utility_functions import get_split_seed
 
@@ -30,11 +30,11 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    item_cf = best_models.ItemCBF_CF.get_model(URM_train, load_model=False)
-    W_sparse_CF = item_cf.W_sparse
+    fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all)
+    W_sparse_CF = fusion.W_sparse
 
     # Fit ItemKNN best model and get the sparse matrix of the weights
     run_parameter_search(URM_train=URM_train, output_folder_path=version_path,
                          evaluator_test=evaluator_test,
-                         W_sparse_CF=W_sparse_CF, ICM_all=ICM_all, n_cases=60, n_random_starts=20)
+                         W_sparse_CF=W_sparse_CF, ICM_all=URM_train.T.tocsr(), n_cases=60, n_random_starts=20)
     print("...tuning ended")

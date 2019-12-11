@@ -33,8 +33,57 @@ class ItemCBF_all(IContentModel):
     recommender_name = "ItemCBF_all"
 
 
-# ---------------- ENSEMBLES -----------------
+# ---------------- DEMOGRAPHICS -----------------
+class UserCBF_CF_Cold(IBestModel):
+    """
+    User CBF_CF tuned with URM_train and UCM_all
+     - MAP on tuning (only cold users): 0.0107
+    """
+    best_parameters = {'topK': 2973, 'shrink': 117, 'similarity': 'asymmetric', 'normalize': True,
+                       'asymmetric_alpha': 0.007315425738737337, 'feature_weighting': 'BM25',
+                       'interactions_feature_weighting': 'TF-IDF'}
 
+    @classmethod
+    def get_model(cls, URM_train, UCM_train):
+        from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
+        model = UserKNNCBFCFRecommender(URM_train=URM_train, UCM_train=UCM_train)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+
+class UserCBF_CF_Warm(IBestModel):
+    """
+    User CBF tuned with URM_train and UCM (containing age, region and URM_train)
+     - MAP (only warm): 0.0305
+    """
+    best_parameters = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
+                       'feature_weighting': 'BM25', 'interactions_feature_weighting': "TF-IDF"}
+
+    @classmethod
+    def get_model(cls, URM_train, UCM_train):
+        from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
+        model = UserKNNCBFCFRecommender(URM_train=URM_train, UCM_train=UCM_train)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+
+class UserSimilarity(IBestModel):
+    """
+    User Similarity Recommender tuned with URM_train and UCM_all using new best models ItemCBF_CF as recommender helper
+     - MAP (only cold): 0.0098
+    """
+    best_parameters = {'topK': 1000, 'shrink': 0, 'similarity': 'cosine', 'normalize': True,
+                       'feature_weighting': 'BM25'}
+
+    @classmethod
+    def get_model(cls, URM_train, UCM_train, recommender):
+        from src.model.KNN.UserSimilarityRecommender import UserSimilarityRecommender
+        model = UserSimilarityRecommender(URM_train=URM_train, UCM_train=UCM_train, recommender=recommender)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+
+# ---------------- ENSEMBLES -----------------
 class FusionMergeItem_CBF_CF(IBestModel):
     """
     Fusion, i.e. bagging w/o bootstrap, merge of best models: Item_CBF_CF using ICM_all (sub_class, price, asset,

@@ -3,24 +3,28 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
+from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.feature.demographics_content import get_user_demographic
-from src.model import best_models
+from src.model import best_models, new_best_models
 from src.plots.recommender_plots import *
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
-    data_reader = RecSys2019Reader("../../data/")
+    root_data_path = "../../data"
+    data_reader = RecSys2019Reader(root_data_path)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
                                                force_new_split=True, seed=get_split_seed())
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
+    ICM_all_new = get_ICM_train(data_reader)
+
+    UCM_all_new = get_UCM_train(data_reader, root_data_path)
+
     # Build ICMs
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
     ICM = data_reader.get_ICM_from_name("ICM_all")
     ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
-    ICM_all, _ = merge_ICM(ICM, URM_train.transpose(), {}, {})
-    ICM_subclass_all, _ = merge_ICM(ICM_subclass, URM_train.transpose(), {}, {})
 
     # Build UCMs
     URM_all = data_reader.dataReader_object.get_URM_all()
@@ -29,20 +33,25 @@ if __name__ == '__main__':
     UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
 
     UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=1)
-    UCM_all, _ = merge_UCM(UCM_age_region, URM_train, {}, {})
 
     UCM_region_warm = get_warmer_UCM(UCM_region, URM_all, threshold_users=1)
     UCM_age_warm = get_warmer_UCM(UCM_age, URM_all, threshold_users=1)
 
-    sub2 = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train, ICM_train=ICM_subclass_all,
-                                                              UCM_train=UCM_all)
-    sub2.RECOMMENDER_NAME = "SUB2"
+    #fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all_new)
+    #sub2 = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train, ICM_train=ICM_subclass,
+    #                                                          UCM_train=UCM_age_region)
+    #sub2.RECOMMENDER_NAME = "SUB2"
 
-    mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train, ICM_subclass_all=ICM_subclass_all,
-                                                       ICM_all=ICM_all, UCM_age_region=UCM_all)
+    mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train, ICM_subclass=ICM_subclass,
+                                                       ICM_all=ICM, UCM_age_region=UCM_age_region)
     mixed.RECOMMENDER_NAME = "MIXED"
 
-    recommender_list = [mixed, sub2]
+    item_cbf_cf = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_all_new)
+    user_cbf_cf = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all_new)
+
+
+
+    recommender_list = [mixed, item_cbf_cf, user_cbf_cf]
 
     # Building path
     version_path = "../../report/graphics/comparison/"

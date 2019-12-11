@@ -143,30 +143,3 @@ class BaggingMergeUserSimilarityRecommender(BaggingMergeRecommender, BaseUserSim
 
         if self.topK >= 0:
             self.W_sparse = similarityMatrixTopK(self.W_sparse, k=self.topK).tocsr()
-
-
-class BaggingMergeFactorsRecommender(BaggingMergeRecommender, BaseMatrixFactorizationRecommender):
-
-    RECOMMENDER_NAME = "BaggingMergeFactorsRecommender"
-
-    COMPATIBLE_RECOMMENDERS = [ImplicitALSRecommender, LogisticMFRecommender, MF_BPR_Recommender]
-
-    def __init__(self, URM_train, recommender_class, **recommender_constr_kwargs):
-        super().__init__(URM_train, recommender_class, **recommender_constr_kwargs)
-        self.USER_factors = None
-        self.ITEM_factors = None
-
-    def fit(self, num_models=5, hyper_parameters_range=None, **kwargs):
-        super().fit(num_models, hyper_parameters_range, **kwargs)
-
-    def update_model(self, recommender_object):
-        if self.USER_factors is None and self.ITEM_factors is None:
-            self.USER_factors = recommender_object.USER_factors
-            self.ITEM_factors = recommender_object.ITEM_factors
-        else:
-            self.USER_factors = self.USER_factors + recommender_object.USER_factors
-            self.ITEM_factors = self.ITEM_factors + recommender_object.ITEM_factors
-
-    def reconcile_model(self, num_models):
-        self.USER_factors = self.USER_factors / num_models
-        self.ITEM_factors = self.ITEM_factors / num_models
