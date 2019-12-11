@@ -1,12 +1,9 @@
-from course_lib.Base.BaseRecommender import BaseRecommender
-from scipy.sparse import csr_matrix
 import numpy as np
 import pandas as pd
-from src.utils.general_utility_functions import get_total_number_of_users
-from sklearn.model_selection import train_test_split
-from src.utils.general_utility_functions import get_split_seed
+from scipy.sparse import csr_matrix
 
-import xgboost as xgb
+from course_lib.Base.BaseRecommender import BaseRecommender
+from src.utils.general_utility_functions import get_total_number_of_users
 
 
 def add_label(data_frame: pd.DataFrame, URM_train: csr_matrix):
@@ -188,8 +185,8 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
     return data_frame
 
 
-def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecommender, cutoff,
-                                column_name):
+def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecommender,
+                                cutoff, column_name):
     """
     Add recommender predictions to the data frame
 
@@ -198,13 +195,11 @@ def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecom
 
     :param data_frame: data frame on which info will be added
     :param recommender: recommender object from which scores will be predicted
-    :param cutoff: cutoff with which the dataframe has been build
     :param column_name: name of the column that will be added
     :return:
     """
     df = data_frame.copy()
 
-    cutoff = 20
     items = df['item_id'].values.astype(int)
     users = df['user_id'].values.astype(int)
     score_list = []
@@ -219,51 +214,30 @@ def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecom
     return df
 
 
-def get_boosting_base_dataframe(URM_train: csr_matrix, top_recommender: BaseRecommender, cutoff: int,
+def get_boosting_base_dataframe(user_id_array, top_recommender: BaseRecommender, cutoff: int,
                                 exclude_seen=False):
     """
-    Get boosting data-frame preprocessed
+    Get boosting data-frame preprocessed.
+    In particular, it will create a data frame containing "user_id" presents in user_id_array, and computing
+    possible recommendations using top_recommender, from which "item_id" will be extracted
 
-    :param URM_train:
-    :param ICM_train:
-    :param UCM_train:
+    :param user_id_array: user that you want to recommend
     :param top_recommender: top recommender used for building the dataframe
     :param cutoff: if you are interested in MAP@10, choose a large number, for instance, 20
-    :return:
+    :return: dataframe containing the described information
     """
     # Setting items
-    recommendations = np.array(top_recommender.recommend(user_id_array=np.arange(URM_train.shape[0]), cutoff=cutoff,
+    recommendations = np.array(top_recommender.recommend(user_id_array=user_id_array, cutoff=cutoff,
                                                          remove_seen_flag=exclude_seen))
     user_recommendations_items = recommendations.reshape((recommendations.size, 1)).squeeze()
 
     # Setting users
     user_recommendations_user_id = np.zeros(user_recommendations_items.size)
-    for user in range(0, URM_train.shape[0]):
+    for user in user_id_array:
         if user % 5000 == 0:
-            print("{} done over {}".format(user, URM_train.shape[0]))
+            print("{} done over {}".format(user, user_id_array.size))
         user_recommendations_user_id[(user * cutoff):(user * cutoff) + cutoff] = user
 
     data_frame = pd.DataFrame({"user_id": user_recommendations_user_id, "item_id": user_recommendations_items})
 
     return data_frame
-
-
-class Boosting(BaseRecommender):
-
-    def __init__(self, URM_train, x, y, test_size=0.2):
-        super().__init__(URM_train)
-        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=get_split_seed())
-        self.dtrain = xgb.DMatrix(data=X_train, label=y_train)
-        self.dtest = xgb.DMatrix(data=X_test, label=y_test)
-        self.evallist = [(self.dtest, 'eval'), (self.dtrain, 'train')]
-
-    def train(self, num_round, param, early_stopping_round):
-        bst = xgb.train(params=param, dtrain=self.dtrain, num_boost_round=num_round, evals=self.evallist,
-                        early_stopping_rounds=early_stopping_round)
-        return bst
-
-    def _compute_item_score(self, user_id_array, items_to_compute=None):
-        raise NotImplemented()
-
-    def save_model(self, folder_path, file_name=None):
-        raise NotImplemented()
