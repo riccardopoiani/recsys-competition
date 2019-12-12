@@ -5,14 +5,15 @@
 @author: Maurizio Ferrari Dacrema, Massimo Quadrana
 """
 
-
 import numpy as np
 import unittest
+
 
 class Metrics_Object(object):
     """
     Abstract class that should be used as superclass of all metrics requiring an object, therefore a state, to be computed
     """
+
     def __init__(self):
         pass
 
@@ -24,7 +25,6 @@ class Metrics_Object(object):
 
     def merge_with_other(self, other_metric_object):
         raise NotImplementedError()
-
 
 
 class Coverage_Item(Metrics_Object):
@@ -43,15 +43,12 @@ class Coverage_Item(Metrics_Object):
             self.recommended_mask[recommended_items_ids] = True
 
     def get_metric_value(self):
-        return self.recommended_mask.sum()/(len(self.recommended_mask)-self.n_ignore_items)
-
+        return self.recommended_mask.sum() / (len(self.recommended_mask) - self.n_ignore_items)
 
     def merge_with_other(self, other_metric_object):
         assert other_metric_object is Coverage_Item, "Coverage_Item: attempting to merge with a metric object of different type"
 
         self.recommended_mask = np.logical_or(self.recommended_mask, other_metric_object.recommended_mask)
-
-
 
 
 class Coverage_User(Metrics_Object):
@@ -67,17 +64,15 @@ class Coverage_User(Metrics_Object):
         self.n_ignore_users = len(ignore_users)
 
     def add_recommendations(self, recommended_items_ids, user_id):
-        self.users_mask[user_id] = len(recommended_items_ids)>0
+        self.users_mask[user_id] = len(recommended_items_ids) > 0
 
     def get_metric_value(self):
-        return self.users_mask.sum()/(len(self.users_mask)-self.n_ignore_users)
+        return self.users_mask.sum() / (len(self.users_mask) - self.n_ignore_users)
 
     def merge_with_other(self, other_metric_object):
         assert other_metric_object is Coverage_User, "Coverage_User: attempting to merge with a metric object of different type"
 
         self.users_mask = np.logical_or(self.users_mask, other_metric_object.users_mask)
-
-
 
 
 class MAP(Metrics_Object):
@@ -96,16 +91,13 @@ class MAP(Metrics_Object):
         self.n_users += 1
 
     def get_metric_value(self):
-        return self.cumulative_AP/self.n_users
+        return self.cumulative_AP / self.n_users
 
     def merge_with_other(self, other_metric_object):
         assert other_metric_object is MAP, "MAP: attempting to merge with a metric object of different type"
 
         self.cumulative_AP += other_metric_object.cumulative_AP
         self.n_users += other_metric_object.n_users
-
-
-
 
 
 class MRR(Metrics_Object):
@@ -124,16 +116,13 @@ class MRR(Metrics_Object):
         self.n_users += 1
 
     def get_metric_value(self):
-        return self.cumulative_RR/self.n_users
+        return self.cumulative_RR / self.n_users
 
     def merge_with_other(self, other_metric_object):
         assert other_metric_object is MAP, "MRR: attempting to merge with a metric object of different type"
 
         self.cumulative_RR += other_metric_object.cumulative_RR
         self.n_users += other_metric_object.n_users
-
-
-
 
 
 class Gini_Diversity(Metrics_Object):
@@ -158,10 +147,9 @@ class Gini_Diversity(Metrics_Object):
             self.recommended_counter[recommended_items_ids] += 1
 
     def get_metric_value(self):
-
         recommended_counter = self.recommended_counter.copy()
 
-        recommended_counter_mask = np.ones_like(recommended_counter, dtype = np.bool)
+        recommended_counter_mask = np.ones_like(recommended_counter, dtype=np.bool)
         recommended_counter_mask[self.ignore_items] = False
         recommended_counter_mask[recommended_counter == 0] = False
 
@@ -169,11 +157,12 @@ class Gini_Diversity(Metrics_Object):
 
         n_items = len(recommended_counter)
 
-        recommended_counter_sorted = np.sort(recommended_counter)       # values must be sorted
-        index = np.arange(1, n_items+1)                                 # index per array element
+        recommended_counter_sorted = np.sort(recommended_counter)  # values must be sorted
+        index = np.arange(1, n_items + 1)  # index per array element
 
-        #gini_index = (np.sum((2 * index - n_items  - 1) * recommended_counter_sorted)) / (n_items * np.sum(recommended_counter_sorted))
-        gini_diversity = 2*np.sum((n_items + 1 - index)/(n_items+1) * recommended_counter_sorted/np.sum(recommended_counter_sorted))
+        # gini_index = (np.sum((2 * index - n_items  - 1) * recommended_counter_sorted)) / (n_items * np.sum(recommended_counter_sorted))
+        gini_diversity = 2 * np.sum(
+            (n_items + 1 - index) / (n_items + 1) * recommended_counter_sorted / np.sum(recommended_counter_sorted))
 
         return gini_diversity
 
@@ -181,8 +170,6 @@ class Gini_Diversity(Metrics_Object):
         assert other_metric_object is Gini_Diversity, "Gini_Diversity: attempting to merge with a metric object of different type"
 
         self.recommended_counter += other_metric_object.recommended_counter
-
-
 
 
 class Diversity_Herfindahl(Metrics_Object):
@@ -211,7 +198,7 @@ class Diversity_Herfindahl(Metrics_Object):
 
         recommended_counter = self.recommended_counter.copy()
 
-        recommended_counter_mask = np.ones_like(recommended_counter, dtype = np.bool)
+        recommended_counter_mask = np.ones_like(recommended_counter, dtype=np.bool)
         recommended_counter_mask[self.ignore_items] = False
 
         recommended_counter = recommended_counter[recommended_counter_mask]
@@ -227,9 +214,6 @@ class Diversity_Herfindahl(Metrics_Object):
         assert other_metric_object is Diversity_Herfindahl, "Diversity_Herfindahl: attempting to merge with a metric object of different type"
 
         self.recommended_counter += other_metric_object.recommended_counter
-
-
-
 
 
 class Shannon_Entropy(Metrics_Object):
@@ -258,14 +242,14 @@ class Shannon_Entropy(Metrics_Object):
             self.recommended_counter[recommended_items_ids] += 1
 
     def get_metric_value(self):
-
-        assert np.all(self.recommended_counter >= 0.0), "Shannon_Entropy: self.recommended_counter contains negative counts"
+        assert np.all(
+            self.recommended_counter >= 0.0), "Shannon_Entropy: self.recommended_counter contains negative counts"
 
         recommended_counter = self.recommended_counter.copy()
 
         # Ignore from the computation both ignored items and items with zero occurrence.
         # Zero occurrence items will have zero probability and will not change the result, butt will generate nans if used in the log
-        recommended_counter_mask = np.ones_like(recommended_counter, dtype = np.bool)
+        recommended_counter_mask = np.ones_like(recommended_counter, dtype=np.bool)
         recommended_counter_mask[self.ignore_items] = False
         recommended_counter_mask[recommended_counter == 0] = False
 
@@ -273,7 +257,7 @@ class Shannon_Entropy(Metrics_Object):
 
         n_recommendations = recommended_counter.sum()
 
-        recommended_probability = recommended_counter/n_recommendations
+        recommended_probability = recommended_counter / n_recommendations
 
         shannon_entropy = -np.sum(recommended_probability * np.log2(recommended_probability))
 
@@ -282,17 +266,15 @@ class Shannon_Entropy(Metrics_Object):
     def merge_with_other(self, other_metric_object):
         assert other_metric_object is Gini_Diversity, "Shannon_Entropy: attempting to merge with a metric object of different type"
 
-        assert np.all(self.recommended_counter >= 0.0), "Shannon_Entropy: self.recommended_counter contains negative counts"
-        assert np.all(other_metric_object.recommended_counter >= 0.0), "Shannon_Entropy: other.recommended_counter contains negative counts"
+        assert np.all(
+            self.recommended_counter >= 0.0), "Shannon_Entropy: self.recommended_counter contains negative counts"
+        assert np.all(
+            other_metric_object.recommended_counter >= 0.0), "Shannon_Entropy: other.recommended_counter contains negative counts"
 
         self.recommended_counter += other_metric_object.recommended_counter
 
 
-
-
-
 import scipy.sparse as sps
-
 
 
 class Novelty(Metrics_Object):
@@ -319,37 +301,30 @@ class Novelty(Metrics_Object):
         self.n_items = len(self.item_popularity)
         self.n_interactions = self.item_popularity.sum()
 
-
     def add_recommendations(self, recommended_items_ids):
 
         self.n_evaluated_users += 1
 
-        if len(recommended_items_ids)>0:
+        if len(recommended_items_ids) > 0:
             recommended_items_popularity = self.item_popularity[recommended_items_ids]
 
-            probability = recommended_items_popularity/self.n_interactions
-            probability = probability[probability!=0]
+            probability = recommended_items_popularity / self.n_interactions
+            probability = probability[probability != 0]
 
-            self.novelty += np.sum(-np.log2(probability)/self.n_items)
-
+            self.novelty += np.sum(-np.log2(probability) / self.n_items)
 
     def get_metric_value(self):
 
         if self.n_evaluated_users == 0:
             return 0.0
 
-        return self.novelty/self.n_evaluated_users
+        return self.novelty / self.n_evaluated_users
 
     def merge_with_other(self, other_metric_object):
         assert other_metric_object is Novelty, "Novelty: attempting to merge with a metric object of different type"
 
         self.novelty = self.novelty + other_metric_object.novelty
         self.n_evaluated_users = self.n_evaluated_users + other_metric_object.n_evaluated_users
-
-
-
-
-
 
 
 class AveragePopularity(Metrics_Object):
@@ -365,41 +340,34 @@ class AveragePopularity(Metrics_Object):
         URM_train.eliminate_zeros()
         item_popularity = np.ediff1d(URM_train.indptr)
 
-
         self.cumulative_popularity = 0.0
         self.n_evaluated_users = 0
         self.n_items = URM_train.shape[0]
         self.n_interactions = item_popularity.sum()
 
-        self.item_popularity_normalized = item_popularity/item_popularity.max()
-
+        self.item_popularity_normalized = item_popularity / item_popularity.max()
 
     def add_recommendations(self, recommended_items_ids):
 
         self.n_evaluated_users += 1
 
-        if len(recommended_items_ids)>0:
+        if len(recommended_items_ids) > 0:
             recommended_items_popularity = self.item_popularity_normalized[recommended_items_ids]
 
-            self.cumulative_popularity += np.sum(recommended_items_popularity)/len(recommended_items_ids)
-
+            self.cumulative_popularity += np.sum(recommended_items_popularity) / len(recommended_items_ids)
 
     def get_metric_value(self):
 
         if self.n_evaluated_users == 0:
             return 0.0
 
-        return self.cumulative_popularity/self.n_evaluated_users
+        return self.cumulative_popularity / self.n_evaluated_users
 
     def merge_with_other(self, other_metric_object):
         assert other_metric_object is Novelty, "AveragePopularity: attempting to merge with a metric object of different type"
 
         self.cumulative_popularity = self.cumulative_popularity + other_metric_object.cumulative_popularity
         self.n_evaluated_users = self.n_evaluated_users + other_metric_object.n_evaluated_users
-
-
-
-
 
 
 class Diversity_similarity(Metrics_Object):
@@ -424,13 +392,11 @@ class Diversity_similarity(Metrics_Object):
         self.n_evaluated_users = 0
         self.diversity = 0.0
 
-
     def add_recommendations(self, recommended_items_ids):
 
         current_recommended_items_diversity = 0.0
 
-        for item_index in range(len(recommended_items_ids)-1):
-
+        for item_index in range(len(recommended_items_ids) - 1):
             item_id = recommended_items_ids[item_index]
 
             item_other_diversity = self.item_diversity_matrix[item_id, recommended_items_ids]
@@ -438,26 +404,23 @@ class Diversity_similarity(Metrics_Object):
 
             current_recommended_items_diversity += np.sum(item_other_diversity)
 
-
-        self.diversity += current_recommended_items_diversity/(len(recommended_items_ids)*(len(recommended_items_ids)-1))
+        self.diversity += current_recommended_items_diversity / (
+                    len(recommended_items_ids) * (len(recommended_items_ids) - 1))
 
         self.n_evaluated_users += 1
-
 
     def get_metric_value(self):
 
         if self.n_evaluated_users == 0:
             return 0.0
 
-        return self.diversity/self.n_evaluated_users
+        return self.diversity / self.n_evaluated_users
 
     def merge_with_other(self, other_metric_object):
         assert other_metric_object is Diversity_similarity, "Diversity: attempting to merge with a metric object of different type"
 
         self.diversity = self.diversity + other_metric_object.diversity
         self.n_evaluated_users = self.n_evaluated_users + other_metric_object.n_evaluated_users
-
-
 
 
 class Diversity_MeanInterList(Metrics_Object):
@@ -520,18 +483,15 @@ class Diversity_MeanInterList(Metrics_Object):
         self.diversity = 0.0
         self.cutoff = cutoff
 
-
     def add_recommendations(self, recommended_items_ids):
 
-        assert len(recommended_items_ids) <= self.cutoff, "Diversity_MeanInterList: recommended list is contains more elements than cutoff"
+        assert len(
+            recommended_items_ids) <= self.cutoff, "Diversity_MeanInterList: recommended list is contains more elements than cutoff"
 
         self.n_evaluated_users += 1
 
         if len(recommended_items_ids) > 0:
             self.recommended_counter[recommended_items_ids] += 1
-
-
-
 
     def get_metric_value(self):
 
@@ -539,23 +499,24 @@ class Diversity_MeanInterList(Metrics_Object):
         if self.n_evaluated_users == 0:
             return 1.0
 
-        cooccurrences_cumulative = np.sum(self.recommended_counter**2) - self.n_evaluated_users*self.cutoff
+        cooccurrences_cumulative = np.sum(self.recommended_counter ** 2) - self.n_evaluated_users * self.cutoff
 
         # All user combinations except diagonal
-        all_user_couples_count = self.n_evaluated_users**2 - self.n_evaluated_users
+        all_user_couples_count = self.n_evaluated_users ** 2 - self.n_evaluated_users
 
-        diversity_cumulative = all_user_couples_count - cooccurrences_cumulative/self.cutoff
+        diversity_cumulative = all_user_couples_count - cooccurrences_cumulative / self.cutoff
 
-        self.diversity = diversity_cumulative/all_user_couples_count
+        self.diversity = diversity_cumulative / all_user_couples_count
 
         return self.diversity
 
-
     def get_theoretical_max(self):
 
-        global_co_occurrence_count = (self.n_evaluated_users*self.cutoff)**2/self.n_items - self.n_evaluated_users*self.cutoff
+        global_co_occurrence_count = (
+                                                 self.n_evaluated_users * self.cutoff) ** 2 / self.n_items - self.n_evaluated_users * self.cutoff
 
-        mild = 1 - 1/(self.n_evaluated_users**2 - self.n_evaluated_users)*(global_co_occurrence_count/self.cutoff)
+        mild = 1 - 1 / (self.n_evaluated_users ** 2 - self.n_evaluated_users) * (
+                    global_co_occurrence_count / self.cutoff)
 
         return mild
 
@@ -563,18 +524,16 @@ class Diversity_MeanInterList(Metrics_Object):
 
         assert other_metric_object is Diversity_MeanInterList, "Diversity_MeanInterList: attempting to merge with a metric object of different type"
 
-        assert np.all(self.recommended_counter >= 0.0), "Diversity_MeanInterList: self.recommended_counter contains negative counts"
-        assert np.all(other_metric_object.recommended_counter >= 0.0), "Diversity_MeanInterList: other.recommended_counter contains negative counts"
+        assert np.all(
+            self.recommended_counter >= 0.0), "Diversity_MeanInterList: self.recommended_counter contains negative counts"
+        assert np.all(
+            other_metric_object.recommended_counter >= 0.0), "Diversity_MeanInterList: other.recommended_counter contains negative counts"
 
         self.recommended_counter += other_metric_object.recommended_counter
         self.n_evaluated_users += other_metric_object.n_evaluated_users
 
 
-
-
-
 def roc_auc(is_relevant):
-
     ranks = np.arange(len(is_relevant))
     pos_ranks = ranks[is_relevant]
     neg_ranks = ranks[~is_relevant]
@@ -592,7 +551,6 @@ def roc_auc(is_relevant):
     return auc_score
 
 
-
 def arhr(is_relevant):
     # average reciprocal hit-rank (ARHR) of all relevant items
     # As opposed to MRR, ARHR takes into account all relevant items and not just the first
@@ -600,17 +558,15 @@ def arhr(is_relevant):
     # http://glaros.dtc.umn.edu/gkhome/fetch/papers/itemrsTOIS04.pdf
     # https://emunix.emich.edu/~sverdlik/COSC562/ItemBasedTopTen.pdf
 
-    p_reciprocal = 1/np.arange(1,len(is_relevant)+1, 1.0, dtype=np.float64)
+    p_reciprocal = 1 / np.arange(1, len(is_relevant) + 1, 1.0, dtype=np.float64)
     arhr_score = is_relevant.dot(p_reciprocal)
 
-    #assert 0 <= arhr_score <= p_reciprocal.sum(), "arhr_score {} should be between 0 and {}".format(arhr_score, p_reciprocal.sum())
+    # assert 0 <= arhr_score <= p_reciprocal.sum(), "arhr_score {} should be between 0 and {}".format(arhr_score, p_reciprocal.sum())
     assert not np.isnan(arhr_score), "ARHR is NaN"
     return arhr_score
 
 
-
 def precision(is_relevant):
-
     if len(is_relevant) == 0:
         precision_score = 0.0
     else:
@@ -621,7 +577,6 @@ def precision(is_relevant):
 
 
 def precision_recall_min_denominator(is_relevant, n_test_items):
-
     if len(is_relevant) == 0:
         precision_score = 0.0
     else:
@@ -632,11 +587,10 @@ def precision_recall_min_denominator(is_relevant, n_test_items):
 
 
 def rmse(all_items_predicted_ratings, relevant_items, relevant_items_rating):
-
     # Important, some items will have -np.inf score and are treated as if they did not exist
 
     # RMSE with test items
-    relevant_items_error = (all_items_predicted_ratings[relevant_items]-relevant_items_rating)**2
+    relevant_items_error = (all_items_predicted_ratings[relevant_items] - relevant_items_rating) ** 2
 
     finite_prediction_mask = np.isfinite(relevant_items_error)
 
@@ -653,14 +607,13 @@ def rmse(all_items_predicted_ratings, relevant_items, relevant_items_rating):
         # squared_error += np.sum(all_items_predicted_ratings[np.isfinite(all_items_predicted_ratings)]**2) - \
         #                  np.sum(all_items_predicted_ratings[relevant_items][np.isfinite(all_items_predicted_ratings[relevant_items])]**2)
 
-        mean_squared_error = squared_error/finite_prediction_mask.sum()
+        mean_squared_error = squared_error / finite_prediction_mask.sum()
         rmse = np.sqrt(mean_squared_error)
 
     return rmse
 
 
 def recall(is_relevant, pos_items):
-
     recall_score = np.sum(is_relevant, dtype=np.float32) / pos_items.shape[0]
 
     assert 0 <= recall_score <= 1, recall_score
@@ -679,7 +632,6 @@ def rr(is_relevant):
 
 
 def average_precision(is_relevant, pos_items):
-
     if len(is_relevant) == 0:
         a_p = 0.0
     else:
@@ -691,7 +643,6 @@ def average_precision(is_relevant, pos_items):
 
 
 def ndcg(ranked_list, pos_items, relevance=None, at=None):
-
     if relevance is None:
         relevance = np.ones_like(pos_items)
     assert len(relevance) == pos_items.shape[0]

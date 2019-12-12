@@ -30,7 +30,7 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all)
+    fusion = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
     W_sparse_CF = fusion.W_sparse
 
     # Fit ItemKNN best model and get the sparse matrix of the weights

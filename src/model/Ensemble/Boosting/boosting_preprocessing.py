@@ -6,6 +6,22 @@ from course_lib.Base.BaseRecommender import BaseRecommender
 from src.utils.general_utility_functions import get_total_number_of_users
 
 
+def get_dataframe(user_id_array, remove_seen_flag, cutoff, main_recommender, path, mapper, recommender_list,
+                  URM_train):
+    # Get dataframe for these users
+    data_frame = get_boosting_base_dataframe(user_id_array=user_id_array, exclude_seen=remove_seen_flag,
+                                             cutoff=cutoff, top_recommender=main_recommender)
+    for rec in recommender_list:
+        data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
+                                                 cutoff=cutoff, column_name=rec.RECOMMENDER_NAME)
+
+    data_frame = add_ICM_information(data_frame=data_frame, path=path)
+    data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
+    data_frame = add_user_len_information(data_frame=data_frame, URM_train=URM_train)
+
+    return data_frame
+
+
 def add_label(data_frame: pd.DataFrame, URM_train: csr_matrix):
     """
     Create a dataframe with a single column with the correct predictions
@@ -31,7 +47,7 @@ def add_label(data_frame: pd.DataFrame, URM_train: csr_matrix):
     non_zero_count = np.count_nonzero(y)
     print("There are {} non-zero ratings in {}".format(non_zero_count, y.size))
 
-    return y
+    return y, non_zero_count, y.size
 
 
 def add_user_len_information(data_frame: pd.DataFrame, URM_train: csr_matrix):
@@ -98,7 +114,7 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
     :param use_age: True if age information should be used, false otherwise
     :return: pd.DataFrame containing the original data frame+ UCM information
     """
-    total_users = get_total_number_of_users()  # Total number of users (-1 since indexing from 0)
+    t_users = get_total_number_of_users()  # Total number of users (-1 since indexing from 0)
 
     data_frame = data_frame.copy()
     df_region: pd.DataFrame = pd.read_csv(path + "data_UCM_age.csv")
@@ -114,7 +130,7 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
 
         # Fill missing values
         user_present = dfDummies['row'].values
-        total_users = np.arange(total_users)
+        total_users = np.arange(t_users)
         mask = np.in1d(total_users, user_present, invert=True)
         missing_users = total_users[mask]
         num_col = dfDummies.columns.size
@@ -123,15 +139,16 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
         missing_df = pd.DataFrame(data=np.transpose(missing_val), dtype=np.int32, columns=dfDummies.columns)
         df_region = dfDummies.append(missing_df)
 
-        df_region = remap_data_frame(df=df_region, mapper=user_mapper)
+        if user_mapper is not None:
+            df_region = remap_data_frame(df=df_region, mapper=user_mapper)
         data_frame = pd.merge(data_frame, df_region, right_on="row", left_on="user_id")
-        data_frame = data_frame.drop(columns=["row"], inplace=True)
+        data_frame = data_frame.drop(columns=["row"], inplace=False)
     if use_age:
         df_age = df_age[['row', 'col']]
 
         # Handle missing values: fill with mode + 1
         users_present = df_age['row'].values
-        total_users = np.arange(total_users)
+        total_users = np.arange(t_users)
         mask = np.in1d(total_users, users_present, invert=True)
         missing_users = total_users[mask].astype(np.int32)
         missing_val_filled = np.ones(missing_users.size) * (int(df_age['col'].mode()) + 1)
@@ -141,10 +158,11 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
         df_age = df_age.reset_index()
         df_age = df_age[['row', 'col']]
 
-        df_age = remap_data_frame(df=df_age, mapper=user_mapper)
+        if user_mapper is not None:
+            df_age = remap_data_frame(df=df_age, mapper=user_mapper)
         df_age = df_age.rename(columns={"col": "age"})
         data_frame = pd.merge(data_frame, df_age, right_on="row", left_on="user_id")
-        data_frame = data_frame.drop(columns=["row"], inplace=True)
+        data_frame = data_frame.drop(columns=["row"], inplace=False)
 
     return data_frame
 
@@ -234,7 +252,7 @@ def get_boosting_base_dataframe(user_id_array, top_recommender: BaseRecommender,
     # Setting users
     user_recommendations_user_id = np.zeros(user_recommendations_items.size)
     for user in user_id_array:
-        if user % 5000 == 0:
+        if user % 50000 == 0:
             print("{} done over {}".format(user, user_id_array.size))
         user_recommendations_user_id[(user * cutoff):(user * cutoff) + cutoff] = user
 

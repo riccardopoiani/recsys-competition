@@ -269,7 +269,8 @@ class EvaluatorHoldout(Evaluator):
             test_user_batch_array = np.array(usersToEvaluate[user_batch_start:user_batch_end])
             user_batch_start = user_batch_end
 
-            # Compute predictions for a batch of users using vectorization, much more efficient than computing it one at a time
+            # Compute predictions for a batch of users using vectorization, much more efficient than computing it one
+            # at a time
             recommended_items_batch_list, scores_batch = recommender_object.recommend(test_user_batch_array,
                                                                                       remove_seen_flag=self.exclude_seen,
                                                                                       cutoff=self.max_cutoff,
@@ -279,7 +280,8 @@ class EvaluatorHoldout(Evaluator):
                                                                                       )
 
             assert len(recommended_items_batch_list) == len(
-                test_user_batch_array), "{}: recommended_items_batch_list contained recommendations for {} users, expected was {}".format(
+                test_user_batch_array), "{}: recommended_items_batch_list contained recommendations for {} users, " \
+                                        "expected was {}".format(
                 self.EVALUATOR_NAME, len(recommended_items_batch_list), len(test_user_batch_array))
 
             assert scores_batch.shape[0] == len(
