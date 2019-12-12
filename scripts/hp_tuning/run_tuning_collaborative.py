@@ -5,6 +5,7 @@ from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.ParameterTuning.run_parameter_search import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.data_reader import get_ICM_train
 from src.utils.general_utility_functions import get_split_seed
 
 N_CASES = 60
@@ -17,9 +18,11 @@ RECOMMENDER_CLASS_DICT = {
     "pure_svd": PureSVDRecommender,
     "rp3beta": RP3betaRecommender,
     "asy_svd": MatrixFactorization_AsySVD_Cython,
+    "funk_svd": MatrixFactorization_FunkSVD_Cython,
     "nmf": NMFRecommender,
     "slim_elastic": SLIMElasticNetRecommender,
-    "ials": IALSRecommender
+    "ials": IALSRecommender,
+    "sslim_bpr": SLIM_BPR_Cython
 }
 
 
@@ -50,6 +53,11 @@ def main():
                                                force_new_split=True, seed=args.seed)
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
+
+    if args.recommender_name == "sslim_bpr":
+        ICM_all = get_ICM_train(data_reader)
+        URM_train = sps.vstack([URM_train, ICM_all.T], format="csr")
+        print(URM_train.shape)
 
     # Setting evaluator
     exclude_cold_users = args.exclude_users

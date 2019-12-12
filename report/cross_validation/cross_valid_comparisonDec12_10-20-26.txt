@@ -1,0 +1,7 @@
+X-validation ItemCBFCF new best model FOH 80
+
+X-val map 0.016143346245691716 
+
+Number of folds: 15
+Seed list: [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467, 6, 151, 86, 99, 4444]
+

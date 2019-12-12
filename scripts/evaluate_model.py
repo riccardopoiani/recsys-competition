@@ -3,9 +3,12 @@ import os
 from skopt.space import Integer, Real, Categorical
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.IR_feature_weighting import TF_IDF
 from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
+from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
@@ -13,7 +16,9 @@ from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import new_best_models, best_models
 from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeUserSimilarityRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
 from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
+from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.data_management.New_DataSplitter_leave_k_out import *
@@ -50,19 +55,30 @@ if __name__ == '__main__':
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-    cf = best_models.ItemCF.get_model(URM_train)
+    """cf = best_models.ItemCF.get_model(URM_train)
     W_sparse = cf.W_sparse
 
-    cbcbf_par = {'topK': 1484, 'add_zeros_quota': 0.020034602825949047, 'normalize_similarity': False}
+    cbcbf_par = {'topK': 1959, 'add_zeros_quota': 0.04991675690486688, 'normalize_similarity': False}
     cbcbf = CFW_D_Similarity_Linalg(URM_train, ICM_all, W_sparse)
     cbcbf.fit(**cbcbf_par)
     feature_weights = cbcbf.D_best
+    item_weights = ICM_all.dot(np.reshape(feature_weights, (len(feature_weights), 1)))
+    item_weights = np.reshape(item_weights, len(item_weights))
+    print(item_weights)
 
-    matrix_weights = np.repeat(np.reshape(feature_weights, (len(feature_weights), 1)), repeats=ICM_all.shape[0], axis=1)
-    ICM_new_all = ICM_all.multiply(matrix_weights.T)
-    par = new_best_models.ItemCBF_all.get_best_parameters()
-    par.pop("feature_weighting")
-    model = ItemKNNCBFRecommender(URM_train, ICM_new_all)
-    model.fit(**par)
+    par = new_best_models.UserCBF_CF_Warm.get_best_parameters()
+    par["row_weights"] = item_weights
+    model = NewUserKNNCFRecommender(URM_train)
+    model.fit(**par)"""
+
+    model = new_best_models.SSLIM_BPR.get_model(sps.vstack([URM_train, ICM_all.T], format="csr"))
+
+    """URM_train_new = TF_IDF(URM_train).tocsr()
+    print(np.sort(URM_train_new.data))
+    print(np.sum(URM_train_new.data < 3.7))
+    par = best_models.P3Alpha.get_best_parameters()
+    model = P3alphaRecommender(URM_train_new)
+    model.fit(min_rating=3.7, **par)
+    model.URM_train = URM_train"""
 
     print(evaluator.evaluateRecommender(model))

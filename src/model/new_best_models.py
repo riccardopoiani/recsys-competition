@@ -1,7 +1,7 @@
 from skopt.space import Categorical, Integer, Real
 
 from src.model import best_models
-from src.model.Interface import IContentModel, IBestModel
+from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 
 
 # ---------------- CONTENT BASED FILTERING -----------------
@@ -32,6 +32,58 @@ class ItemCBF_all(IContentModel):
     recommender_class = ItemKNNCBFRecommender
     recommender_name = "ItemCBF_all"
 
+
+class ItemCBF_all_FW(IBestModel):
+    """
+    ItemCBF_all boosted with feature weighting from CFW using best_models.ItemCF similarity matrix
+     - MAP (only warm): 0.0167
+    """
+
+    best_parameters = {'topK': 5, 'shrink': 1500, 'similarity': 'asymmetric', 'normalize': True,
+                       'asymmetric_alpha': 0.0}
+    CFW_parameters = {'topK': 1959, 'add_zeros_quota': 0.04991675690486688, 'normalize_similarity': False}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train):
+        from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
+        from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
+
+        item_cf = best_models.ItemCF.get_model(URM_train=URM_train)
+        cfw = CFW_D_Similarity_Linalg(URM_train=URM_train, ICM=ICM_train, S_matrix_target=item_cf.W_sparse)
+        cfw.fit(**cls.CFW_parameters)
+
+        model = ItemKNNCBFRecommender(URM_train=URM_train, ICM_train=ICM_train)
+        model.fit(row_weights=cfw.D_best, **cls.get_best_parameters())
+        return model
+
+
+# ---------------- COLLABORATIVE -----------------
+class UserCF(ICollaborativeModel):
+    """
+    User CF tuned with URM_train but the feature weighting is applied on URM_train (not on URM_train.T like
+    in UserKNNCFRecommender of the course_lib
+
+     - MAP (only warm): 0.2795
+    """
+    from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
+
+    best_parameters = {'topK': 995, 'shrink': 9, 'similarity': 'cosine', 'normalize': True,
+                       'feature_weighting': 'TF-IDF'}
+    recommender_class = NewUserKNNCFRecommender
+    recommender_name = "NewUserCF"
+
+class SSLIM_BPR(ICollaborativeModel):
+    """
+    SSLIM BPR tuned with URM_train stacked with ICM.T
+
+    - MAP (only warm): 0.0295
+    """
+    from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
+    best_parameters = {'topK': 13, 'epochs': 600, 'symmetric': False, 'sgd_mode': 'adagrad',
+                       'lambda_i': 1.0491923839859983e-07, 'lambda_j': 2.8474498323850406,
+                       'learning_rate': 1e-06}
+    recommender_class = SLIM_BPR_Cython
+    recommender_name = "SSLIM_BPR"
 
 # ---------------- DEMOGRAPHICS -----------------
 class UserCBF_CF_Cold(IBestModel):
@@ -128,11 +180,10 @@ class FusionMergeP3Alpha(IBestModel):
         return hyper_parameters_range
 
     @classmethod
-    def get_model(cls, URM_train, ICM_all):
+    def get_model(cls, URM_train):
         from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
-        from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
-        model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
-                                                      ICM_train=ICM_all)
+        from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
+        model = BaggingMergeItemSimilarityRecommender(URM_train, P3alphaRecommender, do_bootstrap=False)
         model.fit(num_models=100, hyper_parameters_range=cls.get_hyperparameters())
         return model
 
@@ -164,4 +215,3 @@ class MixedItem(IBestModel):
         hybrid.fit(**cls.get_best_parameters())
 
         return hybrid
-

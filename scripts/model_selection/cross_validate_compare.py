@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     for i in range(0, len(seed_list)):
         # Data loading
-        root_data_path = "../data/"
+        root_data_path = "../../data/"
         data_reader = RecSys2019Reader(root_data_path)
         data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                    force_new_split=True, seed=seed_list[i])
@@ -71,9 +71,9 @@ if __name__ == '__main__':
         evaluator_total = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
         # Building the models
-        fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all)
+        item_cbf_fw = new_best_models.ItemCBF_all_FW.get_model(URM_train, ICM_all)
 
-        curr_map = evaluator_total.evaluateRecommender(fusion)[0][10]['MAP']
+        curr_map = evaluator_total.evaluateRecommender(item_cbf_fw)[0][10]['MAP']
 
         print("SEED: {} \n ".format(seed_list[i]))
         print("CURR MAP {} \n ".format(curr_map))

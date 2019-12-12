@@ -2,6 +2,7 @@ import scipy.sparse as sps
 import numpy as np
 
 from course_lib.Base.IR_feature_weighting import okapi_BM_25, TF_IDF
+from course_lib.Base.Recommender_utils import check_matrix
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 
 
@@ -27,11 +28,13 @@ class ItemKNNCBFCFRecommender(ItemKNNCBFRecommender):
 
         if interactions_feature_weighting == "BM25":
             self.URM_train = self.URM_train.astype(np.float32)
-            self.URM_train = okapi_BM_25(self.URM_train)
+            self.URM_train = okapi_BM_25(self.URM_train.T).T
+            self.URM_train = check_matrix(self.URM_train, 'csr')
 
         elif interactions_feature_weighting == "TF-IDF":
             self.URM_train = self.URM_train.astype(np.float32)
-            self.URM_train = TF_IDF(self.URM_train)
+            self.URM_train = TF_IDF(self.URM_train.T).T
+            self.URM_train = check_matrix(self.URM_train, 'csr')
 
         super().fit(topK=topK, shrink=shrink, similarity=similarity, normalize=normalize,
                     feature_weighting=feature_weighting, **similarity_args)

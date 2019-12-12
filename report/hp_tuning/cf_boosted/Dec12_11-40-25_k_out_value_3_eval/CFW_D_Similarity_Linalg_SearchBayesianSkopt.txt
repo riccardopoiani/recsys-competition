@@ -1,0 +1,11 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'topK': 1980, 'add_zeros_quota': 0.06854834690051385, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 384, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 291, in _run_evaluation_on_selected_users
+    self.EVALUATOR_NAME, scores_batch.shape[1], self.n_items)
+AssertionError: EvaluatorHoldout: scores_batch contained scores for 20743 items, expected was 18495
+

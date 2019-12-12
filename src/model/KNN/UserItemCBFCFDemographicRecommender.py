@@ -39,10 +39,12 @@ class UserItemCBFCFDemographicRecommender(BaseRecommender):
         if interactions_feature_weighting == "BM25":
             self.URM_train = self.URM_train.astype(np.float32)
             self.URM_train = okapi_BM_25(self.URM_train)
+            self.URM_train = check_matrix(self.URM_train, 'csr')
 
         elif interactions_feature_weighting == "TF-IDF":
             self.URM_train = self.URM_train.astype(np.float32)
             self.URM_train = TF_IDF(self.URM_train)
+            self.URM_train = check_matrix(self.URM_train, 'csr')
 
         # User Similarity Computation
         self.user_topK = user_topK

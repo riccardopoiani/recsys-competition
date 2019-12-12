@@ -29,13 +29,15 @@ class UserKNNCBFRecommender(BaseUserSimilarityMatrixRecommender):
                 "Value for 'feature_weighting' not recognized. Acceptable values are {}, provided was '{}'".format(
                     self.FEATURE_WEIGHTING_VALUES, interactions_feature_weighting))
 
-        if interactions_feature_weighting == "BM25":
+        if feature_weighting == "BM25":
             self.URM_train = self.URM_train.astype(np.float32)
             self.URM_train = okapi_BM_25(self.URM_train)
+            self.URM_train = check_matrix(self.URM_train, 'csr')
 
-        elif interactions_feature_weighting == "TF-IDF":
+        elif feature_weighting == "TF-IDF":
             self.URM_train = self.URM_train.astype(np.float32)
             self.URM_train = TF_IDF(self.URM_train)
+            self.URM_train = check_matrix(self.URM_train, 'csr')
 
         if feature_weighting not in self.FEATURE_WEIGHTING_VALUES:
             raise ValueError(

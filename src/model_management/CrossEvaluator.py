@@ -6,6 +6,7 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
+from src.data_management.data_reader import get_ICM_train
 
 
 class EvaluatorCrossValidationKeepKOut(Evaluator):
@@ -197,25 +198,11 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
         for i in range(0, self.n_folds):
             current_seed = self.seed_list[i]
             data_reader = RecSys2019Reader(self.data_path)
-            data_reader = DataPreprocessingFeatureEngineering(data_reader, ICM_names=["ICM_sub_class"])
-            data_reader = DataPreprocessingImputation(data_reader,
-                                                      ICM_name_to_agg_mapper={"ICM_asset": np.median,
-                                                                                           "ICM_price": np.median})
-            data_reader = DataPreprocessingTransform(data_reader,
-                                                     ICM_name_to_transform_mapper={
-                                                             "ICM_asset": lambda x: np.log1p(1/x),
-                                                             "ICM_price": lambda x: np.log1p(1/x),
-                                                             "ICM_item_pop": np.log1p,
-                                                             "ICM_sub_class_count": np.log1p})
-            data_reader = DataPreprocessingDiscretization(data_reader, ICM_name_to_bins_mapper={"ICM_asset": 200,
-                                                                                              "ICM_price": 200,
-                                                                                              "ICM_item_pop": 50,
-                                                                                              "ICM_sub_class_count": 50})
             data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=self.k_out, use_validation_set=False,
                                                        force_new_split=True, seed=current_seed)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
-            ICM_all = data_reader.get_ICM_from_name("ICM_sub_class")
+            ICM_all = get_ICM_train(data_reader)
 
             cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
             cold_users = np.arange(URM_train.shape[0])[cold_users_mask]

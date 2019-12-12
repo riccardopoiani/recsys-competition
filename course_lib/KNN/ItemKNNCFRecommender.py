@@ -38,12 +38,12 @@ class ItemKNNCFRecommender(BaseItemSimilarityMatrixRecommender):
 
         if feature_weighting == "BM25":
             self.URM_train = self.URM_train.astype(np.float32)
-            self.URM_train = okapi_BM_25(self.URM_train.T).T
+            self.URM_train = okapi_BM_25(self.URM_train)
             self.URM_train = check_matrix(self.URM_train, 'csr')
 
         elif feature_weighting == "TF-IDF":
             self.URM_train = self.URM_train.astype(np.float32)
-            self.URM_train = TF_IDF(self.URM_train.T).T
+            self.URM_train = TF_IDF(self.URM_train)
             self.URM_train = check_matrix(self.URM_train, 'csr')
 
         similarity = Compute_Similarity(self.URM_train, shrink=shrink, topK=topK, normalize=normalize,

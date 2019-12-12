@@ -10,4 +10,5 @@ scipy==1.2.1
 tqdm==4.31.1
 kmodes==0.10.1
 implicit==0.4.2
-lightfm
+lightfm==1.15
+xgboost==0.90

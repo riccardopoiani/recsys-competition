@@ -4,17 +4,19 @@ from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommende
 from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
 import os
 
+from src.model.FeatureWeighting.User_CFW_D_Similarity_Linalg import User_CFW_D_Similarity_Linalg
+
 
 def run_parameter_search(URM_train, ICM_all, W_sparse_CF, evaluator_test,
                          metric_to_optimize="MAP", n_cases=10, n_random_starts=3,
                          output_folder_path="result_experiments/"):
-    recommender_class = CFW_D_Similarity_Linalg
+    recommender_class = User_CFW_D_Similarity_Linalg
 
     parameterSearch = SearchBayesianSkopt(recommender_class,
                                           evaluator_validation=evaluator_test)
 
-    hyperparameters_range_dictionary = {"topK": Integer(5, 1500),
-                                        "add_zeros_quota": Real(low=0, high=1, prior='uniform'),
+    hyperparameters_range_dictionary = {"topK": Integer(1000, 2000),
+                                        "add_zeros_quota": Real(low=0, high=0.1, prior='uniform'),
                                         "normalize_similarity": Categorical([True, False])}
 
     recommender_input_args = SearchInputRecommenderArgs(

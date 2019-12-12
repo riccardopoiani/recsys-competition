@@ -1,0 +1,451 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'topK': 1849, 'add_zeros_quota': 0.09092704241928783, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 1 Exception. Config: {'topK': 1086, 'add_zeros_quota': 0.05291168955430878, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 2 Exception. Config: {'topK': 1175, 'add_zeros_quota': 0.09516052835255251, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 3 Exception. Config: {'topK': 1192, 'add_zeros_quota': 0.058926500372577476, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 4 Exception. Config: {'topK': 1025, 'add_zeros_quota': 0.040013406172769675, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 5 Exception. Config: {'topK': 1414, 'add_zeros_quota': 0.04483723965376159, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 6 Exception. Config: {'topK': 1971, 'add_zeros_quota': 0.0744348430806192, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 7 Exception. Config: {'topK': 1648, 'add_zeros_quota': 0.09331581196854057, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 8 Exception. Config: {'topK': 1298, 'add_zeros_quota': 0.06393420459031425, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 9 Exception. Config: {'topK': 1010, 'add_zeros_quota': 0.08012769292121709, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 10 Exception. Config: {'topK': 1961, 'add_zeros_quota': 0.09764295593160643, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 11 Exception. Config: {'topK': 1797, 'add_zeros_quota': 0.06284726496284553, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 12 Exception. Config: {'topK': 1163, 'add_zeros_quota': 0.008991612574314347, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 13 Exception. Config: {'topK': 1738, 'add_zeros_quota': 0.08659128301946381, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 14 Exception. Config: {'topK': 1096, 'add_zeros_quota': 0.047053657012539454, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 15 Exception. Config: {'topK': 1735, 'add_zeros_quota': 0.09279833160394263, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 16 Exception. Config: {'topK': 1673, 'add_zeros_quota': 0.030740913878680505, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 17 Exception. Config: {'topK': 1485, 'add_zeros_quota': 0.06699454623337067, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 18 Exception. Config: {'topK': 1620, 'add_zeros_quota': 0.06481033770358179, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 19 Exception. Config: {'topK': 1321, 'add_zeros_quota': 0.026867838401989926, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 20 Exception. Config: {'topK': 1994, 'add_zeros_quota': 0.0005308071722150199, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 21 Exception. Config: {'topK': 1995, 'add_zeros_quota': 0.00045994405566514437, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 22 Exception. Config: {'topK': 2000, 'add_zeros_quota': 0.0, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 23 Exception. Config: {'topK': 1001, 'add_zeros_quota': 0.0017547464552223118, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 24 Exception. Config: {'topK': 1995, 'add_zeros_quota': 0.0004460841429069885, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 25 Exception. Config: {'topK': 1007, 'add_zeros_quota': 0.00017387351272839528, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 26 Exception. Config: {'topK': 1012, 'add_zeros_quota': 0.09971616056995034, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 27 Exception. Config: {'topK': 1989, 'add_zeros_quota': 0.09878187206532281, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 28 Exception. Config: {'topK': 1006, 'add_zeros_quota': 5.698628961989806e-05, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 29 Exception. Config: {'topK': 1989, 'add_zeros_quota': 0.0006859474535711564, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 30 Exception. Config: {'topK': 1013, 'add_zeros_quota': 0.09896484566404827, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 31 Exception. Config: {'topK': 1999, 'add_zeros_quota': 3.3885707202308e-05, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 32 Exception. Config: {'topK': 1014, 'add_zeros_quota': 0.0011006431590592227, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 33 Exception. Config: {'topK': 2000, 'add_zeros_quota': 0.09960478221812952, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 34 Exception. Config: {'topK': 1004, 'add_zeros_quota': 0.00099700025595062, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 35 Exception. Config: {'topK': 1003, 'add_zeros_quota': 0.09924080654048903, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 36 Exception. Config: {'topK': 1980, 'add_zeros_quota': 0.09961589348463805, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 37 Exception. Config: {'topK': 1971, 'add_zeros_quota': 0.00022631280146675486, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 38 Exception. Config: {'topK': 1011, 'add_zeros_quota': 0.09941487538240028, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 39 Exception. Config: {'topK': 1996, 'add_zeros_quota': 0.0009316791931101467, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 40 Exception. Config: {'topK': 1000, 'add_zeros_quota': 0.000704187325741157, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/FeatureWeighting/CFW_D_Similarity_Linalg.py", line 28, in __init__
+    ICM.shape[0]))
+ValueError: Number of items not consistent. URM contains 18495 but ICM contains 20743
+
