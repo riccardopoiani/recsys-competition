@@ -74,6 +74,7 @@ class SSLIM_BPR(ICollaborativeModel):
     recommender_class = SLIM_BPR_Cython
     recommender_name = "SSLIM_BPR"
 
+
 # ---------------- DEMOGRAPHICS -----------------
 class UserCBF_CF_Cold(IBestModel):
     """
@@ -94,7 +95,7 @@ class UserCBF_CF_Cold(IBestModel):
 
 class UserCBF_CF_Warm(IBestModel):
     """
-    User CBF tuned with URM_train and UCM (containing age, region and URM_train)
+    User CBF tuned with URM_train and UCM_all
      - MAP (only warm): 0.0305
     """
     best_parameters = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
@@ -195,7 +196,8 @@ class RP3BetaSideInfo(IBestModel):
     """
     RP3 beta with side info by using TF_IDF([URM_train, ICM_all.T])
     """
-    best_parameters = {'topK': 5, 'alpha': 0.37829128706576887, 'beta': 0.0, 'normalize_similarity': False}
+    best_parameters = {'topK': 8, 'alpha': 0.47878856384101826, 'beta': 9.816192345071759e-11,
+                       'normalize_similarity': False}
 
     @classmethod
     def get_model(cls, URM_train, ICM_train):
@@ -223,6 +225,7 @@ class PureSVDSideInfo(IBestModel):
         model.fit(**cls.get_best_parameters())
         return model
 
+
 class IALSSideInfo(IBestModel):
     """
     IALS recommender with side info by using [URM_train, ICM_all.T]
@@ -239,14 +242,15 @@ class IALSSideInfo(IBestModel):
         model.fit(**cls.get_best_parameters())
         return model
 
+
 class MixedItem(IBestModel):
     """
-    Improvement from FusionMergeItemCBF_CF from 0.0362 to 0.0364 (not so good)
+    Improvement from FusionMergeItemCBF_CF from 0.0362 to 0.03654 (not so good)
 
     """
 
-    best_parameters = {'topK': 1951, 'alpha1': 0.0321100284685163,
-                       'alpha2': 0.13471921002086043, 'alpha3': 0.0360985576372509}
+    best_parameters = {'topK': 40, 'alpha1': 0.05753775407896912, 'alpha2': 0.8806597865751026,
+                       'alpha3': 0.0006963455386220786, 'alpha4': 0.018211744418817236}
 
     @classmethod
     def get_model(cls, URM_train, ICM_all, load_model=False):
@@ -256,10 +260,13 @@ class MixedItem(IBestModel):
         item_cf = ItemCF.get_model(URM_train, load_model=load_model)
         item_cbf_cf = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
         item_cbf_all = ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=load_model)
+        rp3beta = RP3BetaSideInfo.get_model(URM_train=URM_train, ICM_train=ICM_all)
+
         hybrid = ItemHybridModelRecommender(URM_train)
         hybrid.add_similarity_matrix(item_cf.W_sparse)
         hybrid.add_similarity_matrix(item_cbf_cf.W_sparse)
         hybrid.add_similarity_matrix(item_cbf_all.W_sparse)
+        hybrid.add_similarity_matrix(rp3beta.W_sparse)
 
         hybrid.fit(**cls.get_best_parameters())
 

@@ -20,7 +20,7 @@ def run_parameter_search_mixed_similarity_item(recommender_object: HybridMixedSi
     output_file_name_root = recommender_object.RECOMMENDER_NAME
 
     hyperparameters_range_dictionary = {"topK": Integer(1, 2000), "alpha1": Real(0, 1),
-                                        "alpha2": Real(0, 1), "alpha3": Real(0, 1)}
+                                        "alpha2": Real(0, 1), "alpha3": Real(0, 1), "alpha4": Real(0,1)}
 
     # Set args for recommender
     recommender_input_args = SearchInputRecommenderArgs(
