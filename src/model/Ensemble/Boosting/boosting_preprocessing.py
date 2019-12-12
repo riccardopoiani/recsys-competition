@@ -3,7 +3,7 @@ import pandas as pd
 from scipy.sparse import csr_matrix
 
 from course_lib.Base.BaseRecommender import BaseRecommender
-from src.utils.general_utility_functions import get_total_number_of_users
+from src.utils.general_utility_functions import get_total_number_of_users, get_total_number_of_items
 
 
 def get_dataframe(user_id_array, remove_seen_flag, cutoff, main_recommender, path, mapper, recommender_list,
@@ -18,6 +18,10 @@ def get_dataframe(user_id_array, remove_seen_flag, cutoff, main_recommender, pat
     data_frame = add_ICM_information(data_frame=data_frame, path=path)
     data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
     data_frame = add_user_len_information(data_frame=data_frame, URM_train=URM_train)
+
+    data_frame = data_frame.sort_values(by="user_id", ascending=True)
+    data_frame = data_frame.reset_index()
+    data_frame.drop(columns=["index"], inplace=False)
 
     return data_frame
 
@@ -117,8 +121,8 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
     t_users = get_total_number_of_users()  # Total number of users (-1 since indexing from 0)
 
     data_frame = data_frame.copy()
-    df_region: pd.DataFrame = pd.read_csv(path + "data_UCM_age.csv")
-    df_age: pd.DataFrame = pd.read_csv(path + "data_UCM_region.csv")
+    df_region: pd.DataFrame = pd.read_csv(path + "data_UCM_region.csv")
+    df_age: pd.DataFrame = pd.read_csv(path + "data_UCM_age.csv")
 
     # Re-map UCM data frame in order to have the correct user information
     if use_region:
@@ -184,13 +188,36 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
     df_asset: pd.DataFrame = pd.read_csv(path + "data_ICM_asset.csv")
     df_subclass: pd.DataFrame = pd.read_csv(path + "data_ICM_sub_class.csv")
 
+    total_items = get_total_number_of_items()
+    total_items = np.arange(total_items)
+
     if use_price:
+        # Handle missing values
+        item_present = df_price['row'].values
+        mask = np.in1d(total_items, item_present, invert=True)
+        missing_items = total_items[mask].astype(np.int32)
+        missing_val_filled = np.ones(missing_items.size) * df_price['data'].median()
+        missing = np.array([missing_items, missing_val_filled])
+        missing_df = pd.DataFrame(data=np.transpose(missing), columns=['row', 'data'])
+        df_price = df_price.append(missing_df)
+        df_price = df_price.reset_index()
         df_price = df_price[['row', 'data']]
+
         df_price = df_price.rename(columns={"data": "price"})
         data_frame = pd.merge(data_frame, df_price, right_on="row", left_on="item_id")
         data_frame = data_frame.drop(columns=['row'], inplace=False)
     if use_asset:
+        # Handle missing values
+        item_present = df_asset['row'].values
+        mask = np.in1d(total_items, item_present, invert=True)
+        missing_items = total_items[mask].astype(np.int32)
+        missing_val_filled = np.ones(missing_items.size) * df_asset['data'].median()
+        missing = np.array([missing_items, missing_val_filled])
+        missing_df = pd.DataFrame(data=np.transpose(missing), columns=['row', 'data'])
+        df_asset = df_asset.append(missing_df)
+        df_asset = df_asset.reset_index()
         df_asset = df_asset[['row', 'data']]
+
         df_asset = df_asset.rename(columns={"data": "asset"})
         data_frame = pd.merge(data_frame, df_asset, right_on="row", left_on="item_id")
         data_frame = data_frame.drop(columns=["row"], inplace=False)
@@ -239,6 +266,7 @@ def get_boosting_base_dataframe(user_id_array, top_recommender: BaseRecommender,
     In particular, it will create a data frame containing "user_id" presents in user_id_array, and computing
     possible recommendations using top_recommender, from which "item_id" will be extracted
 
+    :param exclude_seen:
     :param user_id_array: user that you want to recommend
     :param top_recommender: top recommender used for building the dataframe
     :param cutoff: if you are interested in MAP@10, choose a large number, for instance, 20
@@ -251,10 +279,10 @@ def get_boosting_base_dataframe(user_id_array, top_recommender: BaseRecommender,
 
     # Setting users
     user_recommendations_user_id = np.zeros(user_recommendations_items.size)
-    for user in user_id_array:
+    for i, user in enumerate(user_id_array):
         if user % 50000 == 0:
             print("{} done over {}".format(user, user_id_array.size))
-        user_recommendations_user_id[(user * cutoff):(user * cutoff) + cutoff] = user
+        user_recommendations_user_id[(i * cutoff):(i * cutoff) + cutoff] = user
 
     data_frame = pd.DataFrame({"user_id": user_recommendations_user_id, "item_id": user_recommendations_items})
 

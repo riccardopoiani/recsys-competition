@@ -1,5 +1,3 @@
-from abc import ABC
-
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
 
@@ -22,11 +20,12 @@ class BoostingFixedData(BaseRecommender):
         self.dict_result = dict()
         self.dftest = df_test
         self.cutoff = cutoff
+        self.items = np.ediff1d(self.URM_train.tocsc().indptr)
 
     def train(self, num_round, param, early_stopping_round):
         self.bst = xgb.train(params=param, dtrain=self.dtrain, num_boost_round=num_round, evals=self.evallist,
                              early_stopping_rounds=early_stopping_round, evals_result=self.dict_result)
-
+    """
     def recommend(self, user_id_array, cutoff=None, remove_seen_flag=True, items_to_compute=None,
                   remove_top_pop_flag=False, remove_custom_items_flag=False, return_scores=False):
         data_frame = self.dftest.copy()
@@ -52,14 +51,46 @@ class BoostingFixedData(BaseRecommender):
             prediction_list.append(pred)
 
         return prediction_list
+    """
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):
-        raise NotImplemented()
+
+        # Setting total items: the one of which you have to compute scores
+        if items_to_compute is not None:
+            raise NotImplemented()
+            # all_items = - np.ones(self.n_items, dtype=np.float32)*np.inf
+            # all_items[items_to_compute] = self.items[items_to_compute].copy()
+        else:
+            all_items = self.items.copy()
+
+        # Get the test dataframe
+        data_frame = self.dftest.copy()
+        data_frame = data_frame[data_frame['user_id'].isin(user_id_array)]
+        # print(data_frame)
+
+        # Predict the ratings
+        items = data_frame["item_id"].values
+        dpredict = xgb.DMatrix(data_frame.drop(columns=["user_id", "item_id"], inplace=False))
+        y_hat = self.bst.predict(dpredict, ntree_limit=self.bst.best_ntree_limit)
+
+        scores = np.zeros(shape=(user_id_array.size, all_items.size))
+
+        for i, user in enumerate(user_id_array):
+            # Getting the item of this users that should be re-ranked
+            curr_items = np.array(items[(i * self.cutoff):(i * self.cutoff) + self.cutoff])
+
+            # Getting the predictions for this users, and sort them
+            pred_for_user = y_hat[(i * self.cutoff):(i * self.cutoff) + self.cutoff]
+
+            scores[i][curr_items] = pred_for_user
+
+        return scores
 
     def save_model(self, folder_path, file_name=None):
-        raise NotImplemented()
+        raise self.bst.save_model(folder_path + file_name)
 
 
+@DeprecationWarning
 class BoostingSelfRetrieveData(BaseRecommender):
 
     def __init__(self, URM_train, main_recommender: BaseRecommender, recommender_list: list, mapper: dict,

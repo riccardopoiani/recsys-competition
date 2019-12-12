@@ -3,50 +3,6 @@ import numpy as np
 from course_lib.Base.BaseRecommender import BaseRecommender
 from src.model.Ensemble.Boosting.Boosting import BoostingFixedData
 from src.model.Ensemble.Boosting.boosting_preprocessing import get_dataframe, add_label
-from course_lib.Base.Evaluation.metrics import MAP
-import scipy.sparse as sps
-
-
-def MAP(is_relevant, relevant_items):
-    if relevant_items.size == 0:
-        return 0
-
-    # Cumulative sum: precision at 1, at 2, at 3 ...
-    p_at_k = is_relevant * np.cumsum(is_relevant, dtype=np.float32) / (1 + np.arange(is_relevant.shape[0]))
-
-    map_score = np.sum(p_at_k) / np.min([relevant_items.shape[0], is_relevant.shape[0]])
-
-    return map_score
-
-
-def compute_map_at_10(recommendations, URM_test, users_to_validate):
-    cumulative_MAP = 0.0
-
-    num_eval = 0
-    URM_test = sps.csr_matrix(URM_test)
-    n_users = URM_test.shape[0]
-
-    for i, user_id in enumerate(users_to_validate):
-
-        if user_id % 10000 == 0:
-            print("Evaluated user {} of {}".format(user_id, n_users))
-
-        start_pos = URM_test.indptr[user_id]
-        end_pos = URM_test.indptr[user_id + 1]
-
-        if end_pos - start_pos > 0:
-            relevant_items = URM_test.indices[start_pos:end_pos]
-
-            recommended_items = recommendations[i]
-            num_eval += 1
-
-            is_relevant = np.in1d(recommended_items, relevant_items, assume_unique=True)
-
-            cumulative_MAP += MAP(is_relevant, relevant_items)
-
-    cumulative_MAP /= num_eval
-
-    return cumulative_MAP
 
 
 def sample_parameters(parameters: dict):
@@ -56,7 +12,7 @@ def sample_parameters(parameters: dict):
         values = parameters[k]
         n_param = len(values)
         if n_param == 1:
-            sample[k] = values[1]
+            sample[k] = values[0]
         else:
             idx = np.random.randint(low=0, high=n_param)
             sample[k] = values[idx]
@@ -64,8 +20,9 @@ def sample_parameters(parameters: dict):
     return sample
 
 
-def run_xgb_tuning(user_to_validate, URM_train, URM_test, main_recommender: BaseRecommender, recommender_list: list,
+def run_xgb_tuning(user_to_validate, URM_train, main_recommender: BaseRecommender, recommender_list: list,
                    mapper: dict,
+                   evaluator,
                    n_trials=40,
                    max_iter_per_trial=5000, n_early_stopping=15,
                    output_folder_file="",
@@ -126,9 +83,7 @@ def run_xgb_tuning(user_to_validate, URM_train, URM_test, main_recommender: Base
 
         boosting.train(num_round=max_iter_per_trial, param=sample, early_stopping_round=n_early_stopping)
 
-        predictions = boosting.recommend(user_id_array=user_to_validate)
-
-        map_10 = compute_map_at_10(predictions, URM_test, user_to_validate)
+        map_10 = evaluator.evaluateRecommender(boosting)[0][10]['MAP']
         if map_10 > max_map:
             max_map = map_10
             best_param = sample
@@ -137,6 +92,7 @@ def run_xgb_tuning(user_to_validate, URM_train, URM_test, main_recommender: Base
             boosting.bst.save_model(best_model_folder + "best_model{}".format(i))
             print("Done")
 
+        print("Curr val: {}".format(map_10))
         f.write("Map@10 {}".format(map_10))
 
     # Best results
