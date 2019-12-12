@@ -164,6 +164,7 @@ class RP3Beta(ICollaborativeModel):
     RP3Beta recommender tuned with URM_train
      - MAP (all users): 0.0241
      - MAP (only warm): 0.03093
+     - MAP (only warm): 0.03445 with TF_IDF([URM_train, ICM_all.T])
     """
     from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 
@@ -203,6 +204,7 @@ class IALS(ICollaborativeModel):
     """
     IALS recommender
      - MAP (only warm): 0.0297
+     - MAP (only warm): 0.0302 with [URM_train, ICM_all.T]
     """
 
     from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender

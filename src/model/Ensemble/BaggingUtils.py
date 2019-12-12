@@ -2,7 +2,7 @@ import numpy as np
 import scipy.sparse as sps
 
 
-def get_bootstrap_URM(URM_train):
+def get_bootstrap_URM(URM_train, weight_replacement):
     """
     Return a bootstrap of URM in csr matrix
 
@@ -20,5 +20,8 @@ def get_bootstrap_URM(URM_train):
     URM_sample = sps.coo_matrix(URM_copy.shape)
     URM_sample.row = row[unique_sample]
     URM_sample.col = col[unique_sample]
-    URM_sample.data = counts_sample
+    if weight_replacement:
+        URM_sample.data = data[unique_sample] * counts_sample
+    else:
+        URM_sample.data = data[unique_sample]
     return URM_sample.tocsr()

@@ -42,16 +42,18 @@ if __name__ == '__main__':
 
     item_cf = best_models.ItemCF.get_model(URM_train, load_model=False)
     item_cbf_cf = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
-    item_cbf_all = new_best_models.ItemCBF_all.get_model(URM_train=URM_train,
-                                                         ICM_train=ICM_all, load_model=False)
+    item_cbf_all = new_best_models.ItemCBF_all_FW.get_model(URM_train=URM_train,
+                                                            ICM_train=ICM_all)
+    rp3beta = new_best_models.RP3BetaSideInfo.get_model(URM_train, ICM_all)
 
     hybrid = ItemHybridModelRecommender(URM_train)
     hybrid.add_similarity_matrix(item_cf.W_sparse)
     hybrid.add_similarity_matrix(item_cbf_cf.W_sparse)
     hybrid.add_similarity_matrix(item_cbf_all.W_sparse)
+    hybrid.add_similarity_matrix(rp3beta.W_sparse)
 
     run_parameter_search_mixed_similarity_item(hybrid, URM_train=URM_train, output_folder_path=version_path,
                                                evaluator_validation=evaluator_test, evaluator_test=None,
-                                               n_cases=50, n_random_starts=20, metric_to_optimize="MAP")
+                                               n_cases=60, n_random_starts=20, metric_to_optimize="MAP")
 
     print("...tuning ended")

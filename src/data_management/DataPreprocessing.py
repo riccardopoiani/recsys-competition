@@ -5,9 +5,6 @@ import scipy.sparse as sps
 
 from course_lib.Data_manager.DataReader import DataReader
 from course_lib.Data_manager.DataReader_utils import reconcile_mapper_with_removed_tokens
-from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix_FilterIDs
-from src.data_management.RecSys2019Reader_utils import build_ICM_all, build_UCM_all
-from src.feature.feature_processing import transform_numerical_to_label
 
 
 class AbstractDataPreprocessing(DataReader, ABC):

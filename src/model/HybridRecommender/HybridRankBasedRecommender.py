@@ -1,6 +1,8 @@
 from abc import ABC
 
 import numpy as np
+
+from course_lib.Base.NonPersonalizedRecommender import TopPop
 from src.model.HybridRecommender.AbstractHybridRecommender import AbstractHybridRecommender
 from typing import Dict, List
 
@@ -88,7 +90,6 @@ class WeightedRankingStrategy(RecommendationStrategyInterface):
         return rankings, weighted_scores
 
 
-
 ########## Hybrid Recommender ##########
 
 class HybridRankBasedRecommender(AbstractHybridRecommender):
@@ -160,6 +161,14 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
         cutoff_model = cutoff * self.multiplier_cutoff
         scores = []
 
+        sub_recommender = TopPop(URM_train=self.URM_train)
+        sub_recommender.fit()
+        sub_rankings = sub_recommender.recommend(user_id_array, cutoff=cutoff_model,
+                                                 remove_seen_flag=remove_seen_flag,
+                                                 items_to_compute=items_to_compute,
+                                                 remove_top_pop_flag=remove_top_pop_flag,
+                                                 remove_custom_items_flag=remove_custom_items_flag)
+
         for recommender_name, recommender_model in self.models.items():
             rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
                                                            remove_seen_flag=remove_seen_flag,
@@ -171,11 +180,12 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
             # Fill empty rankings due to cold users
             for i in range(len(rankings)):
                 if len(rankings[i]) == 0:
-                    rankings[i] = [-1]*cutoff_model
+                    rankings[i] = sub_rankings[i]
 
             rankings, weighted_scores = self.hybrid_strategy.get_hybrid_rankings_and_scores(rankings=rankings,
                                                                                             scores=scores,
-                                                                                            weight=self.weights[recommender_name])
+                                                                                            weight=self.weights[
+                                                                                                recommender_name])
             for i in range(len(all_cum_score_builder)):
                 all_cum_score_builder[i].add_scores(np.array(rankings[i]), np.array(weighted_scores[i]))
 

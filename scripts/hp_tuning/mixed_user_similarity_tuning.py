@@ -8,7 +8,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model import best_models
+from src.model import best_models, new_best_models
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import UserHybridModelRecommender
 from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity_user
 from src.utils.general_utility_functions import get_split_seed
@@ -39,8 +39,8 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    user_cf = best_models.UserCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
-    user_cbf = best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_all)
+    user_cf = new_best_models.UserCF.get_model(URM_train=URM_train, load_model=False, save_model=False)
+    user_cbf = new_best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_all)
 
     hybrid = UserHybridModelRecommender(URM_train)
     hybrid.add_similarity_matrix(user_cf.W_sparse)

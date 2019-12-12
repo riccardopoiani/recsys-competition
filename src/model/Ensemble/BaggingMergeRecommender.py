@@ -25,14 +25,15 @@ from src.utils.general_utility_functions import block_print, enable_print
 
 
 class BaggingMergeRecommender(BaseRecommender, ABC):
-
     COMPATIBLE_RECOMMENDERS = []
 
-    def __init__(self, URM_train, recommender_class, do_bootstrap=True, **recommender_constr_kwargs):
+    def __init__(self, URM_train, recommender_class, do_bootstrap=True, weight_replacement=True,
+                 **recommender_constr_kwargs):
         if not (recommender_class in self.COMPATIBLE_RECOMMENDERS):
             raise ValueError("The only compatible recommenders are: {}".format(self.COMPATIBLE_RECOMMENDERS))
 
         super().__init__(URM_train)
+        self.weight_replacement = weight_replacement
         self.do_bootstrap = do_bootstrap
         self.recommender_class = recommender_class
         self.recommender_kwargs = recommender_constr_kwargs
@@ -51,7 +52,7 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
             URM_bootstrap = self.URM_train
             if self.do_bootstrap:
-                URM_bootstrap = get_bootstrap_URM(self.URM_train)
+                URM_bootstrap = get_bootstrap_URM(self.URM_train, self.weight_replacement)
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
                 parameters[parameter_name] = parameter_range.rvs()
@@ -92,8 +93,11 @@ class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSim
     COMPATIBLE_RECOMMENDERS = [ItemKNNCBFRecommender, ItemKNNCBFCFRecommender, ItemKNNCFRecommender,
                                SLIM_BPR_Cython, P3alphaRecommender, RP3betaRecommender]
 
-    def __init__(self, URM_train, recommender_class, **recommender_constr_kwargs):
-        super().__init__(URM_train, recommender_class, **recommender_constr_kwargs)
+    def __init__(self, URM_train, recommender_class, do_bootstrap=True, weight_replacement=True,
+                 **recommender_constr_kwargs):
+        super().__init__(URM_train, recommender_class, do_bootstrap, weight_replacement,
+                         **recommender_constr_kwargs)
+
         self.W_sparse = None
 
     def fit(self, topK=-1, num_models=5, hyper_parameters_range=None):
@@ -113,7 +117,6 @@ class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSim
             self.W_sparse = similarityMatrixTopK(self.W_sparse, k=self.topK).tocsr()
 
 
-
 class BaggingMergeUserSimilarityRecommender(BaggingMergeRecommender, BaseUserSimilarityMatrixRecommender):
     """
     Bagging Merge User Similarity Recommender: samples with replacement only the positive interactions and
@@ -124,8 +127,10 @@ class BaggingMergeUserSimilarityRecommender(BaggingMergeRecommender, BaseUserSim
 
     COMPATIBLE_RECOMMENDERS = [UserKNNCBFRecommender, UserKNNCFRecommender, UserKNNCBFCFRecommender]
 
-    def __init__(self, URM_train, recommender_class, **recommender_constr_kwargs):
-        super().__init__(URM_train, recommender_class, **recommender_constr_kwargs)
+    def __init__(self, URM_train, recommender_class, do_bootstrap=True, weight_replacement=True,
+                 **recommender_constr_kwargs):
+        super().__init__(URM_train, recommender_class, do_bootstrap, weight_replacement,
+                         **recommender_constr_kwargs)
         self.W_sparse = None
 
     def fit(self, topK=-1, num_models=5, hyper_parameters_range=None):

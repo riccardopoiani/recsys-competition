@@ -72,6 +72,7 @@ class FactorizationMachineRecommender(BaseRecommender):
                 fm_matrix = add_ICM_info(fm_matrix, self.ICM_train, self.URM_train.shape[0])
             if self.UCM_train is not None:
                 fm_matrix = add_UCM_info(fm_matrix, self.UCM_train, 0)
+            fm_matrix = fm_matrix[:, self.URM_train.shape[0]+self.URM_train.shape[1]:]
             labels = np.ones(shape=fm_matrix.shape[0])
             xl.dump_svmlight_file(X=fm_matrix, y=labels,
                                   f=recommendation_file)

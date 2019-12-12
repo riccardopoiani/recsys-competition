@@ -3,22 +3,10 @@ from skopt.space import Categorical, Integer, Real
 from src.model import best_models
 from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 
+import scipy.sparse as sps
+
 
 # ---------------- CONTENT BASED FILTERING -----------------
-
-class ItemCBF_CF(IContentModel):
-    """
-    Item CBF_CF tuned with URM_train and ICM_all  (containing sub_class, price, asset, sub_class_count, item_pop with
-    discretization bins 200, 200, 50, 50)
-     - MAP (only warm): 0.03560
-    """
-    from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
-    best_parameters = {'topK': 17, 'shrink': 1463, 'similarity': 'asymmetric', 'normalize': True,
-                       'asymmetric_alpha': 0.07899555402911075, 'feature_weighting': 'TF-IDF'}
-    recommender_class = ItemKNNCBFCFRecommender
-    recommender_name = "ItemCBF_CF"
-
-
 class ItemCBF_all(IContentModel):
     """
     Item CBF tuned with URM_train and ICM_all (containing sub_class, price, asset, sub_class_count, item_pop with
@@ -71,6 +59,7 @@ class UserCF(ICollaborativeModel):
                        'feature_weighting': 'TF-IDF'}
     recommender_class = NewUserKNNCFRecommender
     recommender_name = "NewUserCF"
+
 
 class SSLIM_BPR(ICollaborativeModel):
     """
@@ -159,7 +148,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
         from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
         model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
                                                       ICM_train=ICM_train)
-        model.fit(num_models=100, hyper_parameters_range=cls.get_hyperparameters())
+        model.fit(topK=3000, num_models=100, hyper_parameters_range=cls.get_hyperparameters())
         return model
 
 
@@ -189,6 +178,66 @@ class FusionMergeP3Alpha(IBestModel):
 
 
 # ---------------- HYBRIDS -----------------
+class ItemCBF_CF(IContentModel):
+    """
+    Item CBF_CF tuned with URM_train and ICM_all  (containing sub_class, price, asset, sub_class_count, item_pop with
+    discretization bins 200, 200, 50, 50)
+     - MAP (only warm): 0.03560
+    """
+    from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+    best_parameters = {'topK': 17, 'shrink': 1463, 'similarity': 'asymmetric', 'normalize': True,
+                       'asymmetric_alpha': 0.07899555402911075, 'feature_weighting': 'TF-IDF'}
+    recommender_class = ItemKNNCBFCFRecommender
+    recommender_name = "ItemCBF_CF"
+
+
+class RP3BetaSideInfo(IBestModel):
+    """
+    RP3 beta with side info by using TF_IDF([URM_train, ICM_all.T])
+    """
+    best_parameters = {'topK': 5, 'alpha': 0.37829128706576887, 'beta': 0.0, 'normalize_similarity': False}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train):
+        from course_lib.Base.IR_feature_weighting import TF_IDF
+        URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
+        from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
+        model = RP3betaRecommender(URM_train_side_info)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+
+class PureSVDSideInfo(IBestModel):
+    """
+    PureSVD recommender with side info by using TF_IDF([URM_train, ICM_all.T])
+     - MAP (only warm): 0.0253
+    """
+    best_parameters = {'num_factors': 376}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train):
+        from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
+        from course_lib.Base.IR_feature_weighting import TF_IDF
+        URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
+        model = PureSVDRecommender(URM_train_side_info)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+class IALSSideInfo(IBestModel):
+    """
+    IALS recommender with side info by using [URM_train, ICM_all.T]
+     - MAP (only warm): 0.0310
+    """
+    best_parameters = {'num_factors': 704, 'regularization': 53.45866759523391, 'epochs': 50,
+                       'confidence_scaling': 'linear', 'alpha': 10.031975039845253}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train):
+        from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
+        URM_train_side_info = sps.vstack([URM_train, ICM_train.T], format="csr")
+        model = ImplicitALSRecommender(URM_train_side_info)
+        model.fit(**cls.get_best_parameters())
+        return model
 
 class MixedItem(IBestModel):
     """
