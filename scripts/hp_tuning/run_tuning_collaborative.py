@@ -2,6 +2,7 @@ import argparse
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.IR_feature_weighting import TF_IDF
 from course_lib.ParameterTuning.run_parameter_search import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
@@ -17,6 +18,7 @@ RECOMMENDER_CLASS_DICT = {
     "p3alpha": P3alphaRecommender,
     "pure_svd": PureSVDRecommender,
     "rp3beta": RP3betaRecommender,
+    "rp3beta_side": RP3betaRecommender,
     "asy_svd": MatrixFactorization_AsySVD_Cython,
     "funk_svd": MatrixFactorization_FunkSVD_Cython,
     "nmf": NMFRecommender,
@@ -58,6 +60,10 @@ def main():
         ICM_all = get_ICM_train(data_reader)
         URM_train = sps.vstack([URM_train, ICM_all.T], format="csr")
         print(URM_train.shape)
+    if args.recommender_name == "rp3beta_side":
+        ICM_all = get_ICM_train(data_reader)
+        URM_train = sps.vstack([URM_train, ICM_all.T], format="csr")
+        URM_train = TF_IDF(URM_train).tocsr()
 
     # Setting evaluator
     exclude_cold_users = args.exclude_users

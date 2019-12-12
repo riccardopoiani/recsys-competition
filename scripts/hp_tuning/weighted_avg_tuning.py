@@ -14,12 +14,11 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
     all_models = {}
 
     all_models['FUSION_ITEM_CBF_CF'] = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all)
-    all_models['FUSION_P3ALPHA'] = new_best_models.FusionMergeP3Alpha.get_model(URM_train)
+    all_models['RP3BETA'] = new_best_models.RP3BetaSideInfo.get_model(URM_train, ICM_all)
     all_models['USERCBFCF'] = new_best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_all)
     all_models['ITEM_CBF'] = new_best_models.ItemCBF_all_FW.get_model(URM_train, ICM_all)
-    all_models['IALS'] = best_models.IALS.get_model(URM_train)
-    all_models['RP3BETA'] = best_models.RP3Beta.get_model(URM_train)
-    all_models['SSLIM_BPR'] = new_best_models.SSLIM_BPR.get_model(URM_train)
+    #all_models['IALS'] = best_models.IALS.get_model(URM_train)
+    #all_models['SSLIM_BPR'] = new_best_models.SSLIM_BPR.get_model(URM_train)
 
     return all_models
 
@@ -39,7 +38,7 @@ if __name__ == '__main__':
     # Build UCMs
     UCM_all = get_UCM_train(data_reader, root_data_path)
 
-    model = HybridWeightedAverageRecommender(URM_train, normalize=True)
+    model = HybridWeightedAverageRecommender(URM_train, normalize=False)
 
     all_models = _get_all_models(URM_train=URM_train, UCM_all=UCM_all, ICM_all=ICM_all)
     for model_name, model_object in all_models.items():
