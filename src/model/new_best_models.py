@@ -51,7 +51,7 @@ class UserCF(ICollaborativeModel):
     User CF tuned with URM_train but the feature weighting is applied on URM_train (not on URM_train.T like
     in UserKNNCFRecommender of the course_lib
 
-     - MAP (only warm): 0.2795
+     - MAP (only warm): 0.2688
     """
     from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
 
@@ -195,6 +195,7 @@ class ItemCBF_CF(IContentModel):
 class RP3BetaSideInfo(IBestModel):
     """
     RP3 beta with side info by using TF_IDF([URM_train, ICM_all.T])
+     - MAP (only warm): 0.0344
     """
     best_parameters = {'topK': 8, 'alpha': 0.47878856384101826, 'beta': 9.816192345071759e-11,
                        'normalize_similarity': False}

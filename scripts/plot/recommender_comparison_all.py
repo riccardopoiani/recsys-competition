@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     ICM_all_new = get_ICM_train(data_reader)
 
-    UCM_all_new = get_UCM_train(data_reader, root_data_path)
+    UCM_all_new = get_UCM_train(data_reader)
 
     # Build ICMs
     ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
@@ -41,36 +41,23 @@ if __name__ == '__main__':
     UCM_region_warm = get_warmer_UCM(UCM_region, URM_all, threshold_users=k_out)
     UCM_age_warm = get_warmer_UCM(UCM_age, URM_all, threshold_users=k_out)
 
-    #fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all_new)
-    #sub2 = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train, ICM_train=ICM_subclass,
+    # fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all_new)
+    # sub2 = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train, ICM_train=ICM_subclass,
     #                                                          UCM_train=UCM_age_region)
-    #sub2.RECOMMENDER_NAME = "SUB2"
+    # sub2.RECOMMENDER_NAME = "SUB2"
 
-    #mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train, ICM_subclass=ICM_subclass,
+    # mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train, ICM_subclass=ICM_subclass,
     #                                                  ICM_all=ICM, UCM_age_region=UCM_age_region)
-    #mixed.RECOMMENDER_NAME = "MIXED"
+    # mixed.RECOMMENDER_NAME = "MIXED"
 
-    item_cbf_cf = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_all_new)
-    #user_cbf_cf = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all_new)
+    # item_cbf_cf = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_all_new)
+    user_cbf_cf = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all_new)
+    user_cf = new_best_models.UserCF.get_model(URM_train)
+    old_user_cf = best_models.UserCF.get_model(URM_train)
+    old_user_cbf_cf = best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all_new)
+    old_user_cbf_cf.RECOMMENDER_NAME = "OLD_USER_CBF_CF"
 
-    recommender_list = [item_cbf_cf]
-
-    for value in [400, 450, 500, 550]:
-        # warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > value
-        # warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
-        warm_items_mask = np.ediff1d(URM_train.tocsc().indptr) > value
-        warm_items = np.arange(URM_train.shape[1])[warm_items_mask]
-        URM_train_new = URM_train.copy().tolil()
-        URM_train_new[:, warm_items] = 0
-        URM_train_new = URM_train_new.tocsr()
-        URM_train_new.eliminate_zeros()
-        print(len(warm_items))
-        par = new_best_models.ItemCBF_CF.get_best_parameters()
-        model = ItemKNNCBFCFRecommender(URM_train_new, ICM_all_new)
-        model.RECOMMENDER_NAME = "ItemKNNCBFCF_delete_items_{}".format(value)
-        model.fit(**par)
-        model.URM_train = URM_train
-        recommender_list.append(model)
+    recommender_list = [user_cbf_cf, user_cf, old_user_cbf_cf, old_user_cf]
 
     # Building path
     version_path = "../../report/graphics/comparison/"

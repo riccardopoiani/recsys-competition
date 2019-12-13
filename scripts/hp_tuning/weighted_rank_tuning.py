@@ -37,7 +37,7 @@ if __name__ == '__main__':
     ICM_all = get_ICM_train(data_reader)
 
     # Build UCMs
-    UCM_all = get_UCM_train(data_reader, root_data_path)
+    UCM_all = get_UCM_train(data_reader)
 
     model = HybridRankBasedRecommender(URM_train)
 

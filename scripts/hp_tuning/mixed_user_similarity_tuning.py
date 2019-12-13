@@ -23,7 +23,7 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
 
     # Build UCMs
-    UCM_all = get_UCM_train(data_reader, root_data_path)
+    UCM_all = get_UCM_train(data_reader)
 
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0

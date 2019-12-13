@@ -54,6 +54,27 @@ def apply_feature_engineering_UCM(UCM_dict: dict, URM, ICM_dict: dict, ICM_names
         UCM_dict[new_UCM_name] = new_UCM.tocsr()
     return UCM_dict
 
+# ----------- FEATURE IMPUTATION -----------
+
+def apply_imputation_ICM(ICM_dict: dict, ICM_name_to_agg_mapper: dict):
+    if ~np.all(np.in1d(list(ICM_name_to_agg_mapper.keys()), list(ICM_dict.keys()))):
+        raise KeyError("Mapper contains wrong ICM names")
+
+    for ICM_name, aggregator in ICM_name_to_agg_mapper.items():
+        ICM_object: sps.csr_matrix = ICM_dict[ICM_name]
+        x = np.array(ICM_object.data)
+        missing_x_mask = np.ediff1d(ICM_object.tocsr().indptr) == 0
+        missing_x = np.arange(ICM_object.shape[0])[missing_x_mask]
+        ICM_object = ICM_object.tocoo()
+        ICM_object.row = np.concatenate([ICM_object.row, missing_x])
+        sort_indices = np.argsort(ICM_object.row)
+        ICM_object.row = ICM_object.row[sort_indices]
+        ICM_object.col = np.concatenate([ICM_object.col, [ICM_object.col[0]] * len(missing_x)])
+        ICM_object.data = np.concatenate([ICM_object.data, [aggregator(x)] * len(missing_x)])
+        ICM_object.data = ICM_object.data[sort_indices]
+        ICM_dict[ICM_name] = ICM_object.tocsr()
+    return ICM_dict
+
 
 # ----------- FEATURE FILTERING -----------
 

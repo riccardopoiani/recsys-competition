@@ -14,9 +14,11 @@ class BaggingAverageRecommender(BaseRecommender):
 
     RECOMMENDER_NAME = "BaggingAverageRecommender"
 
-    def __init__(self, URM_train, recommender_class, do_bootstrap=True, **recommender_constr_kwargs):
+    def __init__(self, URM_train, recommender_class, do_bootstrap=True, weight_replacement=True,
+                 **recommender_constr_kwargs):
         super().__init__(URM_train)
 
+        self.weight_replacement = weight_replacement
         self.do_bootstrap = do_bootstrap
         self.recommender_class = recommender_class
         self.recommender_constr_kwargs = recommender_constr_kwargs
@@ -29,7 +31,7 @@ class BaggingAverageRecommender(BaseRecommender):
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
             URM_bootstrap = self.URM_train
             if self.do_bootstrap:
-                URM_bootstrap = get_bootstrap_URM(self.URM_train)
+                URM_bootstrap = get_bootstrap_URM(self.URM_train, weight_replacement=self.weight_replacement)
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
                 parameters[parameter_name] = parameter_range.rvs()

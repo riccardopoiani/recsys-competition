@@ -24,7 +24,7 @@ if __name__ == '__main__':
     ICM_all = get_ICM_train(data_reader)
 
     # Build UCMs: do not change the order of ICMs and UCMs
-    UCM_all = get_UCM_train(data_reader, root_data_path)
+    UCM_all = get_UCM_train(data_reader)
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]

@@ -1,9 +1,8 @@
 from abc import ABC
 
-from tqdm import tqdm
 import numpy as np
+from tqdm import tqdm
 
-from course_lib.Base.BaseMatrixFactorizationRecommender import BaseMatrixFactorizationRecommender
 from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.BaseSimilarityMatrixRecommender import BaseItemSimilarityMatrixRecommender, \
     BaseUserSimilarityMatrixRecommender
@@ -14,13 +13,10 @@ from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
-from src.model.Ensemble.BaggingUtils import get_bootstrap_URM
+from src.model.Ensemble.BaggingUtils import get_user_bootstrap
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
-from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
-from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
-from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
 from src.utils.general_utility_functions import block_print, enable_print
 
 
@@ -52,7 +48,7 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
             URM_bootstrap = self.URM_train
             if self.do_bootstrap:
-                URM_bootstrap = get_bootstrap_URM(self.URM_train, self.weight_replacement)
+                URM_bootstrap = get_user_bootstrap(self.URM_train)
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
                 parameters[parameter_name] = parameter_range.rvs()

@@ -38,7 +38,7 @@ def _get_all_models_ranked(URM_train, ICM_all, UCM_all, ICM_subclass_all):
     return all_models
 
 if __name__ == '__main__':
-    seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467, 6, 151, 86, 99, 4444]
+    seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 203]
 
     new_best_param = {'topK': 7, 'shrink': 1494, 'similarity': 'cosine', 'normalize': True,
                       'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'TF-IDF'}
@@ -48,7 +48,7 @@ if __name__ == '__main__':
         # Data loading
         root_data_path = "../../data/"
         data_reader = RecSys2019Reader(root_data_path)
-        data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+        data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
                                                    force_new_split=True, seed=seed_list[i])
         data_reader.load_data()
         URM_train, URM_test = data_reader.get_holdout_split()
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         ICM_all = get_ICM_train(data_reader)
 
         # Build UCMs: do not change the order of ICMs and UCMs
-        UCM_all = get_UCM_train(data_reader, root_data_path)
+        UCM_all = get_UCM_train(data_reader)
         # Build UCMs
 
         # Setting evaluator
@@ -71,7 +71,7 @@ if __name__ == '__main__':
         evaluator_total = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
         # Building the models
-        item_cbf_fw = new_best_models.ItemCBF_all_FW.get_model(URM_train, ICM_all)
+        item_cbf_fw = new_best_models.MixedItem.get_model(URM_train, ICM_all)
 
         curr_map = evaluator_total.evaluateRecommender(item_cbf_fw)[0][10]['MAP']
 
