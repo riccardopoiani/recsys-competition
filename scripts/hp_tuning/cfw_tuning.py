@@ -19,7 +19,7 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
     ICM_all = get_ICM_train(data_reader)
 
-    UCM_all = get_UCM_train(data_reader, "../../data/")
+    UCM_all = get_UCM_train(data_reader)
 
     # Setting evaluator
     cutoff_list = [10]

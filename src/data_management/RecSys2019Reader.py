@@ -3,7 +3,7 @@ import os
 from course_lib.Base.DataIO import DataIO
 from course_lib.Data_manager.DataReader import DataReader
 from src.data_management.RecSys2019Reader_utils import load_ICM_sub_class, load_ICM_asset, load_ICM_price, \
-    load_ICM_item_pop, load_URM, load_UCM_age, load_UCM_region, load_UCM_user_act, build_ICM_all
+    load_ICM_item_pop, load_URM, load_UCM_age, load_UCM_region, load_UCM_user_act, build_ICM_all, build_UCM_all
 
 
 class RecSys2019Reader(DataReader):

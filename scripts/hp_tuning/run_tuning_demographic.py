@@ -46,7 +46,7 @@ def main():
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
-    UCM_all = get_UCM_train(data_reader, root_data_path)
+    UCM_all = get_UCM_train(data_reader)
 
     exclude_cold_users = args.exclude_users
     h = int(args.focus_on_high)

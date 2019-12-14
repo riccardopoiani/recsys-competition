@@ -18,7 +18,7 @@ if __name__ == '__main__':
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
     ICM_all = get_ICM_train(data_reader)
-    UCM_all = get_UCM_train(data_reader, "../../data/")
+    UCM_all = get_UCM_train(data_reader)
 
     URM_positive_FM_matrix = format_URM_positive_non_compressed(URM_train)
     URM_negative_FM_matrix = format_URM_negative_sampling_non_compressed(URM_train, negative_rate=1,

@@ -60,7 +60,7 @@ def main():
     ICM_all = get_ICM_train(data_reader)
 
     # Build UCMs
-    UCM_all = get_UCM_train(data_reader, args.reader_path)
+    UCM_all = get_UCM_train(data_reader)
 
     UCM = None
     ICM = None
