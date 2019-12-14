@@ -4,6 +4,7 @@ from scipy.sparse import csr_matrix
 
 from course_lib.Base.BaseRecommender import BaseRecommender
 from src.utils.general_utility_functions import get_total_number_of_users, get_total_number_of_items
+from sklearn.preprocessing import MinMaxScaler
 
 
 def get_dataframe(user_id_array, remove_seen_flag, cutoff, main_recommender, path, mapper, recommender_list,
@@ -34,6 +35,7 @@ def add_label(data_frame: pd.DataFrame, URM_train: csr_matrix):
     :param URM_train: URM train matrix
     :return: numpy array containing y information
     """
+    print("Retrieving training labels")
     user_ids = data_frame['user_id'].values
     item_ids = data_frame['item_id'].values
 
@@ -62,6 +64,7 @@ def add_user_len_information(data_frame: pd.DataFrame, URM_train: csr_matrix):
     :param URM_train: URM train from which to take profile length information
     :return: data frame with new content inserted
     """
+    print("Adding user profile length")
     data_frame = data_frame.copy()
 
     user_act = (URM_train > 0).sum(axis=1)
@@ -118,6 +121,7 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
     :param use_age: True if age information should be used, false otherwise
     :return: pd.DataFrame containing the original data frame+ UCM information
     """
+    print("Add UCM information")
     t_users = get_total_number_of_users()  # Total number of users (-1 since indexing from 0)
 
     data_frame = data_frame.copy()
@@ -183,6 +187,7 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
     :param use_subclass: True if you wish to append subclass information, false otherwise
     :return: pd.DataFrame containing the information
     """
+    print("Adding ICM information")
     data_frame = data_frame.copy()
     df_price: pd.DataFrame = pd.read_csv(path + "data_ICM_price.csv")
     df_asset: pd.DataFrame = pd.read_csv(path + "data_ICM_asset.csv")
@@ -230,33 +235,36 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
     return data_frame
 
 
-def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecommender,
-                                cutoff, column_name):
-    """
-    Add recommender predictions to the data frame
+def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecommender, cutoff: int,
+                                column_name: str, min_max_scaling=True):
+    new_df = data_frame.copy()
+    items = new_df['item_id'].values.astype(int)
+    users = new_df['user_id'].values.astype(int)
 
-    Note: this method assumes that in the current data frame, information has been added in the following way:
-    "cutoff" predictions for each user
+    print("Add recommender predictions - COLUMN NAME: " + str(column_name))
+    new_df[column_name] = 0
 
-    :param data_frame: data frame on which info will be added
-    :param recommender: recommender object from which scores will be predicted
-    :param column_name: name of the column that will be added
-    :return:
-    """
-    df = data_frame.copy()
+    for i, user_id in enumerate(np.unique(users)):
+        if i % 10000 == 0:
+            print("{} done over {}".format(i, np.unique(users).size))
+        items_for_user_id = items[(i * cutoff):(i * cutoff) + cutoff]
+        if items_for_user_id.size != np.unique(items_for_user_id).size:
+            raise RuntimeError("These two arrays should have the same size")
 
-    items = df['item_id'].values.astype(int)
-    users = df['user_id'].values.astype(int)
-    score_list = []
-
-    for user_id in np.unique(users):
-        items_for_user_id = items[(user_id * cutoff):(user_id * cutoff) + cutoff]
         scores = recommender._compute_item_score([user_id]).squeeze()[items_for_user_id]
-        score_list.extend(scores)
+        if scores.size != items_for_user_id.size:
+            raise RuntimeError("These two arrays should have the same size")
 
-    df[column_name] = pd.Series(score_list, index=df.index)
+        new_df.loc[new_df['user_id'] == user_id, [column_name]] = scores.reshape(scores.size, 1)
 
-    return df
+    if min_max_scaling:
+        values: np.array = new_df[column_name].values
+        scaler = MinMaxScaler()
+        scaler.fit(values.reshape(-1, 1))
+        new_values = scaler.transform(values.reshape(-1, 1))
+        new_df[column_name] = new_values
+
+    return new_df
 
 
 def get_boosting_base_dataframe(user_id_array, top_recommender: BaseRecommender, cutoff: int,
@@ -272,16 +280,31 @@ def get_boosting_base_dataframe(user_id_array, top_recommender: BaseRecommender,
     :param cutoff: if you are interested in MAP@10, choose a large number, for instance, 20
     :return: dataframe containing the described information
     """
+    print("Retrieving base dataframe using the main recommender...")
     # Setting items
-    recommendations = np.array(top_recommender.recommend(user_id_array=user_id_array, cutoff=cutoff,
-                                                         remove_seen_flag=exclude_seen))
+    if exclude_seen:
+        recommendations = np.array(top_recommender.recommend(user_id_array=user_id_array, cutoff=cutoff,
+                                                             remove_seen_flag=exclude_seen))
+    else:
+        # Generate recommendations
+        double_rec_false = np.array(top_recommender.recommend(user_id_array=user_id_array, cutoff=cutoff * 2,
+                                                              remove_seen_flag=False))
+        rec_true = np.array(top_recommender.recommend(user_id_array=user_id_array, cutoff=cutoff,
+                                                      remove_seen_flag=True))
+
+        # Get rid of common recommendations
+        mask = [np.isin(double_rec_false[i], rec_true[i], invert=True) for i in range(double_rec_false.shape[0])]
+        recommendations = np.zeros(shape=rec_true.shape)
+        for i in range(recommendations.shape[0]):
+            recommendations[i] = double_rec_false[i][mask[i]][0:cutoff]
+
     user_recommendations_items = recommendations.reshape((recommendations.size, 1)).squeeze()
 
     # Setting users
     user_recommendations_user_id = np.zeros(user_recommendations_items.size)
     for i, user in enumerate(user_id_array):
-        if user % 50000 == 0:
-            print("{} done over {}".format(user, user_id_array.size))
+        if user % 10000 == 0:
+            print("{} done over {}".format(i, user_id_array.size))
         user_recommendations_user_id[(i * cutoff):(i * cutoff) + cutoff] = user
 
     data_frame = pd.DataFrame({"user_id": user_recommendations_user_id, "item_id": user_recommendations_items})

@@ -353,7 +353,7 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
         if compare_top_pop_points is None:
             compare_top_pop_points = [10, 100, 500, 1000]
 
-        block_print() # Disable useless prints
+        block_print()  # Disable useless prints
         top_popular = TopPop(URM_train)
         top_popular.fit()
         enable_print()
