@@ -3,7 +3,7 @@ from tqdm import tqdm
 
 from course_lib.Base.BaseRecommender import BaseRecommender
 from src.model.Ensemble.BaggingUtils import get_bootstrap_URM
-from src.utils.general_utility_functions import block_print, enable_print
+from src.utils.general_utility_functions import block_print, enable_print, get_split_seed
 
 
 class BaggingAverageRecommender(BaseRecommender):
@@ -34,7 +34,7 @@ class BaggingAverageRecommender(BaseRecommender):
                 URM_bootstrap = get_bootstrap_URM(self.URM_train, weight_replacement=self.weight_replacement)
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
-                parameters[parameter_name] = parameter_range.rvs()
+                parameters[parameter_name] = parameter_range.rvs(random_state=get_split_seed())
 
             block_print()
             recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_constr_kwargs)

@@ -1,6 +1,8 @@
 import numpy as np
 import scipy.sparse as sps
 
+from src.utils.general_utility_functions import get_split_seed
+
 
 def get_bootstrap_URM(URM_train, weight_replacement):
     """
@@ -15,7 +17,9 @@ def get_bootstrap_URM(URM_train, weight_replacement):
     data = URM_copy.data
 
     interactions_list = np.arange(0, len(data))
+    np.random.seed(get_split_seed())
     sample_interactions_list = np.random.choice(interactions_list, len(data), replace=True)
+    np.random.seed()
     unique_sample, counts_sample = np.unique(sample_interactions_list, return_counts=True)
     URM_sample = sps.coo_matrix(URM_copy.shape)
     URM_sample.row = row[unique_sample]
@@ -46,7 +50,9 @@ def get_user_bootstrap(URM_train):
     data = URM_copy.data
 
     user_list = np.arange(URM_copy.shape[0])
+    np.random.seed(get_split_seed())
     sample_user_list = np.random.choice(user_list, URM_copy.shape[0], replace=True)
+    np.random.seed()
     unique_sample, first_index_sample, counts_sample = np.unique(sample_user_list, return_counts=True,
                                                                  return_index=True)
     start = index_pointer[unique_sample]

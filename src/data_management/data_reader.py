@@ -1,4 +1,3 @@
-from course_lib.Data_manager.DataReader import DataReader
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
@@ -13,6 +12,15 @@ def read_target_users(path="../data/data_target_users_test.csv"):
     """
     :return: list of user to recommend in the target playlist
     """
+
+    def row_split_target(row_string):
+        """
+        Function helper to read the target playlist
+        :param row_string:
+        :return:
+        """
+        return int(row_string.replace("\n", ""))
+
     target_file = open(path, 'r')
 
     target_file.seek(0)
@@ -189,46 +197,14 @@ def get_UCM_train(reader: New_DataSplitter_leave_k_out):
     return UCM_all
 
 
-def row_split(row_string):
+def get_non_target_user(target_users, original_user_id_to_index_mapper):
     """
-    Helper for splitting the URM
-    :param row_string: line of the URM train
-    :return: splitted row
+    Retrieve the non target user inside the URM using its original_user_id_to_index_mapper
+
+    :param target_users: target users of Kaggle test set
+    :param original_user_id_to_index_mapper: mapper referred to URM
+    :return: non target users of URM
     """
-    row_string = row_string.replace("\n", "")
-    split = row_string.split(",")
-
-    split[0] = int(split[0])
-    split[1] = int(split[1])
-
-    result = tuple(split)
-
-    return result
+    return [idx for original_uid, idx in original_user_id_to_index_mapper if original_uid not in target_users]
 
 
-def row_split_target(row_string):
-    """
-    Function helper to read the target playlist
-    :param row_string:
-    :return:
-    """
-    return int(row_string.replace("\n", ""))
-
-
-def get_warm_user_rating_matrix(user_rating_matrix):
-    """
-    :param user_rating_matrix: user rating matrix
-    :return: warm version of the user rating matrix
-    """
-    import numpy as np
-    warm_items_mask = np.ediff1d(user_rating_matrix.tocsc().indptr) > 0
-    warm_items = np.arange(user_rating_matrix.shape[1])[warm_items_mask]
-
-    user_rating_matrix = user_rating_matrix[:, warm_items]
-
-    warm_users_mask = np.ediff1d(user_rating_matrix.tocsr().indptr) > 0
-    warm_users = np.arange(user_rating_matrix.shape[0])[warm_users_mask]
-
-    user_rating_matrix = user_rating_matrix[warm_users, :]
-
-    return user_rating_matrix

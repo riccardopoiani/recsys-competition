@@ -6,6 +6,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
+from src.data_management.dataframe_preprocessing import get_preprocessed_dataframe
 from src.feature.demographics_content import get_user_demographic
 from src.model import best_models, new_best_models
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
@@ -14,7 +15,7 @@ from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
     root_data_path = "../../data"
-    k_out = 3
+    k_out = 1
     data_reader = RecSys2019Reader(root_data_path)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=k_out, use_validation_set=False,
                                                force_new_split=True, seed=get_split_seed())
@@ -22,7 +23,6 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
 
     ICM_all_new = get_ICM_train(data_reader)
-
     UCM_all_new = get_UCM_train(data_reader)
 
     # Build ICMs
@@ -36,28 +36,11 @@ if __name__ == '__main__':
     UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
     UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
 
-    UCM_age_region = get_warmer_UCM(UCM_age_region, URM_all, threshold_users=k_out)
+    item_cbf_cf = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all_new)
+    mixed_item = new_best_models.MixedItem.get_model(URM_train, ICM_all_new)
+    #fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all_new)
 
-    UCM_region_warm = get_warmer_UCM(UCM_region, URM_all, threshold_users=k_out)
-    UCM_age_warm = get_warmer_UCM(UCM_age, URM_all, threshold_users=k_out)
-
-    # fusion = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all_new)
-    # sub2 = best_models.HybridWeightedAvgSubmission2.get_model(URM_train=URM_train, ICM_train=ICM_subclass,
-    #                                                          UCM_train=UCM_age_region)
-    # sub2.RECOMMENDER_NAME = "SUB2"
-
-    # mixed = best_models.WeightedAverageMixed.get_model(URM_train=URM_train, ICM_subclass=ICM_subclass,
-    #                                                  ICM_all=ICM, UCM_age_region=UCM_age_region)
-    # mixed.RECOMMENDER_NAME = "MIXED"
-
-    # item_cbf_cf = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_all_new)
-    user_cbf_cf = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all_new)
-    user_cf = new_best_models.UserCF.get_model(URM_train)
-    old_user_cf = best_models.UserCF.get_model(URM_train)
-    old_user_cbf_cf = best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all_new)
-    old_user_cbf_cf.RECOMMENDER_NAME = "OLD_USER_CBF_CF"
-
-    recommender_list = [user_cbf_cf, user_cf, old_user_cbf_cf, old_user_cf]
+    recommender_list = [mixed_item, item_cbf_cf]
 
     # Building path
     version_path = "../../report/graphics/comparison/"
@@ -71,7 +54,7 @@ if __name__ == '__main__':
                  exclude_cold_items=False)"""
 
     # Plotting the comparison on age
-    region_demographic = get_user_demographic(UCM_region_warm, URM_train, 1, binned=True)
+    region_demographic = get_user_demographic(UCM_region, URM_train, k_out, binned=True)
     region_demographic_describer_list = [-1, 0, 2, 3, 4, 5, 6, 7]
     demographic_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
                      URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
@@ -80,8 +63,8 @@ if __name__ == '__main__':
                      exclude_cold_users=True)
 
     # Plotting the comparison on region
-    age_demographic = get_user_demographic(UCM_age, URM_all, 1, binned=True)
-    age_demographic_describer_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    age_demographic = get_user_demographic(UCM_age, URM_all, k_out, binned=True)
+    age_demographic_describer_list = [-1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     demographic_plot(recommender_instance_list=recommender_list, URM_train=URM_train,
                      URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
                      output_folder_path=version_path + "age/", demographic_name="Age",
@@ -94,9 +77,9 @@ if __name__ == '__main__':
                                                bins=30)
 
     # Plotting the comparison based on clustering
-    # dataframe = get_preprocessed_dataframe(path="../../data/", keep_warm_only=True)
-    # plot_clustering_demographics(recommender_list, URM_train, URM_test, dataframe,
-    #                             metric="MAP", cutoff=10, save_on_file=True,
-    #                             output_folder_path=version_path + "clustering/",
-    #                             exclude_cold_users=True, n_clusters=25,
-    #                             n_init=10)
+    dataframe = get_preprocessed_dataframe(path="../../data/", keep_warm_only=True)
+    plot_clustering_demographics(recommender_list, URM_train, URM_test, dataframe,
+                                 metric="MAP", cutoff=10, save_on_file=True,
+                                 output_folder_path=version_path + "clustering/",
+                                 exclude_cold_users=True, n_clusters=50,
+                                 n_init=10)

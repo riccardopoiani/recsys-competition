@@ -74,3 +74,21 @@ def _get_popular(URM, popular_t, axis):
     index_arr = np.array(index_list)
 
     return index_arr
+
+
+def get_warm_URM(URM):
+    """
+    :param URM: user rating matrix
+    :return: warm version of the user rating matrix
+    """
+    warm_items_mask = np.ediff1d(URM.tocsc().indptr) > 0
+    warm_items = np.arange(URM.shape[1])[warm_items_mask]
+
+    URM = URM[:, warm_items]
+
+    warm_users_mask = np.ediff1d(URM.tocsr().indptr) > 0
+    warm_users = np.arange(URM.shape[0])[warm_users_mask]
+
+    URM = URM[warm_users, :]
+
+    return URM

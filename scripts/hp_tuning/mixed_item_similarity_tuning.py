@@ -41,7 +41,7 @@ if __name__ == '__main__':
     version_path = version_path + now
 
     item_cf = best_models.ItemCF.get_model(URM_train, load_model=False)
-    item_cbf_cf = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
+    item_cbf_cf = new_best_models.ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
     item_cbf_all = new_best_models.ItemCBF_all_FW.get_model(URM_train=URM_train,
                                                             ICM_train=ICM_all)
     rp3beta = new_best_models.RP3BetaSideInfo.get_model(URM_train, ICM_all)

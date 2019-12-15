@@ -34,7 +34,6 @@ if __name__ == '__main__':
     # Prepare train sparse matrix and labels for dumping to file
     FM_sps_matrix = URM_FM_matrix.copy()
     FM_sps_matrix[FM_sps_matrix == -1] = 1
-    URM_FM_matrix = URM_FM_matrix[:, URM_train.shape[0]+URM_train.shape[1]:]
     labels = np.concatenate([np.ones(shape=URM_positive_FM_matrix.shape[0], dtype=np.int).tolist(),
                              np.zeros(shape=URM_negative_FM_matrix.shape[0], dtype=np.int).tolist()])
 

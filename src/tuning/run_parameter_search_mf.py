@@ -7,6 +7,7 @@ from skopt.space import Integer, Categorical, Real
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
 from src.model.FactorizationMachine.FactorizationMachineRecommender import FactorizationMachineRecommender
+from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
@@ -68,6 +69,12 @@ def run_parameter_search_mf_collaborative(recommender_class, URM_train, UCM_trai
             hyperparameters_range_dictionary["regularization"] = Real(low=1e-4, high=1e-1, prior='log-uniform')
             hyperparameters_range_dictionary["learning_rate"] = Real(low=1e-2, high=1e-1, prior='log-uniform')
             hyperparameters_range_dictionary["epochs"] = Categorical([300])
+
+        if recommender_class is FunkSVDRecommender:
+            hyperparameters_range_dictionary["num_factors"] = Integer(50, 400)
+            hyperparameters_range_dictionary["regularization"] = Real(low=1e-5, high=1e-0, prior='log-uniform')
+            hyperparameters_range_dictionary["learning_rate"] = Real(low=1e-2, high=1e-1, prior='log-uniform')
+            hyperparameters_range_dictionary["epochs"] = Categorical([500])
 
         if recommender_class is LogisticMFRecommender:
             hyperparameters_range_dictionary["num_factors"] = Integer(20, 400)

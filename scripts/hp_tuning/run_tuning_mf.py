@@ -8,6 +8,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import best_models
 from src.model.FactorizationMachine.FactorizationMachineRecommender import FactorizationMachineRecommender
+from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
@@ -22,7 +23,8 @@ RECOMMENDER_CLASS_DICT = {
     "ials": ImplicitALSRecommender,
     "logistic_mf": LogisticMFRecommender,
     "mf_bpr": MF_BPR_Recommender,
-    "fm": FactorizationMachineRecommender
+    "fm": FactorizationMachineRecommender,
+    "funk_svd": FunkSVDRecommender
 }
 
 
