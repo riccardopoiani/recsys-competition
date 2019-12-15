@@ -15,11 +15,10 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
 
     all_models['MIXED'] = new_best_models.MixedItem.get_model(URM_train, ICM_all)
 
-    all_models['SLIM_BPR'] = best_models.SLIM_BPR.get_model(URM_train)
-    all_models['P3ALPHA'] = best_models.P3Alpha.get_model(URM_train)
-    all_models['RP3BETA'] = best_models.RP3Beta.get_model(URM_train)
-    all_models['IALS'] = best_models.IALS.get_model(URM_train)
-    all_models['USER_ITEM_ALL'] = best_models.UserItemKNNCBFCFDemographic.get_model(URM_train, ICM_all, UCM_all)
+    all_models['S_SLIM_BPR'] = new_best_models.SSLIM_BPR.get_model(sps.vstack([URM_train, ICM_all.T]))
+    all_models['S_PURE_SVD'] = new_best_models.PureSVDSideInfo.get_model(URM_train, ICM_all)
+    all_models['S_IALS'] = new_best_models.IALSSideInfo.get_model(URM_train, ICM_all)
+    all_models['USER_CBF_CF'] = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
 
     return all_models
 

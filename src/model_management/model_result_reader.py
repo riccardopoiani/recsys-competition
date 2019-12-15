@@ -4,13 +4,14 @@ from os import listdir
 from os.path import isfile, join
 from src.utils.general_utility_functions import from_string_to_dict
 
+
 def read_folder_metadata(path):
-    '''
+    """
     Read all the metadata.zip file in a given folder.
     They are result of hp tuning.
     :param path: path of the folder
     :return: list of dataframes containing information in the metadata.zip files in the folder
-    '''
+    """
     metadata_file_list = read_metadata_file_list(path)
     metadata_content_list = []
     for f in metadata_file_list:
@@ -18,8 +19,9 @@ def read_folder_metadata(path):
         metadata_content_list.append(read_tuning_metadata_file(metadata_file_path))
     return metadata_content_list
 
+
 def best_model_reader(path):
-    '''
+    """
     Read all the files in the given directory folder (assumed to terminate with a '/' and then
     return the list of best model in all the files.
 
@@ -27,7 +29,7 @@ def best_model_reader(path):
 
     :param path: directory where .txt of report files of hp. tuning are stored
     :return: list of dictionary that contains the hp of the best model found. There will be 1 dictionary for each file
-    '''
+    """
     only_files = [f for f in listdir(path) if isfile(join(path, f))]
 
     # Filter zip files
@@ -45,16 +47,17 @@ def best_model_reader(path):
 
 
 def read_metadata_file_list(path):
-    '''
+    """
     Read the list of metadata files in a given directory
     :param path: directory path
     :return: list of file names of the metadata files in the given directory
-    '''
+    """
     files = [f for f in listdir(path) if isfile(join(path, f))]
 
     metadata_files = [f for f in files if f[-12:] == 'metadata.zip']
 
     return metadata_files
+
 
 def read_tuning_metadata_file(zip_file_path: os.path):
     """
@@ -76,7 +79,6 @@ def read_tuning_metadata_file(zip_file_path: os.path):
         data_file = zipfile.ZipFile(zip_file_path)
     except (FileNotFoundError, zipfile.BadZipFile):
         print("Unable to find data zip file!")
-
 
     recommender_name_path = data_file.extract("algorithm_name_recommender.json", path=zip_file_path + "decompressed/")
     hyperparameters_list_path = data_file.extract("hyperparameters_list.json", path=zip_file_path + "decompressed/")
@@ -121,5 +123,3 @@ def read_tuning_metadata_file(zip_file_path: os.path):
     print("Loading complete!")
 
     return df
-
-

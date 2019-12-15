@@ -6,6 +6,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import best_models, new_best_models
+from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 
 
 def _get_all_models_weighted_average(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
@@ -21,27 +22,24 @@ def _get_all_models_weighted_average(URM_train, ICM_all, UCM_all, ICM_subclass_a
     return all_models
 
 
-def _get_all_models_ranked(URM_train, ICM_all, UCM_all, ICM_subclass_all):
+def _get_all_models_ranked(URM_train, ICM_all, UCM_all):
     all_models = {}
 
-    all_models['MIXED'] = best_models.WeightedAverageMixed.get_model(URM_train=URM_train,
-                                                                     ICM_all=ICM_all,
-                                                                     ICM_subclass_all=ICM_subclass_all,
-                                                                     UCM_age_region=UCM_all)
+    all_models['MIXED'] = new_best_models.MixedItem.get_model(URM_train, ICM_all)
 
-    all_models['SLIM_BPR'] = best_models.SLIM_BPR.get_model(URM_train)
-    all_models['P3ALPHA'] = best_models.P3Alpha.get_model(URM_train)
-    all_models['RP3BETA'] = best_models.RP3Beta.get_model(URM_train)
-    all_models['IALS'] = best_models.IALS.get_model(URM_train)
-    all_models['USER_ITEM_ALL'] = best_models.UserItemKNNCBFCFDemographic.get_model(URM_train, ICM_all, UCM_all)
+    all_models['S_SLIM_BPR'] = new_best_models.SSLIM_BPR.get_model(sps.vstack([URM_train, ICM_all.T]))
+    all_models['S_PURE_SVD'] = new_best_models.PureSVDSideInfo.get_model(URM_train, ICM_all)
+    all_models['S_IALS'] = new_best_models.IALSSideInfo.get_model(URM_train, ICM_all)
+    all_models['USER_CBF_CF'] = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
 
     return all_models
 
 if __name__ == '__main__':
     seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 203]
 
-    new_best_param = {'topK': 7, 'shrink': 1494, 'similarity': 'cosine', 'normalize': True,
-                      'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'TF-IDF'}
+    new_best_param = {'MIXED': 0.9905701189936175,
+                      'S_SLIM_BPR': 0.03388611712880397, 'S_PURE_SVD': 0.016614177533037847,
+                      'S_IALS': 0.02333406947854522, 'USER_CBF_CF': 0.07909998116549612}
     model_score = 0
 
     for i in range(0, len(seed_list)):
@@ -71,9 +69,9 @@ if __name__ == '__main__':
         evaluator_total = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
         # Building the models
-        item_cbf_fw = new_best_models.MixedItem.get_model(URM_train, ICM_all)
+        model = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all)
 
-        curr_map = evaluator_total.evaluateRecommender(item_cbf_fw)[0][10]['MAP']
+        curr_map = evaluator_total.evaluateRecommender(model)[0][10]['MAP']
 
         print("SEED: {} \n ".format(seed_list[i]))
         print("CURR MAP {} \n ".format(curr_map))

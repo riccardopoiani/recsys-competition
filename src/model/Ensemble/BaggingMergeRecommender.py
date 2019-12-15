@@ -17,7 +17,7 @@ from src.model.Ensemble.BaggingUtils import get_user_bootstrap
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
-from src.utils.general_utility_functions import block_print, enable_print
+from src.utils.general_utility_functions import block_print, enable_print, get_split_seed
 
 
 class BaggingMergeRecommender(BaseRecommender, ABC):
@@ -51,7 +51,7 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
                 URM_bootstrap = get_user_bootstrap(self.URM_train)
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
-                parameters[parameter_name] = parameter_range.rvs()
+                parameters[parameter_name] = parameter_range.rvs(random_state=get_split_seed())
                 # Deals with array since .rvs() does not return always a scalar
                 if type(parameters[parameter_name]) is np.ndarray:
                     parameters[parameter_name] = parameters[parameter_name][0]

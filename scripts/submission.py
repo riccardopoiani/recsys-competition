@@ -21,8 +21,24 @@ if __name__ == '__main__':
     ICM_all = get_ICM_all(data_reader)
     UCM_all = get_UCM_all(data_reader)
 
+    UCM_region = data_reader.get_UCM_from_name("UCM_region")
+    print(data_reader.get_UCM_feature_to_index_mapper_from_name("UCM_region"))
+    all_users = np.arange(URM_all.shape[0])
+    users = UCM_region.tocoo().row
+    region = UCM_region.tocoo().col
+
+    region_group_1_mask = (region == 5) | (region == 6)
+    region_group_2_mask = np.logical_not(region_group_1_mask)
+    users_set_1 = set(users[region_group_1_mask])
+    users_set_2 = set(users[region_group_2_mask] + all_users)
     # Main recommender
-    main_recommender = new_best_models.MixedItem.get_model(URM_all, ICM_all)
+    main_recommender = HybridDemographicRecommender(URM_all)
+    main_recommender.add_user_group(0, users_set_1)
+    main_recommender.add_user_group(1, users_set_2)
+    main_recommender.add_relation_recommender_group(new_best_models.WeightedAverageItemBased.get_model(URM_all, ICM_all),
+                                                    0)
+    main_recommender.add_relation_recommender_group(new_best_models.MixedItem.get_model(URM_all, ICM_all), 1)
+    main_recommender.fit()
 
     # Sub recommender
     URM_cold_all = read_URM_cold_all("../data/data_train.csv")
@@ -37,9 +53,8 @@ if __name__ == '__main__':
     cold_users_age_mask = np.ediff1d(UCM_age.tocsr().indptr) == 0
     cold_users_age = np.arange(UCM_age.shape[0])[cold_users_age_mask]
     warm_users_age = np.arange(UCM_age.shape[0])[~cold_users_age_mask]
-    print(len(cold_users_age))
 
-    """topPop = TopPop(URM_cold_all)
+    topPop = TopPop(URM_cold_all)
     topPop.fit()
     user_cbf_cf = best_models.UserCBF_CF_Cold.get_model(URM_cold_all, UCM_cold_all)
     sub_recommender = HybridDemographicRecommender(URM_cold_all)
@@ -47,8 +62,7 @@ if __name__ == '__main__':
     sub_recommender.add_user_group(1, cold_users_age)
     sub_recommender.add_relation_recommender_group(user_cbf_cf, 0)
     sub_recommender.add_relation_recommender_group(topPop, 1)
-    sub_recommender.fit()"""
-    sub_recommender = best_models.UserCBF_CF_Cold.get_model(URM_cold_all, UCM_cold_all)
+    sub_recommender.fit()
 
     mapper_model = MapperRecommender(URM_cold_all)
     mapper_model.fit(main_recommender=main_recommender, sub_recommender=sub_recommender,

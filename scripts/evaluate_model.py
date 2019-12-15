@@ -1,13 +1,29 @@
 import os
 
+from skopt.space import Categorical, Integer
+
 from course_lib.Base.Evaluation.Evaluator import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.data_preprocessing import apply_imputation_ICM
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import new_best_models
-from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
+from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.utils.general_utility_functions import get_split_seed
+
+
+def _get_all_models(URM_train, ICM_all, UCM_all):
+    all_models = {}
+
+    all_models['MIXED'] = new_best_models.MixedItem.get_model(URM_train, ICM_all)
+
+    all_models['S_SLIM_BPR'] = new_best_models.SSLIM_BPR.get_model(sps.vstack([URM_train, ICM_all.T]))
+    all_models['S_PURE_SVD'] = new_best_models.PureSVDSideInfo.get_model(URM_train, ICM_all)
+    all_models['S_IALS'] = new_best_models.IALSSideInfo.get_model(URM_train, ICM_all)
+    all_models['USER_CBF_CF'] = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
+
+    return all_models
+
 
 if __name__ == '__main__':
     os.environ["MKL_NUM_THREADS"] = "1"
@@ -34,14 +50,15 @@ if __name__ == '__main__':
     ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=ignore_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-    ICM_dict = data_reader.get_loaded_ICM_dict()
-    ICM_dict = apply_imputation_ICM(ICM_dict, ICM_name_to_agg_mapper={"ICM_price": np.median, "ICM_asset": np.median})
-    feature_weights = 1-ICM_dict["ICM_price"].data
-    par = new_best_models.UserCBF_CF_Warm.get_best_parameters()
-    par.pop("interactions_feature_weighting")
-    model = UserKNNCBFCFRecommender(URM_train, UCM_all)
-    model.fit(**par)
+    hyper_parameters_range = {}
+    for par, value in new_best_models.ItemCBF_CF.get_best_parameters().items():
+        hyper_parameters_range[par] = Categorical([value])
+    hyper_parameters_range['topK'] = Integer(low=3, high=30)
+    hyper_parameters_range['shrink'] = Integer(low=1000, high=2000)
+    model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
+                                                  ICM_train=ICM_all)
+    model.fit(topK=100, num_models=100, hyper_parameters_range=hyper_parameters_range)
 
     print(evaluator.evaluateRecommender(model))

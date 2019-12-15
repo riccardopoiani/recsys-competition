@@ -46,10 +46,10 @@ def get_user_demographic(UCM, URM_all, threshold_users, binned=False):
     user_demographic[users] = features
 
     if binned:
-        max = np.max(user_demographic)
-        min = np.min(user_demographic)
+        unique_features = np.unique(user_demographic)
+        unique_features = np.sort(unique_features)
         result = []
-        for i in range(min, max + 1):
+        for i in unique_features:
             result.append(np.where(user_demographic == i)[0])
         user_demographic = result
 

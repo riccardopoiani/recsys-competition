@@ -272,3 +272,28 @@ class MixedItem(IBestModel):
         hybrid.fit(**cls.get_best_parameters())
 
         return hybrid
+
+
+class WeightedAverageItemBased(IBestModel):
+
+    best_parameters = {'FUSION_ITEM_CBF_CF': 0.9710063605002539, 'RP3BETA': 0.06174619037883712,
+                       'ITEM_CF': 0.03242008947930531, 'ITEM_CBF': 0.05542859287050307}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_all):
+        from src.model.best_models import ItemCF
+        from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+
+        item_cf = ItemCF.get_model(URM_train)
+        item_cbf_cf = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
+        item_cbf_all = ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all)
+        rp3beta = RP3BetaSideInfo.get_model(URM_train=URM_train, ICM_train=ICM_all)
+
+        hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
+        hybrid.add_fitted_model("ITEM_CF", item_cf)
+        hybrid.add_fitted_model("FUSION_ITEM_CBF_CF", item_cbf_cf)
+        hybrid.add_fitted_model("ITEM_CBF", item_cbf_all)
+        hybrid.add_fitted_model("RP3BETA", rp3beta)
+
+        hybrid.fit(**cls.get_best_parameters())
+        return hybrid

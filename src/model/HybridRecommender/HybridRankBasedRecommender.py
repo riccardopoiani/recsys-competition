@@ -90,6 +90,18 @@ class WeightedRankingStrategy(RecommendationStrategyInterface):
         return rankings, weighted_scores
 
 
+class WeightedCountRankingStrategy(RecommendationStrategyInterface):
+
+    def __init__(self, max_value=5):
+        self.max_value = max_value
+
+    def get_hybrid_rankings_and_scores(self, rankings: list, scores: np.ndarray, weight: float):
+        ranking_scores = np.tile(np.full(shape=len(rankings[0]), fill_value=1), reps=(len(rankings), 1))
+        ranking_scores[:, 0] = self.max_value
+        weighted_scores = np.multiply(ranking_scores, weight)
+        return rankings, weighted_scores
+
+
 ########## Hybrid Recommender ##########
 
 class HybridRankBasedRecommender(AbstractHybridRecommender):
@@ -106,6 +118,8 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
         self.multiplier_cutoff = None
         self.weights = None
         self.STRATEGY_MAPPER = {"weighted_count": WeightedCountStrategy(), "weighted_rank": WeightedRankingStrategy(),
+                                "weighted_count_rank_5": WeightedCountRankingStrategy(5),
+                                "weighted_count_rank_3": WeightedCountRankingStrategy(3),
                                 "weighted_avg": WeightedAverageStrategy(normalize=False),
                                 "norm_weighted_avg": WeightedAverageStrategy(normalize=True)}
 
@@ -129,6 +143,8 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
         self.weights = weights
         self.multiplier_cutoff = multiplier_cutoff
         self.hybrid_strategy = self.STRATEGY_MAPPER[strategy]
+        self.sub_recommender = TopPop(URM_train=self.URM_train)
+        self.sub_recommender.fit()
 
     def recommend(self, user_id_array, cutoff=None, remove_seen_flag=True, items_to_compute=None,
                   remove_top_pop_flag=False, remove_custom_items_flag=False, return_scores=False):
@@ -161,13 +177,11 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
         cutoff_model = cutoff * self.multiplier_cutoff
         scores = []
 
-        sub_recommender = TopPop(URM_train=self.URM_train)
-        sub_recommender.fit()
-        sub_rankings = sub_recommender.recommend(user_id_array, cutoff=cutoff_model,
-                                                 remove_seen_flag=remove_seen_flag,
-                                                 items_to_compute=items_to_compute,
-                                                 remove_top_pop_flag=remove_top_pop_flag,
-                                                 remove_custom_items_flag=remove_custom_items_flag)
+        sub_rankings = self.sub_recommender.recommend(user_id_array, cutoff=cutoff_model,
+                                                      remove_seen_flag=remove_seen_flag,
+                                                      items_to_compute=items_to_compute,
+                                                      remove_top_pop_flag=remove_top_pop_flag,
+                                                      remove_custom_items_flag=remove_custom_items_flag)
 
         for recommender_name, recommender_model in self.models.items():
             rankings, scores = recommender_model.recommend(user_id_array, cutoff=cutoff_model,
@@ -213,4 +227,5 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
 
     @classmethod
     def get_possible_strategies(cls):
-        return ["weighted_count", "weighted_rank", "weighted_avg", "norm_weighted_avg"]
+        return ["weighted_count", "weighted_rank", "weighted_count_rank_5", "weighted_count_rank_3",
+                "weighted_avg", "norm_weighted_avg"]
