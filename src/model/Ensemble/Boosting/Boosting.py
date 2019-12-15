@@ -15,7 +15,7 @@ class BoostingFixedData(BaseRecommender):
 
         self.dtrain = xgb.DMatrix(data=X_train, label=y_train)
         self.dvalid = xgb.DMatrix(data=X_valid, label=y_valid)
-        self.evallist = [(self.dvalid, 'eval'), (self.dtrain, 'train')]
+        self.evallist = [(self.dtrain, 'train'), (self.dvalid, 'eval')]
         self.bst = None
         self.dict_result = dict()
         self.dftest = df_test
@@ -54,19 +54,15 @@ class BoostingFixedData(BaseRecommender):
     """
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):
-
         # Setting total items: the one of which you have to compute scores
         if items_to_compute is not None:
             raise NotImplemented()
-            # all_items = - np.ones(self.n_items, dtype=np.float32)*np.inf
-            # all_items[items_to_compute] = self.items[items_to_compute].copy()
         else:
             all_items = self.items.copy()
 
         # Get the test dataframe
         data_frame = self.dftest.copy()
         data_frame = data_frame[data_frame['user_id'].isin(user_id_array)]
-        # print(data_frame)
 
         # Predict the ratings
         items = data_frame["item_id"].values

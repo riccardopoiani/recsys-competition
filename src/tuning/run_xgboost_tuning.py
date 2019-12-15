@@ -1,8 +1,8 @@
+import os
+
 import numpy as np
 
-from course_lib.Base.BaseRecommender import BaseRecommender
 from src.model.Ensemble.Boosting.Boosting import BoostingFixedData
-from src.model.Ensemble.Boosting.boosting_preprocessing import get_dataframe, add_label
 
 
 def sample_parameters(parameters: dict):
@@ -20,32 +20,42 @@ def sample_parameters(parameters: dict):
     return sample
 
 
-def run_xgb_tuning(user_to_validate, URM_train, main_recommender: BaseRecommender, recommender_list: list,
-                   mapper: dict,
+def run_xgb_tuning(train_df, valid_df, y_train, non_zero_count, total,
+                   URM_train,
                    evaluator,
                    n_trials=40,
-                   max_iter_per_trial=5000, n_early_stopping=15,
-                   output_folder_file="",
+                   max_iter_per_trial=30000, n_early_stopping=500,
                    objective="binary:logistic", parameters=None,
-                   cutoff=20, data_path="../../data/",
+                   cutoff=20,
                    valid_size=0.2,
                    best_model_folder=""):
-    # Retrieve data for boosting
-    train_df = get_dataframe(user_id_array=user_to_validate,
-                             remove_seen_flag=False,
-                             cutoff=cutoff,
-                             main_recommender=main_recommender,
-                             recommender_list=recommender_list,
-                             mapper=mapper, URM_train=URM_train, path=data_path)
-    y_train, non_zero_count, total = add_label(data_frame=train_df, URM_train=URM_train)
-    valid_df = get_dataframe(user_id_array=user_to_validate,
-                             remove_seen_flag=True,
-                             cutoff=cutoff,
-                             main_recommender=main_recommender,
-                             recommender_list=recommender_list,
-                             mapper=mapper,
-                             URM_train=URM_train,
-                             path=data_path)
+    """
+    Run tuning for XGBoost algorithm
+
+    :param train_df: dataframe used for training
+    :param valid_df: dataframe used for validation
+    :param y_train: training label for train_df
+    :param non_zero_count: number of non-zero ratings in train_df
+    :param total: total number of interactions in train_df
+    :param URM_train: URM_train used for generating y_train
+    :param evaluator: evaluator that will be used to validate the algorithm performance
+    :param n_trials: number of trials of the tuning algorithm
+    :param max_iter_per_trial: max number of epochs for a trial
+    :param n_early_stopping: how often the training will do early stopping
+    :param objective: function that will be optimized by the algorithm
+    :param parameters: custom parameters from which to sample the hyperparameters
+    :param cutoff: cutoff at which the boosting dataframe has been created
+    :param valid_size: size of the validation set used while training
+    :param best_model_folder: where to store the best models
+    :return: None
+    """
+    try:
+        if not os.path.exists(best_model_folder):
+            os.mkdir(best_model_folder)
+    except FileNotFoundError as e:
+        os.makedirs(best_model_folder)
+
+    output_folder_file = best_model_folder + "tuning_results.txt"
 
     scale_pos_weight = (total - non_zero_count) / non_zero_count
 
@@ -75,6 +85,7 @@ def run_xgb_tuning(user_to_validate, URM_train, main_recommender: BaseRecommende
 
     for i in range(n_trials):
         sample = sample_parameters(parameters)
+        print("Trial {} over {}".format(i, n_trials))
         print("Trying configuration: " + str(sample))
         f.write(str(sample))
 
@@ -85,6 +96,7 @@ def run_xgb_tuning(user_to_validate, URM_train, main_recommender: BaseRecommende
 
         map_10 = evaluator.evaluateRecommender(boosting)[0][10]['MAP']
         if map_10 > max_map:
+            print("New best config found")
             max_map = map_10
             best_param = sample
             best_trial = i

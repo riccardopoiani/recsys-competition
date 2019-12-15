@@ -1,13 +1,25 @@
 from datetime import datetime
 
 import numpy as np
+import pandas as pd
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model import new_best_models
+from src.model.Ensemble.Boosting.boosting_preprocessing import add_label
+from src.tuning.run_xgboost_tuning import run_xgb_tuning
 from src.utils.general_utility_functions import get_split_seed
+
+
+def _preprocess_dataframe(df: pd.DataFrame):
+    df = df.copy()
+    df = df.drop(columns=["index"], inplace=False)
+    df = df.sort_values(by="user_id", ascending=True)
+    df = df.reset_index()
+    df = df.drop(columns=["index"], inplace=False)
+    return df
+
 
 if __name__ == '__main__':
     # Data loading
@@ -22,18 +34,24 @@ if __name__ == '__main__':
     ICM_all = get_ICM_train(data_reader)
 
     # Build UCMs: do not change the order of ICMs and UCMs
-    UCM_all = get_UCM_train(data_reader, root_data_path)
+    UCM_all = get_UCM_train(data_reader)
+
+    # Reading the dataframe
+    dataframe_path = "../../boosting_dataframe/"
+    train_df = pd.read_csv(dataframe_path + "train_df_20.csv")
+    valid_df = pd.read_csv(dataframe_path + "valid_df_20.csv")
+
+    train_df = _preprocess_dataframe(train_df)
+    valid_df = _preprocess_dataframe(valid_df)
+
+    print("Retrieving training labels...", end="")
+    y_train, non_zero_count, total = add_label(data_frame=train_df, URM_train=URM_train)
+    print("Done")
 
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_user = np.arange(URM_train.shape[0])[cold_users_mask]
-    cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_user)
-
-    # XGB SETUP
-    main_rec = new_best_models.ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
-    #other_rec = [new_best_models.UserCBF_CF_Warm.get_model(URM_train=URM_train, UCM_train=UCM_all)]
-
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=[10], ignore_users=cold_user)
     total_users = np.arange(URM_train.shape[0])
     mask = np.in1d(total_users, cold_user, invert=True)
     users_to_validate = total_users[mask]
@@ -47,8 +65,18 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    # run_xgb_tuning(user_to_validate=users_to_validate, URM_train=URM_train, main_recommender=main_rec,
-    #               recommender_list=[], mapper=mapper, evaluator=evaluator, n_trials=40,
-    #               max_iter_per_trial=5000, n_early_stopping=15, output_folder_file="temp.txt")
+    run_xgb_tuning(train_df=train_df,
+                   valid_df=valid_df,
+                   y_train=y_train,
+                   non_zero_count=non_zero_count,
+                   total=total,
+                   URM_train=URM_train,
+                   evaluator=evaluator,
+                   n_trials=40,
+                   max_iter_per_trial=30000, n_early_stopping=500,
+                   objective="binary:logistic", parameters=None,
+                   cutoff=20,
+                   valid_size=0.2,
+                   best_model_folder=version_path)
 
     print("...tuning ended")

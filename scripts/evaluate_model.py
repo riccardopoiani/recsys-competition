@@ -1,32 +1,12 @@
 import os
 
-from skopt.space import Categorical, Integer, Real
-
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.Base.IR_feature_weighting import TF_IDF, okapi_BM_25
-from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
-from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
-from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
-from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
 from src.data_management.data_preprocessing import apply_imputation_ICM
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model import new_best_models, best_models
-from src.model.Ensemble.BaggingAverageRecommender import BaggingAverageRecommender
-from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeUserSimilarityRecommender, \
-    BaggingMergeItemSimilarityRecommender
-from src.model.FeatureWeighting.User_CFW_D_Similarity_Linalg import User_CFW_D_Similarity_Linalg
-from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
-from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
-from src.model.KNN.UserItemCBFCFDemographicRecommender import UserItemCBFCFDemographicRecommender
-from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
-from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
-from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
-from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
-from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import new_best_models
+from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
