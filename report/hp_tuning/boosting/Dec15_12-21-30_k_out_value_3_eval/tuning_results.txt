@@ -1,0 +1,21 @@
+Tuning XGBoost 
+Parameters: 
+ {'learning_rate': [0.1, 0.01, 0.001], 'gamma': [0.001, 0.1, 0.3, 0.5, 0.8], 'max_depth': [2, 4, 7], 'max_delta_step': [0, 1, 5, 10], 'subsample': [0.2, 0.4, 0.5, 0.6, 0.7], 'colsample_bytree': [0.3, 0.6, 0.8, 1.0], 'scale_pos_weight': [3.6583305754205218], 'objective': ['binary:logistic']}
+ N_trials: 10 
+Max iteration per trial: 25000
+Early stopping every 500 iterations
+
+
+ Begin tuning 
+
+{'learning_rate': 0.01, 'gamma': 0.001, 'max_depth': 2, 'max_delta_step': 0, 'subsample': 0.7, 'colsample_bytree': 0.8, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.03468910645194038{'learning_rate': 0.1, 'gamma': 0.5, 'max_depth': 2, 'max_delta_step': 10, 'subsample': 0.7, 'colsample_bytree': 1.0, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.034294969540845294
+{'learning_rate': 0.001, 'gamma': 0.8, 'max_depth': 4, 'max_delta_step': 10, 'subsample': 0.6, 'colsample_bytree': 0.6, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.03482194543076681
+{'learning_rate': 0.01, 'gamma': 0.001, 'max_depth': 4, 'max_delta_step': 10, 'subsample': 0.7, 'colsample_bytree': 0.6, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.03485616846492804
+{'learning_rate': 0.1, 'gamma': 0.1, 'max_depth': 4, 'max_delta_step': 10, 'subsample': 0.6, 'colsample_bytree': 0.3, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.03427841369862687
+{'learning_rate': 0.01, 'gamma': 0.8, 'max_depth': 7, 'max_delta_step': 10, 'subsample': 0.4, 'colsample_bytree': 0.3, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.03457669669598943
+{'learning_rate': 0.1, 'gamma': 0.001, 'max_depth': 2, 'max_delta_step': 10, 'subsample': 0.5, 'colsample_bytree': 0.6, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.03430646710747975
+{'learning_rate': 0.01, 'gamma': 0.3, 'max_depth': 4, 'max_delta_step': 5, 'subsample': 0.6, 'colsample_bytree': 1.0, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.03480954080663676
+{'learning_rate': 0.1, 'gamma': 0.5, 'max_depth': 7, 'max_delta_step': 5, 'subsample': 0.5, 'colsample_bytree': 0.8, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.034554592276838055
+{'learning_rate': 0.01, 'gamma': 0.8, 'max_depth': 4, 'max_delta_step': 5, 'subsample': 0.2, 'colsample_bytree': 0.8, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Map@10 0.03478447823601291
+
+Best MAP score: 0.03485616846492804 Best config {'learning_rate': 0.01, 'gamma': 0.001, 'max_depth': 4, 'max_delta_step': 10, 'subsample': 0.7, 'colsample_bytree': 0.6, 'scale_pos_weight': 3.6583305754205218, 'objective': 'binary:logistic'}Best trial 3

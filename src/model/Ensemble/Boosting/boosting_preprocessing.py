@@ -7,6 +7,15 @@ from src.utils.general_utility_functions import get_total_number_of_users, get_t
 from sklearn.preprocessing import MinMaxScaler
 
 
+def preprocess_dataframe_after_reading(df: pd.DataFrame):
+    df = df.copy()
+    df = df.drop(columns=["index"], inplace=False)
+    df = df.sort_values(by="user_id", ascending=True)
+    df = df.reset_index()
+    df = df.drop(columns=["index"], inplace=False)
+    return df
+
+
 def get_dataframe(user_id_array, remove_seen_flag, cutoff, main_recommender, path, mapper, recommender_list,
                   URM_train):
     # Get dataframe for these users
@@ -23,6 +32,33 @@ def get_dataframe(user_id_array, remove_seen_flag, cutoff, main_recommender, pat
     data_frame = data_frame.sort_values(by="user_id", ascending=True)
     data_frame = data_frame.reset_index()
     data_frame.drop(columns=["index"], inplace=False)
+
+    return data_frame
+
+
+def add_item_popularity(data_frame: pd.DataFrame, URM_train: csr_matrix):
+    """
+    Add the item popularity to the dataframe
+
+    :param data_frame: data frame containing information for boosting
+    :param URM_train: URM train matrix
+    :return: dataframe containing boosting information + item popularity
+    """
+    print("Adding item popularity", end="")
+    data_frame = data_frame.copy()
+
+    pop_items = (URM_train > 0).sum(axis=0)
+    pop_items = np.array(pop_items).squeeze()
+    item_ids = np.arange(URM_train.shape[1])
+    data = np.array([item_ids, pop_items])
+    data = np.transpose(data)
+
+    new_df = pd.DataFrame(data=data, columns=["row", "item_pop"])
+
+    data_frame = pd.merge(data_frame, new_df, left_on="item_id", right_on="row")
+    data_frame = data_frame.drop(columns=["row"], inplace=False)
+
+    print("Done")
 
     return data_frame
 

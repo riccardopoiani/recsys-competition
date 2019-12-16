@@ -275,7 +275,6 @@ class MixedItem(IBestModel):
 
 
 class WeightedAverageItemBased(IBestModel):
-
     best_parameters = {'FUSION_ITEM_CBF_CF': 0.9710063605002539, 'RP3BETA': 0.06174619037883712,
                        'ITEM_CF': 0.03242008947930531, 'ITEM_CBF': 0.05542859287050307}
 
@@ -297,3 +296,23 @@ class WeightedAverageItemBased(IBestModel):
 
         hybrid.fit(**cls.get_best_parameters())
         return hybrid
+
+
+class Boosting(IBestModel):
+    """
+    Map warm 0.0348
+    """
+
+    best_parameters={'learning_rate': 0.01, 'gamma': 0.001, 'max_depth': 4, 'max_delta_step': 10, 'subsample': 0.7,
+                     'colsample_bytree': 0.6, 'scale_pos_weight': 3.6583305754205218,
+                     'objective': 'binary:logistic'}
+
+    @classmethod
+    def get_model(cls, model_path, URM_train, train_df, y_train, valid_df):
+        from src.model.Ensemble.Boosting.Boosting import BoostingFixedData
+
+        boosting = BoostingFixedData(URM_train=URM_train, X=train_df, y=y_train, df_test=valid_df,
+                                     cutoff=20)
+        boosting.load_model_from_file(file_path=model_path, params=cls.get_best_parameters())
+
+        return boosting

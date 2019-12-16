@@ -1,14 +1,13 @@
 import os
 
-from skopt.space import Categorical, Integer
+import pandas as pd
 
 from course_lib.Base.Evaluation.Evaluator import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import new_best_models
-from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
-from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.model.Ensemble.Boosting.boosting_preprocessing import add_label, preprocess_dataframe_after_reading
 from src.utils.general_utility_functions import get_split_seed
 
 
@@ -45,20 +44,26 @@ if __name__ == '__main__':
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
-    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
+    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) < 40
     warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
     ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=warm_users)
 
-    hyper_parameters_range = {}
-    for par, value in new_best_models.ItemCBF_CF.get_best_parameters().items():
-        hyper_parameters_range[par] = Categorical([value])
-    hyper_parameters_range['topK'] = Integer(low=3, high=30)
-    hyper_parameters_range['shrink'] = Integer(low=1000, high=2000)
-    model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
-                                                  ICM_train=ICM_all)
-    model.fit(topK=100, num_models=100, hyper_parameters_range=hyper_parameters_range)
+    # Read boosting data
+    dataframe_path = "../boosting_dataframe/"
+    train_df = pd.read_csv(dataframe_path + "train_df_20.csv")
+    valid_df = pd.read_csv(dataframe_path + "valid_df_20.csv")
+
+    train_df = preprocess_dataframe_after_reading(train_df)
+    valid_df = preprocess_dataframe_after_reading(valid_df)
+
+    y_train, non_zero_count, total = add_label(data_frame=train_df, URM_train=URM_train)
+
+    model = new_best_models.Boosting.get_model(URM_train=URM_train, train_df=train_df, y_train=y_train,
+                                               valid_df=valid_df,
+                                               model_path="../report/hp_tuning/boosting/Dec15_12-21"
+                                                          "-30_k_out_value_3_eval/best_model3")
 
     print(evaluator.evaluateRecommender(model))

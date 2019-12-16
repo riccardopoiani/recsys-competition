@@ -7,19 +7,9 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model.Ensemble.Boosting.boosting_preprocessing import add_label
+from src.model.Ensemble.Boosting.boosting_preprocessing import add_label, preprocess_dataframe_after_reading
 from src.tuning.run_xgboost_tuning import run_xgb_tuning
 from src.utils.general_utility_functions import get_split_seed
-
-
-def _preprocess_dataframe(df: pd.DataFrame):
-    df = df.copy()
-    df = df.drop(columns=["index"], inplace=False)
-    df = df.sort_values(by="user_id", ascending=True)
-    df = df.reset_index()
-    df = df.drop(columns=["index"], inplace=False)
-    return df
-
 
 if __name__ == '__main__':
     # Data loading
@@ -41,8 +31,8 @@ if __name__ == '__main__':
     train_df = pd.read_csv(dataframe_path + "train_df_20.csv")
     valid_df = pd.read_csv(dataframe_path + "valid_df_20.csv")
 
-    train_df = _preprocess_dataframe(train_df)
-    valid_df = _preprocess_dataframe(valid_df)
+    train_df = preprocess_dataframe_after_reading(train_df)
+    valid_df = preprocess_dataframe_after_reading(valid_df)
 
     print("Retrieving training labels...", end="")
     y_train, non_zero_count, total = add_label(data_frame=train_df, URM_train=URM_train)
@@ -72,8 +62,8 @@ if __name__ == '__main__':
                    total=total,
                    URM_train=URM_train,
                    evaluator=evaluator,
-                   n_trials=40,
-                   max_iter_per_trial=30000, n_early_stopping=500,
+                   n_trials=10,
+                   max_iter_per_trial=25000, n_early_stopping=500,
                    objective="binary:logistic", parameters=None,
                    cutoff=20,
                    valid_size=0.2,
