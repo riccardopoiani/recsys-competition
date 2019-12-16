@@ -28,13 +28,18 @@ class BoostingFixedData(BaseRecommender):
                              early_stopping_rounds=early_stopping_round, evals_result=self.dict_result)
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):
+        if user_id_array[0] == 16391:
+            debug = True
+        else:
+            debug = False
+
         user_id_array_sorted = np.sort(user_id_array)
         idx = np.searchsorted(user_id_array_sorted, user_id_array)
         user_id_array = user_id_array_sorted
 
         # Setting total items: the one of which you have to compute scores
         if items_to_compute is not None:
-            raise NotImplemented()
+            raise NotImplemented("Feature not implemented yet")
         else:
             all_items = self.items.copy()
 
@@ -45,6 +50,9 @@ class BoostingFixedData(BaseRecommender):
         # Predict the ratings
         items = data_frame["item_id"].values
         dpredict = xgb.DMatrix(data_frame.drop(columns=["user_id", "item_id"], inplace=False))
+
+        if debug:
+            print(dpredict)
 
         if self.loaded_from_file:
             y_hat = self.bst.predict(dpredict)
