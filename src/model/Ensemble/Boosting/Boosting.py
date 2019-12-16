@@ -34,7 +34,7 @@ class BoostingFixedData(BaseRecommender):
 
         # Setting total items: the one of which you have to compute scores
         if items_to_compute is not None:
-            raise NotImplemented()
+            raise NotImplemented("Feature not implemented yet")
         else:
             all_items = self.items.copy()
 
