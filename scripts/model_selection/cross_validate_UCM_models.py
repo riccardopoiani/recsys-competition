@@ -1,16 +1,18 @@
 from datetime import datetime
 
 from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
 
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data
-    seed_list = [1247, 8246, 2346, 1535, 3455]
+    seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467, 241, 4124, 5131, 1214, 5123]
 
     # Parameters
-    user_cbf_kwargs = {'topK': 3285, 'shrink': 1189, 'similarity': 'cosine',
-                       'normalize': False, 'feature_weighting': 'BM25'}
+    user_cbf_kwargs = {'topK': 2973, 'shrink': 117, 'similarity': 'asymmetric', 'normalize': True,
+                       'asymmetric_alpha': 0.007315425738737337, 'feature_weighting': 'BM25',
+                       'interactions_feature_weighting': 'TF-IDF'}
 
     destination_path = "../../report/cross_validation/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
@@ -22,8 +24,9 @@ if __name__ == '__main__':
     URM_all = data_reader.get_URM_all()
 
     # Setting evaluator
-    evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/",  n_folds=num_folds)
-    results = evaluator.crossevaluateDemographicRecommender(UserKNNCBFRecommender, on_cold_users=True, **user_cbf_kwargs)
+    evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/", k_out=1, n_folds=num_folds)
+    results = evaluator.crossevaluateDemographicRecommender(UserKNNCBFCFRecommender, on_cold_users=True,
+                                                            **user_cbf_kwargs)
 
     # Writing on file cross validation results
     f = open(destination_path, "w")

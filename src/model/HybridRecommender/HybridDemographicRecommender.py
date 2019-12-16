@@ -4,12 +4,13 @@ import numpy as np
 
 
 class HybridDemographicRecommender(BaseRecommender):
-    user_group_dict: Dict[int, List] = {}
-    group_id_list: List[int] = []
-    recommender_group_relation: Dict[int, BaseRecommender] = {}
 
     def __init__(self, URM_train):
         self.max_user_id = 0
+        self.user_group_dict: Dict[int, List] = {}
+        self.group_id_list: List[int] = []
+        self.recommender_group_relation: Dict[int, BaseRecommender] = {}
+
         super().__init__(URM_train)
 
     def reset_groups(self):
@@ -20,10 +21,9 @@ class HybridDemographicRecommender(BaseRecommender):
     def _verify_user_group_list_(self, new_user_group):
         for id in self.group_id_list:
             group = self.user_group_dict[id]
-            for user in group:
-                if user in new_user_group:
-                    return False
-
+            zero_intersection_flag = np.all(~np.in1d(new_user_group, group, assume_unique=True))
+            if ~zero_intersection_flag:
+                return False
         return True
 
     def _verify_group_consistency_(self, group_id):

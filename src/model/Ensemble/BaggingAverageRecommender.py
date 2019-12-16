@@ -28,13 +28,17 @@ class BaggingAverageRecommender(BaseRecommender):
         if hyper_parameters_range is None:
             hyper_parameters_range = {}
 
+        np.random.seed(get_split_seed())
+        seeds = np.random.randint(low=0, high=2 ** 32 - 1, size=num_models)
+        np.random.seed()
+
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
             URM_bootstrap = self.URM_train
             if self.do_bootstrap:
                 URM_bootstrap = get_bootstrap_URM(self.URM_train, weight_replacement=self.weight_replacement)
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
-                parameters[parameter_name] = parameter_range.rvs(random_state=get_split_seed())
+                parameters[parameter_name] = parameter_range.rvs(random_state=seeds[i])
 
             block_print()
             recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_constr_kwargs)

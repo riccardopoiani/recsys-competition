@@ -29,8 +29,12 @@ if __name__ == '__main__':
 
     region_group_1_mask = (region == 5) | (region == 6)
     region_group_2_mask = np.logical_not(region_group_1_mask)
-    users_set_1 = set(users[region_group_1_mask])
-    users_set_2 = set(users[region_group_2_mask] + all_users)
+    users_set_1 = list(set(users[region_group_1_mask]))
+    users_not_in_set_1 = np.setdiff1d(all_users, users_set_1)
+    users_set_2 = list(set(users[region_group_2_mask]))
+    users_set_2 = np.setdiff1d(users_set_2, users_set_1).tolist()
+    users_set_2 = list(set(np.concatenate([users_set_2, users_not_in_set_1])))
+
     # Main recommender
     main_recommender = HybridDemographicRecommender(URM_all)
     main_recommender.add_user_group(0, users_set_1)

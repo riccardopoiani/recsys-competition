@@ -1,0 +1,11 @@
+Tuning XGBoost 
+Parameters: 
+ {'learning_rate': [0.1, 0.01, 0.001], 'gamma': [0.001, 0.1, 0.3, 0.5, 0.8], 'max_depth': [2, 4, 7], 'max_delta_step': [0, 1, 5, 10], 'subsample': [0.2, 0.4, 0.5, 0.6, 0.7], 'colsample_bytree': [0.3, 0.6, 0.8, 1.0], 'scale_pos_weight': [3.8873054452680362], 'objective': ['binary:logistic']}
+ N_trials: 40 
+Max iteration per trial: 30000
+Early stopping every 500 iterations
+
+
+ Begin tuning 
+
+{'learning_rate': 0.1, 'gamma': 0.1, 'max_depth': 2, 'max_delta_step': 1, 'subsample': 0.6, 'colsample_bytree': 0.3, 'scale_pos_weight': 3.8873054452680362, 'objective': 'binary:logistic'}Map@10 0.03441764293836901{'learning_rate': 0.01, 'gamma': 0.3, 'max_depth': 2, 'max_delta_step': 0, 'subsample': 0.2, 'colsample_bytree': 1.0, 'scale_pos_weight': 3.8873054452680362, 'objective': 'binary:logistic'}Map@10 0.035062250293608335{'learning_rate': 0.01, 'gamma': 0.8, 'max_depth': 7, 'max_delta_step': 5, 'subsample': 0.4, 'colsample_bytree': 1.0, 'scale_pos_weight': 3.8873054452680362, 'objective': 'binary:logistic'}Map@10 0.03508021983804972{'learning_rate': 0.1, 'gamma': 0.001, 'max_depth': 2, 'max_delta_step': 10, 'subsample': 0.6, 'colsample_bytree': 0.3, 'scale_pos_weight': 3.8873054452680362, 'objective': 'binary:logistic'}Map@10 0.033950524671473074{'learning_rate': 0.001, 'gamma': 0.001, 'max_depth': 2, 'max_delta_step': 10, 'subsample': 0.7, 'colsample_bytree': 0.8, 'scale_pos_weight': 3.8873054452680362, 'objective': 'binary:logistic'}Map@10 0.03445992325803237{'learning_rate': 0.001, 'gamma': 0.3, 'max_depth': 7, 'max_delta_step': 10, 'subsample': 0.6, 'colsample_bytree': 1.0, 'scale_pos_weight': 3.8873054452680362, 'objective': 'binary:logistic'}

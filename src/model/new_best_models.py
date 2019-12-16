@@ -149,7 +149,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
         from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
         model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
                                                       ICM_train=ICM_train)
-        model.fit(topK=3000, num_models=100, hyper_parameters_range=cls.get_hyperparameters())
+        model.fit(num_models=100, hyper_parameters_range=cls.get_hyperparameters())
         return model
 
 
@@ -260,7 +260,7 @@ class MixedItem(IBestModel):
 
         item_cf = ItemCF.get_model(URM_train, load_model=load_model)
         item_cbf_cf = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
-        item_cbf_all = ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=load_model)
+        item_cbf_all = ItemCBF_all_FW.get_model(URM_train=URM_train, ICM_train=ICM_all)
         rp3beta = RP3BetaSideInfo.get_model(URM_train=URM_train, ICM_train=ICM_all)
 
         hybrid = ItemHybridModelRecommender(URM_train)
@@ -285,7 +285,7 @@ class WeightedAverageItemBased(IBestModel):
 
         item_cf = ItemCF.get_model(URM_train)
         item_cbf_cf = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
-        item_cbf_all = ItemCBF_all.get_model(URM_train=URM_train, ICM_train=ICM_all)
+        item_cbf_all = ItemCBF_all_FW.get_model(URM_train=URM_train, ICM_train=ICM_all)
         rp3beta = RP3BetaSideInfo.get_model(URM_train=URM_train, ICM_train=ICM_all)
 
         hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
