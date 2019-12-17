@@ -16,8 +16,32 @@ def preprocess_dataframe_after_reading(df: pd.DataFrame):
     return df
 
 
-def get_dataframe(user_id_array, remove_seen_flag, cutoff, main_recommender, path, mapper, recommender_list,
-                  URM_train):
+def get_train_dataframe_proportion(user_id_array, cutoff, main_recommender, path, mapper, recommender_list,
+                                   URM_train, proportion):
+    data_frame = get_boosting_base_dataframe(user_id_array=user_id_array, top_recommender=main_recommender,
+                                             exclude_seen=True, cutoff=cutoff)
+    labels = add_label(data_frame, URM_train)
+    data_frame['label'] = labels
+    data_frame = add_random_negative_ratings(data_frame=data_frame, URM_train=URM_train, proportion=proportion)
+
+    for rec in recommender_list:
+        data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
+                                                 cutoff=cutoff, column_name=rec.RECOMMENDER_NAME)
+
+    data_frame = add_ICM_information(data_frame=data_frame, path=path)
+    data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
+    data_frame = add_user_len_information(data_frame=data_frame, URM_train=URM_train)
+
+    data_frame = data_frame.sort_values(by="user_id", ascending=True)
+    data_frame = data_frame.reset_index()
+    data_frame.drop(columns=["index"], inplace=False)
+
+    return data_frame
+
+
+def get_dataframe_first_version(user_id_array, remove_seen_flag, cutoff, main_recommender, path, mapper,
+                                recommender_list,
+                                URM_train):
     # Get dataframe for these users
     data_frame = get_boosting_base_dataframe(user_id_array=user_id_array, exclude_seen=remove_seen_flag,
                                              cutoff=cutoff, top_recommender=main_recommender)
@@ -212,10 +236,11 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
 
 
 def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=True, use_asset=True,
-                        use_subclass=True):
+                        use_subclass=True, one_hot_encoding_subclass=False):
     """
     Add information form the ICM files to the data frame
 
+    :param one_hot_encoding_subclass: if one hot encoding should be applied to subclass or not
     :param data_frame: data frame that is being pre-processed for boosting
     :param path: path to the folder containing the csv files
     :param use_price: True if you wish to append price information, false otherwise
@@ -265,7 +290,14 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
     if use_subclass:
         df_subclass = df_subclass[['row', 'col']]
         df_subclass = df_subclass.rename(columns={"col": "subclass"})
-        data_frame = pd.merge(data_frame, df_subclass, right_on="row", left_on="item_id")
+
+        if not one_hot_encoding_subclass:
+            data_frame = pd.merge(data_frame, df_subclass, right_on="row", left_on="item_id")
+        else:
+            dummies = pd.get_dummies(data_frame['subclass'])
+            dummies = dummies.join(df_subclass['row'])
+            data_frame = pd.merge(data_frame, dummies, right_on="row", left_on="item_id")
+
         data_frame = data_frame.drop(columns=["row"], inplace=False)
 
     return data_frame
@@ -300,6 +332,69 @@ def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecom
         new_values = scaler.transform(values.reshape(-1, 1))
         new_df[column_name] = new_values
 
+    return new_df
+
+
+def user_uniform_sampling(user: int, URM_train: csr_matrix, sample_size: int):
+    """
+    Sample negative interactions at random for a given users from URM_train
+
+    :param user: sample negative interactions for this user
+    :param URM_train: URM from which samples will be taken
+    :param sample_size: how many samples to take
+    :return: np.array containing the collected samples
+    """
+    sampled = 0
+
+    collected_samples = np.zeros(sample_size)
+
+    while sampled < sample_size:
+        t_item = np.random.randint(low=0, high=URM_train.shape[1], size=1)[0]
+
+        if URM_train[user, t_item] == 0:
+            collected_samples[sampled] = t_item
+            sampled += 1
+
+    return collected_samples
+
+
+def add_random_negative_ratings(data_frame: pd.DataFrame, URM_train: csr_matrix, users=None, proportion=1):
+    """
+    Add random negative rating sampled from URM train
+
+    Note: labels should be already inserted in the dataframe for this purpose in a 'label' column
+
+    :param URM_train: URM train from which negative ratings will be sampled
+    :param users: users on which ratings will be added. If none, all the users of the dataframe will be considered
+    :param data_frame: dataframe on which these negative ratings will be added
+    :param proportion: proportion w.r.t. the positive ratings (expressed as positive/negative)
+    :return: a new dataframe containing more negative interactions
+    """
+    data_frame = data_frame.copy()
+
+    if users is None:
+        users = np.unique(data_frame['user_id'].values)
+
+    new_user_list = []
+    new_item_list = []
+
+    for user in users:
+        user_df = data_frame[data_frame['user_id'] == user]
+        curr_items = user_df['item_id'].values
+        pos_labels = user_df['label'].values
+        pos_count = np.count_nonzero(pos_labels)
+        total = pos_count.size
+        neg_count = total - pos_count
+        samples_to_add = np.array([0, int(pos_count / proportion) - neg_count]).min()
+        samples = user_uniform_sampling(user, URM_train, sample_size=samples_to_add)
+
+        new_user_list.extend([user] * samples_to_add)
+        new_item_list.extend(samples.tolist())
+
+    data = np.array([new_user_list, new_item_list])
+    new_df = pd.DataFrame(np.transpose(data), columns=['user_id', 'item_id'])
+
+    new_df = data_frame.append(new_df)
     return new_df
 
 

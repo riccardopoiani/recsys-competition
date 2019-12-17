@@ -4,7 +4,7 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import new_best_models
-from src.model.Ensemble.Boosting.boosting_preprocessing import get_dataframe, add_label
+from src.model.Ensemble.Boosting.boosting_preprocessing import get_dataframe_first_version, add_label
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
@@ -52,21 +52,21 @@ if __name__ == '__main__':
     cutoff = 20
     data_path = "../../data/"
 
-    train_df = get_dataframe(user_id_array=user_to_validate,
-                             remove_seen_flag=False,
-                             cutoff=cutoff,
-                             main_recommender=main_recommender,
-                             recommender_list=sub_list,
-                             mapper=mapper, URM_train=URM_train, path=data_path)
+    train_df = get_dataframe_first_version(user_id_array=user_to_validate,
+                                           remove_seen_flag=False,
+                                           cutoff=cutoff,
+                                           main_recommender=main_recommender,
+                                           recommender_list=sub_list,
+                                           mapper=mapper, URM_train=URM_train, path=data_path)
 
-    valid_df = get_dataframe(user_id_array=user_to_validate,
-                             remove_seen_flag=True,
-                             cutoff=cutoff,
-                             main_recommender=main_recommender,
-                             recommender_list=sub_list,
-                             mapper=mapper,
-                             URM_train=URM_train,
-                             path=data_path)
+    valid_df = get_dataframe_first_version(user_id_array=user_to_validate,
+                                           remove_seen_flag=True,
+                                           cutoff=cutoff,
+                                           main_recommender=main_recommender,
+                                           recommender_list=sub_list,
+                                           mapper=mapper,
+                                           URM_train=URM_train,
+                                           path=data_path)
 
     # Save data frames on file
     path = "../../boosting_dataframe/"
