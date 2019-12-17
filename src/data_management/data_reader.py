@@ -3,7 +3,8 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_preprocessing import apply_feature_engineering_ICM, apply_filtering_ICM, \
     apply_transformation_ICM, apply_discretization_ICM, build_ICM_all_from_dict, apply_feature_engineering_UCM, \
-    apply_transformation_UCM, apply_discretization_UCM, build_UCM_all_from_dict
+    apply_transformation_UCM, apply_discretization_UCM, build_UCM_all_from_dict, apply_imputation_ICM, \
+    apply_imputation_UCM
 
 import numpy as np
 

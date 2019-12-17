@@ -1,6 +1,7 @@
 from scipy.sparse import csr_matrix, csc_matrix, coo_matrix, lil_matrix
 import numpy as np
 import scipy.sparse as sps
+from tqdm import tqdm
 
 from course_lib.Data_manager.IncrementalSparseMatrix import IncrementalSparseMatrix
 
@@ -97,6 +98,51 @@ def uniform_sampling_strategy(negative_sample_size, URM, check_replacement=False
                 collected_samples[:, sampled] = [t_row, t_col]
                 sampled += 1
     return collected_samples if check_replacement else np.unique(collected_samples, axis=1)
+
+
+def sample_negative_interactions_uniformly(negative_sample_size, URM, batch_size=10000):
+    n_users = URM.shape[0]
+    n_items = URM.shape[1]
+
+    invalid_users = np.array(URM.tocoo().row, dtype=np.uint64)
+    invalid_items = np.array(URM.tocoo().col, dtype=np.uint64)
+
+    # Convert users and items into a unique integers
+    shifted_invalid_items = np.left_shift(invalid_items, np.uint64(np.log2(n_users) + 1))
+    invalid_tuples = np.bitwise_or(invalid_users, shifted_invalid_items)
+    negative_URM_builder = IncrementalSparseMatrix(n_rows=n_users, n_cols=n_items)
+    with tqdm(desc="Sampling negative interactions", total=negative_sample_size) as p_bar:
+        sampled = 0
+        while sampled < negative_sample_size:
+            # Sample a batch of users and items
+            users = np.random.randint(low=0, high=n_users, size=batch_size, dtype=np.uint64)
+            items = np.random.randint(low=0, high=n_items, size=batch_size, dtype=np.uint64)
+
+            # Convert into unique integers
+            shifted_items = np.left_shift(items, np.uint64(np.log2(n_users) + 1))
+            tuples = np.bitwise_or(users, shifted_items)
+            unique_tuples, indices = np.unique(tuples, return_index=True)
+
+            # Remove couple of user and items which are already inside the chosen ones
+            invalid_tuples_mask = np.in1d(unique_tuples, invalid_tuples, assume_unique=True)
+            valid_indices = indices[~invalid_tuples_mask]
+            valid_users = users[valid_indices]
+            valid_items = items[valid_indices]
+
+            # Cap the size of batch size if it is the last batch
+            if sampled + len(valid_users) > negative_sample_size:
+                remaining_sample_size = negative_sample_size - sampled
+                valid_users = valid_users[:remaining_sample_size]
+                valid_items = valid_items[:remaining_sample_size]
+
+            # Update builder, sampled elements and progress bar
+            negative_URM_builder.add_data_lists(valid_users, valid_items, np.ones(len(valid_users)))
+            sampled += len(valid_users)
+            p_bar.update(len(valid_users))
+
+            # Update invalid users and items
+            invalid_tuples = np.concatenate([invalid_tuples, tuples[valid_indices]])
+    return negative_URM_builder.get_SparseMatrix().tocsr()
 
 
 #################################################################################
@@ -329,7 +375,7 @@ def format_URM_positive_non_compressed(URM: csr_matrix):
     :return: csr_matrix containing the URM preprocessed in the described way
     """
     new_train = URM.copy().tocoo()
-    fm_matrix = coo_matrix((URM.data.size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
+    fm_matrix = sps.coo_matrix((URM.data.size, URM.shape[0] + URM.shape[1] + 1), dtype=np.int8)
 
     # Index offset
     item_offset = URM.shape[0]
@@ -368,3 +414,34 @@ def format_URM_positive_non_compressed(URM: csr_matrix):
     fm_matrix.data = data_v
 
     return fm_matrix.tocsr()
+
+
+def convert_URM_to_FM(URM: csr_matrix):
+    """
+    Convert positive interactions of an URM in the way that is needed for the FM model.
+    - In each row there are 3 interactions: 1 for the user, 1 for the item
+    - Only positive samples are encoded here
+
+    Note: this method works only for implicit dataset
+
+    :param URM: URM to be preprocessed
+    :return: csr_matrix containing the URM preprocessed in the described way
+    """
+    n_users = URM.shape[0]
+    n_items = URM.shape[1]
+    n_sample = len(URM.data)
+    FM_matrix = sps.coo_matrix((n_sample, n_users + n_items))
+
+    # Setting rows
+    FM_matrix.row = np.repeat(np.arange(n_sample), 2)  # one row has two ones
+
+    # Setting cols
+    row = np.reshape(URM.tocoo().row, newshape=(n_sample, 1))
+    col = np.reshape(URM.tocoo().col + n_users, newshape=(n_sample, 1))
+    row_col = np.concatenate([row, col], axis=1)
+    unrolled_row_col = np.reshape(row_col, newshape=len(FM_matrix.row))
+    FM_matrix.col = unrolled_row_col
+
+    # Setting data
+    FM_matrix.data = np.ones(len(FM_matrix.row), dtype=np.float32)
+    return FM_matrix.tocsr()

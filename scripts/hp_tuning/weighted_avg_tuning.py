@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.NonPersonalizedRecommender import TopPop
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
@@ -13,8 +14,11 @@ from src.utils.general_utility_functions import get_split_seed
 def _get_all_models(URM_train, ICM_all, UCM_all):
     all_models = {}
 
-    all_models['USER_CBF_Cf'] = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
+    all_models['USER_CBF_CF'] = new_best_models.UserCBF_CF_Cold.get_model(URM_train, UCM_all)
     all_models['USER_CF'] = new_best_models.UserCF.get_model(URM_train)
+    topPop = TopPop(URM_train)
+    topPop.fit()
+    all_models['TOP_POP'] = topPop
 
     return all_models
 
@@ -34,7 +38,7 @@ if __name__ == '__main__':
     # Build UCMs
     UCM_all = get_UCM_train(data_reader)
 
-    model = HybridWeightedAverageRecommender(URM_train, normalize=True)
+    model = HybridWeightedAverageRecommender(URM_train, normalize=False)
 
     all_models = _get_all_models(URM_train=URM_train, UCM_all=UCM_all, ICM_all=ICM_all)
     for model_name, model_object in all_models.items():
@@ -44,12 +48,12 @@ if __name__ == '__main__':
     # Setting evaluator
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
-    very_warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 3
+    very_warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 0
     very_warm_users = np.arange(URM_train.shape[0])[very_warm_users_mask]
     ignore_users = np.unique(np.concatenate((cold_users, very_warm_users)))
 
     cutoff_list = [10]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=very_warm_users)
 
     version_path = "../../report/hp_tuning/hybrid_weighted_avg"
     now = datetime.now().strftime('%b%d_%H-%M-%S')

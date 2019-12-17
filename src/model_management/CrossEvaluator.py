@@ -1,12 +1,10 @@
 from course_lib.Base.Evaluation.Evaluator import Evaluator, EvaluatorHoldout
 from course_lib.Data_manager.DataSplitter_k_fold import DataSplitter_Warm_k_fold
-from src.data_management.DataPreprocessing import DataPreprocessingFeatureEngineering, \
-    DataPreprocessingImputation, DataPreprocessingTransform, DataPreprocessingDiscretization
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
-from src.data_management.data_reader import get_ICM_train
+from src.data_management.data_reader import get_ICM_train, get_UCM_train
 
 
 class EvaluatorCrossValidationKeepKOut(Evaluator):
@@ -152,6 +150,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
                                                        force_new_split=True, seed=current_seed)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
+            UCM_all = get_UCM_train(data_reader)
 
             ignore_users = self.ignore_users
             if on_cold_users:
@@ -163,7 +162,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
 
             # Creating recommender instance
             print("Fitting the recommender...")
-            recommender_instance = recommender_class(URM_train, UCM_age_region)
+            recommender_instance = recommender_class(URM_train, UCM_all)
             recommender_instance.fit(**recommender_keywargs)
 
             hold_out_validator = EvaluatorHoldout(URM_test, self.cutoff_list, exclude_seen=self.exclude_seen,

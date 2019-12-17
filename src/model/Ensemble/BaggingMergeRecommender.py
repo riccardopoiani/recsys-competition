@@ -45,13 +45,18 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
         if hyper_parameters_range is None:
             hyper_parameters_range = {}
 
+        np.random.seed(get_split_seed())
+        seeds = np.random.randint(low=0, high=2**32-1, size=num_models)
+        np.random.seed()
+
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
             URM_bootstrap = self.URM_train
             if self.do_bootstrap:
                 URM_bootstrap = get_user_bootstrap(self.URM_train)
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
-                parameters[parameter_name] = parameter_range.rvs(random_state=get_split_seed())
+                parameters[parameter_name] = parameter_range.rvs(random_state=seeds[i])
+
                 # Deals with array since .rvs() does not return always a scalar
                 if type(parameters[parameter_name]) is np.ndarray:
                     parameters[parameter_name] = parameters[parameter_name][0]

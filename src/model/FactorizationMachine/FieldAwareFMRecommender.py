@@ -45,6 +45,9 @@ class FieldAwareFMRecommender(BaseRecommender):
 
         super().__init__(URM_train, verbose)
 
+    def load_pre_model(self, pre_model_path):
+        self.model.setPreModel(pre_model_path)
+
     def fit(self, epochs=300, latent_factors=100, regularization=0.01, learning_rate=0.01, optimizer="adagrad",
             stop_window=10, metric=None):
         if not os.path.exists(self.temp_folder):
@@ -54,7 +57,7 @@ class FieldAwareFMRecommender(BaseRecommender):
             os.makedirs(self.model_folder)
 
         params = {'task': 'binary', 'epoch': epochs, 'k': latent_factors, 'lambda': regularization, 'opt': optimizer,
-                  'stop_window': stop_window}
+                  'stop_window': stop_window, 'lr': learning_rate}
         if metric is not None:
             params["metric"] = metric
         self.model.fit(params, model_path=self.model_path)

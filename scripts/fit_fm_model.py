@@ -5,9 +5,7 @@ from course_lib.Base.NonPersonalizedRecommender import TopPop
 from scripts.fm_model.write_ffm_data_uncompressed import get_ICM_with_fields, get_UCM_with_fields
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import new_best_models
-from src.model.FactorizationMachine.FactorizationMachineRecommender import FactorizationMachineRecommender
 from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMRecommender
 from src.utils.general_utility_functions import get_split_seed, get_project_root_path
 
@@ -31,14 +29,11 @@ if __name__ == '__main__':
 
     cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
     cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
-    warm_users_mask = np.ediff1d(URM_train.tocsr().indptr) > 0
-    warm_users = np.arange(URM_train.shape[0])[warm_users_mask]
-    ignore_users = np.unique(np.concatenate((cold_users, warm_users)))
 
     cutoff_list = [10]
     evaluator = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-    best_model = TopPop(URM_train)
+    best_model = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
     best_model.fit()
     ffm_data_path = os.path.join(get_project_root_path(), "resources", "ffm_data")
     model = FieldAwareFMRecommender(URM_train,
@@ -47,5 +42,6 @@ if __name__ == '__main__':
                                     approximate_recommender=best_model, ICM_train=ICM_all, UCM_train=UCM_all,
                                     item_feature_fields=item_feature_fields, user_feature_fields=user_feature_fields,
                                     max_items_to_predict=100)
-    model.fit(latent_factors=2, learning_rate=0.01, epochs=10, regularization=1e-2, stop_window=4)
+    model.load_pre_model(os.path.join(ffm_data_path, "model", "model.out"))
+    model.fit(latent_factors=50, learning_rate=0.01, epochs=1000, regularization=1e-11, stop_window=4)
     print(evaluator.evaluateRecommender(model))

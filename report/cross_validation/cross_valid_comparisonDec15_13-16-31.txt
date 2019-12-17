@@ -1,6 +1,6 @@
-X-validation WeightedAverageItemBased (norm=False)
+X-validation WeightedAverageItemBased (norm=True)
 
-X-val map 0.04792148006233902 
+X-val map 0.048701103900269174 
 
 Number of folds: 10
 Seed list: [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 203]

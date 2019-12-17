@@ -75,6 +75,22 @@ def apply_imputation_ICM(ICM_dict: dict, ICM_name_to_agg_mapper: dict):
         ICM_dict[ICM_name] = ICM_object.tocsr()
     return ICM_dict
 
+def apply_imputation_UCM(UCM_dict: dict, UCM_name_to_agg_mapper: dict):
+    if ~np.all(np.in1d(list(UCM_name_to_agg_mapper.keys()), list(UCM_dict.keys()))):
+        raise KeyError("Mapper contains wrong ICM names")
+
+    for UCM_name, aggregator in UCM_name_to_agg_mapper.items():
+        UCM_object: sps.csr_matrix = UCM_dict[UCM_name]
+        missing_x_mask = np.ediff1d(UCM_object.tocsr().indptr) == 0
+        missing_x = np.arange(UCM_object.shape[0])[missing_x_mask]
+
+        UCM_object = UCM_object.tocoo()
+        UCM_object.row = np.concatenate([UCM_object.row, missing_x])
+        UCM_object.col = np.concatenate([UCM_object.col, [aggregator(UCM_object.col)] * len(missing_x)])
+        UCM_object.data = np.concatenate([UCM_object.data, np.ones(len(missing_x))])
+        UCM_dict[UCM_name] = UCM_object.tocsr()
+    return UCM_dict
+
 
 # ----------- FEATURE FILTERING -----------
 
