@@ -5,6 +5,7 @@ import scipy.sparse as sps
 from sklearn.model_selection import train_test_split
 from xlearn import write_data_to_xlearn_format
 
+from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_preprocessing_fm import add_ICM_info, add_UCM_info, \
@@ -14,6 +15,7 @@ from src.utils.general_utility_functions import get_split_seed, get_project_root
 
 if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")
+    data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_items=-1, threshold_users=25)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True,
                                                seed=get_split_seed())
@@ -46,8 +48,8 @@ if __name__ == '__main__':
 
     # Dump libffm file for train set
     print("Writing train and valid dataset in libsvm format...")
-    train_file_path = os.path.join(fm_data_path, "train_uncompressed.txt")
-    valid_file_path = os.path.join(fm_data_path, "valid_uncompressed.txt")
+    train_file_path = os.path.join(fm_data_path, "warm_25_train_uncompressed.txt")
+    valid_file_path = os.path.join(fm_data_path, "warm_25_valid_uncompressed.txt")
     write_data_to_xlearn_format(X=x_train, y=y_train, fields=None, filepath=train_file_path)
     write_data_to_xlearn_format(X=x_valid, y=y_valid, fields=None, filepath=valid_file_path)
     print("...Writing is over.")

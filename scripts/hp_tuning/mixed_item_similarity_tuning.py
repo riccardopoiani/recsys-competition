@@ -8,7 +8,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train
 from src.model import best_models, new_best_models
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
-from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity_item
+from src.tuning.holdout_validation.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity_item
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':

@@ -4,8 +4,9 @@ from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_preprocessing import apply_feature_engineering_ICM, apply_filtering_ICM, \
     apply_transformation_ICM, apply_discretization_ICM, build_ICM_all_from_dict, apply_feature_engineering_UCM, \
     apply_transformation_UCM, apply_discretization_UCM, build_UCM_all_from_dict, apply_imputation_ICM, \
-    apply_imputation_UCM
+    apply_imputation_UCM, apply_feature_entropy_UCM
 
+import scipy.sparse as sps
 import numpy as np
 
 
@@ -125,7 +126,8 @@ def get_ICM_all(reader: RecSys2019Reader):
 
 def get_ICM_train(reader: New_DataSplitter_leave_k_out):
     """
-    It returns all the ICM_train_all after applying feature engineering
+    It returns all the ICM_train_all after applying feature engineering. This preprocessing is used on new_best_models
+    file
 
     :param reader: data splitter
     :return: return ICM_train_all
@@ -160,6 +162,61 @@ def get_ICM_train(reader: New_DataSplitter_leave_k_out):
     return ICM_all
 
 
+def get_ICM_train_new(reader: New_DataSplitter_leave_k_out):
+    """
+    It returns all the ICM_train_all after applying feature engineering.
+
+    :param reader: data splitter
+    :return: return ICM_train_all
+    """
+    URM_train, _ = reader.get_holdout_split()
+    UCM_all_dict = reader.get_loaded_UCM_dict()
+    UCM_all_dict = apply_transformation_UCM(UCM_all_dict,
+                                            UCM_name_to_transform_mapper={"UCM_user_act": np.log1p})
+
+    ICM_all_dict = reader.get_loaded_ICM_dict()
+    ICM_all_dict.pop("ICM_all")
+    ICM_all_dict = apply_filtering_ICM(ICM_all_dict,
+                                       ICM_name_to_filter_mapper={"ICM_asset": lambda x: x < np.quantile(x, q=0.75) +
+                                                                                         0.72 * (np.quantile(x,
+                                                                                                             q=0.75) -
+                                                                                                 np.quantile(x,
+                                                                                                             q=0.25)),
+                                                                  "ICM_price": lambda x: x < np.quantile(x, q=0.75) +
+                                                                                         4 * (np.quantile(x, q=0.75) -
+                                                                                              np.quantile(x, q=0.25))})
+    # Apply useful transformation
+    ICM_all_dict = apply_transformation_ICM(ICM_all_dict,
+                                            ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
+                                                                          "ICM_price": lambda x: np.log1p(1 / x),
+                                                                          "ICM_item_pop": np.log1p})
+    ICM_all_dict = apply_discretization_ICM(ICM_all_dict,
+                                            ICM_name_to_bins_mapper={"ICM_asset": 200,
+                                                                     "ICM_price": 200,
+                                                                     "ICM_item_pop": 50})
+    # Apply feature weighting
+    ICM_all_dict = apply_transformation_ICM(ICM_all_dict,
+                                            ICM_name_to_transform_mapper={"ICM_price": lambda x: x * 1.8474248499810804,
+                                                                          "ICM_asset": lambda x: x * 1.2232716972721878,
+                                                                          "ICM_sub_class": lambda
+                                                                              x: x * 1.662671860026709,
+                                                                          "ICM_item_pop": lambda
+                                                                              x: x * 0.886528360392298})
+
+    ICM_all = None
+    item_feature_to_range_mapper = {}
+    last_range = 0
+    for idx, ICM_key_value in enumerate(ICM_all_dict.items()):
+        ICM_name, ICM_object = ICM_key_value
+        if idx == 0:
+            ICM_all = ICM_object
+        else:
+            ICM_all = sps.hstack([ICM_all, ICM_object], format="csr")
+        item_feature_to_range_mapper[ICM_name] = (last_range, last_range + ICM_object.shape[1])
+        last_range = last_range + ICM_object.shape[1]
+    return ICM_all, item_feature_to_range_mapper
+
+
 def get_UCM_all(reader: RecSys2019Reader):
     URM_all = reader.get_URM_all()
     UCM_all_dict = reader.get_loaded_UCM_dict()
@@ -178,7 +235,7 @@ def get_UCM_all(reader: RecSys2019Reader):
 
 def get_UCM_train(reader: New_DataSplitter_leave_k_out):
     """
-    It returns all the UCM_all after applying feature engineering
+    It returns all the UCM_all after applying feature engineering. This preprocessing is used on new_best_models file
 
     :param reader: data splitter
     :return: return UCM_all
@@ -198,6 +255,63 @@ def get_UCM_train(reader: New_DataSplitter_leave_k_out):
     return UCM_all
 
 
+def get_UCM_train_new(reader: New_DataSplitter_leave_k_out):
+    URM_train, _ = reader.get_holdout_split()
+    UCM_all_dict = reader.get_loaded_UCM_dict()
+    ICM_dict = reader.get_loaded_ICM_dict()
+
+    # Preprocess ICM
+    ICM_dict.pop("ICM_all")
+    ICM_dict = apply_feature_engineering_ICM(ICM_dict, URM_train, UCM_all_dict,
+                                             ICM_names_to_count=["ICM_sub_class"], UCM_names_to_list=["UCM_age"])
+    ICM_dict = apply_filtering_ICM(ICM_dict,
+                                   ICM_name_to_filter_mapper={"ICM_asset": lambda x: x < np.quantile(x, q=0.75) +
+                                                                                     0.72 * (np.quantile(x,
+                                                                                                         q=0.75) -
+                                                                                             np.quantile(x,
+                                                                                                         q=0.25)),
+                                                              "ICM_price": lambda x: x < np.quantile(x, q=0.75) +
+                                                                                     4 * (np.quantile(x, q=0.75) -
+                                                                                          np.quantile(x, q=0.25))})
+    ICM_dict = apply_transformation_ICM(ICM_dict,
+                                        ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
+                                                                      "ICM_price": lambda x: np.log1p(1 / x),
+                                                                      "ICM_item_pop": np.log1p,
+                                                                      "ICM_sub_class_count": np.log1p,
+                                                                      "ICM_age": lambda x: x ** (1 / 2.5)})
+    ICM_dict = apply_discretization_ICM(ICM_dict,
+                                        ICM_name_to_bins_mapper={"ICM_asset": 200,
+                                                                 "ICM_price": 200,
+                                                                 "ICM_item_pop": 50,
+                                                                 "ICM_sub_class_count": 50})
+
+    # Preprocess UCM
+    UCM_all_dict = apply_feature_engineering_UCM(UCM_all_dict, URM_train, ICM_dict,
+                                                 ICM_names_to_UCM=["ICM_sub_class", "ICM_item_pop"])
+    UCM_all_dict = apply_feature_entropy_UCM(UCM_all_dict, UCM_names_to_entropy=["UCM_sub_class"])
+    # Apply useful transformation
+    UCM_all_dict = apply_transformation_UCM(UCM_all_dict,
+                                            UCM_name_to_transform_mapper={"UCM_user_act": np.log1p})
+
+    UCM_all_dict = apply_discretization_UCM(UCM_all_dict, UCM_name_to_bins_mapper={"UCM_user_act": 50,
+                                                                                   "UCM_sub_class_entropy": 20})
+
+    # Apply feature weighting TODO
+
+    UCM_all = None
+    user_feature_to_range_mapper = {}
+    last_range = 0
+    for idx, UCM_key_value in enumerate(UCM_all_dict.items()):
+        UCM_name, UCM_object = UCM_key_value
+        if idx == 0:
+            UCM_all = UCM_object
+        else:
+            UCM_all = sps.hstack([UCM_all, UCM_object], format="csr")
+        user_feature_to_range_mapper[UCM_name] = (last_range, last_range + UCM_object.shape[1])
+        last_range = last_range + UCM_object.shape[1]
+    return UCM_all, user_feature_to_range_mapper
+
+
 def get_non_target_user(target_users, original_user_id_to_index_mapper):
     """
     Retrieve the non target user inside the URM using its original_user_id_to_index_mapper
@@ -207,5 +321,3 @@ def get_non_target_user(target_users, original_user_id_to_index_mapper):
     :return: non target users of URM
     """
     return [idx for original_uid, idx in original_user_id_to_index_mapper if original_uid not in target_users]
-
-

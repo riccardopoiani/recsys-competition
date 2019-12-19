@@ -10,14 +10,14 @@ from src.utils.general_utility_functions import get_project_root_path
 
 
 class FieldAwareFMRecommender(BaseRecommender):
-    """ Field Aware FM Recommender"""
+    """ Field Aware Factorization Machine Recommender """
 
     RECOMMENDER_NAME = "FieldAwareFMRecommender"
 
     def __init__(self, URM_train, train_svm_file_path, approximate_recommender: BaseRecommender,
                  ICM_train=None, UCM_train=None, item_feature_fields=None, user_feature_fields=None,
                  valid_svm_file_path=None, max_items_to_predict=1000, model_filename="model.out",
-                 temp_relative_folder="temp/", verbose=True):
+                 model_type="ffm", temp_relative_folder="temp/", verbose=True):
         self.ICM_train = ICM_train
         self.UCM_train = UCM_train
         user_fields = np.full(shape=URM_train.shape[0], fill_value=0)
@@ -38,14 +38,22 @@ class FieldAwareFMRecommender(BaseRecommender):
         self.model_folder = os.path.join(fm_data_path, "model")
         self.model_path = os.path.join(self.model_folder, model_filename)
 
-        self.model = xl.create_ffm()
+        if model_type == "ffm":
+            self.model = xl.create_ffm()
+        elif model_type == "fm":
+            self.model = xl.create_fm()
+        else:
+            raise ValueError("model_type is inexistent, choose between ffm and fm")
         self.model.setTrain(train_svm_file_path)
         if valid_svm_file_path is not None:
             self.model.setValidate(valid_svm_file_path)
 
         super().__init__(URM_train, verbose)
 
-    def load_pre_model(self, pre_model_path):
+    def load_model(self, folder_path, file_name=None):
+        if file_name is None:
+            file_name = self.RECOMMENDER_NAME, ".out"
+        pre_model_path = os.path.join(folder_path, file_name)
         self.model.setPreModel(pre_model_path)
 
     def fit(self, epochs=300, latent_factors=100, regularization=0.01, learning_rate=0.01, optimizer="adagrad",

@@ -1,8 +1,9 @@
 import numpy as np
 from tqdm import tqdm
+import scipy.sparse as sps
 
 from course_lib.Base.BaseRecommender import BaseRecommender
-from src.model.Ensemble.BaggingUtils import get_bootstrap_URM
+from src.model.Ensemble.BaggingUtils import get_user_bootstrap
 from src.utils.general_utility_functions import block_print, enable_print, get_split_seed
 
 
@@ -14,11 +15,9 @@ class BaggingAverageRecommender(BaseRecommender):
 
     RECOMMENDER_NAME = "BaggingAverageRecommender"
 
-    def __init__(self, URM_train, recommender_class, do_bootstrap=True, weight_replacement=True,
-                 **recommender_constr_kwargs):
+    def __init__(self, URM_train, recommender_class, do_bootstrap=True, **recommender_constr_kwargs):
         super().__init__(URM_train)
 
-        self.weight_replacement = weight_replacement
         self.do_bootstrap = do_bootstrap
         self.recommender_class = recommender_class
         self.recommender_constr_kwargs = recommender_constr_kwargs
@@ -30,18 +29,22 @@ class BaggingAverageRecommender(BaseRecommender):
 
         np.random.seed(get_split_seed())
         seeds = np.random.randint(low=0, high=2 ** 32 - 1, size=num_models)
-        np.random.seed()
 
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
+            recommender_kwargs = self.recommender_constr_kwargs.copy()
             URM_bootstrap = self.URM_train
             if self.do_bootstrap:
-                URM_bootstrap = get_bootstrap_URM(self.URM_train, weight_replacement=self.weight_replacement)
+                URM_bootstrap, added_user = get_user_bootstrap(self.URM_train)
+                for name, value in recommender_kwargs.items():
+                    if name == "UCM_train":
+                        UCM_object = recommender_kwargs[name]
+                        recommender_kwargs[name] = sps.vstack([UCM_object, UCM_object[added_user, :]], format="csr")
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
                 parameters[parameter_name] = parameter_range.rvs(random_state=seeds[i])
 
             block_print()
-            recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_constr_kwargs)
+            recommender_object = self.recommender_class(URM_bootstrap, **recommender_kwargs)
             recommender_object.fit(**parameters)
             enable_print()
 

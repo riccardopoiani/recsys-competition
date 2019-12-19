@@ -38,7 +38,6 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
         """
         Fit all the num_models and merge them into a unique model
 
-        :param topK: if less than 0, KNN is not applied on the similarity
         :param num_models: number of models in the bagging recommender
         :param hyper_parameters_range: hyper parameters range to give some more diversity in models
         """
@@ -51,8 +50,15 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
 
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
             URM_bootstrap = self.URM_train
+            recommender_kwargs = self.recommender_kwargs.copy()
             if self.do_bootstrap:
-                URM_bootstrap = get_user_bootstrap(self.URM_train)
+                URM_bootstrap, users_added = get_user_bootstrap(self.URM_train, seeds[i])
+                """for name, object in recommender_kwargs.items():
+                    if name == "ICM_train":
+                        UCM_object = object.copy()
+                        UCM_object = sps.vstack([UCM_object, UCM_object[items_added, :]], format="csr")
+                        recommender_kwargs[name] = UCM_object"""
+
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
                 parameters[parameter_name] = parameter_range.rvs(random_state=seeds[i])
@@ -62,11 +68,12 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
                     parameters[parameter_name] = parameters[parameter_name][0]
 
             block_print()
-            recommender_object = self.recommender_class(URM_bootstrap, **self.recommender_kwargs)
+            recommender_object = self.recommender_class(URM_bootstrap, **recommender_kwargs)
             recommender_object.fit(**parameters)
             enable_print()
 
             self._update_model(recommender_object)
+        np.random.seed()  # Re-set random seed for following computations
         self._reconcile_model(num_models)
 
     def _update_model(self, recommender_object):
@@ -107,9 +114,9 @@ class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSim
 
     def _update_model(self, recommender_object):
         if self.W_sparse is None:
-            self.W_sparse = recommender_object.W_sparse
+            self.W_sparse = recommender_object.W_sparse[:self.n_items, :self.n_items]
         else:
-            self.W_sparse = self.W_sparse + recommender_object.W_sparse
+            self.W_sparse = self.W_sparse + recommender_object.W_sparse[:self.n_items, :self.n_items]
 
     def _reconcile_model(self, num_models):
         self.W_sparse = self.W_sparse / num_models
@@ -140,9 +147,9 @@ class BaggingMergeUserSimilarityRecommender(BaggingMergeRecommender, BaseUserSim
 
     def _update_model(self, recommender_object):
         if self.W_sparse is None:
-            self.W_sparse = recommender_object.W_sparse
+            self.W_sparse = recommender_object.W_sparse[:self.n_users, :self.n_users]
         else:
-            self.W_sparse = self.W_sparse + recommender_object.W_sparse
+            self.W_sparse = self.W_sparse + recommender_object.W_sparse[:self.n_users, :self.n_users]
 
     def _reconcile_model(self, num_models):
         self.W_sparse = self.W_sparse / num_models

@@ -1,0 +1,15 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'UCM_age': nan, 'UCM_region': nan, 'UCM_user_act': nan, 'UCM_sub_class': nan, 'UCM_item_pop': nan, 'UCM_asset': nan, 'UCM_price': nan} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/SearchFieldWeightUCMRecommender.py", line 30, in fit
+    self.model.fit(**self.recommender_par)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/KNN/UserKNNCBFRecommender.py", line 51, in fit
+    self.UCM_train = okapi_BM_25(self.UCM_train)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/IR_feature_weighting.py", line 26, in okapi_BM_25
+    "okapi_BM_25: Data matrix contains {} non finite values".format(np.sum(np.logical_not(np.isfinite(dataMatrix.data))))
+AssertionError: okapi_BM_25: Data matrix contains 852055 non finite values
+

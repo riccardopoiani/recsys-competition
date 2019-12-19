@@ -2,6 +2,7 @@ from course_lib.Base.Recommender_utils import check_matrix
 from course_lib.Base.BaseSimilarityMatrixRecommender import BaseUserSimilarityMatrixRecommender
 from course_lib.Base.IR_feature_weighting import okapi_BM_25, TF_IDF
 import numpy as np
+import scipy.sparse as sps
 
 from course_lib.Base.Similarity.Compute_Similarity import Compute_Similarity
 
@@ -19,7 +20,7 @@ class UserKNNCBFRecommender(BaseUserSimilarityMatrixRecommender):
         self.UCM_train = UCM_train
 
     def fit(self, topK=50, shrink=100, similarity='cosine', normalize=True, feature_weighting="none",
-            interactions_feature_weighting="none", **similarity_args):
+            interactions_feature_weighting="none", field_weights: np.ndarray=None, **similarity_args):
 
         self.topK = topK
         self.shrink = shrink
@@ -39,6 +40,7 @@ class UserKNNCBFRecommender(BaseUserSimilarityMatrixRecommender):
             self.URM_train = TF_IDF(self.URM_train)
             self.URM_train = check_matrix(self.URM_train, 'csr')
 
+        # Apply statistical feature weighting
         if feature_weighting not in self.FEATURE_WEIGHTING_VALUES:
             raise ValueError(
                 "Value for 'feature_weighting' not recognized. Acceptable values are {}, provided was '{}'".format(

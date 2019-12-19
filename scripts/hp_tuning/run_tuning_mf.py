@@ -7,13 +7,13 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import best_models
-from src.model.FactorizationMachine.FactorizationMachineRecommender import FactorizationMachineRecommender
+from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMRecommender
 from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
-from src.tuning.run_parameter_search_mf import run_parameter_search_mf_collaborative
+from src.tuning.holdout_validation.run_parameter_search_mf import run_parameter_search_mf_collaborative
 from src.utils.general_utility_functions import get_split_seed
 
 N_CASES = 60
@@ -23,7 +23,7 @@ RECOMMENDER_CLASS_DICT = {
     "ials": ImplicitALSRecommender,
     "logistic_mf": LogisticMFRecommender,
     "mf_bpr": MF_BPR_Recommender,
-    "fm": FactorizationMachineRecommender,
+    "fm": FieldAwareFMRecommender,
     "funk_svd": FunkSVDRecommender
 }
 

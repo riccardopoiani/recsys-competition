@@ -5,9 +5,9 @@ from course_lib.Base.NonPersonalizedRecommender import TopPop
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model import best_models, new_best_models
+from src.model import new_best_models
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
-from src.tuning.run_parameter_search_hybrid import run_parameter_search_hybrid
+from src.tuning.holdout_validation.run_parameter_search_hybrid import run_parameter_search_hybrid
 from src.utils.general_utility_functions import get_split_seed
 
 

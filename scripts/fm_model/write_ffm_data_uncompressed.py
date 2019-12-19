@@ -98,6 +98,7 @@ def get_UCM_with_fields(reader: New_DataSplitter_leave_k_out):
 
 if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")
+    data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_items=-1, threshold_users=50)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True,
                                                seed=get_split_seed())
@@ -137,8 +138,8 @@ if __name__ == '__main__':
 
     # Dump libffm file for train set
     print("Writing train and valid dataset in libffm format...")
-    train_file_path = os.path.join(fm_data_path, "train_uncompressed.txt")
-    valid_file_path = os.path.join(fm_data_path, "valid_uncompressed.txt")
+    train_file_path = os.path.join(fm_data_path, "warm_50_train_uncompressed.txt")
+    valid_file_path = os.path.join(fm_data_path, "warm_50_valid_uncompressed.txt")
     write_data_to_xlearn_format(X=x_train, y=y_train, fields=fields, filepath=train_file_path)
     write_data_to_xlearn_format(X=x_valid, y=y_valid, fields=fields, filepath=valid_file_path)
     print("...Writing is over.")

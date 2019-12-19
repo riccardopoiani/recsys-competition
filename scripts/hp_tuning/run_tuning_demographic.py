@@ -7,7 +7,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_UCM_train
 from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
-from src.tuning.run_parameter_search_user_content import run_parameter_search_user_demographic
+from src.tuning.holdout_validation.run_parameter_search_user_content import run_parameter_search_user_demographic
 from src.utils.general_utility_functions import get_split_seed
 
 N_CASES = 60

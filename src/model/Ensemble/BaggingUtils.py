@@ -1,58 +1,25 @@
 import numpy as np
 import scipy.sparse as sps
 
-from src.utils.general_utility_functions import get_split_seed
+from src.utils.general_utility_functions import get_split_seed, n_ranges
 
 
-def get_bootstrap_URM(URM_train, weight_replacement):
+def get_user_bootstrap(URM_train, seed):
     """
-    Return a bootstrap of URM in csr matrix
+    Return a boostrap of URM_train by sampling users. The users sampled more than one times are stacked below the new
+    sampled URM_train.
 
-    :param URM_train: URM to get the bootstrap from
-    :return: bootstrap of URM in csr matrix
+    :param URM_train: train URM to be sampled
+    :return: a bootstrap of URM_train
     """
-    URM_copy = URM_train.tocoo(copy=True)
-    row = URM_copy.row
-    col = URM_copy.col
-    data = URM_copy.data
+    rating_ui = URM_train.tocsr(copy=True)
+    index_pointer = rating_ui.indptr
+    col = rating_ui.indices
+    data = rating_ui.data
 
-    interactions_list = np.arange(0, len(data))
-    np.random.seed(get_split_seed())
-    sample_interactions_list = np.random.choice(interactions_list, len(data), replace=True)
-    np.random.seed()
-    unique_sample, counts_sample = np.unique(sample_interactions_list, return_counts=True)
-    URM_sample = sps.coo_matrix(URM_copy.shape)
-    URM_sample.row = row[unique_sample]
-    URM_sample.col = col[unique_sample]
-    URM_sample.data = data[unique_sample]
-    if weight_replacement:
-        counts_mask = counts_sample > 1
-        replace_sample = unique_sample[counts_mask]
-        replace_counts = counts_sample[counts_mask] - 1
-        samples = np.repeat(replace_sample, replace_counts)
-        new_users = row[samples]
-        unique_users, counts_users = np.unique(new_users, return_counts=True)
-        new_unique_users_id = np.arange(len(unique_users))
-        new_users = np.repeat(new_unique_users_id, counts_users)
-        URM_replacement = sps.coo_matrix((len(new_unique_users_id), URM_copy.shape[1]))
-        URM_replacement.row = new_users
-        URM_replacement.col = col[samples]
-        URM_replacement.data = data[samples]
-        URM_sample = sps.vstack([URM_sample, URM_replacement])
-
-    return URM_sample.tocsr()
-
-
-def get_user_bootstrap(URM_train):
-    URM_copy = URM_train.tocsr(copy=True)
-    index_pointer = URM_copy.indptr
-    col = URM_copy.indices
-    data = URM_copy.data
-
-    user_list = np.arange(URM_copy.shape[0])
-    np.random.seed(get_split_seed())
-    sample_user_list = np.random.choice(user_list, URM_copy.shape[0], replace=True)
-    np.random.seed()
+    user_list = np.arange(rating_ui.shape[0])
+    np.random.seed(seed)
+    sample_user_list = np.random.choice(user_list, rating_ui.shape[0], replace=True)
     unique_sample, first_index_sample, counts_sample = np.unique(sample_user_list, return_counts=True,
                                                                  return_index=True)
     start = index_pointer[unique_sample]
@@ -60,43 +27,53 @@ def get_user_bootstrap(URM_train):
     n_elements = end - start
     indices = n_ranges(start, end)
 
-    URM_sample = sps.coo_matrix(URM_copy.shape)
-    URM_sample.row = np.repeat(unique_sample, n_elements)
-    URM_sample.col = col[indices]
-    URM_sample.data = data[indices]
+    rating_ui_sample = sps.coo_matrix(rating_ui.shape)
+    rating_ui_sample.row = np.repeat(unique_sample, n_elements)
+    rating_ui_sample.col = col[indices]
+    rating_ui_sample.data = data[indices]
 
     replace_mask = np.full(len(sample_user_list), fill_value=True, dtype=np.bool)
     replace_mask[first_index_sample] = False
     replace_sample = sample_user_list[replace_mask]
-    URM_replace = URM_copy[replace_sample, :]
-    URM_sample = sps.vstack([URM_sample, URM_replace], format="csr")
-    return URM_sample
+
+    rating_ui_replace = rating_ui[replace_sample, :]
+    rating_ui_sample = sps.vstack([rating_ui_sample, rating_ui_replace], format="csr")
+    return rating_ui_sample, replace_sample
 
 
-def n_ranges(start, end, return_flat=True):
+def get_item_bootstrap(URM_train, seed):
     """
-    Returns n ranges, n being the length of start (or end, they must be the same length) where each value in
-    start represents the start of a range, and a value in end at the same index the end of it
+    Return a boostrap of URM_train by sampling items. The items sampled more than one times are stacked on the right
+    side of the new sampled URM_train.
 
-    :param start: 1D np.ndarray representing the start of a range. Each value in start must be <=
-                  than that of stop in the same index
-    :param end: 1D np.ndarray representing the end of a range
-    :param return_flat:
-    :return All ranges flattened in a 1darray if return_flat is True otherwise an array of arrays with a range in each
+    :param URM_train: train URM to be sampled
+    :return: a bootstrap of URM_train
     """
-    # lengths of the ranges
-    lens = end - start
-    # repeats starts as many times as lens
-    start_rep = np.repeat(start, lens)
-    # helper mask with as many True in each row
-    # as value in same index in lens
-    arr = np.arange(lens.max())
-    m =  arr < lens[:,None]
-    # ranges in a flattened 1d array
-    # right term is a cumcount up to each len
-    ranges = start_rep + (arr * m)[m]
-    # returns if True otherwise in split arrays
-    if return_flat:
-        return ranges
-    else:
-        return np.split(ranges, np.cumsum(lens)[:-1])
+    rating_iu = URM_train.T.tocsr(copy=True)
+    index_pointer = rating_iu.indptr
+    col = rating_iu.indices
+    data = rating_iu.data
+
+    item_list = np.arange(rating_iu.shape[0])
+    np.random.seed(seed)  # Set seed to make the experiments reproducible
+    sample_item_list = np.random.choice(item_list, rating_iu.shape[0], replace=True)
+    unique_sample, first_index_sample, counts_sample = np.unique(sample_item_list, return_counts=True,
+                                                                 return_index=True)
+
+    start = index_pointer[unique_sample]
+    end = index_pointer[unique_sample + 1]
+    n_elements = end - start
+    indices = n_ranges(start, end)
+
+    rating_iu_sample = sps.coo_matrix(rating_iu.shape)
+    rating_iu_sample.row = np.repeat(unique_sample, n_elements)
+    rating_iu_sample.col = col[indices]
+    rating_iu_sample.data = data[indices]
+
+    replace_mask = np.full(len(sample_item_list), fill_value=True, dtype=np.bool)
+    replace_mask[first_index_sample] = False
+    replace_sample = sample_item_list[replace_mask]
+
+    rating_iu_replace = rating_iu[replace_sample, :]
+    rating_iu_sample = sps.vstack([rating_iu_sample, rating_iu_replace], format="csr")
+    return rating_iu_sample.T.tocsr(), replace_sample

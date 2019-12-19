@@ -5,12 +5,10 @@ import numpy as np
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.RecSys2019Reader_utils import merge_UCM
-from src.data_management.data_getter import get_warmer_UCM
-from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model import best_models, new_best_models
+from src.data_management.data_reader import get_UCM_train
+from src.model import new_best_models
 from src.model.HybridRecommender.HybridMixedSimilarityRecommender import UserHybridModelRecommender
-from src.tuning.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity_user
+from src.tuning.holdout_validation.run_parameter_search_hybrid_mixed_similarity import run_parameter_search_mixed_similarity_user
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':

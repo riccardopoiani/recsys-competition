@@ -61,7 +61,7 @@ class P3alphaRecommender(BaseRecommender):
 
         # Piu is the column-normalized, "boolean" urm transposed
         #X_bool = self.URM_train.transpose(copy=True)
-        X_bool = self.P.T.copy()
+        X_bool = self.P.copy()
         X_bool.data = np.ones(X_bool.data.size, np.float32)
         # ATTENTION: axis is still 1 because i transposed before the normalization
         Piu = normalize(X_bool, norm='l1', axis=1)
@@ -169,6 +169,6 @@ class P3alphaRecommender(BaseRecommender):
             item_scores_all = user_profile_array.dot(self.W_sparse).toarray()
             item_scores[:, items_to_compute] = item_scores_all[:, items_to_compute]
         else:
-            item_scores = user_profile_array.dot(self.W_sparse).toarray()[self.n_users:]
+            item_scores = user_profile_array.dot(self.W_sparse).toarray()[:, self.n_users:]
 
         return item_scores

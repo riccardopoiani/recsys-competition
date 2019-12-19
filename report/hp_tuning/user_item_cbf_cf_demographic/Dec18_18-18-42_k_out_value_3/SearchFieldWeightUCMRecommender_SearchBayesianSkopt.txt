@@ -1,0 +1,15 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'UCM_age': -0.05191710105459402, 'UCM_region': -0.6005408603116343, 'UCM_user_act': 0.307927094823391, 'UCM_sub_class': 0.9963168446616542, 'UCM_item_pop': 0.9793707491318064, 'UCM_asset': -0.6363455905793407, 'UCM_price': -0.9989541329022209} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/BaseRecommender.py", line 119, in recommend
+    scores_batch = self._compute_item_score(user_id_array, items_to_compute=items_to_compute)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/SearchFieldWeightUCMRecommender.py", line 33, in _compute_item_score
+    return self.model._compute_item_score(self, user_id_array=user_id_array, items_to_compute=items_to_compute)
+TypeError: _compute_item_score() got multiple values for argument 'user_id_array'
+

@@ -42,10 +42,10 @@ class ImplicitALSRecommender(BaseMatrixFactorizationRecommender):
 
     def _linear_scaling_confidence(self):
         C = check_matrix(self.URM_train, format="csr", dtype=np.float32)
-        C.data = 1.0 + self.alpha * C.data
+        C.data = self.alpha * C.data
         return C
 
     def _log_scaling_confidence(self):
         C = check_matrix(self.URM_train, format="csr", dtype=np.float32)
-        C.data = 1.0 + self.alpha * np.log(1.0 + C.data / self.epsilon)
+        C.data = self.alpha * np.log(1.0 + C.data / self.epsilon)
         return C

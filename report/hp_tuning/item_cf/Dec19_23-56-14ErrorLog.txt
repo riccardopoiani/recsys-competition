@@ -1,0 +1,1 @@
+On recommender <class 'course_lib.KNN.ItemKNNCFRecommender.ItemKNNCFRecommender'> Exception run_tuning_on_similarity_type() got an unexpected keyword argument 'parameterSearch'

@@ -131,6 +131,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
     Fusion, i.e. bagging w/o bootstrap, merge of best models: Item_CBF_CF using ICM_all (sub_class, price, asset,
     sub_class_count and item_pop; all discretized with bins 200, 200, 50, 50)
      - MAP (warm users): range  of [0.0359, 0.0363]
+     - MAP (warm users) with weighted item features: 0.03658
     """
     best_parameters = {'num_models': 100}
 
@@ -275,6 +276,11 @@ class MixedItem(IBestModel):
 
 
 class WeightedAverageItemBased(IBestModel):
+    """
+    Hybrid of Normalized weighted average of item based models.
+
+     - MAP (only warm) with item feature weighted: 0.3680
+    """
     best_parameters = {'FUSION_ITEM_CBF_CF': 0.9710063605002539, 'RP3BETA': 0.06174619037883712,
                        'ITEM_CF': 0.03242008947930531, 'ITEM_CBF': 0.05542859287050307}
 

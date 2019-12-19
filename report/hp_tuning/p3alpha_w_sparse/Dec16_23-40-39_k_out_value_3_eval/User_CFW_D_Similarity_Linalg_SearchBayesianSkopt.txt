@@ -1,0 +1,286 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'topK': 291, 'alpha': 0.5564359594913842, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 1 Exception. Config: {'topK': 465, 'alpha': 0.20402986666782424, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 2 Exception. Config: {'topK': 33, 'alpha': 0.5012627937934918, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 3 Exception. Config: {'topK': 436, 'alpha': 1.9091384014469694, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 4 Exception. Config: {'topK': 734, 'alpha': 1.1553118814460215, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 5 Exception. Config: {'topK': 15, 'alpha': 0.5548930600570564, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 6 Exception. Config: {'topK': 942, 'alpha': 0.12532100662770843, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 7 Exception. Config: {'topK': 538, 'alpha': 1.5935238304361738, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 8 Exception. Config: {'topK': 377, 'alpha': 1.0549451869304705, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 9 Exception. Config: {'topK': 517, 'alpha': 0.05596485166485256, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 10 Exception. Config: {'topK': 583, 'alpha': 0.9300744342274723, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 11 Exception. Config: {'topK': 83, 'alpha': 0.4378517090503701, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 12 Exception. Config: {'topK': 967, 'alpha': 0.3147809152501862, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 13 Exception. Config: {'topK': 282, 'alpha': 1.2060069697738183, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 14 Exception. Config: {'topK': 160, 'alpha': 0.3537232589410469, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 15 Exception. Config: {'topK': 824, 'alpha': 1.3148320218604845, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 16 Exception. Config: {'topK': 926, 'alpha': 1.5274385843120974, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 17 Exception. Config: {'topK': 670, 'alpha': 0.9087383701150973, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 18 Exception. Config: {'topK': 261, 'alpha': 1.6922252079195317, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 19 Exception. Config: {'topK': 970, 'alpha': 0.4239893896378336, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 20 Exception. Config: {'topK': 9, 'alpha': 1.9684599588046279, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 21 Exception. Config: {'topK': 981, 'alpha': 1.990667890963427, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 22 Exception. Config: {'topK': 10, 'alpha': 0.0015495525050941432, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 23 Exception. Config: {'topK': 983, 'alpha': 0.0016982893321757513, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 24 Exception. Config: {'topK': 980, 'alpha': 1.9936394557005204, 'normalize_similarity': False} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+
+SearchBayesianSkopt: Config 25 Exception. Config: {'topK': 15, 'alpha': 1.986236181831311, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 223, in _fit_model
+    **self.recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/FeatureWeighting/User_CFW_D_Similarity_Linalg.py", line 33, in __init__
+    UCM.shape[0]))
+ValueError: Number of items not consistent. S_matrix contains 18495 but ICM contains 20743
+

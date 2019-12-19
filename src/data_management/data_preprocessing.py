@@ -6,6 +6,8 @@ from src.data_management.RecSys2019Reader_utils import build_UCM_all
 
 
 # ----------- FEATURE ENGINEERING -----------
+from src.utils.general_utility_functions import n_ranges
+
 
 def apply_feature_engineering_ICM(ICM_dict: dict, URM, UCM_dict: dict, ICM_names_to_count: list,
                                   UCM_names_to_list: list):
@@ -52,6 +54,35 @@ def apply_feature_engineering_UCM(UCM_dict: dict, URM, ICM_dict: dict, ICM_names
         new_UCM_name = "UCM{}".format(ICM_suffix_name)
 
         UCM_dict[new_UCM_name] = new_UCM.tocsr()
+    return UCM_dict
+
+def apply_feature_entropy_UCM(UCM_dict: dict, UCM_names_to_entropy: list):
+    if ~np.all(np.in1d(UCM_names_to_entropy, list(UCM_dict.keys()))):
+        raise KeyError("Mapper contains wrong UCM names")
+
+    for UCM_name in UCM_names_to_entropy:
+        UCM_object: sps.csr_matrix = UCM_dict[UCM_name]
+
+        total_interactions_each_row = np.array(UCM_object.sum(axis=1)).squeeze()
+        interactions_each_row = UCM_object.indptr[1:] - UCM_object.indptr[:-1]
+        total_interactions = np.repeat(total_interactions_each_row, interactions_each_row)
+        UCM_object.data = UCM_object.data / total_interactions
+
+        log_UCM_object = UCM_object.copy()
+        log_UCM_object.data = np.log2(log_UCM_object.data)
+
+        entropy_matrix = UCM_object.multiply(log_UCM_object)
+        entropy = np.array(entropy_matrix.sum(axis=1)).squeeze()
+
+        new_UCM_name = "{}_entropy".format(UCM_name)
+        new_row = np.arange(UCM_object.shape[0])
+        new_col = np.array([0] * len(new_row), dtype=int)
+        new_data = entropy
+
+        UCM_builder = IncrementalSparseMatrix()
+        UCM_builder.add_data_lists(new_row, new_col, new_data)
+        UCM_dict[new_UCM_name] = UCM_builder.get_SparseMatrix()
+
     return UCM_dict
 
 # ----------- FEATURE IMPUTATION -----------

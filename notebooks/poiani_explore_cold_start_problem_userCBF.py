@@ -31,13 +31,10 @@ evaluator_ucm_cold = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_
 evaluator_ucm_cold.evaluateRecommender(usercbf)[0][10]['MAP']
 
 # +
-from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
-from src.data_management.RecSys2019Reader import RecSys2019Reader, merge_ICM
-from src.model.best_models import ItemCF
-from src.tuning.run_parameter_search_cfw_linalg import run_parameter_search
+from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.utils.general_utility_functions import get_split_seed
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM

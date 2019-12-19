@@ -8,7 +8,7 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeUserSimilarityRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
-from src.tuning.run_parameter_search_bagging import run_parameter_search_bagging
+from src.tuning.holdout_validation.run_parameter_search_bagging import run_parameter_search_bagging
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':

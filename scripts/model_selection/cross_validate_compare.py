@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
+from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
@@ -8,6 +9,7 @@ from src.data_management.data_reader import get_ICM_train, get_UCM_train
 from src.model import best_models, new_best_models
 from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
 from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 
 
 def _get_all_models_weighted_average(URM_train, ICM_all, UCM_all, ICM_subclass_all, ICM_numerical, ICM_categorical):
@@ -35,6 +37,7 @@ def _get_all_models_ranked(URM_train, ICM_all, UCM_all):
 
     return all_models
 
+
 if __name__ == '__main__':
     seed_list = [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 203]
 
@@ -47,6 +50,7 @@ if __name__ == '__main__':
         # Data loading
         root_data_path = "../../data/"
         data_reader = RecSys2019Reader(root_data_path)
+        data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_users=20, threshold_items=-1)
         data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
                                                    force_new_split=True, seed=seed_list[i])
         data_reader.load_data()
@@ -68,32 +72,12 @@ if __name__ == '__main__':
         cutoff_list = [10]
         evaluator_total = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-        # Building the models
-        UCM_region = data_reader.get_UCM_from_name("UCM_region")
-        all_users = np.arange(URM_train.shape[0])
-        users = UCM_region.tocoo().row
-        region = UCM_region.tocoo().col
+        par = {'topK': 5, 'shrink': 813, 'similarity': 'asymmetric', 'normalize': True, 'asymmetric_alpha': 0.0,
+               'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'none'}
+        model = ItemKNNCBFCFRecommender(URM_train, ICM_all)
+        model.fit(**par)
 
-        region_group_1_mask = (region == 5) | (region == 6)
-        region_group_2_mask = np.logical_not(region_group_1_mask)
-        users_set_1 = list(set(users[region_group_1_mask]))
-        users_not_in_set_1 = np.setdiff1d(all_users, users_set_1)
-        users_set_2 = list(set(users[region_group_2_mask]))
-        users_set_2 = np.setdiff1d(users_set_2, users_set_1).tolist()
-        users_set_2 = list(set(np.concatenate([users_set_2, users_not_in_set_1])))
-
-        # Main recommender
-        """main_recommender = HybridDemographicRecommender(URM_train)
-        main_recommender.add_user_group(0, users_set_1)
-        main_recommender.add_user_group(1, users_set_2)
-        main_recommender.add_relation_recommender_group(
-            new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all),
-            0)
-        main_recommender.add_relation_recommender_group(new_best_models.MixedItem.get_model(URM_train, ICM_all), 1)
-        main_recommender.fit()"""
-        main_recommender = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all)
-
-        curr_map = evaluator_total.evaluateRecommender(main_recommender)[0][10]['MAP']
+        curr_map = evaluator_total.evaluateRecommender(model)[0][10]['MAP']
 
         print("SEED: {} \n ".format(seed_list[i]))
         print("CURR MAP {} \n ".format(curr_map))

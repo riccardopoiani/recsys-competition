@@ -4,7 +4,7 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.dataframe_preprocesser import get_preprocessed_dataframe
-from src.tuning.run_parameter_search_advanced_top_pop import run_parameter_search_advanced_top_pop
+from src.tuning.holdout_validation.run_parameter_search_advanced_top_pop import run_parameter_search_advanced_top_pop
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
