@@ -46,7 +46,7 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
             hyper_parameters_range = {}
 
         np.random.seed(get_split_seed())
-        seeds = np.random.randint(low=0, high=2**32-1, size=num_models)
+        seeds = np.random.randint(low=0, high=2**16-1, size=num_models)
         np.random.seed()
 
         for i in tqdm(range(num_models), desc="Fitting bagging models"):

@@ -3,8 +3,9 @@ import os
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model import new_best_models
-from src.model.Ensemble.Boosting.boosting_preprocessing import get_dataframe_first_version, add_label
+from src.model import new_best_models, best_models
+from src.model.Ensemble.Boosting.boosting_preprocessing import get_dataframe_first_version, \
+    get_train_dataframe_proportion
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
@@ -22,10 +23,11 @@ if __name__ == '__main__':
     # Build UCMs: do not change the order of ICMs and UCMs
     UCM_all = get_UCM_train(data_reader)
 
-    cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
-    cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
+    exclude_users_mask = np.ediff1d(URM_train.tocsr().indptr) < 5
+    exclude_users = np.arange(URM_train.shape[0])[exclude_users_mask]
 
     # XGB SETUP
+    """
     main_rec = new_best_models.MixedItem.get_model(URM_train=URM_train, ICM_all=ICM_all)
     sub_0 = main_rec
     sub_0.RECOMMENDER_NAME = "MixedItem"
@@ -41,23 +43,29 @@ if __name__ == '__main__':
     sub_5.RECOMMENDER_NAME = "UserCF"
 
     sub_list = [sub_0, sub_1, sub_2, sub_3, sub_4, sub_5]
+    """
+    main_rec = best_models.ItemCF.get_model(URM_train)
+    sub_0 = main_rec
+    sub_0.RECOMMENDER_NAME="ItemCF"
+    sub_list=[sub_0]
+
 
     # Retrieve data for boosting
     mapper = data_reader.SPLIT_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
 
     main_recommender = main_rec
     total_users = np.arange(URM_train.shape[0])
-    mask = np.in1d(total_users, cold_users, invert=True)
+    mask = np.in1d(total_users, exclude_users, invert=True)
     user_to_validate = total_users[mask]
-    cutoff = 20
+    cutoff = 5
     data_path = "../../data/"
 
-    train_df = get_dataframe_first_version(user_id_array=user_to_validate,
-                                           remove_seen_flag=False,
-                                           cutoff=cutoff,
-                                           main_recommender=main_recommender,
-                                           recommender_list=sub_list,
-                                           mapper=mapper, URM_train=URM_train, path=data_path)
+    train_df = get_train_dataframe_proportion(user_id_array=user_to_validate,
+                                              cutoff=cutoff,
+                                              main_recommender=main_recommender,
+                                              recommender_list=sub_list,
+                                              mapper=mapper, URM_train=URM_train, path=data_path,
+                                              proportion=0.5)
 
     valid_df = get_dataframe_first_version(user_id_array=user_to_validate,
                                            remove_seen_flag=True,
@@ -76,5 +84,5 @@ if __name__ == '__main__':
     except FileNotFoundError as e:
         os.makedirs(path)
 
-    train_df.to_csv(path + "train_df_{}.csv".format(cutoff), index=False)
-    valid_df.to_csv(path + "valid_df_{}.csv".format(cutoff), index=False)
+    train_df.to_csv(path + "train_df_{}_advanced_foh_5.csv".format(cutoff), index=False)
+    valid_df.to_csv(path + "valid_df_{}_advanced_foh_5.csv".format(cutoff), index=False)

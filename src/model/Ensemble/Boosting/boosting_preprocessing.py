@@ -16,11 +16,33 @@ def preprocess_dataframe_after_reading(df: pd.DataFrame):
     return df
 
 
+def get_valid_dataframe_second_version(user_id_array, cutoff, main_recommender, path, mapper, recommender_list,
+                                       URM_train):
+    data_frame = get_boosting_base_dataframe(user_id_array=user_id_array, top_recommender=main_recommender,
+                                             exclude_seen=True, cutoff=cutoff)
+    for rec in recommender_list:
+        data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
+                                                 cutoff=cutoff, column_name=rec.RECOMMENDER_NAME)
+
+    data_frame = advanced_subclass_handling(data_frame=data_frame, URM_train=URM_train, path=path)
+    data_frame = add_ICM_information(data_frame=data_frame, path=path, one_hot_encoding_subclass=False,
+                                     use_subclass=False)
+    data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
+    data_frame = add_user_len_information(data_frame=data_frame, URM_train=URM_train)
+    data_frame = add_item_popularity(data_frame=data_frame, URM_train=URM_train)
+
+    data_frame = data_frame.sort_values(by="user_id", ascending=True)
+    data_frame = data_frame.reset_index()
+    data_frame = data_frame.drop(columns=["index"], inplace=False)
+
+    return data_frame
+
+
 def get_train_dataframe_proportion(user_id_array, cutoff, main_recommender, path, mapper, recommender_list,
                                    URM_train, proportion):
     data_frame = get_boosting_base_dataframe(user_id_array=user_id_array, top_recommender=main_recommender,
-                                             exclude_seen=True, cutoff=cutoff)
-    labels = add_label(data_frame, URM_train)
+                                             exclude_seen=False, cutoff=cutoff)
+    labels, ignore, ignore2 = add_label(data_frame, URM_train)
     data_frame['label'] = labels
     data_frame = add_random_negative_ratings(data_frame=data_frame, URM_train=URM_train, proportion=proportion)
 
@@ -28,13 +50,16 @@ def get_train_dataframe_proportion(user_id_array, cutoff, main_recommender, path
         data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
                                                  cutoff=cutoff, column_name=rec.RECOMMENDER_NAME)
 
-    data_frame = add_ICM_information(data_frame=data_frame, path=path)
+    data_frame = advanced_subclass_handling(data_frame=data_frame, URM_train=URM_train, path=path)
+    data_frame = add_ICM_information(data_frame=data_frame, path=path, one_hot_encoding_subclass=False,
+                                     use_subclass=False)
     data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
     data_frame = add_user_len_information(data_frame=data_frame, URM_train=URM_train)
+    data_frame = add_item_popularity(data_frame=data_frame, URM_train=URM_train)
 
     data_frame = data_frame.sort_values(by="user_id", ascending=True)
     data_frame = data_frame.reset_index()
-    data_frame.drop(columns=["index"], inplace=False)
+    data_frame = data_frame.drop(columns=["index"], inplace=False)
 
     return data_frame
 
@@ -235,6 +260,80 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
     return data_frame
 
 
+def advanced_subclass_handling(data_frame: pd.DataFrame, URM_train: csr_matrix, path="../../data/"):
+    """
+    Here we want to include in the training set sub class information in the following way:
+    - A column encoding the mean of 'label' for a certain couple (user, subclass): i.e. how many
+    items of that subclass the user liked
+    - Including information about the popularity of the subclass (how many items for that subclass
+    - Including ratings of that subclass
+
+    :param URM_train: mean response will be retrieved from here
+    :param data_frame: dataframe being pre-processed for boosting
+    :param path: path to the folder containing subclass dataframe
+    :return: dataframe with augmented information
+    """
+    print("Advanced subclass handling")
+    data_frame = data_frame.copy()
+
+    df_subclass: pd.DataFrame = pd.read_csv(path + "data_ICM_sub_class.csv")
+    df_subclass = df_subclass[['row', 'col']]
+    df_subclass = df_subclass.rename(columns={"col": "subclass"})
+
+    # Merging sub class information
+    data_frame = pd.merge(data_frame, df_subclass, right_on="row", left_on="item_id")
+    data_frame = data_frame.drop(columns=["row"], inplace=False)
+
+    print("Add items present for each subclass")
+    # Add subclass item-popularity: how many items are present of that subclass
+    subclass_item_count = df_subclass.groupby("subclass").count()
+    data_frame = pd.merge(data_frame, subclass_item_count, right_index=True, left_on="subclass")
+    data_frame = data_frame.rename(columns={"row": "item_per_subclass"})
+
+    print("Add ratings popularity for each subclass")
+    # Add subclass ratings-popularity: how many interactions we have for each subclass
+    URM_train_csc = URM_train.tocsc()
+    n_ratings_sub = []
+    sorted_sub = np.sort(np.unique(df_subclass['subclass']))
+    for sub in sorted_sub:
+        item_sub = df_subclass[df_subclass['subclass'] == sub]['row'].values
+        n_ratings_sub.append(URM_train_csc[:, item_sub].data.size)
+
+    ratings_sub = np.array([sorted_sub, n_ratings_sub])
+    ratings_per_sub_df = pd.DataFrame(data=np.transpose(ratings_sub),
+                                      columns=["subclass", "global_ratings_per_subclass"])
+
+    data_frame = pd.merge(data_frame, ratings_per_sub_df, left_on="subclass", right_on="subclass")
+
+    # Add subclass ratings-popularity for each user using rating percentage
+    print("Add ratings popularity for pairs (user, subclass)")
+    users = data_frame['user_id'].values
+    sub = data_frame['subclass'].values
+
+    perc_array = np.zeros(users.size)
+    for i, user in enumerate(users):
+        if i % 5000 == 0:
+            print("{} done in {}".format(i, users.size))
+        curr_sub = sub[i]
+
+        # Find items of this subclass
+        item_sub = df_subclass[df_subclass['subclass'] == curr_sub]['row'].values
+        user_item = URM_train[user].indices
+
+        total_user_likes = user_item.size
+        mask = np.in1d(item_sub, user_item)
+        likes_per_sub = item_sub[mask].size
+        user_p = likes_per_sub / total_user_likes
+        perc_array[i] = user_p
+
+    data_frame = pd.merge(data_frame, pd.DataFrame(perc_array), right_index=True, left_index=True)
+    data_frame = data_frame.rename(columns={0: "subclass_user_like"})
+
+    print("Done")
+
+    return data_frame
+
+
 def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=True, use_asset=True,
                         use_subclass=True, one_hot_encoding_subclass=False):
     """
@@ -294,7 +393,7 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
         if not one_hot_encoding_subclass:
             data_frame = pd.merge(data_frame, df_subclass, right_on="row", left_on="item_id")
         else:
-            dummies = pd.get_dummies(data_frame['subclass'])
+            dummies = pd.get_dummies(df_subclass['subclass'])
             dummies = dummies.join(df_subclass['row'])
             data_frame = pd.merge(data_frame, dummies, right_on="row", left_on="item_id")
 
@@ -372,27 +471,31 @@ def add_random_negative_ratings(data_frame: pd.DataFrame, URM_train: csr_matrix,
     """
     data_frame = data_frame.copy()
 
+    print("Fixing proportion...")
+
     if users is None:
         users = np.unique(data_frame['user_id'].values)
 
     new_user_list = []
     new_item_list = []
 
-    for user in users:
+    for i, user in enumerate(users):
+        if i % 5000 == 0:
+            print("{} done in {}".format(i, users.size))
         user_df = data_frame[data_frame['user_id'] == user]
-        curr_items = user_df['item_id'].values
         pos_labels = user_df['label'].values
         pos_count = np.count_nonzero(pos_labels)
-        total = pos_count.size
+        total = pos_labels.size
         neg_count = total - pos_count
-        samples_to_add = np.array([0, int(pos_count / proportion) - neg_count]).min()
-        samples = user_uniform_sampling(user, URM_train, sample_size=samples_to_add)
-
-        new_user_list.extend([user] * samples_to_add)
-        new_item_list.extend(samples.tolist())
+        samples_to_add = np.array([int(pos_count / proportion) - neg_count]).min()
+        if samples_to_add > 0:
+            samples = user_uniform_sampling(user, URM_train, sample_size=samples_to_add)
+            new_user_list.extend([user] * samples_to_add)
+            new_item_list.extend(samples.tolist())
 
     data = np.array([new_user_list, new_item_list])
     new_df = pd.DataFrame(np.transpose(data), columns=['user_id', 'item_id'])
+    new_df['label'] = 0
 
     new_df = data_frame.append(new_df)
     return new_df
