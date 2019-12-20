@@ -1,6 +1,7 @@
 from skopt.space import Integer, Real, Categorical
 
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
+from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMRecommender
 from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
@@ -75,7 +76,14 @@ HYPER_PARAMETERS_RANGE = {
         "topK": Integer(1, 1000),
         "alpha": Real(low=0, high=2, prior='uniform'),
         "normalize_similarity": Categorical([True, False])
-    }
+    },
+
+    RP3betaRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(1, 1000),
+        "alpha": Real(low=0, high=2, prior='uniform'),
+        "beta": Real(low=0, high=2, prior='uniform'),
+        "normalize_similarity": Categorical([True, False])
+    },
 
 }
 
