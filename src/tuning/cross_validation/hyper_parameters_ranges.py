@@ -1,5 +1,6 @@
 from skopt.space import Integer, Real, Categorical
 
+from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMRecommender
 from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
@@ -55,12 +56,19 @@ HYPER_PARAMETERS_RANGE = {
         "topK": Integer(5, 1000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False])
+    },
+
+    P3alphaRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(1, 1000),
+        "alpha": Real(low=0, high=2, prior='uniform'),
+        "normalize_similarity": Categorical([True, False])
     }
 
 }
 
 
 def get_hyper_parameters_dictionary(recommender_class):
+    hyperparameters_range_dictionary = {}
     return HYPER_PARAMETERS_RANGE[recommender_class.RECOMMENDER_NAME]
 
 

@@ -20,7 +20,7 @@ from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
 from src.tuning.cross_validation.run_cv_parameter_search_collaborative import run_cv_parameter_search_collaborative
-from src.utils.general_utility_functions import get_split_seed, get_project_root_path
+from src.utils.general_utility_functions import get_split_seed, get_project_root_path, get_seed_lists
 
 N_CASES = 60
 N_RANDOM_STARTS = 20
@@ -76,6 +76,7 @@ def set_env_variables():
 def main():
     set_env_variables()
     args = get_arguments()
+    seeds = get_seed_lists(N_FOLDS, get_split_seed())
 
     # --------- DATA LOADING --------- #
     data_reader = RecSys2019Reader(args.reader_path)
@@ -83,7 +84,7 @@ def main():
     evaluator_list = []
     for fold_idx in range(args.n_folds):
         data_splitter = New_DataSplitter_leave_k_out(data_reader, k_out_value=K_OUT, use_validation_set=False,
-                                                     force_new_split=True, seed=args.seed)
+                                                     force_new_split=True, seed=seeds[fold_idx])
         data_splitter.load_data()
         URM_train, URM_test = data_splitter.get_holdout_split()
 
@@ -111,7 +112,7 @@ def main():
     print("Start tuning...")
 
     hp_tuning_path = os.path.join(get_project_root_path(), "report", "hp_tuning", "{}".format(args.recommender_name))
-    date_string = datetime.now().strftime('%b%d_%H-%M-%S')
+    date_string = datetime.now().strftime('%b%d_%H-%M-%S_keep1out/')
     output_folder_path = os.path.join(hp_tuning_path, date_string)
 
     run_cv_parameter_search_collaborative(URM_train_list=URM_train_list,

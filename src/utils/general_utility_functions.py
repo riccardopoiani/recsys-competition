@@ -17,6 +17,11 @@ def get_split_seed():
     return SPLIT_SEED
 
 
+def get_seed_lists(size, seed):
+    np.random.seed(seed)
+    return np.random.randint(low=0, high=2**16-1, size=size, dtype=np.int)
+
+
 def get_project_root_path():
     import os
     return os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
