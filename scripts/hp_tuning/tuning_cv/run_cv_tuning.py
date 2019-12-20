@@ -1,0 +1,178 @@
+import argparse
+import multiprocessing
+import os
+from datetime import datetime
+
+from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
+from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
+from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
+from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import MatrixFactorization_AsySVD_Cython
+from course_lib.MatrixFactorization.NMFRecommender import NMFRecommender
+from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
+from course_lib.SLIM_ElasticNet.SLIMElasticNetRecommender import SLIMElasticNetRecommender
+from src.data_management.New_DataSplitter_leave_k_out import *
+from src.data_management.RecSys2019Reader import RecSys2019Reader
+from src.data_management.data_reader import read_target_users, get_index_target_users, get_users_outside_profile_len, \
+    get_ICM_train_new, get_UCM_train_new
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
+from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
+from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
+from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
+from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
+from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
+from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
+from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
+from src.tuning.cross_validation.run_cv_parameter_search_collaborative import run_cv_parameter_search
+from src.utils.general_utility_functions import get_split_seed, get_project_root_path, get_seed_lists, \
+    get_root_data_path, str2bool
+
+N_CASES = 100
+N_RANDOM_STARTS = 40
+N_FOLDS = 5
+K_OUT = 1
+CUTOFF = 10
+MAX_UPPER_THRESHOLD = 2 ** 32 - 1
+MIN_LOWER_THRESHOLD = -1
+
+COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
+    # KNN
+    "item_cf": ItemKNNCFRecommender,
+    "user_cf": UserKNNCFRecommender,
+    "new_user_cf": NewUserKNNCFRecommender,
+
+    # ML Item-Similarity Based
+    "slim_bpr": SLIM_BPR_Cython,
+    "slim_elastic": SLIMElasticNetRecommender,
+    "p3alpha": P3alphaRecommender,
+    "rp3beta": RP3betaRecommender,
+
+    # Matrix Factorization
+    "pure_svd": NewPureSVDRecommender,
+    "light_fm": LightFMRecommender,
+    "ials": ImplicitALSRecommender,
+    "logistic_mf": LogisticMFRecommender,
+    "mf_bpr": MF_BPR_Recommender,
+    "funk_svd": FunkSVDRecommender,
+    "asy_svd": MatrixFactorization_AsySVD_Cython,
+    "nmf": NMFRecommender
+}
+CONTENT_RECOMMENDER_CLASS_DICT = {
+    # Pure CBF KNN
+    "new_item_cbf": NewItemKNNCBFRecommender,
+    "item_cbf_cf": ItemKNNCBFCFRecommender,
+}
+DEMOGRAPHIC_RECOMMENDER_CLASS_DICT = {
+    # Pure Demographic KNN
+    "user_cbf": UserKNNCBFRecommender
+}
+
+RECOMMENDER_CLASS_DICT = dict(**COLLABORATIVE_RECOMMENDER_CLASS_DICT, **CONTENT_RECOMMENDER_CLASS_DICT)
+
+
+def get_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--reader_path", default=get_root_data_path(), help="path to the root of data files")
+    parser.add_argument("-r", "--recommender_name", required=True,
+                        help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
+    parser.add_argument("-n", "--n_cases", default=N_CASES, type=int, help="number of cases for hyper parameter tuning")
+    parser.add_argument("-f", "--n_folds", default=N_FOLDS, type=int, help="number of folds for cross validation")
+    parser.add_argument("-nr", "--n_random_starts", default=N_RANDOM_STARTS, type=int,
+                        help="number of random starts for hyper parameter tuning")
+    parser.add_argument("-p", "--parallelize", default=1, type=str2bool,
+                        help="1 to parallelize the search, 0 otherwise")
+    parser.add_argument("-ut", "--upper_threshold", default=MAX_UPPER_THRESHOLD, type=int,
+                        help="Upper threshold (included) of user profile length to validate")
+    parser.add_argument("-lt", "--lower_threshold", default=MIN_LOWER_THRESHOLD, type=int,
+                        help="Lower threshold (included) of user profile length to validate")
+    parser.add_argument("-eu", "--exclude_users", default=0, type=str2bool, help="1 to exclude cold users, 0 otherwise")
+    parser.add_argument("-ent", "--exclude_non_target", default=1, type=str2bool,
+                        help="1 to exclude non-target users, 0 otherwise")
+    parser.add_argument("-nj", "--n_jobs", default=multiprocessing.cpu_count(), help="Number of workers", type=int)
+    parser.add_argument("--seed", default=get_split_seed(), help="seed for the experiment", type=int)
+
+    return parser.parse_args()
+
+
+def set_env_variables():
+    os.environ["MKL_NUM_THREADS"] = "1"
+    os.environ["OPENBLAS_NUM_THREADS"] = "1"
+
+
+def main():
+    set_env_variables()
+    args = get_arguments()
+    seeds = get_seed_lists(N_FOLDS, get_split_seed())
+
+    # --------- DATA LOADING --------- #
+    data_reader = RecSys2019Reader(args.reader_path)
+    URM_train_list = []
+    ICM_train_list = []
+    UCM_train_list = []
+    evaluator_list = []
+    for fold_idx in range(args.n_folds):
+        # Read and split data
+        data_splitter = New_DataSplitter_leave_k_out(data_reader, k_out_value=K_OUT, use_validation_set=False,
+                                                     force_new_split=True, seed=seeds[fold_idx])
+        data_splitter.load_data()
+        URM_train, URM_test = data_splitter.get_holdout_split()
+        ICM_train, item_feature2range = get_ICM_train_new(data_splitter)
+        UCM_train, user_feature2range = get_UCM_train_new(data_splitter)
+
+        # Ignore users and setting evaluator
+        ignore_users = []
+        if args.lower_threshold != MIN_LOWER_THRESHOLD or args.upper_threshold != MAX_UPPER_THRESHOLD:
+            print("EvaluatorHoldout: Excluding users with profile length outside [{}, {}]".format(args.lower_threshold,
+                                                                                                  args.upper_threshold))
+            ignore_users = np.concatenate([ignore_users, get_users_outside_profile_len(URM_train, args.lower_threshold,
+                                                                                       args.upper_threshold)])
+        if args.exclude_users:
+            print("EvaluatorHoldout: Excluding cold users.")
+            cold_user_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
+            ignore_users = np.concatenate([ignore_users, np.arange(URM_train.shape[0])[cold_user_mask]])
+        if args.exclude_non_target:
+            print("EvaluatorHoldout: Excluding non-target users.")
+            original_target_users = read_target_users(path=os.path.join(args.reader_path, "data_target_users_test.csv"))
+            target_users = get_index_target_users(original_target_users,
+                                                  data_splitter.get_original_user_id_to_index_mapper())
+            non_target_users = np.setdiff1d(np.arange(URM_train.shape[0]), target_users, assume_unique=True)
+            ignore_users = np.concatenate([ignore_users, non_target_users])
+
+        URM_train_list.append(URM_train)
+        ICM_train_list.append(ICM_train)
+        UCM_train_list.append(UCM_train)
+
+        evaluator = EvaluatorHoldout(URM_test, cutoff_list=[CUTOFF], ignore_users=np.unique(ignore_users))
+        evaluator_list.append(evaluator)
+
+    # --------- HYPER PARAMETERS TUNING SECTION --------- #
+    print("Start tuning...")
+
+    hp_tuning_path = os.path.join(get_project_root_path(), "report", "hp_tuning", "{}".format(args.recommender_name))
+    date_string = datetime.now().strftime('%b%d_%H-%M-%S_keep1out/')
+    output_folder_path = os.path.join(hp_tuning_path, date_string)
+
+    if args.recommender_name in COLLABORATIVE_RECOMMENDER_CLASS_DICT.keys():
+        run_cv_parameter_search(URM_train_list=URM_train_list,
+                                recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
+                                evaluator_validation_list=evaluator_list,
+                                metric_to_optimize="MAP", output_folder_path=output_folder_path,
+                                parallelize_search=args.parallelize, n_jobs=args.n_jobs,
+                                n_cases=args.n_cases, n_random_starts=args.n_random_starts)
+    elif args.recommender_name in CONTENT_RECOMMENDER_CLASS_DICT.keys():
+        run_cv_parameter_search(URM_train_list=URM_train_list, ICM_train_list=ICM_train_list, ICM_name="ICM_all",
+                                recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
+                                evaluator_validation_list=evaluator_list,
+                                metric_to_optimize="MAP", output_folder_path=output_folder_path,
+                                parallelize_search=args.parallelize, n_jobs=args.n_jobs,
+                                n_cases=args.n_cases, n_random_starts=args.n_random_starts)
+    elif args.recommender_name in DEMOGRAPHIC_RECOMMENDER_CLASS_DICT.keys():
+        pass
+    print("...tuning ended")
+
+
+if __name__ == '__main__':
+    main()

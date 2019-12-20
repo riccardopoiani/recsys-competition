@@ -2,17 +2,23 @@ from skopt.space import Integer, Real, Categorical
 
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
+from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMRecommender
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
+from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
+from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
+from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
-
-# ------------------------- HYPER PARAMETERS RANGE ------------------------- #
 from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
 
+# ------------------------- HYPER PARAMETERS RANGE ------------------------- #
 HYPER_PARAMETERS_RANGE = {
 
     # ------ Matrix Factorization ------ #
@@ -64,11 +70,55 @@ HYPER_PARAMETERS_RANGE = {
         "feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
 
-    # ------ Neighbours Method ------ #
+    # ------ Collaborative KNN Method ------ #
     ItemKNNCFRecommender.RECOMMENDER_NAME: {
         "topK": Integer(5, 1000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False])
+    },
+    UserKNNCFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(5, 3000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False])
+    },
+    NewUserKNNCFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(5, 3000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False])
+    },
+
+    # ------ Content KNN Method ------ #
+    ItemKNNCBFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(5, 1000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False]),
+        "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
+    },
+    NewItemKNNCBFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(5, 1000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False]),
+        "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
+    },
+    ItemKNNCBFCFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(1, 1000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False]),
+        "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
+    },
+
+    # ------ Demographic KNN Method ------ #
+    UserKNNCBFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(5, 3000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False]),
+        "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
+    },
+    UserKNNCBFCFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(5, 3000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False]),
+        "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
 
     # ------ ML Item Similarity Based Method ------ #
@@ -89,7 +139,6 @@ HYPER_PARAMETERS_RANGE = {
 
 
 def get_hyper_parameters_dictionary(recommender_class):
-    hyperparameters_range_dictionary = {}
     return HYPER_PARAMETERS_RANGE[recommender_class.RECOMMENDER_NAME]
 
 

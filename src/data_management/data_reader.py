@@ -12,12 +12,12 @@ import numpy as np
 
 def read_target_users(path="../data/data_target_users_test.csv"):
     """
-    :return: list of user to recommend in the target playlist
+    :return: list of user to recommend in the target users
     """
 
     def row_split_target(row_string):
         """
-        Function helper to read the target playlist
+        Function helper to read the target users
         :param row_string:
         :return:
         """
@@ -312,12 +312,21 @@ def get_UCM_train_new(reader: New_DataSplitter_leave_k_out):
     return UCM_all, user_feature_to_range_mapper
 
 
-def get_non_target_user(target_users, original_user_id_to_index_mapper):
+def get_index_target_users(original_target_users, original_user_id_to_index_mapper):
     """
-    Retrieve the non target user inside the URM using its original_user_id_to_index_mapper
+    Retrieve the target user inside the URM using its original_user_id_to_index_mapper
 
-    :param target_users: target users of Kaggle test set
+    :param original_target_users: target users of Kaggle test set
     :param original_user_id_to_index_mapper: mapper referred to URM
-    :return: non target users of URM
+    :return: target users of URM
     """
-    return [idx for original_uid, idx in original_user_id_to_index_mapper if original_uid not in target_users]
+    original_ids = np.array(list(original_user_id_to_index_mapper.keys()), dtype=np.int)
+    index_ids = np.array(list(original_user_id_to_index_mapper.values()), dtype=np.int)
+    original_ids_mask = np.in1d(original_ids, original_target_users, assume_unique=True)
+    target_users = index_ids[original_ids_mask]
+    return target_users
+
+
+def get_users_outside_profile_len(URM_train, lower_threshold, upper_threshold):
+    ignore_users_mask = upper_threshold >= np.ediff1d(URM_train.tocsr().indptr) >= lower_threshold
+    return np.arange(URM_train.shape[0])[ignore_users_mask]

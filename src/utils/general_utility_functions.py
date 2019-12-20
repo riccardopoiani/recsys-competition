@@ -1,4 +1,5 @@
 import numpy as np
+import os
 
 SPLIT_SEED = 69420
 TOTAL_USERS = 30911
@@ -38,8 +39,23 @@ def enable_print():
     sys.stdout = sys.__stdout__
 
 
+def get_root_data_path():
+    root_path = get_project_root_path()
+    return os.path.join(root_path, "data")
+
+
+def str2bool(string):
+    if isinstance(string, bool):
+        return string
+    if string.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif string.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise ValueError('Boolean value expected.')
+
 def from_string_to_dict(s):
-    '''
+    """
     Convert a string to a dictionary.
     This function takes care of True/
     False values, integer, float and string, as possible values.
@@ -47,7 +63,7 @@ def from_string_to_dict(s):
 
     :param s: string represeting a dictionary. { } are assumed to be already removed
     :return: dictionary of the string
-    '''
+    """
     my_dict = {}
 
     split_dict = s.split(",")

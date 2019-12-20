@@ -16,13 +16,13 @@ from course_lib.Base.BaseSimilarityMatrixRecommender import BaseItemSimilarityMa
 import time, sys
 
 
-class P3alphaRecommender(BaseRecommender):
-    """ P3alpha recommender """
+class P3alphaWSparseRecommender(BaseRecommender):
+    """ P3alpha W Sparse recommender """
 
-    RECOMMENDER_NAME = "P3alphaRecommender"
+    RECOMMENDER_NAME = "P3alphaWSparseRecommender"
 
     def __init__(self, URM_train, user_W_sparse, item_W_sparse, verbose=True):
-        super(P3alphaRecommender, self).__init__(URM_train, verbose=verbose)
+        super(P3alphaWSparseRecommender, self).__init__(URM_train, verbose=verbose)
         self.user_W_sparse = user_W_sparse
         self.item_W_sparse = item_W_sparse
 
@@ -146,12 +146,6 @@ class P3alphaRecommender(BaseRecommender):
 
         if self.topK != False:
             self.W_sparse = similarityMatrixTopK(self.W_sparse, k=self.topK)
-
-        # Get only items cols
-        """item_col_mask = cols >= self.n_users
-        rows = rows[item_col_mask]
-        cols = cols[item_col_mask] - self.n_users
-        values = values[item_col_mask]"""
 
         self.W_sparse = check_matrix(self.W_sparse, format='csr')
 
