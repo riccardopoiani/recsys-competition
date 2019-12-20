@@ -9,7 +9,6 @@ from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import MatrixFactorization_AsySVD_Cython
 from course_lib.MatrixFactorization.NMFRecommender import NMFRecommender
-from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from course_lib.SLIM_ElasticNet.SLIMElasticNetRecommender import SLIMElasticNetRecommender
 from src.data_management.New_DataSplitter_leave_k_out import *
@@ -19,11 +18,12 @@ from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSReco
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
+from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
 from src.tuning.cross_validation.run_cv_parameter_search_collaborative import run_cv_parameter_search_collaborative
 from src.utils.general_utility_functions import get_split_seed, get_project_root_path, get_seed_lists
 
-N_CASES = 60
-N_RANDOM_STARTS = 20
+N_CASES = 100
+N_RANDOM_STARTS = 40
 N_FOLDS = 5
 K_OUT = 1
 CUTOFF = 10
@@ -39,7 +39,7 @@ RECOMMENDER_CLASS_DICT = {
     "rp3beta": RP3betaRecommender,
 
     # Matrix Factorization
-    "pure_svd": PureSVDRecommender,
+    "pure_svd": NewPureSVDRecommender,
     "light_fm": LightFMRecommender,
     "ials": ImplicitALSRecommender,
     "logistic_mf": LogisticMFRecommender,
@@ -55,15 +55,15 @@ def get_arguments():
     parser.add_argument("-l", "--reader_path", default="../../data/", help="path to the root of data files")
     parser.add_argument("-r", "--recommender_name", required=True,
                         help="recommender names should be one of: {}".format(list(RECOMMENDER_CLASS_DICT.keys())))
-    parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyperparameter tuning")
+    parser.add_argument("-n", "--n_cases", default=N_CASES, help="number of cases for hyper parameter tuning")
     parser.add_argument("-f", "--n_folds", default=N_FOLDS, help="number of folds for cross validation")
     parser.add_argument("-nr", "--n_random_starts", default=N_RANDOM_STARTS,
-                        help="number of random starts for hyperparameter tuning")
-    parser.add_argument("-d", "--discretize", default=False, help="if true, it will discretize the ICMs")
-    parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
+                        help="number of random starts for hyper parameter tuning")
+    parser.add_argument("-p", "--parallelize", default=1, help="1 to parallelize the search, 0 otherwise")
     parser.add_argument("-foh", "--focus_on_high", default=0, help="focus the tuning only on users with profile"
                                                                    "lengths larger than the one specified here")
     parser.add_argument("-eu", "--exclude_users", default=False, help="1 to exclude cold users, 0 otherwise")
+    parser.add_argument("--seed", default=get_split_seed(), help="seed used in splitting the dataset")
 
     return parser.parse_args()
 
@@ -88,7 +88,7 @@ def main():
         data_splitter.load_data()
         URM_train, URM_test = data_splitter.get_holdout_split()
 
-        # Setting evaluator with ignore users
+        # Ignore users
         exclude_cold_users = args.exclude_users
         h = int(args.focus_on_high)
         if h != 0:
@@ -120,6 +120,7 @@ def main():
                                           evaluator_validation_list=evaluator_list,
                                           metric_to_optimize="MAP",
                                           output_folder_path=output_folder_path,
+                                          parallelize_search=True if args.parallelize == 1 else False,
                                           n_cases=int(args.n_cases), n_random_starts=int(args.n_random_starts))
     print("...tuning ended")
 

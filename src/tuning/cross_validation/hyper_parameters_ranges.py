@@ -10,7 +10,11 @@ from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecomm
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
 
 # ------------------------- HYPER PARAMETERS RANGE ------------------------- #
+from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
+
 HYPER_PARAMETERS_RANGE = {
+
+    # ------ Matrix Factorization ------ #
     ImplicitALSRecommender.RECOMMENDER_NAME: {
         "num_factors": Integer(300, 550),
         "regularization": Real(low=1e-2, high=200, prior='log-uniform'),
@@ -52,12 +56,21 @@ HYPER_PARAMETERS_RANGE = {
         'learning_rate': Real(low=10e-3, high=10e-1, prior="log-uniform")
     },
 
+    NewPureSVDRecommender.RECOMMENDER_NAME: {
+        "num_factors": Integer(50, 800),
+        "n_oversamples": Integer(1, 30),
+        "n_iter": Integer(1, 20),
+        "feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
+    },
+
+    # ------ Neighbours Method ------ #
     ItemKNNCFRecommender.RECOMMENDER_NAME: {
         "topK": Integer(5, 1000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False])
     },
 
+    # ------ ML Item Similarity Based Method ------ #
     P3alphaRecommender.RECOMMENDER_NAME: {
         "topK": Integer(1, 1000),
         "alpha": Real(low=0, high=2, prior='uniform'),
