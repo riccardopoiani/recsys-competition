@@ -46,9 +46,14 @@ def get_train_dataframe_proportion(user_id_array, cutoff, main_recommender, path
     data_frame['label'] = labels
     data_frame = add_random_negative_ratings(data_frame=data_frame, URM_train=URM_train, proportion=proportion)
 
+    data_frame = data_frame.sort_values(by="user_id", ascending=True)
+    data_frame = data_frame.reset_index()
+    data_frame = data_frame.drop(columns=["index"], inplace=False)
+
     for rec in recommender_list:
         data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
-                                                 cutoff=cutoff, column_name=rec.RECOMMENDER_NAME)
+                                                 cutoff=cutoff, column_name=rec.RECOMMENDER_NAME,
+                                                 is_proportion=True)
 
     data_frame = advanced_subclass_handling(data_frame=data_frame, URM_train=URM_train, path=path)
     data_frame = add_ICM_information(data_frame=data_frame, path=path, one_hot_encoding_subclass=False,
@@ -311,6 +316,7 @@ def advanced_subclass_handling(data_frame: pd.DataFrame, URM_train: csr_matrix, 
     sub = data_frame['subclass'].values
 
     perc_array = np.zeros(users.size)
+    rat_array = np.zeros(users.size)
     for i, user in enumerate(users):
         if i % 5000 == 0:
             print("{} done in {}".format(i, users.size))
@@ -325,9 +331,13 @@ def advanced_subclass_handling(data_frame: pd.DataFrame, URM_train: csr_matrix, 
         likes_per_sub = item_sub[mask].size
         user_p = likes_per_sub / total_user_likes
         perc_array[i] = user_p
+        rat_array[i] = likes_per_sub
 
     data_frame = pd.merge(data_frame, pd.DataFrame(perc_array), right_index=True, left_index=True)
-    data_frame = data_frame.rename(columns={0: "subclass_user_like"})
+    data_frame = data_frame.rename(columns={0: "subclass_user_like_perc"})
+
+    data_frame = pd.merge(data_frame, pd.DataFrame(rat_array), right_index=True, left_index=True)
+    data_frame = data_frame.rename(columns={0: "subclass_user_like_quantity"})
 
     print("Done")
 
@@ -402,8 +412,27 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
     return data_frame
 
 
+def add_recommender_predictions_proportion(data_frame: pd.DataFrame, recommender: BaseRecommender,
+                                           column_name: str, min_max_scaling=True):
+    data_frame = data_frame.copy()
+    items = data_frame['item_id'].values.astype(int)
+    users = data_frame['user_id'].values.astype(int)
+
+    print("Add recommender predictions - COLUMN NAME: " + str(column_name))
+    data_frame[column_name] = 0  # Initializing predictions at 0
+
+
 def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecommender, cutoff: int,
-                                column_name: str, min_max_scaling=True):
+                                column_name: str, min_max_scaling=True, is_proportion=False):
+    """
+    :param is_proportion: True if dataframe has been generated with proportion
+    :param data_frame: dataframe on which predictions will be added
+    :param recommender: recommender of which the predictions will be added
+    :param cutoff: cutoff used for generating the dataframe
+    :param column_name: name of the new column
+    :param min_max_scaling: whether to apply min-max scaling or not
+    :return: new dataframe containing recommender predictions
+    """
     new_df = data_frame.copy()
     items = new_df['item_id'].values.astype(int)
     users = new_df['user_id'].values.astype(int)
@@ -414,7 +443,11 @@ def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecom
     for i, user_id in enumerate(np.unique(users)):
         if i % 10000 == 0:
             print("{} done over {}".format(i, np.unique(users).size))
-        items_for_user_id = items[(i * cutoff):(i * cutoff) + cutoff]
+        if is_proportion:
+            items_for_user_id = new_df[new_df['user_id'] == user_id]['item_id'].values.astype(int)
+        else:
+            items_for_user_id = items[(i * cutoff):(i * cutoff) + cutoff]
+
         if items_for_user_id.size != np.unique(items_for_user_id).size:
             raise RuntimeError("These two arrays should have the same size")
 
@@ -434,10 +467,11 @@ def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecom
     return new_df
 
 
-def user_uniform_sampling(user: int, URM_train: csr_matrix, sample_size: int):
+def user_uniform_sampling(user: int, URM_train: csr_matrix, items_to_exclude: np.array, sample_size: int):
     """
     Sample negative interactions at random for a given users from URM_train
 
+    :param items_to_exclude: exclude these items from the sampling
     :param user: sample negative interactions for this user
     :param URM_train: URM from which samples will be taken
     :param sample_size: how many samples to take
@@ -450,7 +484,8 @@ def user_uniform_sampling(user: int, URM_train: csr_matrix, sample_size: int):
     while sampled < sample_size:
         t_item = np.random.randint(low=0, high=URM_train.shape[1], size=1)[0]
 
-        if URM_train[user, t_item] == 0:
+        if URM_train[user, t_item] == 0 and not np.any(np.in1d(items_to_exclude, t_item)) and \
+                not np.any(np.in1d(collected_samples, t_item)):
             collected_samples[sampled] = t_item
             sampled += 1
 
@@ -489,7 +524,9 @@ def add_random_negative_ratings(data_frame: pd.DataFrame, URM_train: csr_matrix,
         neg_count = total - pos_count
         samples_to_add = np.array([int(pos_count / proportion) - neg_count]).min()
         if samples_to_add > 0:
-            samples = user_uniform_sampling(user, URM_train, sample_size=samples_to_add)
+            items_to_exclude = data_frame[data_frame['user_id'] == user]['item_id'].values.astype(int)
+            samples = user_uniform_sampling(user, URM_train, sample_size=samples_to_add,
+                                            items_to_exclude=items_to_exclude)
             new_user_list.extend([user] * samples_to_add)
             new_item_list.extend(samples.tolist())
 

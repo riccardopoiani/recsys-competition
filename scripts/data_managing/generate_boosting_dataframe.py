@@ -3,9 +3,9 @@ import os
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model import new_best_models, best_models
-from src.model.Ensemble.Boosting.boosting_preprocessing import get_dataframe_first_version, \
-    get_train_dataframe_proportion
+from src.model import best_models
+from src.model.Ensemble.Boosting.boosting_preprocessing import get_train_dataframe_proportion, \
+    get_valid_dataframe_second_version
 from src.utils.general_utility_functions import get_split_seed
 
 if __name__ == '__main__':
@@ -46,9 +46,8 @@ if __name__ == '__main__':
     """
     main_rec = best_models.ItemCF.get_model(URM_train)
     sub_0 = main_rec
-    sub_0.RECOMMENDER_NAME="ItemCF"
-    sub_list=[sub_0]
-
+    sub_0.RECOMMENDER_NAME = "ItemCF"
+    sub_list = [sub_0]
 
     # Retrieve data for boosting
     mapper = data_reader.SPLIT_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
@@ -57,7 +56,7 @@ if __name__ == '__main__':
     total_users = np.arange(URM_train.shape[0])
     mask = np.in1d(total_users, exclude_users, invert=True)
     user_to_validate = total_users[mask]
-    cutoff = 5
+    cutoff = 20
     data_path = "../../data/"
 
     train_df = get_train_dataframe_proportion(user_id_array=user_to_validate,
@@ -67,14 +66,13 @@ if __name__ == '__main__':
                                               mapper=mapper, URM_train=URM_train, path=data_path,
                                               proportion=0.5)
 
-    valid_df = get_dataframe_first_version(user_id_array=user_to_validate,
-                                           remove_seen_flag=True,
-                                           cutoff=cutoff,
-                                           main_recommender=main_recommender,
-                                           recommender_list=sub_list,
-                                           mapper=mapper,
-                                           URM_train=URM_train,
-                                           path=data_path)
+    valid_df = get_valid_dataframe_second_version(user_id_array=user_to_validate,
+                                                  cutoff=cutoff,
+                                                  main_recommender=main_recommender,
+                                                  recommender_list=sub_list,
+                                                  mapper=mapper,
+                                                  URM_train=URM_train,
+                                                  path=data_path)
 
     # Save data frames on file
     path = "../../boosting_dataframe/"
