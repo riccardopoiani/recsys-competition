@@ -3,7 +3,7 @@ import os
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model import best_models
+from src.model import best_models, new_best_models
 from src.model.Ensemble.Boosting.boosting_preprocessing import get_train_dataframe_proportion, \
     get_valid_dataframe_second_version
 from src.utils.general_utility_functions import get_split_seed
@@ -27,7 +27,6 @@ if __name__ == '__main__':
     exclude_users = np.arange(URM_train.shape[0])[exclude_users_mask]
 
     # XGB SETUP
-    """
     main_rec = new_best_models.MixedItem.get_model(URM_train=URM_train, ICM_all=ICM_all)
     sub_0 = main_rec
     sub_0.RECOMMENDER_NAME = "MixedItem"
@@ -43,11 +42,6 @@ if __name__ == '__main__':
     sub_5.RECOMMENDER_NAME = "UserCF"
 
     sub_list = [sub_0, sub_1, sub_2, sub_3, sub_4, sub_5]
-    """
-    main_rec = best_models.ItemCF.get_model(URM_train)
-    sub_0 = main_rec
-    sub_0.RECOMMENDER_NAME = "ItemCF"
-    sub_list = [sub_0]
 
     # Retrieve data for boosting
     mapper = data_reader.SPLIT_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
