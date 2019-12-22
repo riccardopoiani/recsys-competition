@@ -13,6 +13,7 @@ import numpy as np
 
 from src.utils.general_utility_functions import get_project_root_path
 
+
 # -------- COLD DATA MATRICES ALL --------
 def read_URM_cold_all(path="../data/data_train.csv"):
     """
@@ -64,6 +65,7 @@ def read_UCM_cold_all(num_users, root_path="../data/"):
     UCM_all, _ = merge_UCM(UCM_age, UCM_region, {}, {})
     UCM_all = UCM_all.tocsr()
     return UCM_all
+
 
 # -------- GET ITEM CONTENT MATRIX --------
 def get_ICM_all(reader: RecSys2019Reader):
@@ -312,6 +314,7 @@ def read_target_users(path="../data/data_target_users_test.csv"):
 
     return target_tuple
 
+
 def get_index_target_users(original_target_users, original_user_id_to_index_mapper):
     """
     Retrieve the target user inside the URM using its original_user_id_to_index_mapper
@@ -329,8 +332,8 @@ def get_index_target_users(original_target_users, original_user_id_to_index_mapp
 
 def get_users_outside_profile_len(URM_train, lower_threshold, upper_threshold):
     n_interactions_per_user = np.ediff1d(URM_train.tocsr().indptr)
-    ignore_users_mask = np.logical_and(n_interactions_per_user <= lower_threshold,
-                                       n_interactions_per_user >= upper_threshold)
+    ignore_users_mask = np.logical_or(n_interactions_per_user <= lower_threshold,
+                                      n_interactions_per_user >= upper_threshold)
     return np.arange(URM_train.shape[0])[ignore_users_mask]
 
 
@@ -338,7 +341,8 @@ def get_ignore_users(URM_train, original_user_id_to_index_mapper, lower_threshol
                      ignore_non_target_users=True):
     data_path = os.path.join(get_project_root_path(), "data/")
     ignore_users = []
-    users_outside = get_users_outside_profile_len(URM_train, lower_threshold, upper_threshold)
+    users_outside = get_users_outside_profile_len(URM_train, lower_threshold=lower_threshold,
+                                                  upper_threshold=upper_threshold)
     if len(users_outside) > 0:
         print("Excluding users with profile length outside ({}, {})".format(lower_threshold, upper_threshold))
         ignore_users = np.concatenate([ignore_users, users_outside])
