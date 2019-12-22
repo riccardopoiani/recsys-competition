@@ -17,3 +17,4 @@ def read_split_load_data(k_out, allow_cold_users, seed):
                                                allow_cold_users=allow_cold_users,
                                                force_new_split=True, seed=seed)
     data_reader.load_data()
+    return data_reader
