@@ -28,8 +28,8 @@ if __name__ == '__main__':
 
     # Reading the dataframe
     dataframe_path = "../../boosting_dataframe/"
-    train_df = pd.read_csv(dataframe_path + "train_df_20.csv")
-    valid_df = pd.read_csv(dataframe_path + "valid_df_20.csv")
+    train_df = pd.read_csv(dataframe_path + "train_df_20_advanced_foh_5.csv")
+    valid_df = pd.read_csv(dataframe_path + "valid_df_20_advanced_foh_5.csv")
 
     train_df = preprocess_dataframe_after_reading(train_df)
     valid_df = preprocess_dataframe_after_reading(valid_df)

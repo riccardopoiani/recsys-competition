@@ -22,8 +22,8 @@ class FunkSVDRecommender(BaseMatrixFactorizationRecommender):
         self.data = surprise.Dataset.load_from_df(df[['userID', 'itemID', 'rating']], reader)
         self.trainset = self.data.build_full_trainset()
 
-    def fit(self, epochs=300, num_factors=50, regularization=0.01, learning_rate=0.01):
-        self.model = matrix_factorization.SVD(n_factors=num_factors, n_epochs=epochs, biased=False,
+    def fit(self, epochs=300, num_factors=50, regularization=0.01, learning_rate=0.01, implicit=False):
+        self.model = matrix_factorization.SVD(n_factors=num_factors, n_epochs=epochs, biased=~implicit,
                                               lr_all=learning_rate, reg_all=regularization, verbose=True)
 
         self.model.fit(self.trainset)
@@ -33,3 +33,12 @@ class FunkSVDRecommender(BaseMatrixFactorizationRecommender):
         self.ITEM_factors = np.zeros(shape=(self.n_items, num_factors))
         self.USER_factors[raw_uids, :] = self.model.pu
         self.ITEM_factors[raw_iids, :] = self.model.qi
+
+        if ~implicit:
+            self.ITEM_bias = np.zeros(shape=self.n_items)
+            self.USER_bias = np.zeros(shape=self.n_users)
+            self.GLOBAL_bias = self.trainset.global_mean
+
+            self.ITEM_bias[raw_iids] = self.model.bi
+            self.USER_bias[raw_uids] = self.model.bu
+            self.use_bias = True

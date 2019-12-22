@@ -72,9 +72,9 @@ def run_parameter_search_mf_collaborative(recommender_class, URM_train, UCM_trai
 
         if recommender_class is FunkSVDRecommender:
             hyperparameters_range_dictionary["num_factors"] = Integer(50, 400)
-            hyperparameters_range_dictionary["regularization"] = Real(low=1e-5, high=1e-0, prior='log-uniform')
-            hyperparameters_range_dictionary["learning_rate"] = Real(low=1e-2, high=1e-1, prior='log-uniform')
-            hyperparameters_range_dictionary["epochs"] = Categorical([500])
+            hyperparameters_range_dictionary["regularization"] = Real(low=1e-8, high=1e-1, prior='log-uniform')
+            hyperparameters_range_dictionary["learning_rate"] = Real(low=1e-6, high=1e-1, prior='log-uniform')
+            hyperparameters_range_dictionary["epochs"] = Categorical([300])
 
         if recommender_class is LogisticMFRecommender:
             hyperparameters_range_dictionary["num_factors"] = Integer(20, 400)

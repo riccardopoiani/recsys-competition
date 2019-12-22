@@ -9,7 +9,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 def preprocess_dataframe_after_reading(df: pd.DataFrame):
     df = df.copy()
-    df = df.drop(columns=["index"], inplace=False)
+    #df = df.drop(columns=["index"], inplace=False)
     df = df.sort_values(by="user_id", ascending=True)
     df = df.reset_index()
     df = df.drop(columns=["index"], inplace=False)
@@ -509,7 +509,7 @@ def add_random_negative_ratings(data_frame: pd.DataFrame, URM_train: csr_matrix,
     print("Fixing proportion...")
 
     if users is None:
-        users = np.unique(data_frame['user_id'].values)
+        users = np.unique(data_frame['user_id'].values.astype(int))
 
     new_user_list = []
     new_item_list = []
