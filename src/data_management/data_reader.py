@@ -329,8 +329,8 @@ def get_index_target_users(original_target_users, original_user_id_to_index_mapp
 
 def get_users_outside_profile_len(URM_train, lower_threshold, upper_threshold):
     n_interactions_per_user = np.ediff1d(URM_train.tocsr().indptr)
-    ignore_users_mask = np.logical_and(n_interactions_per_user >= lower_threshold,
-                                       n_interactions_per_user <= upper_threshold)
+    ignore_users_mask = np.logical_and(n_interactions_per_user <= lower_threshold,
+                                       n_interactions_per_user >= upper_threshold)
     return np.arange(URM_train.shape[0])[ignore_users_mask]
 
 
