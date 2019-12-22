@@ -5,7 +5,7 @@ from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUse
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
-from src.data_management.data_reader import get_ICM_train, get_UCM_train
+from src.data_management.data_reader import get_ICM_train, get_UCM_train, get_ICM_train_new
 from src.model import best_models, new_best_models
 from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
 from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         URM_train, URM_test = data_reader.get_holdout_split()
 
         # Build ICMs
-        ICM_all = get_ICM_train(data_reader)
+        ICM_all, _ = get_ICM_train_new(data_reader)
 
         # Build UCMs: do not change the order of ICMs and UCMs
         UCM_all = get_UCM_train(data_reader)
@@ -72,10 +72,7 @@ if __name__ == '__main__':
         cutoff_list = [10]
         evaluator_total = EvaluatorHoldout(URM_test, cutoff_list=cutoff_list, ignore_users=cold_users)
 
-        par = {'topK': 5, 'shrink': 813, 'similarity': 'asymmetric', 'normalize': True, 'asymmetric_alpha': 0.0,
-               'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'none'}
-        model = ItemKNNCBFCFRecommender(URM_train, ICM_all)
-        model.fit(**par)
+        model = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_all)
 
         curr_map = evaluator_total.evaluateRecommender(model)[0][10]['MAP']
 

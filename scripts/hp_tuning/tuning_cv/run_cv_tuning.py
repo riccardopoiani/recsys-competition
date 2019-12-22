@@ -26,7 +26,7 @@ from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
 from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecommender
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
 from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
-from src.tuning.cross_validation.run_cv_parameter_search_collaborative import run_cv_parameter_search
+from src.tuning.cross_validation.run_cv_parameter_search import run_cv_parameter_search
 from src.utils.general_utility_functions import get_split_seed, get_project_root_path, get_seed_lists, \
     get_root_data_path, str2bool
 

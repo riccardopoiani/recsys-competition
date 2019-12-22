@@ -169,11 +169,6 @@ def get_ICM_train_new(reader: New_DataSplitter_leave_k_out):
     :param reader: data splitter
     :return: return ICM_train_all
     """
-    URM_train, _ = reader.get_holdout_split()
-    UCM_all_dict = reader.get_loaded_UCM_dict()
-    UCM_all_dict = apply_transformation_UCM(UCM_all_dict,
-                                            UCM_name_to_transform_mapper={"UCM_user_act": np.log1p})
-
     ICM_all_dict = reader.get_loaded_ICM_dict()
     ICM_all_dict.pop("ICM_all")
     ICM_all_dict = apply_filtering_ICM(ICM_all_dict,

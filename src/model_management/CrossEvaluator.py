@@ -4,7 +4,9 @@ from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
 from src.data_management.data_getter import get_warmer_UCM
-from src.data_management.data_reader import get_ICM_train, get_UCM_train
+from src.data_management.data_reader import get_ICM_train, get_UCM_train, read_target_users, get_index_target_users, \
+    get_ICM_train_new
+import os
 
 
 class EvaluatorCrossValidationKeepKOut(Evaluator):
@@ -201,10 +203,16 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
                                                        force_new_split=True, seed=current_seed)
             data_reader.load_data()
             URM_train, URM_test = data_reader.get_holdout_split()
-            ICM_all = get_ICM_train(data_reader)
+            ICM_all, _ = get_ICM_train_new(data_reader)
 
             cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
             cold_users = np.arange(URM_train.shape[0])[cold_users_mask]
+            ignore_users = cold_users
+            original_target_users = read_target_users(os.path.join(self.data_path, "data_target_users_test.csv"))
+            target_users = get_index_target_users(original_target_users,
+                                                  data_reader.get_original_user_id_to_index_mapper())
+            non_target_users = np.setdiff1d(np.arange(URM_train.shape[0]), target_users, assume_unique=True)
+            ignore_users = np.concatenate([ignore_users, non_target_users])
 
             print("Holdout number {}".format(i + 1))
 
@@ -215,7 +223,7 @@ class EvaluatorCrossValidationKeepKOut(Evaluator):
 
             hold_out_validator = EvaluatorHoldout(URM_test, self.cutoff_list, exclude_seen=self.exclude_seen,
                                                   diversity_object=self.diversity_object,
-                                                  ignore_items=self.ignore_items, ignore_users=cold_users,
+                                                  ignore_items=self.ignore_items, ignore_users=ignore_users,
                                                   minRatingsPerUser=self.minRatingsPerUser)
 
             print("Recommender holdout...", end="")

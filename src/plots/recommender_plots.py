@@ -309,7 +309,7 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
 
 def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, URM_test, output_path_folder,
                             save_on_file, compare_top_pop_points, demographic_list, demographic_list_name,
-                            is_compare_top_pop):
+                            is_compare_top_pop, is_plot_hexbin):
     """
     Plot some graphics concerning the results of a built recommender system
     In particular:
@@ -323,8 +323,9 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
     :param URM_test: URM test on which to test the recommender
     :param save_on_file: if you want to save graphics on file
     :param is_compare_top_pop: if you have to perform the comparison with a top popular recommender
+    :param is_plot_hexbin: if True, it plots the hexbin of the recommendations
     :param compare_top_pop_points: comparison with the top popular with this points
-    :param demographic_list_name: list of addiontal demographics name @DEPRECATED
+    :param demographic_list_name: list of additional demographics name @DEPRECATED
     :param demographic_list: list of additional demographics @DEPRECATED
     :param output_path_folder: where image should be saved, if specified
     :return: None
@@ -401,6 +402,40 @@ def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, UR
                 fig_dem.savefig(output_path_file)
                 print("Plot metric by demographic: saved as {}".format(file_name))
 
+    # Plot hexbin recommendations plot
+    if is_plot_hexbin:
+        plot_hexbin(recommender_instance, URM_test, 10)
+        fig_usr_act = plt.gcf()
+        fig_usr_act.show()
+        if save_on_file:
+            file_name = "hexbin_recommendations.png"
+            output_path_file = output_path_folder + file_name
+            fig_usr_act.savefig(output_path_file)
+            print("Plot hexbin recommendations: saved as {}".format(file_name))
+
+
+def plot_hexbin(recommender_object, URM_test, cutoff, batches=20):
+    x_all = []
+    y_all = []
+    users_batches_list = np.array_split(np.arange(URM_test.shape[0]), batches)
+    with tqdm(desc="Plot hexbin recommendations", total=URM_test.shape[0]) as p_bar:
+        for user_batch in users_batches_list:
+            recommendations = recommender_object.recommend(user_batch, cutoff=cutoff)
+            x = np.repeat(user_batch, cutoff)
+            y = np.array(recommendations).flatten()
+            x_all = np.concatenate([x_all, x])
+            y_all = np.concatenate([y_all, y])
+
+            p_bar.update(len(user_batch))
+    fig, ax = plt.subplots()
+    hb = ax.hexbin(x_all, y_all, gridsize=30, mincnt=10)
+    ax.set_title("Hexbin recommendations")
+    ax.set_xlabel("User index")
+    ax.set_ylabel("Item index")
+    cb = fig.colorbar(hb, ax=ax)
+    cb.set_label('counts')
+    fig_usr_act = plt.gcf()
+    fig_usr_act.show()
 
 def plot_compare_recommenders_user_profile_len(recommender_list,
                                                URM_train, URM_test, recommender_name_list=None, bins=10, metric="MAP",

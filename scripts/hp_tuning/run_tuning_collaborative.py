@@ -10,8 +10,8 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train
 from src.utils.general_utility_functions import get_split_seed
 
-N_CASES = 200
-N_RANDOM_STARTS = 70
+N_CASES = 60
+N_RANDOM_STARTS = 20
 RECOMMENDER_CLASS_DICT = {
     "item_cf": ItemKNNCFRecommender,
     "user_cf": UserKNNCFRecommender,
@@ -53,8 +53,7 @@ def main():
 
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
-    #data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_items=10, threshold_users=20)
-    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
+    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=args.seed)
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()

@@ -28,7 +28,7 @@ def get_ICM_with_fields(reader: New_DataSplitter_leave_k_out):
     ICM_all_dict = reader.get_loaded_ICM_dict()
     ICM_all_dict.pop("ICM_all")
     ICM_all_dict = apply_feature_engineering_ICM(ICM_all_dict, URM_train, UCM_all_dict,
-                                                 ICM_names_to_count=["ICM_sub_class"], UCM_names_to_list=["UCM_age"])
+                                                 ICM_names_to_count=[], UCM_names_to_list=[])
     ICM_all_dict = apply_filtering_ICM(ICM_all_dict,
                                        ICM_name_to_filter_mapper={"ICM_asset": lambda x: x < np.quantile(x, q=0.75) +
                                                                                          0.72 * (np.quantile(x,
@@ -41,14 +41,11 @@ def get_ICM_with_fields(reader: New_DataSplitter_leave_k_out):
     ICM_all_dict = apply_transformation_ICM(ICM_all_dict,
                                             ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
                                                                           "ICM_price": lambda x: np.log1p(1 / x),
-                                                                          "ICM_item_pop": np.log1p,
-                                                                          "ICM_sub_class_count": np.log1p,
-                                                                          "ICM_age": lambda x: x ** (1 / 2.5)})
+                                                                          "ICM_item_pop": np.log1p})
     ICM_all_dict = apply_discretization_ICM(ICM_all_dict,
                                             ICM_name_to_bins_mapper={"ICM_asset": 200,
                                                                      "ICM_price": 200,
-                                                                     "ICM_item_pop": 50,
-                                                                     "ICM_sub_class_count": 50})
+                                                                     "ICM_item_pop": 50})
 
     ICM_all = None
     item_feature_fields = None
@@ -98,7 +95,7 @@ def get_UCM_with_fields(reader: New_DataSplitter_leave_k_out):
 
 if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")
-    data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_items=-1, threshold_users=50)
+    data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_items=20, threshold_users=25)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True,
                                                seed=get_split_seed())
@@ -114,7 +111,7 @@ if __name__ == '__main__':
     fields = np.concatenate([user_fields, item_fields, item_feature_fields, user_feature_fields])
 
     positive_URM = URM_train
-    negative_URM = sample_negative_interactions_uniformly(negative_sample_size=len(positive_URM.data),
+    negative_URM = sample_negative_interactions_uniformly(negative_sample_size=len(positive_URM.data)*10,
                                                           URM=positive_URM)
 
     URM_positive_FM_matrix = convert_URM_to_FM(positive_URM)
@@ -123,6 +120,7 @@ if __name__ == '__main__':
     URM_FM_matrix = sps.vstack([URM_positive_FM_matrix, URM_negative_FM_matrix], format='csr')
     URM_FM_matrix = add_ICM_info(URM_FM_matrix, ICM_all, URM_train.shape[0])
     URM_FM_matrix = add_UCM_info(URM_FM_matrix, UCM_all, 0)
+
 
     root_path = get_project_root_path()
     fm_data_path = os.path.join(root_path, "resources", "ffm_data")
@@ -134,12 +132,12 @@ if __name__ == '__main__':
 
     random_state = 69420
     x_train, x_valid, y_train, y_valid = train_test_split(FM_sps_matrix, labels, shuffle=True,
-                                                          test_size=0.2, random_state=random_state)
+                                                          test_size=0.1, random_state=random_state)
 
     # Dump libffm file for train set
     print("Writing train and valid dataset in libffm format...")
-    train_file_path = os.path.join(fm_data_path, "warm_50_train_uncompressed.txt")
-    valid_file_path = os.path.join(fm_data_path, "warm_50_valid_uncompressed.txt")
+    train_file_path = os.path.join(fm_data_path, "users_25_item_20_train_uncompressed.txt")
+    valid_file_path = os.path.join(fm_data_path, "users_25_item_20_valid_uncompressed.txt")
     write_data_to_xlearn_format(X=x_train, y=y_train, fields=fields, filepath=train_file_path)
     write_data_to_xlearn_format(X=x_valid, y=y_valid, fields=fields, filepath=valid_file_path)
     print("...Writing is over.")

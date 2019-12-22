@@ -1,6 +1,7 @@
 from abc import ABC
 
 import numpy as np
+import scipy.sparse as sps
 from tqdm import tqdm
 
 from course_lib.Base.BaseRecommender import BaseRecommender
@@ -13,7 +14,7 @@ from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
-from src.model.Ensemble.BaggingUtils import get_user_bootstrap
+from src.model.Ensemble.BaggingUtils import get_user_bootstrap, get_item_bootstrap
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
@@ -52,11 +53,11 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
             URM_bootstrap = self.URM_train
             recommender_kwargs = self.recommender_kwargs.copy()
             if self.do_bootstrap:
-                URM_bootstrap, users_added = get_user_bootstrap(self.URM_train, seeds[i])
+                URM_bootstrap, users_added = get_item_bootstrap(self.URM_train, seeds[i])
                 """for name, object in recommender_kwargs.items():
-                    if name == "ICM_train":
+                    if name == "UCM_train":
                         UCM_object = object.copy()
-                        UCM_object = sps.vstack([UCM_object, UCM_object[items_added, :]], format="csr")
+                        UCM_object = sps.vstack([UCM_object, UCM_object[users_added, :]], format="csr")
                         recommender_kwargs[name] = UCM_object"""
 
             parameters = {}

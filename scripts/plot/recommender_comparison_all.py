@@ -63,6 +63,7 @@ if __name__ == '__main__':
                  content=item_popularity, content_describer_list=item_popularity_descriptor,
                  exclude_cold_items=False)"""
 
+    # TODO FIX get_user_demographic --> need to do the mapping of the features to the original values
     # Plotting the comparison on age
     # region_demographic = get_user_demographic(UCM_region, URM_train, k_out, binned=True)
     # region_demographic_describer_list = [-1, 0, 2, 3, 4, 5, 6, 7]

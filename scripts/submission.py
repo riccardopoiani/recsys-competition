@@ -21,7 +21,7 @@ if __name__ == '__main__':
     ICM_all = get_ICM_all(data_reader)
     UCM_all = get_UCM_all(data_reader)
 
-    UCM_region = data_reader.get_UCM_from_name("UCM_region")
+    """UCM_region = data_reader.get_UCM_from_name("UCM_region")
     print(data_reader.get_UCM_feature_to_index_mapper_from_name("UCM_region"))
     all_users = np.arange(URM_all.shape[0])
     users = UCM_region.tocoo().row
@@ -42,7 +42,8 @@ if __name__ == '__main__':
     main_recommender.add_relation_recommender_group(new_best_models.WeightedAverageItemBased.get_model(URM_all, ICM_all),
                                                     0)
     main_recommender.add_relation_recommender_group(new_best_models.MixedItem.get_model(URM_all, ICM_all), 1)
-    main_recommender.fit()
+    main_recommender.fit()"""
+    main_recommender = new_best_models.ItemCBF_CF.get_model(URM_all, ICM_all)
 
     # Sub recommender
     URM_cold_all = read_URM_cold_all("../data/data_train.csv")

@@ -17,16 +17,18 @@ class MapperRecommender(BaseRecommender):
         self.mapper = mapper
 
     def _compute_item_score(self, user_id_array, items_to_compute=None):
-        arr = np.array(user_id_array)
+        target_original_users = np.array(user_id_array)
 
-        # Building masks
-        mapper_keys = np.array(list(self.mapper.keys()), dtype=np.int32)
-        main_mask = np.in1d(arr, mapper_keys, assume_unique=True, invert=False)  # user to recommend with main
-        sub_mask = np.logical_not(main_mask)  # user to recommend with sub
+        # Building mask
+        main_all_original_users = np.array(list(self.mapper.keys()), dtype=np.int32)
+        main_all_id_users = np.array(list(self.mapper.values()), dtype=np.int32)
+        main_mask = np.in1d(target_original_users, main_all_original_users, assume_unique=True)
+        sub_mask = np.logical_not(main_mask)
+
         # User distinction
-
-        main_users = [self.mapper[original] for original in self.mapper.keys() if int(original) in arr[main_mask]]
-        sub_users = arr[sub_mask]
+        mapper_user_mask = np.in1d(main_all_original_users, target_original_users, assume_unique=True)
+        main_users = main_all_id_users[mapper_user_mask]
+        sub_users = target_original_users[sub_mask]
 
         # Computing scores
         main_scores = self.main_model._compute_item_score(user_id_array=main_users, items_to_compute=items_to_compute)
@@ -36,7 +38,9 @@ class MapperRecommender(BaseRecommender):
         # have to fix them with the mapper
 
         # Mixing arrays
-        scores = np.empty(shape=(len(user_id_array), max(main_scores.shape[1], sub_scores.shape[1])), dtype=np.float64)
+        if main_scores.shape[1] != sub_scores.shape[1]:
+            raise ValueError("Number of items of the two main and sub recommenders are different")
+        scores = np.empty(shape=(len(user_id_array), main_scores.shape[1]), dtype=np.float32)
 
         scores[main_mask, :] = main_scores
         scores[sub_mask, :] = sub_scores

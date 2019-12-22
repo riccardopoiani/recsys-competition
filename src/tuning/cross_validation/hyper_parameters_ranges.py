@@ -5,6 +5,7 @@ from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
+from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
@@ -101,7 +102,7 @@ HYPER_PARAMETERS_RANGE = {
         "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
     ItemKNNCBFCFRecommender.RECOMMENDER_NAME: {
-        "topK": Integer(1, 1000),
+        "topK": Integer(3, 200),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False]),
         "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
@@ -134,11 +135,21 @@ HYPER_PARAMETERS_RANGE = {
         "beta": Real(low=0, high=2, prior='uniform'),
         "normalize_similarity": Categorical([True, False])
     },
+    SLIM_BPR_Cython.RECOMMENDER_NAME: {
+        "topK": Integer(5, 1000),
+        "epochs": Categorical([1000]),
+        "symmetric": Categorical([True, False]),
+        "sgd_mode": Categorical(["adagrad", "adam"]),
+        "lambda_i": Real(low=1e-12, high=1e-1, prior='log-uniform'),
+        "lambda_j": Real(low=1e-12, high=1e-1, prior='log-uniform'),
+        "learning_rate": Real(low=1e-8, high=1e-4, prior='log-uniform')
+    }
 
 }
 
 
 def get_hyper_parameters_dictionary(recommender_class):
+    hyperparameters_range_dictionary = {}
     return HYPER_PARAMETERS_RANGE[recommender_class.RECOMMENDER_NAME]
 
 

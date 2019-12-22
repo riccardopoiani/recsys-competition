@@ -44,7 +44,7 @@ def write_submission_file_batch(recommender: BaseRecommender, path, userlist, ba
     user_split_lists = np.array_split(userlist, batches)
     for i in tqdm(range(len(user_split_lists))):
         users = user_split_lists[i]
-        recommendation_list = recommender.recommend(users, cutoff=10)
+        recommendation_list = recommender.recommend(users, cutoff=10, remove_seen_flag=True)
         for j in range(len(recommendation_list)):
             f.write(str(users[j]))
             f.write(",")

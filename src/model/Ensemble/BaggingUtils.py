@@ -68,12 +68,12 @@ def get_item_bootstrap(URM_train, seed):
     rating_iu_sample = sps.coo_matrix(rating_iu.shape)
     rating_iu_sample.row = np.repeat(unique_sample, n_elements)
     rating_iu_sample.col = col[indices]
-    rating_iu_sample.data = data[indices]
+    rating_iu_sample.data = data[indices]*np.repeat(counts_sample, n_elements)
 
-    replace_mask = np.full(len(sample_item_list), fill_value=True, dtype=np.bool)
+    """replace_mask = np.full(len(sample_item_list), fill_value=True, dtype=np.bool)
     replace_mask[first_index_sample] = False
     replace_sample = sample_item_list[replace_mask]
 
     rating_iu_replace = rating_iu[replace_sample, :]
-    rating_iu_sample = sps.vstack([rating_iu_sample, rating_iu_replace], format="csr")
-    return rating_iu_sample.T.tocsr(), replace_sample
+    rating_iu_sample = sps.vstack([rating_iu_sample, rating_iu_replace], format="csr")"""
+    return rating_iu_sample.T.tocsr(), 0

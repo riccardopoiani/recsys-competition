@@ -7,6 +7,7 @@ from src.model import best_models, new_best_models
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
+from src.utils.general_utility_functions import get_seed_lists, get_split_seed
 
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data
@@ -18,7 +19,8 @@ if __name__ == '__main__':
     destination_path = destination_path + "cross_valid_item_cf_" + now +".txt"
     num_folds = len(seed_list)
 
-    model_parameters = new_best_models.ItemCBF_CF.get_best_parameters()
+    model_parameters = {'topK': 12, 'shrink': 1656, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF',
+           'similarity': 'asymmetric', 'asymmetric_alpha': 0.029336346124356323, 'feature_weighting': 'TF-IDF'}
 
     # Setting evaluator
     evaluator = EvaluatorCrossValidationKeepKOut(10, seed_list, "../../data/",  k_out=1, n_folds=num_folds)
