@@ -309,7 +309,7 @@ def basic_plots_from_tuning_results(path, recommender_class, URM_train, URM_test
 
 def basic_plots_recommender(recommender_instance: BaseRecommender, URM_train, URM_test, output_path_folder,
                             save_on_file, compare_top_pop_points, demographic_list, demographic_list_name,
-                            is_compare_top_pop, is_plot_hexbin):
+                            is_compare_top_pop=True, is_plot_hexbin=False):
     """
     Plot some graphics concerning the results of a built recommender system
     In particular:

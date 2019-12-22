@@ -3,6 +3,7 @@ import os
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Base.NonPersonalizedRecommender import TopPop
 from scripts.fm_model.write_ffm_data_uncompressed import get_ICM_with_fields, get_UCM_with_fields
+from scripts.scripts_utils import set_env_variables
 from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
@@ -11,8 +12,7 @@ from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMR
 from src.utils.general_utility_functions import get_split_seed, get_project_root_path
 
 if __name__ == '__main__':
-    os.environ["MKL_NUM_THREADS"] = "1"
-    os.environ["OPENBLAS_NUM_THREADS"] = "1"
+    set_env_variables()
 
     # Data loading
     root_data_path = "../data/"

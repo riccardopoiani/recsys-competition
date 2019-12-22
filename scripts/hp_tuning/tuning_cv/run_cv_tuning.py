@@ -12,10 +12,10 @@ from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import Mat
 from course_lib.MatrixFactorization.NMFRecommender import NMFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from course_lib.SLIM_ElasticNet.SLIMElasticNetRecommender import SLIMElasticNetRecommender
+from scripts.scripts_utils import set_env_variables, read_split_load_data
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.data_reader import read_target_users, get_index_target_users, get_users_outside_profile_len, \
-    get_ICM_train_new, get_UCM_train_new
+from src.data_management.data_reader import get_ICM_train_new, get_UCM_train_new, get_ignore_users
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
 from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
@@ -88,7 +88,8 @@ def get_arguments():
                         help="Upper threshold (included) of user profile length to validate")
     parser.add_argument("-lt", "--lower_threshold", default=MIN_LOWER_THRESHOLD, type=int,
                         help="Lower threshold (included) of user profile length to validate")
-    parser.add_argument("-eu", "--exclude_users", default=0, type=str2bool, help="1 to exclude cold users, 0 otherwise")
+    parser.add_argument("-acu", "--allow_cold_users", default=0, type=str2bool, help="1 to allow cold users,"
+                                                                                     " 0 otherwise")
     parser.add_argument("-ent", "--exclude_non_target", default=1, type=str2bool,
                         help="1 to exclude non-target users, 0 otherwise")
     parser.add_argument("-nj", "--n_jobs", default=multiprocessing.cpu_count(), help="Number of workers", type=int)
@@ -97,49 +98,27 @@ def get_arguments():
     return parser.parse_args()
 
 
-def set_env_variables():
-    os.environ["MKL_NUM_THREADS"] = "1"
-    os.environ["OPENBLAS_NUM_THREADS"] = "1"
-
-
 def main():
     set_env_variables()
     args = get_arguments()
     seeds = get_seed_lists(N_FOLDS, get_split_seed())
 
-    # --------- DATA LOADING --------- #
-    data_reader = RecSys2019Reader(args.reader_path)
+    # --------- DATA LOADING SECTION --------- #
     URM_train_list = []
     ICM_train_list = []
     UCM_train_list = []
     evaluator_list = []
     for fold_idx in range(args.n_folds):
         # Read and split data
-        data_splitter = New_DataSplitter_leave_k_out(data_reader, k_out_value=K_OUT, use_validation_set=False,
-                                                     force_new_split=True, seed=seeds[fold_idx])
-        data_splitter.load_data()
-        URM_train, URM_test = data_splitter.get_holdout_split()
-        ICM_train, item_feature2range = get_ICM_train_new(data_splitter)
-        UCM_train, user_feature2range = get_UCM_train_new(data_splitter)
+        data_reader = read_split_load_data(K_OUT, args.allow_cold_users, seeds[fold_idx])
+        URM_train, URM_test = data_reader.get_holdout_split()
+        ICM_train, item_feature2range = get_ICM_train_new(data_reader)
+        UCM_train, user_feature2range = get_UCM_train_new(data_reader)
 
         # Ignore users and setting evaluator
-        ignore_users = []
-        if args.lower_threshold != MIN_LOWER_THRESHOLD or args.upper_threshold != MAX_UPPER_THRESHOLD:
-            print("EvaluatorHoldout: Excluding users with profile length outside [{}, {}]".format(args.lower_threshold,
-                                                                                                  args.upper_threshold))
-            ignore_users = np.concatenate([ignore_users, get_users_outside_profile_len(URM_train, args.lower_threshold,
-                                                                                       args.upper_threshold)])
-        if args.exclude_users:
-            print("EvaluatorHoldout: Excluding cold users.")
-            cold_user_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
-            ignore_users = np.concatenate([ignore_users, np.arange(URM_train.shape[0])[cold_user_mask]])
-        if args.exclude_non_target:
-            print("EvaluatorHoldout: Excluding non-target users.")
-            original_target_users = read_target_users(path=os.path.join(args.reader_path, "data_target_users_test.csv"))
-            target_users = get_index_target_users(original_target_users,
-                                                  data_splitter.get_original_user_id_to_index_mapper())
-            non_target_users = np.setdiff1d(np.arange(URM_train.shape[0]), target_users, assume_unique=True)
-            ignore_users = np.concatenate([ignore_users, non_target_users])
+        ignore_users = get_ignore_users(URM_train, data_reader.get_original_user_id_to_index_mapper(),
+                                        args.lower_threshold, args.upper_threshold,
+                                        ignore_non_target_users=args.exclude_non_target)
 
         URM_train_list.append(URM_train)
         ICM_train_list.append(ICM_train)
@@ -171,6 +150,7 @@ def main():
                                 n_cases=args.n_cases, n_random_starts=args.n_random_starts)
     elif args.recommender_name in DEMOGRAPHIC_RECOMMENDER_CLASS_DICT.keys():
         pass
+
     print("...tuning ended")
 
 

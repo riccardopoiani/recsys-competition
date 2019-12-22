@@ -1,3 +1,5 @@
+import os
+
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import merge_UCM
@@ -9,32 +11,9 @@ from src.data_management.data_preprocessing import apply_feature_engineering_ICM
 import scipy.sparse as sps
 import numpy as np
 
+from src.utils.general_utility_functions import get_project_root_path
 
-def read_target_users(path="../data/data_target_users_test.csv"):
-    """
-    :return: list of user to recommend in the target users
-    """
-
-    def row_split_target(row_string):
-        """
-        Function helper to read the target users
-        :param row_string:
-        :return:
-        """
-        return int(row_string.replace("\n", ""))
-
-    target_file = open(path, 'r')
-
-    target_file.seek(0)
-    target_tuple = []
-
-    for line in target_file:
-        if line != "user_id\n":
-            target_tuple.append(row_split_target(line))
-
-    return target_tuple
-
-
+# -------- COLD DATA MATRICES ALL --------
 def read_URM_cold_all(path="../data/data_train.csv"):
     """
     :return: all the user rating matrix, in csr format
@@ -86,7 +65,7 @@ def read_UCM_cold_all(num_users, root_path="../data/"):
     UCM_all = UCM_all.tocsr()
     return UCM_all
 
-
+# -------- GET ITEM CONTENT MATRIX --------
 def get_ICM_all(reader: RecSys2019Reader):
     """
     It returns all the ICM_all after applying feature engineering
@@ -212,6 +191,7 @@ def get_ICM_train_new(reader: New_DataSplitter_leave_k_out):
     return ICM_all, item_feature_to_range_mapper
 
 
+# -------- GET USER CONTENT MATRIX --------
 def get_UCM_all(reader: RecSys2019Reader):
     URM_all = reader.get_URM_all()
     UCM_all_dict = reader.get_loaded_UCM_dict()
@@ -307,6 +287,31 @@ def get_UCM_train_new(reader: New_DataSplitter_leave_k_out):
     return UCM_all, user_feature_to_range_mapper
 
 
+# -------- GET SPECIFIC USERS --------
+def read_target_users(path="../data/data_target_users_test.csv"):
+    """
+    :return: list of user to recommend in the target users
+    """
+
+    def row_split_target(row_string):
+        """
+        Function helper to read the target users
+        :param row_string:
+        :return:
+        """
+        return int(row_string.replace("\n", ""))
+
+    target_file = open(path, 'r')
+
+    target_file.seek(0)
+    target_tuple = []
+
+    for line in target_file:
+        if line != "user_id\n":
+            target_tuple.append(row_split_target(line))
+
+    return target_tuple
+
 def get_index_target_users(original_target_users, original_user_id_to_index_mapper):
     """
     Retrieve the target user inside the URM using its original_user_id_to_index_mapper
@@ -323,5 +328,25 @@ def get_index_target_users(original_target_users, original_user_id_to_index_mapp
 
 
 def get_users_outside_profile_len(URM_train, lower_threshold, upper_threshold):
-    ignore_users_mask = upper_threshold >= np.ediff1d(URM_train.tocsr().indptr) >= lower_threshold
+    n_interactions_per_user = np.ediff1d(URM_train.tocsr().indptr)
+    ignore_users_mask = np.logical_and(n_interactions_per_user >= lower_threshold,
+                                       n_interactions_per_user <= upper_threshold)
     return np.arange(URM_train.shape[0])[ignore_users_mask]
+
+
+def get_ignore_users(URM_train, original_user_id_to_index_mapper, lower_threshold, upper_threshold,
+                     ignore_non_target_users=True):
+    data_path = os.path.join(get_project_root_path(), "data/")
+    ignore_users = []
+    users_outside = get_users_outside_profile_len(URM_train, lower_threshold, upper_threshold)
+    if len(users_outside) > 0:
+        print("Excluding users with profile length outside ({}, {})".format(lower_threshold, upper_threshold))
+        ignore_users = np.concatenate([ignore_users, users_outside])
+    if ignore_non_target_users:
+        print("Excluding non-target users...")
+        original_target_users = read_target_users(os.path.join(data_path, "data_target_users_test.csv"))
+        target_users = get_index_target_users(original_target_users,
+                                              original_user_id_to_index_mapper)
+        non_target_users = np.setdiff1d(np.arange(URM_train.shape[0]), target_users, assume_unique=True)
+        ignore_users = np.concatenate([ignore_users, non_target_users])
+    return np.unique(ignore_users)

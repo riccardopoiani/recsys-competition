@@ -1,18 +1,21 @@
-from src.model.Interface import ICollaborativeModel
+from src.model.Interface import ICollaborativeModel, IContentModel
 
 
-class ItemCF(ICollaborativeModel):
+# ----- ABBREVIATIONS ------ #
+# K1: keep-1-out
+# CV: cross validation
+
+class ItemCBF_CF(IContentModel):
     """
     Item CF
-     - MAP@10 K1-CV (only warm): 0.04777
-     - MAP@10 K1-CV (only warm and target): TODO
+     - MAP@10 K1-CV5 (only warm and target): 0.054315 ± 0.0007
     """
-    from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
+    from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 
-    best_parameters = {'topK': 5, 'shrink': 1510, 'normalize': True, 'similarity': 'asymmetric',
-                       'asymmetric_alpha': 0.0, 'feature_weighting': 'TF-IDF'}
-    recommender_class = ItemKNNCFRecommender
-    recommender_name = "ItemCF"
+    best_parameters = {'topK': 17, 'shrink': 1463, 'similarity': 'asymmetric', 'normalize': True,
+                       'asymmetric_alpha': 0.07899555402911075, 'feature_weighting': 'TF-IDF'}
+    recommender_class = ItemKNNCBFCFRecommender
+    recommender_name = "ItemCBF_CF"
 
 
 class P3Alpha(ICollaborativeModel):

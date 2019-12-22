@@ -1,7 +1,7 @@
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical, merge_UCM
-from src.data_management.data_reader import get_ICM_train, get_UCM_train
+from src.data_management.data_reader import get_ICM_train, get_UCM_train, get_ICM_train_new
 from src.model import new_best_models
 from src.model.Ensemble.Boosting.boosting_preprocessing import preprocess_dataframe_after_reading, add_label
 from src.plots.recommender_plots import *
@@ -16,19 +16,8 @@ if __name__ == '__main__':
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
 
-    ICM_all_new = get_ICM_train(data_reader)
+    ICM_all_new, _ = get_ICM_train_new(data_reader)
     UCM_all_new = get_UCM_train(data_reader)
-
-    # Build ICMs
-    ICM_numerical, _ = get_ICM_numerical(data_reader.dataReader_object)
-    ICM = data_reader.get_ICM_from_name("ICM_all")
-    ICM_subclass = data_reader.get_ICM_from_name("ICM_sub_class")
-
-    # Build UCMs
-    URM_all = data_reader.dataReader_object.get_URM_all()
-    UCM_age = data_reader.dataReader_object.get_UCM_from_name("UCM_age")
-    UCM_region = data_reader.dataReader_object.get_UCM_from_name("UCM_region")
-    UCM_age_region, _ = merge_UCM(UCM_age, UCM_region, {}, {})
 
     # Read boosting data
     dataframe_path = "../../boosting_dataframe/"
