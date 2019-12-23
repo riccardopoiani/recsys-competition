@@ -304,14 +304,33 @@ class WeightedAverageItemBased(IBestModel):
         return hybrid
 
 
+class BoostingFoh5(IBestModel):
+    """
+    MAP foh < 5: 0.0404
+    """
+    best_parameters = {'learning_rate': 0.1, 'gamma': 0.1, 'max_depth': 4, 'max_delta_step': 1, 'subsample': 0.5,
+                       'colsample_bytree': 0.6,
+                       'scale_pos_weight': 3.3298688818925513, 'objective': 'binary:logistic'}
+
+    @classmethod
+    def get_model(cls, model_path, URM_train, train_df, y_train, valid_df):
+        from src.model.Ensemble.Boosting.Boosting import BoostingFixedData
+
+        boosting = BoostingFixedData(URM_train=URM_train, X=train_df, y=y_train, df_test=valid_df,
+                                     cutoff=20)
+        boosting.load_model_from_file(file_path=model_path, params=cls.get_best_parameters())
+
+        return boosting
+
+
 class Boosting(IBestModel):
     """
     Map warm 0.0348
     """
 
-    best_parameters={'learning_rate': 0.01, 'gamma': 0.001, 'max_depth': 4, 'max_delta_step': 10, 'subsample': 0.7,
-                     'colsample_bytree': 0.6, 'scale_pos_weight': 3.6583305754205218,
-                     'objective': 'binary:logistic'}
+    best_parameters = {'learning_rate': 0.01, 'gamma': 0.001, 'max_depth': 4, 'max_delta_step': 10, 'subsample': 0.7,
+                       'colsample_bytree': 0.6, 'scale_pos_weight': 3.6583305754205218,
+                       'objective': 'binary:logistic'}
 
     @classmethod
     def get_model(cls, model_path, URM_train, train_df, y_train, valid_df):

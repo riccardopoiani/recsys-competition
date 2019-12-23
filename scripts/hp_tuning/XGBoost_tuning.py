@@ -32,6 +32,7 @@ if __name__ == '__main__':
     valid_df = pd.read_csv(dataframe_path + "valid_df_20_advanced_foh_5.csv")
 
     train_df = preprocess_dataframe_after_reading(train_df)
+    train_df = train_df.drop(columns=["label"], inplace=False)
     valid_df = preprocess_dataframe_after_reading(valid_df)
 
     print("Retrieving training labels...", end="")
@@ -39,11 +40,11 @@ if __name__ == '__main__':
     print("Done")
 
     # Setting evaluator
-    cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
-    cold_user = np.arange(URM_train.shape[0])[cold_users_mask]
-    evaluator = EvaluatorHoldout(URM_test, cutoff_list=[10], ignore_users=cold_user)
+    exclude_users_mask = np.ediff1d(URM_train.tocsr().indptr) < 5
+    exclude_users = np.arange(URM_train.shape[0])[exclude_users_mask]
+    evaluator = EvaluatorHoldout(URM_test, cutoff_list=[10], ignore_users=exclude_users)
     total_users = np.arange(URM_train.shape[0])
-    mask = np.in1d(total_users, cold_user, invert=True)
+    mask = np.in1d(total_users, exclude_users, invert=True)
     users_to_validate = total_users[mask]
 
     mapper = data_reader.SPLIT_GLOBAL_MAPPER_DICT['user_original_ID_to_index']
@@ -63,7 +64,7 @@ if __name__ == '__main__':
                    URM_train=URM_train,
                    evaluator=evaluator,
                    n_trials=10,
-                   max_iter_per_trial=25000, n_early_stopping=500,
+                   max_iter_per_trial=25000, n_early_stopping=250,
                    objective="binary:logistic", parameters=None,
                    cutoff=20,
                    valid_size=0.2,

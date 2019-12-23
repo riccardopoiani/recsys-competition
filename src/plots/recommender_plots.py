@@ -110,7 +110,7 @@ def content_plot(recommender_instance_list, URM_train, URM_test, cutoff, metric,
 
 def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, metric,
                      demographic_describer_list: list, demographic: list, demographic_name: str, save_on_file=True,
-                     output_folder_path="", recommender_name_list=None, exclude_cold_users=False):
+                     output_folder_path="", recommender_name_list=None, exclude_cold_users=False, foh=-1):
     """
     Plot the performances of a recommender (or a list of them), on a given metric, based on a certain demographic.
 
@@ -129,6 +129,7 @@ def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, met
     :param demographic: list of list. In each list there is
     :param demographic_name: name of the demographic
     :param exclude_cold_users: if cold users should be excluded from the plot
+    :param foh: exclude users with ratings < foh from the evaluation
     :return: None
     """
     # Initial check on the names of the recommenders
@@ -150,7 +151,8 @@ def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, met
         results, support = evaluate_recommender_by_demographic(recommender_object=recommender, URM_train=URM_train,
                                                                URM_test=URM_test, cutoff=cutoff, metric=metric,
                                                                demographic=demographic,
-                                                               exclude_cold_users=exclude_cold_users)
+                                                               exclude_cold_users=exclude_cold_users,
+                                                               foh=foh)
         plt.plot(results, label=recommender_name_list[i])
 
     plt.title("Results of {}, accordingly to {}".format(metric, demographic_name))
@@ -164,10 +166,7 @@ def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, met
         now = datetime.now().strftime('%b%d_%H-%M-%S')
         fig = plt.gcf()
         fig.show()
-        if len(recommender_instance_list) == 1:
-            output_path_file = output_folder_path + "_" + demographic_name + "_" + now + ".png"
-        else:
-            output_path_file = output_folder_path + "_" + demographic_name + "_comparison_" + now + ".png"
+        output_path_file = output_folder_path + "_" + demographic_name + "_comparison_" + now + ".png"
         fig.savefig(output_path_file)
         print("Save on file")
 
@@ -176,16 +175,13 @@ def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, met
     plt.title("Support picture")
     plt.plot(support)
     plt.xticks(np.arange(bins), demographic_describer_list)
-    plt.ylabel("Number or interactions in the URM_test, escluding those items")
+    plt.ylabel("Number or interactions in the URM_test, excluding those items")
     plt.xlabel("Group id")
     if save_on_file:
         now = datetime.now().strftime('%b%d_%H-%M-%S')
         fig = plt.gcf()
         fig.show()
-        if len(recommender_instance_list) == 1:
-            output_path_file = output_folder_path + "_" + demographic_name + "_" + now + ".png"
-        else:
-            output_path_file = output_folder_path + "_" + demographic_name + "_comparison_support_" + now + ".png"
+        output_path_file = output_folder_path + "_" + demographic_name + "_comparison_support_" + now + ".png"
         fig.savefig(output_path_file)
         print("Save on file")
 

@@ -78,6 +78,7 @@ def run_xgb_tuning(train_df, valid_df, y_train, non_zero_count, total,
     f.write("Early stopping every {} iterations\n".format(n_early_stopping))
 
     f.write("\n\n Begin tuning \n\n")
+    f.flush()
 
     max_map = -1
     best_param = {}
@@ -86,7 +87,7 @@ def run_xgb_tuning(train_df, valid_df, y_train, non_zero_count, total,
     for i in range(n_trials):
         sample = sample_parameters(parameters)
         print("Trial {} over {}".format(i, n_trials))
-        print("Trying configuration: " + str(sample))
+        print("Trying configuration: " + str(sample) + "\n")
         f.write(str(sample))
 
         boosting = BoostingFixedData(URM_train=URM_train, X=train_df, y=y_train, df_test=valid_df,
@@ -96,7 +97,7 @@ def run_xgb_tuning(train_df, valid_df, y_train, non_zero_count, total,
 
         map_10 = evaluator.evaluateRecommender(boosting)[0][10]['MAP']
         if map_10 > max_map:
-            print("New best config found")
+            print("New best config found\n")
             max_map = map_10
             best_param = sample
             best_trial = i
@@ -104,12 +105,13 @@ def run_xgb_tuning(train_df, valid_df, y_train, non_zero_count, total,
             boosting.bst.save_model(best_model_folder + "best_model{}".format(i))
             print("Done")
 
-        print("Curr val: {}".format(map_10))
-        f.write("Map@10 {}".format(map_10))
+        print("Curr val: {}\n".format(map_10))
+        f.write("Map@10 {}\n".format(map_10))
+        f.flush()
 
     # Best results
     f.write("\n\n")
-    f.write("Best MAP score: {}".format(max_map))
-    f.write("Best config " + str(best_param))
-    f.write("Best trial " + str(best_trial))
+    f.write("Best MAP score: {}\n".format(max_map))
+    f.write("Best config " + str(best_param) + "\n")
+    f.write("Best trial " + str(best_trial) + "\n")
     f.close()

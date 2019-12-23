@@ -57,7 +57,7 @@ def evaluate_recommender_by_item_content(recommender_object: BaseRecommender, UR
 
 def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM_train: sps.csr_matrix,
                                         URM_test: sps.csr_matrix, cutoff: int, demographic: list, metric="MAP",
-                                        exclude_cold_users=False):
+                                        exclude_cold_users=False, foh=-1):
     """
     Evaluate the recommender object, computing the MAP@10 score of the given recommender in terms of some given
     demographic.
@@ -70,6 +70,7 @@ def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM
     groups
     :param metric: metric to be considered
     :param exclude_cold_users: if cold users should be excluded from the plot
+    :param foh: exclude users with ratings < foh
     :return: desired metric for each group, and support for the metric
     """
     # Evaluate each group
@@ -83,7 +84,13 @@ def evaluate_recommender_by_demographic(recommender_object: BaseRecommender, URM
         mask_users_of_others_groups = np.logical_not(np.in1d(total_users, group))
         users_of_others_groups = total_users[mask_users_of_others_groups]
 
-        if exclude_cold_users:
+        if foh != -1:
+            foh_mask = np.ediff1d(URM_train.tocsr().indptr) < foh
+            foh_users = total_users[foh_mask]
+
+            users_to_keep_out = np.concatenate((foh_users, users_of_others_groups))
+            users_to_keep_out = np.unique(users_to_keep_out)
+        elif exclude_cold_users:
             cold_users_mask = np.ediff1d(URM_train.tocsr().indptr) == 0
             cold_users = total_users[cold_users_mask]
 
