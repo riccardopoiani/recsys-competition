@@ -1,0 +1,858 @@
+SearchBayesianSkoptObject: Config 0 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 6, 'ITEM_CBF_CF': 0.7381737482815789} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 1 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 14, 'ITEM_CBF_CF': 0.05110350767860962} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 2 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 18, 'ITEM_CBF_CF': 0.5417171537309123} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 3 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 39, 'ITEM_CBF_CF': 0.5956114336942577} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 4 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 22, 'ITEM_CBF_CF': 0.774115958741427} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 5 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 42, 'ITEM_CBF_CF': 0.004437991505344075} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 6 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 26, 'ITEM_CBF_CF': 0.5409194885287033} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 7 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 46, 'ITEM_CBF_CF': 0.5177664381411056} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 8 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 15, 'ITEM_CBF_CF': 0.7959651823390758} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 9 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 13, 'ITEM_CBF_CF': 0.6615574360707265} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 10 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 5, 'ITEM_CBF_CF': 0.9988557998379212} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 11 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 9, 'ITEM_CBF_CF': 0.8415615213330382} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 12 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 47, 'ITEM_CBF_CF': 0.975399723681456} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 13 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 38, 'ITEM_CBF_CF': 0.15944582949964917} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 14 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 10, 'ITEM_CBF_CF': 0.5638503514094602} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 15 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 49, 'ITEM_CBF_CF': 0.18159219879046576} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 16 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 31, 'ITEM_CBF_CF': 0.16093726354236995} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 17 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 8, 'ITEM_CBF_CF': 0.7382080696000738} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 18 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 44, 'ITEM_CBF_CF': 0.06196818831719188} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 19 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 43, 'ITEM_CBF_CF': 0.04473842646441995} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 20 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 3, 'ITEM_CBF_CF': 0.2328666743576136} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 21 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 36, 'ITEM_CBF_CF': 0.5837145244973388} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 22 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 30, 'ITEM_CBF_CF': 0.8361027638673278} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 23 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 23, 'ITEM_CBF_CF': 0.3111899505491457} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 24 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 6, 'ITEM_CBF_CF': 0.012446472777647991} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 25 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 41, 'ITEM_CBF_CF': 0.6869090880283683} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 26 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 20, 'ITEM_CBF_CF': 0.784152059661094} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 27 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 15, 'ITEM_CBF_CF': 0.5568799015660892} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 28 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 10, 'ITEM_CBF_CF': 0.9892162024069954} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 29 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 2, 'ITEM_CBF_CF': 0.20017449533739734} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 30 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 4, 'ITEM_CBF_CF': 0.6084078589763089} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 31 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 7, 'ITEM_CBF_CF': 0.36637878602050084} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 32 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 40, 'ITEM_CBF_CF': 0.6877607110636882} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 33 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 37, 'ITEM_CBF_CF': 0.17853346203467405} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 34 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 10, 'ITEM_CBF_CF': 0.21299332527155107} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 35 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 35, 'ITEM_CBF_CF': 0.9427449045303762} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 36 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 7, 'ITEM_CBF_CF': 0.7914618855111094} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 37 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 3, 'ITEM_CBF_CF': 0.9665834067868216} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 38 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 49, 'ITEM_CBF_CF': 0.43809754200041406} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 39 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 18, 'ITEM_CBF_CF': 0.6450074178408569} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 40 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 5, 'ITEM_CBF_CF': 0.4589668835615186} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 41 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 4, 'ITEM_CBF_CF': 0.22793521902579267} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 42 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 3, 'ITEM_CBF_CF': 0.5424968235142756} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 43 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 48, 'ITEM_CBF_CF': 0.1410369983129455} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 44 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 29, 'ITEM_CBF_CF': 0.4089938122943825} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 45 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 45, 'ITEM_CBF_CF': 0.2800555267072738} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 46 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 41, 'ITEM_CBF_CF': 0.04728900468098242} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 47 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 45, 'ITEM_CBF_CF': 0.091275040480181} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 48 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 31, 'ITEM_CBF_CF': 0.5813611155343177} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 49 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 17, 'ITEM_CBF_CF': 0.6764656170255199} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 50 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 40, 'ITEM_CBF_CF': 0.6309299283949416} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 51 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 41, 'ITEM_CBF_CF': 0.1134611210589023} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 52 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 19, 'ITEM_CBF_CF': 0.7112643974708877} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 53 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 34, 'ITEM_CBF_CF': 0.8983010868227495} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 54 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 8, 'ITEM_CBF_CF': 0.9618504698648577} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 55 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 40, 'ITEM_CBF_CF': 0.6309028693279083} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 56 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 20, 'ITEM_CBF_CF': 0.7800845330529742} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 57 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 31, 'ITEM_CBF_CF': 0.8190357124227088} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 58 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 20, 'ITEM_CBF_CF': 0.18411194280325174} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 59 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 36, 'ITEM_CBF_CF': 0.6460574825517259} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 60 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 21, 'ITEM_CBF_CF': 0.26021421665361016} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 61 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 5, 'ITEM_CBF_CF': 0.29106938753611505} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 62 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 46, 'ITEM_CBF_CF': 0.020256730965442008} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 63 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 48, 'ITEM_CBF_CF': 0.475126403980877} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 64 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 38, 'ITEM_CBF_CF': 0.6897862689293467} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 65 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 33, 'ITEM_CBF_CF': 0.4469877322736283} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 66 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 33, 'ITEM_CBF_CF': 0.9235516670733639} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 67 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 15, 'ITEM_CBF_CF': 0.9202191277179249} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 68 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 38, 'ITEM_CBF_CF': 0.8472056940079391} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 69 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 15, 'ITEM_CBF_CF': 0.8565963515483722} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 70 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 1, 'ITEM_CBF_CF': 0.019238949429126247} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 71 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 1, 'ITEM_CBF_CF': 0.012342962867944677} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 72 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 49, 'ITEM_CBF_CF': 0.9986658636762858} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 73 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 1, 'ITEM_CBF_CF': 0.006882056806695515} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 74 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 50, 'ITEM_CBF_CF': 0.0015444839739463538} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 75 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 50, 'ITEM_CBF_CF': 0.9828983032134347} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 76 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 1, 'ITEM_CBF_CF': 0.0019032350185570134} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+
+SearchBayesianSkoptObject: Config 77 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 1, 'ITEM_CBF_CF': 0.006249595075646343} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 163, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 149, in _fit_model
+    recommender_instance = self.recommender_object.copy()
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 195, in copy
+    copy.main_cutoff = self.main_cutoff
+AttributeError: 'HybridRerankingRecommender' object has no attribute 'main_cutoff'
+

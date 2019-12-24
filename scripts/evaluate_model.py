@@ -3,9 +3,10 @@ from scripts.scripts_utils import set_env_variables, read_split_load_data
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, \
     get_ignore_users
 from src.model import new_best_models
+from src.model.HybridRecommender.HybridRerankingRecommender import HybridRerankingRecommender
 from src.utils.general_utility_functions import get_split_seed
 
-K_OUT = 1
+K_OUT = 3
 CUTOFF = 10
 ALLOW_COLD_USERS = False
 LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
@@ -15,8 +16,8 @@ IGNORE_NON_TARGET_USERS = True
 
 def get_model(URM_train, ICM_train, UCM_train):
     # Write the model that you want to evaluate here. Possibly, do not modify the code if unnecessary in the main
-    inner_model = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_train)
-    return inner_model
+    model = new_best_models.ItemCBF_all.get_model(URM_train, ICM_train)
+    return model
 
 
 def main():
