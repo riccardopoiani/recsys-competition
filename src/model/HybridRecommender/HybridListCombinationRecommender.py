@@ -25,7 +25,7 @@ class CountStrategy(CombinationStrategyInterface):
     def get_combined_rankings(self, rankings: np.ndarray, weights: np.ndarray, cutoff: int):
         n_users, cutoff_model, n_recommenders = rankings.shape
 
-        unrolled_rankings = np.reshape(rankings, newshape=(n_users, cutoff_model*n_recommenders))
+        unrolled_rankings = np.reshape(rankings, newshape=(n_users, cutoff_model * n_recommenders))
         combined_rankings = np.empty(shape=(n_users, cutoff), dtype=np.int)
         for i in range(n_users):
             unique_rankings, counts = np.unique(unrolled_rankings[i], return_counts=True)
@@ -39,10 +39,10 @@ class RoundRobinStrategy(CombinationStrategyInterface):
     def get_combined_rankings(self, rankings: np.ndarray, weights: np.ndarray, cutoff: int):
         n_users, cutoff_model, n_recommenders = rankings.shape
 
-        round_robin_rankings = np.empty(shape=(n_users, cutoff*n_recommenders))
+        round_robin_rankings = np.empty(shape=(n_users, cutoff * n_recommenders))
         for i in range(cutoff):
             ith_rank = rankings[:, i, :]
-            round_robin_rankings[:, i*n_recommenders:i*n_recommenders + n_recommenders] = ith_rank
+            round_robin_rankings[:, i * n_recommenders:i * n_recommenders + n_recommenders] = ith_rank
 
         combined_rankings = np.empty(shape=(n_users, cutoff), dtype=np.int)
         for i in range(n_users):
@@ -111,10 +111,10 @@ class HybridListCombinationRecommender(AbstractHybridRecommender):
 
         cutoff_model = cutoff * self.multiplier_cutoff
         sub_rankings = self.sub_recommender.recommend(user_id_array, cutoff=cutoff_model,
-                                                 remove_seen_flag=remove_seen_flag,
-                                                 items_to_compute=items_to_compute,
-                                                 remove_top_pop_flag=remove_top_pop_flag,
-                                                 remove_custom_items_flag=remove_custom_items_flag)
+                                                      remove_seen_flag=remove_seen_flag,
+                                                      items_to_compute=items_to_compute,
+                                                      remove_top_pop_flag=remove_top_pop_flag,
+                                                      remove_custom_items_flag=remove_custom_items_flag)
 
         rankings = np.zeros(shape=(len(user_id_array), cutoff_model, len(self.models.keys())))
         for idx, recommender_key_value in enumerate(self.models.items()):
@@ -130,8 +130,8 @@ class HybridListCombinationRecommender(AbstractHybridRecommender):
                     ranking[i] = sub_rankings[i]
             rankings[:, :, idx] = ranking
 
-        rankings = self.hybrid_strategy.get_combined_rankings(rankings=rankings,
-                                                              weights=self.weights, cutoff=cutoff)
+        rankings = self.hybrid_strategy.get_sub_scores_related_to_main_ranking(rankings=rankings, weights=self.weights,
+                                                                               cutoff=cutoff)
 
         if single_user:
             rankings = rankings[0]

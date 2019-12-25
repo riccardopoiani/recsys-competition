@@ -3,7 +3,7 @@ from datetime import datetime
 from course_lib.Base.Evaluation.Evaluator import *
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.data_reader import get_UCM_train, get_ICM_train
+from src.data_management.data_reader import get_UCM_train, get_ICM_train, get_ICM_train_new
 from src.model import new_best_models
 from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 from src.tuning.holdout_validation.run_parameter_search_hybrid import run_parameter_search_hybrid
@@ -13,12 +13,13 @@ from src.utils.general_utility_functions import get_split_seed
 def _get_all_models(URM_train, ICM_all, UCM_all):
     all_models = {}
 
-    all_models['MIXED'] = new_best_models.MixedItem.get_model(URM_train, ICM_all)
+    all_models['WEIGHTED_AVG_ITEM'] = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all)
 
-    all_models['S_SLIM_BPR'] = new_best_models.SSLIM_BPR.get_model(sps.vstack([URM_train, ICM_all.T]))
+    #all_models['S_SLIM_BPR'] = new_best_models.SSLIM_BPR.get_model(sps.vstack([URM_train, ICM_all.T]))
     all_models['S_PURE_SVD'] = new_best_models.PureSVDSideInfo.get_model(URM_train, ICM_all)
     all_models['S_IALS'] = new_best_models.IALSSideInfo.get_model(URM_train, ICM_all)
     all_models['USER_CBF_CF'] = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
+    all_models['USER_CF'] = new_best_models.UserCF.get_model(URM_train)
 
     return all_models
 
@@ -33,7 +34,7 @@ if __name__ == '__main__':
     URM_train, URM_test = data_reader.get_holdout_split()
 
     # Build ICMs
-    ICM_all = get_ICM_train(data_reader)
+    ICM_all, _ = get_ICM_train_new(data_reader)
 
     # Build UCMs
     UCM_all = get_UCM_train(data_reader)
@@ -60,8 +61,8 @@ if __name__ == '__main__':
                                 metric_to_optimize="MAP",
                                 evaluator_validation=evaluator,
                                 output_folder_path=version_path,
-                                n_cases=60,
-                                n_random_starts=20,
-                                parallelizeKNN=False)
+                                n_cases=200,
+                                n_random_starts=70,
+                                parallelizeKNN=True)
 
     print("...tuning ended")

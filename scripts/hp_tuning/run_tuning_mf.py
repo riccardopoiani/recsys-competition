@@ -54,7 +54,7 @@ def main():
 
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
-    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, use_validation_set=False,
                                                force_new_split=True, seed=args.seed)
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
@@ -86,7 +86,6 @@ def main():
         ICM = ICM_all
         ICM_name = "ICM_all"
         UCM_name = "UCM_all"
-    URM_train = TF_IDF(URM_train.T.tocsr()).T.tocsr()
 
     # Setting evaluator
     exclude_cold_users = args.exclude_users

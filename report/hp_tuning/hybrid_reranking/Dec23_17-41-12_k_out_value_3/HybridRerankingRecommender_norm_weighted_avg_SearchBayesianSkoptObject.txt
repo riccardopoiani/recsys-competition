@@ -1,0 +1,320 @@
+SearchBayesianSkoptObject: Config 0 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 45, 'ITEM_CBF_CF': 0.8328202912659411} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 1 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 46, 'ITEM_CBF_CF': 0.25248647565919685} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 2 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 50, 'ITEM_CBF_CF': 0.8999605270972276} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 3 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 31, 'ITEM_CBF_CF': 0.7631764742451396} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 4 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 8, 'ITEM_CBF_CF': 0.4029394009159092} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 5 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 35, 'ITEM_CBF_CF': 0.011898762029205593} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 6 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 19, 'ITEM_CBF_CF': 0.2872078909957972} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 7 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 30, 'ITEM_CBF_CF': 0.47736565017990307} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 8 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 44, 'ITEM_CBF_CF': 0.31510316889230355} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 9 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 20, 'ITEM_CBF_CF': 0.7804479725505569} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 10 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 2, 'ITEM_CBF_CF': 0.671325521952974} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 11 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 24, 'ITEM_CBF_CF': 0.07534376474111117} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 12 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 32, 'ITEM_CBF_CF': 0.11261853089816301} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 13 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 26, 'ITEM_CBF_CF': 0.5091601027712175} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 14 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 37, 'ITEM_CBF_CF': 0.9011893025443385} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 15 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 28, 'ITEM_CBF_CF': 0.47816577371305213} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 16 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 43, 'ITEM_CBF_CF': 0.46771688754150365} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 17 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 31, 'ITEM_CBF_CF': 0.6560587671440842} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 18 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': False, 'sub_cutoff': 27, 'ITEM_CBF_CF': 0.5216920215675829} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), shape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+
+SearchBayesianSkoptObject: Config 19 Exception. Config: {'strategy': 'norm_weighted_avg', 'main_cutoff': 20, 'bias': True, 'sub_cutoff': 22, 'ITEM_CBF_CF': 0.8663151641162267} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 259, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/tuning/holdout_validation/SearchFixedObject.py", line 168, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 173, in recommend
+    recommender_name])
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/HybridRecommender/HybridRerankingRecommender.py", line 66, in get_sub_scores_related_to_main_ranking
+    max_value_per_user = np.reshape(np.max(sub_scores, axis=1), newshape=(sub_scores.shape[0], 1))
+  File "<__array_function__ internals>", line 4, in reshape
+TypeError: _reshape_dispatcher() got an unexpected keyword argument 'shape'
+

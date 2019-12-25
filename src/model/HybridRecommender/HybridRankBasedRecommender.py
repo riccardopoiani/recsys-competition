@@ -54,22 +54,20 @@ class WeightedAverageStrategy(RecommendationStrategyInterface):
         self.normalize = normalize
 
     def get_hybrid_rankings_and_scores(self, rankings: list, scores: np.ndarray, weight: float):
-        # indexing scores by ranking list
-        ranking_scores = scores[np.arange(len(rankings)), np.array(rankings, dtype=np.int).T].T
-
         # min-max normalization
         if self.normalize:
-            maximum = np.max(ranking_scores, axis=1).reshape((len(ranking_scores), 1))
+            maximum = np.max(scores, axis=1).reshape((len(scores), 1))
 
-            scores_batch_for_minimum = ranking_scores.copy()
+            scores_batch_for_minimum = scores.copy()
             scores_batch_for_minimum[scores_batch_for_minimum == float('-inf')] = np.inf
-            minimum = np.min(scores_batch_for_minimum, axis=1).reshape((len(ranking_scores), 1))
+            minimum = np.min(scores_batch_for_minimum, axis=1).reshape((len(scores), 1))
 
             denominator = maximum - minimum
             denominator[denominator == 0] = 1.0
 
-            ranking_scores = (ranking_scores - minimum) / denominator
-
+            scores = (scores - minimum) / denominator
+        # indexing scores by ranking list
+        ranking_scores = scores[np.arange(len(rankings)), np.array(rankings, dtype=np.int).T].T
         weighted_scores = weight * ranking_scores
         return rankings, weighted_scores
 
@@ -227,5 +225,4 @@ class HybridRankBasedRecommender(AbstractHybridRecommender):
 
     @classmethod
     def get_possible_strategies(cls):
-        return ["weighted_count", "weighted_rank", "weighted_count_rank_5", "weighted_count_rank_3",
-                "weighted_avg", "norm_weighted_avg"]
+        return ["weighted_count", "weighted_rank", "weighted_avg", "norm_weighted_avg"]

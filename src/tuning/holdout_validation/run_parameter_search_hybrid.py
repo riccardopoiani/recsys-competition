@@ -7,30 +7,53 @@ from skopt.space import Integer, Categorical, Real
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 from src.model.HybridRecommender.AbstractHybridRecommender import AbstractHybridRecommender
+from src.model.HybridRecommender.HybridRerankingRecommender import HybridRerankingRecommender
 from src.tuning.holdout_validation.SearchBayesianSkoptObject import SearchBayesianSkoptObject
 
 
-def run_hybrid_rank_based_rs_on_strategy(strategy_type, parameterSearch,
-                                         parameter_search_space,
-                                         recommender_input_args,
-                                         n_cases,
-                                         n_random_starts,
-                                         output_folder_path,
-                                         output_file_name_root,
-                                         metric_to_optimize):
+def run_hybrid_rank_based_rs_on_strategy(strategy_type, recommender_object, evaluator_validation,
+                                         parameter_search_space, recommender_input_args,
+                                         n_cases, n_random_starts, output_folder_path,
+                                         output_file_name_root, metric_to_optimize):
     original_parameter_search_space = parameter_search_space
 
     hyperparameters_range_dictionary = {"strategy": Categorical([strategy_type]), "multiplier_cutoff": Integer(1, 10)}
 
     local_parameter_search_space = {**hyperparameters_range_dictionary, **original_parameter_search_space}
 
-    parameterSearch.search(recommender_input_args,
-                           parameter_search_space=local_parameter_search_space,
-                           n_cases=n_cases,
-                           n_random_starts=n_random_starts,
-                           output_folder_path=output_folder_path,
-                           output_file_name_root=output_file_name_root + "_" + strategy_type,
-                           metric_to_optimize=metric_to_optimize, save_model="no")
+    parameter_search = SearchBayesianSkoptObject(recommender_object, evaluator_validation)
+
+    parameter_search.search(recommender_input_args,
+                            parameter_search_space=local_parameter_search_space,
+                            n_cases=n_cases,
+                            n_random_starts=n_random_starts,
+                            output_folder_path=output_folder_path,
+                            output_file_name_root=output_file_name_root + "_" + strategy_type,
+                            metric_to_optimize=metric_to_optimize, save_model="no")
+
+
+def run_hybrid_reranking_on_strategy(strategy_type, recommender_object, evaluator_validation,
+                                     parameter_search_space, recommender_input_args,
+                                     n_cases, n_random_starts, output_folder_path, output_file_name_root,
+                                     metric_to_optimize):
+    original_parameter_search_space = parameter_search_space
+
+    hyperparameters_range_dictionary = {"strategy": Categorical([strategy_type]),
+                                        "main_cutoff": Categorical([20]),
+                                        "bias": Categorical([True, False]),
+                                        "sub_cutoff": Integer(1, 50)}
+
+    local_parameter_search_space = {**hyperparameters_range_dictionary, **original_parameter_search_space}
+
+    parameter_search = SearchBayesianSkoptObject(recommender_object, evaluator_validation)
+
+    parameter_search.search(recommender_input_args,
+                            parameter_search_space=local_parameter_search_space,
+                            n_cases=n_cases,
+                            n_random_starts=n_random_starts,
+                            output_folder_path=output_folder_path,
+                            output_file_name_root=output_file_name_root + "_" + strategy_type,
+                            metric_to_optimize=metric_to_optimize, save_model="no")
 
 
 def run_parameter_search_hybrid(recommender_object: AbstractHybridRecommender, metric_to_optimize="PRECISION",
@@ -41,8 +64,6 @@ def run_parameter_search_hybrid(recommender_object: AbstractHybridRecommender, m
         os.makedirs(output_folder_path)
 
     output_file_name_root = recommender_object.RECOMMENDER_NAME
-
-    parameterSearch = SearchBayesianSkoptObject(recommender_object, evaluator_validation=evaluator_validation)
 
     # Set hyperparameters
     hyperparameters_range_dictionary = {}
@@ -64,7 +85,8 @@ def run_parameter_search_hybrid(recommender_object: AbstractHybridRecommender, m
         run_hybrid_rank_based_rs_on_strategy_partial = partial(run_hybrid_rank_based_rs_on_strategy,
                                                                recommender_input_args=recommender_input_args,
                                                                parameter_search_space=hyperparameters_range_dictionary,
-                                                               parameterSearch=parameterSearch,
+                                                               recommender_object=recommender_object,
+                                                               evaluator_validation=evaluator_validation,
                                                                n_cases=n_cases,
                                                                n_random_starts=n_random_starts,
                                                                output_folder_path=output_folder_path,
@@ -81,6 +103,32 @@ def run_parameter_search_hybrid(recommender_object: AbstractHybridRecommender, m
         else:
             for similarity_type in strategies:
                 run_hybrid_rank_based_rs_on_strategy_partial(similarity_type)
+        return
+
+    if recommender_object.RECOMMENDER_NAME == "HybridRerankingRecommender":
+        strategies = HybridRerankingRecommender.get_possible_strategies()
+
+        run_hybrid_reranking_on_strategy_partial = partial(run_hybrid_reranking_on_strategy,
+                                                           recommender_input_args=recommender_input_args,
+                                                           parameter_search_space=hyperparameters_range_dictionary,
+                                                           recommender_object=recommender_object,
+                                                           evaluator_validation=evaluator_validation,
+                                                           n_cases=n_cases,
+                                                           n_random_starts=n_random_starts,
+                                                           output_folder_path=output_folder_path,
+                                                           output_file_name_root=output_file_name_root,
+                                                           metric_to_optimize=metric_to_optimize)
+
+        if parallelizeKNN:
+            pool = multiprocessing.Pool(processes=multiprocessing.cpu_count(), maxtasksperchild=1)
+            pool.map(run_hybrid_reranking_on_strategy_partial, strategies)
+
+            pool.close()
+            pool.join()
+
+        else:
+            for similarity_type in strategies:
+                run_hybrid_reranking_on_strategy_partial(similarity_type)
         return
 
     parameterSearch.search(recommender_input_args,

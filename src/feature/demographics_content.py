@@ -22,7 +22,7 @@ def get_clustering_item_demographic():
     raise NotImplemented()
 
 
-def get_user_demographic(UCM, URM_all, threshold_users, binned=False):
+def get_user_demographic(UCM, original_feature_to_id_mapper, binned=False):
     """
     Return a list containing all demographics with only users that has profile length more than threshold_users.
     In case there is no demographic for that user, it returns -1
@@ -30,20 +30,21 @@ def get_user_demographic(UCM, URM_all, threshold_users, binned=False):
 
      So, we can call this for the purpose of getting user demographic of age and region.
 
+    :param original_feature_to_id_mapper:
     :param UCM: any UCM age or region
-    :param URM_all: URM containing all users (warm users), basically, it is the one directly from the reader
-    :param threshold_users: threshold for warm users
     :param binned: true if you want to obtain these demographics in an already grouped way. In which, in each
     list, we have users from the same region/age/etc., and so on. The number of bins is determined automatically,
     since the possible features present (region/age) are already discretized)
     :return: a list containing all demographics with only users that has profile length more than threshold_users
     """
-    UCM_copy = get_warmer_UCM(UCM, URM_all, threshold_users).tocoo()
+    UCM_copy = UCM.tocoo(copy=True)
 
     users = UCM_copy.row
     features = UCM_copy.col
+    id_to_original_mapper = {v: int(k) for k, v in original_feature_to_id_mapper.items()}
+    original_features = [id_to_original_mapper[id_value] for id_value in features]
     user_demographic = np.full(UCM_copy.shape[0], -1)
-    user_demographic[users] = features
+    user_demographic[users] = original_features
 
     if binned:
         unique_features = np.unique(user_demographic)

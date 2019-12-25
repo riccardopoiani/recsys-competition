@@ -1,0 +1,15 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'num_factors': 68, 'regularization': 1.904205447825331e-05, 'learning_rate': 0.00015361632386986498, 'epochs': 300} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 386, in evaluateRecommender
+    self.usersToEvaluate)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 279, in _run_evaluation_on_selected_users
+    return_scores=True
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/BaseRecommender.py", line 119, in recommend
+    scores_batch = self._compute_item_score(user_id_array, items_to_compute=items_to_compute)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/BaseMatrixFactorizationRecommender.py", line 63, in _compute_item_score
+    item_scores += self.ITEM_bias + self.GLOBAL_bias
+ValueError: operands could not be broadcast together with shapes (1000,18495) (14808,) (1000,18495) 
+
