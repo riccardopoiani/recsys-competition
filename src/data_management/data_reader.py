@@ -354,3 +354,30 @@ def get_ignore_users(URM_train, original_user_id_to_index_mapper, lower_threshol
         non_target_users = np.setdiff1d(np.arange(URM_train.shape[0]), target_users, assume_unique=True)
         ignore_users = np.concatenate([ignore_users, non_target_users])
     return np.unique(ignore_users)
+
+
+def get_ignore_users_age(age_demographic, age_list):
+    """
+    Collect all the users with age different from the one in age_list
+
+    :param URM_train: user training data
+    :param UCM_all: information regarding the UCM
+    :param age_list: list of age of users that will be kept
+    :return: np.array containing users with age not in age_list
+    """
+    if len(age_list) == 0:
+        return np.array([])
+
+    age_demographic_describer_list = np.array([-1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+    # Finding ages that needs to be excluded (the ones that are not in age_list
+    age_to_exclude = np.in1d(age_demographic_describer_list, np.array(age_list), invert=True)
+    age_to_exclude = age_demographic_describer_list[age_to_exclude]
+    users_to_ignore = []
+
+    for a in age_to_exclude:
+        # find_index
+        pos = np.argwhere(age_demographic_describer_list == a)[0][0]
+        users_to_ignore.extend(age_demographic[pos])
+
+    return users_to_ignore

@@ -1,6 +1,5 @@
 import argparse
 import multiprocessing
-import os
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
@@ -14,8 +13,8 @@ from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from course_lib.SLIM_ElasticNet.SLIMElasticNetRecommender import SLIMElasticNetRecommender
 from scripts.scripts_utils import set_env_variables, read_split_load_data
 from src.data_management.New_DataSplitter_leave_k_out import *
-from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.data_reader import get_ICM_train_new, get_UCM_train_new, get_ignore_users
+from src.data_management.data_reader import get_ICM_train_new, get_UCM_train_new, get_ignore_users, get_ignore_users_age
+from src.feature.demographics_content import get_user_demographic
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
 from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
@@ -27,7 +26,7 @@ from src.model.MatrixFactorization.LogisticMFRecommender import LogisticMFRecomm
 from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
 from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
 from src.tuning.cross_validation.run_cv_parameter_search import run_cv_parameter_search
-from src.utils.general_utility_functions import get_split_seed, get_project_root_path, get_seed_lists, \
+from src.utils.general_utility_functions import get_split_seed, get_seed_lists, \
     get_root_data_path, str2bool
 
 N_CASES = 100
@@ -37,6 +36,8 @@ K_OUT = 1
 CUTOFF = 10
 MAX_UPPER_THRESHOLD = 2 ** 32 - 1
 MIN_LOWER_THRESHOLD = -1
+
+AGE_TO_KEEP = []  # Default []
 
 COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
     # KNN
@@ -94,6 +95,7 @@ def get_arguments():
                         help="1 to exclude non-target users, 0 otherwise")
     parser.add_argument("-nj", "--n_jobs", default=multiprocessing.cpu_count(), help="Number of workers", type=int)
     parser.add_argument("--seed", default=get_split_seed(), help="seed for the experiment", type=int)
+    # parser.add_argument("-a", "--age", default=-69420, help="Validate only on the users of this region", type=int)
 
     return parser.parse_args()
 
@@ -119,6 +121,12 @@ def main():
         ignore_users = get_ignore_users(URM_train, data_reader.get_original_user_id_to_index_mapper(),
                                         args.lower_threshold, args.upper_threshold,
                                         ignore_non_target_users=args.exclude_non_target)
+
+        # Ignore users by age
+        UCM_age = data_reader.get_UCM_from_name("UCM_age")
+        age_feature_to_id_mapper = data_reader.dataReader_object.get_UCM_feature_to_index_mapper_from_name("UCM_age")
+        age_demographic = get_user_demographic(UCM_age, age_feature_to_id_mapper, binned=True)
+        ignore_users = np.unique(np.concatenate((ignore_users, get_ignore_users_age(age_demographic, AGE_TO_KEEP))))
 
         URM_train_list.append(URM_train)
         ICM_train_list.append(ICM_train)

@@ -107,7 +107,6 @@ def content_plot(recommender_instance_list, URM_train, URM_test, cutoff, metric,
         fig.savefig(output_path_file)
         print("Save on file")
 
-
 def demographic_plot(recommender_instance_list, URM_train, URM_test, cutoff, metric,
                      demographic_describer_list: list, demographic: list, demographic_name: str, save_on_file=True,
                      output_folder_path="", recommender_name_list=None, exclude_cold_users=False, foh=-1):
@@ -432,6 +431,7 @@ def plot_hexbin(recommender_object, URM_test, cutoff, batches=20):
     cb.set_label('counts')
     fig_usr_act = plt.gcf()
     fig_usr_act.show()
+
 
 def plot_compare_recommenders_user_profile_len(recommender_list,
                                                URM_train, URM_test, recommender_name_list=None, bins=10, metric="MAP",

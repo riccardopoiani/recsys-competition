@@ -1,0 +1,38 @@
+There are 5145 users of age 4
+There are 83912.0 total interactions for users of this age.
+Avg number of interactions = 16.309426627793975 
+Std number of interactions = 20.158262998467027 
+
+
+The 1-th most liked item is 18494 with 191.0 interactions. 
+Thus, it it is liked by 3.7123420796890185% users. 
+
+The 2-th most liked item is 18492 with 175.0 interactions. 
+Thus, it it is liked by 3.4013605442176873% users. 
+
+The 3-th most liked item is 18493 with 175.0 interactions. 
+Thus, it it is liked by 3.4013605442176873% users. 
+
+The 4-th most liked item is 18491 with 172.0 interactions. 
+Thus, it it is liked by 3.3430515063168125% users. 
+
+The 5-th most liked item is 18490 with 167.0 interactions. 
+Thus, it it is liked by 3.2458697764820217% users. 
+
+The 6-th most liked item is 18489 with 161.0 interactions. 
+Thus, it it is liked by 3.1292517006802725% users. 
+
+The 7-th most liked item is 18488 with 161.0 interactions. 
+Thus, it it is liked by 3.1292517006802725% users. 
+
+The 8-th most liked item is 18487 with 160.0 interactions. 
+Thus, it it is liked by 3.1098153547133136% users. 
+
+The 9-th most liked item is 18486 with 158.0 interactions. 
+Thus, it it is liked by 3.0709426627793976% users. 
+
+The 10-th most liked item is 18485 with 152.0 interactions. 
+Thus, it it is liked by 2.9543245869776484% users. 
+
+
+
