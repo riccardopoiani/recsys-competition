@@ -130,9 +130,9 @@ def main():
     # --------- HYPER PARAMETERS TUNING SECTION --------- #
     print("Start tuning...")
 
-    hp_tuning_path = os.path.join(get_project_root_path(), "report", "hp_tuning", "{}".format(args.recommender_name))
-    date_string = datetime.now().strftime('%b%d_%H-%M-%S_keep1out/')
-    output_folder_path = os.path.join(hp_tuning_path, date_string)
+    hp_tuning_path = "../../../report/hp_tuning/"+args.recommender_name+"/"
+    date_string = datetime.now().strftime('%b%d_%H-%M-%S_k1/')
+    output_folder_path = hp_tuning_path + date_string
 
     if args.recommender_name in COLLABORATIVE_RECOMMENDER_CLASS_DICT.keys():
         run_cv_parameter_search(URM_train_list=URM_train_list,
