@@ -37,7 +37,7 @@ if __name__ == '__main__':
     if SAVE_ON_FILE:
         version_path = "../../report/graphics/age_exploration/{}/".format(AGE)
         now = datetime.now().strftime('%b%d_%H-%M-%S')
-        output_folder_path = version_path + now
+        output_folder_path = version_path + now + "/"
         output_file_name = output_folder_path + "results.txt"
         try:
             if not os.path.exists(output_folder_path):

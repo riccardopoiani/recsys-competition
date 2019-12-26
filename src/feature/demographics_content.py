@@ -6,9 +6,38 @@ from src.data_management.data_getter import get_warmer_UCM
 from src.feature.clustering_utils import cluster_data
 
 
-def get_sub_class_demographic(ICM_subclass):
-    raise NotImplemented()
+def get_sub_class_content(ICM_subclass, original_feature_to_id_mapper, binned=True):
+    """
+    Return a list containing all items in the different subclass
 
+    Note: we should however, that position cannot be used to things correctly, since there are some missing wholes
+    Therefore, the mapper should be always taken into account
+
+    :param binned: True if you want a dictionary, false otherwise
+    :param original_feature_to_id_mapper:
+    :param ICM_subclass: ICM of the subclasses
+    :return: if binned a dictionary containing arrays for each key: the items of that subclass,
+    else we will have subclass content
+    """
+    ICM_copy = ICM_subclass.tocoo(copy=True)
+
+    items = ICM_copy.row
+    features = ICM_copy.col
+    id_to_original_mapper = {v: int(k.split("-")[1]) for k, v in original_feature_to_id_mapper.items()}
+    original_features = [id_to_original_mapper[id_value] for id_value in features]
+    subclass_content = np.full(ICM_copy.shape[0], -1)
+    subclass_content[items] = original_features
+
+    if binned:
+        new_dict = {}
+        for f in np.unique(original_features):
+            # Find items with that subclass
+            items = np.argwhere(subclass_content == f).squeeze()
+            new_dict[f] = items
+
+        return new_dict
+    else:
+        return subclass_content
 
 def get_asset_demographic(ICM_asset, bins):
     raise NotImplemented()
