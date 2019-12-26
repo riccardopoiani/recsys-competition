@@ -1,31 +1,44 @@
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.IR_feature_weighting import okapi_BM_25, TF_IDF
 from scripts.scripts_utils import set_env_variables, read_split_load_data
+from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
+from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
+from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, \
     get_ignore_users
-from src.model import new_best_models
+import os
+from src.model import new_best_models, best_models, k_1_out_best_models
 from src.model.HybridRecommender.HybridRerankingRecommender import HybridRerankingRecommender
-from src.utils.general_utility_functions import get_split_seed
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.utils.general_utility_functions import get_split_seed, get_project_root_path
 
 K_OUT = 3
 CUTOFF = 10
 ALLOW_COLD_USERS = False
-LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
+LOWER_THRESHOLD = 10  # Remove users below or equal this threshold (default value: -1)
 UPPER_THRESHOLD = 2**16-1  # Remove users above or equal this threshold (default value: 2**16-1)
-IGNORE_NON_TARGET_USERS = True
+IGNORE_NON_TARGET_USERS = False
 
 
 def get_model(URM_train, ICM_train, UCM_train):
     # Write the model that you want to evaluate here. Possibly, do not modify the code if unnecessary in the main
-    model = new_best_models.ItemCBF_all.get_model(URM_train, ICM_train)
+    model = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_train)
     return model
 
 
 def main():
     # Data loading
-    data_reader = read_split_load_data(K_OUT, ALLOW_COLD_USERS, get_split_seed())
+    root_data_path = os.path.join(get_project_root_path(), "data/")
+    data_reader = RecSys2019Reader(root_data_path)
+    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=K_OUT, use_validation_set=False,
+                                               allow_cold_users=ALLOW_COLD_USERS,
+                                               force_new_split=True, seed=get_split_seed())
+    data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
     ICM_all, _ = get_ICM_train_new(data_reader)
     UCM_all = get_UCM_train(data_reader)
+
+
 
     # Ignoring users
     ignore_users = get_ignore_users(URM_train, data_reader.get_original_user_id_to_index_mapper(),

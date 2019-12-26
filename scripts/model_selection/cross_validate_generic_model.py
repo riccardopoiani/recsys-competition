@@ -9,6 +9,7 @@ from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, get_ignore_users, get_ignore_users_age
 from src.feature.demographics_content import get_user_demographic
 from src.model import new_best_models
+from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
 from src.tuning.cross_validation.CrossSearchAbstractClass import compute_mean_std_result_dict, get_result_string
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -17,7 +18,7 @@ K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
 LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2**16-1  # Remove users above or equal this threshold (default value: 2**16-1)
+UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 AGE_TO_KEEP = [4]  # Default []
@@ -25,6 +26,19 @@ AGE_TO_KEEP = [4]  # Default []
 
 # VARIABLES TO MODIFY
 model_name = "ItemCBFCF"
+
+
+def _get_all_models(URM_train, ICM_all, UCM_all):
+    all_models = {}
+
+    all_models['WEIGHTED_AVG_ITEM'] = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all)
+
+    all_models['S_PURE_SVD'] = new_best_models.PureSVDSideInfo.get_model(URM_train, ICM_all)
+    all_models['S_IALS'] = new_best_models.IALSSideInfo.get_model(URM_train, ICM_all)
+    all_models['USER_CBF_CF'] = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
+    all_models['USER_CF'] = new_best_models.UserCF.get_model(URM_train)
+
+    return all_models
 
 
 def get_model(URM_train, ICM_train, UCM_train):
@@ -38,7 +52,6 @@ def main():
     results_list = []
     for i in range(0, len(seed_list)):
         data_reader = read_split_load_data(K_OUT, ALLOW_COLD_USERS, seed_list[i])
-        data_reader.load_data()
 
         URM_train, URM_test = data_reader.get_holdout_split()
         ICM_all, _ = get_ICM_train_new(data_reader)

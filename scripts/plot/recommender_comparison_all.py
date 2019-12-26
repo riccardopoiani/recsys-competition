@@ -1,6 +1,7 @@
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new
+from src.data_management.dataframe_preprocessing import get_preprocessed_dataframe
 from src.feature.demographics_content import get_user_demographic
 from src.model import new_best_models
 from src.plots.recommender_plots import *
@@ -19,11 +20,13 @@ if __name__ == '__main__':
     UCM_all = get_UCM_train(data_reader)
 
     item_cbf_cf = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
-    weighted_avg = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all)
+    #weighted_avg = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all)
     user_cbf_cf = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
     rp3 = new_best_models.RP3BetaSideInfo.get_model(URM_train, ICM_all)
+    pure_sdv = new_best_models.PureSVDSideInfo.get_model(URM_train, ICM_all)
+    user_cf = new_best_models.UserCF.get_model(URM_train)
 
-    recommender_list = [item_cbf_cf, weighted_avg, user_cbf_cf, rp3]
+    recommender_list = [item_cbf_cf, user_cbf_cf, rp3, pure_sdv, user_cf]
 
     # Building path
     version_path = "../../report/graphics/comparison/"
@@ -37,7 +40,7 @@ if __name__ == '__main__':
                      URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
                      output_folder_path=version_path + "region/", demographic_name="Region",
                      demographic=region_demographic, demographic_describer_list=region_demographic_describer_list,
-                     exclude_cold_users=True, foh=5)
+                     exclude_cold_users=True, foh=-1)
 
     # Plotting the comparison on region
     UCM_age = data_reader.get_UCM_from_name("UCM_age")
@@ -48,7 +51,7 @@ if __name__ == '__main__':
                      URM_test=URM_test, cutoff=10, metric="MAP", save_on_file=True,
                      output_folder_path=version_path + "age/", demographic_name="Age",
                      demographic=age_demographic, demographic_describer_list=age_demographic_describer_list,
-                     exclude_cold_users=True, foh=5)
+                     exclude_cold_users=True, foh=-1)
 
     # Plot on profile length
     plot_compare_recommenders_user_profile_len(recommender_list, URM_train, URM_test, save_on_file=True,
@@ -56,9 +59,9 @@ if __name__ == '__main__':
                                                bins=30)
 
     # Plotting the comparison based on clustering
-    # dataframe = get_preprocessed_dataframe(path="../../data/", keep_warm_only=True)
-    # plot_clustering_demographics(recommender_list, URM_train, URM_test, dataframe,
-    #                             metric="MAP", cutoff=10, save_on_file=True,
-    #                             output_folder_path=version_path + "clustering/",
-    #                             exclude_cold_users=True, n_clusters=80,
-    #                             n_init=10)
+    dataframe = get_preprocessed_dataframe(path="../../data/", keep_warm_only=True)
+    plot_clustering_demographics(recommender_list, URM_train, URM_test, dataframe,
+                                 metric="MAP", cutoff=10, save_on_file=True,
+                                 output_folder_path=version_path + "clustering/",
+                                 exclude_cold_users=True, n_clusters=10,
+                                 n_init=10)

@@ -116,7 +116,7 @@ HYPER_PARAMETERS_RANGE = {
         "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
     UserKNNCBFCFRecommender.RECOMMENDER_NAME: {
-        "topK": Integer(5, 3000),
+        "topK": Integer(5, 4000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False]),
         "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])

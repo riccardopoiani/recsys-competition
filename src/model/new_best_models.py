@@ -280,6 +280,7 @@ class WeightedAverageItemBased(IBestModel):
     Hybrid of Normalized weighted average of item based models.
 
      - MAP (only warm) with item feature weighted: 0.3680
+     - MAP@10 K1-10CV (only warm) with ICM_all_weighted: 0.0545078±0.0009
     """
     best_parameters = {'FUSION_ITEM_CBF_CF': 0.9710063605002539, 'RP3BETA': 0.06174619037883712,
                        'ITEM_CF': 0.03242008947930531, 'ITEM_CBF': 0.05542859287050307}

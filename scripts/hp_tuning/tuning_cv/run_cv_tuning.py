@@ -18,6 +18,7 @@ from src.feature.demographics_content import get_user_demographic
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
 from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
+from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
@@ -68,10 +69,12 @@ CONTENT_RECOMMENDER_CLASS_DICT = {
 }
 DEMOGRAPHIC_RECOMMENDER_CLASS_DICT = {
     # Pure Demographic KNN
-    "user_cbf": UserKNNCBFRecommender
+    "user_cbf": UserKNNCBFRecommender,
+    "user_cbf_cf": UserKNNCBFCFRecommender
 }
 
-RECOMMENDER_CLASS_DICT = dict(**COLLABORATIVE_RECOMMENDER_CLASS_DICT, **CONTENT_RECOMMENDER_CLASS_DICT)
+RECOMMENDER_CLASS_DICT = dict(**COLLABORATIVE_RECOMMENDER_CLASS_DICT, **CONTENT_RECOMMENDER_CLASS_DICT,
+                              **DEMOGRAPHIC_RECOMMENDER_CLASS_DICT)
 
 
 def get_arguments():
@@ -157,7 +160,12 @@ def main():
                                 parallelize_search=args.parallelize, n_jobs=args.n_jobs,
                                 n_cases=args.n_cases, n_random_starts=args.n_random_starts)
     elif args.recommender_name in DEMOGRAPHIC_RECOMMENDER_CLASS_DICT.keys():
-        pass
+        run_cv_parameter_search(URM_train_list=URM_train_list, UCM_train_list=UCM_train_list, UCM_name="UCM_all",
+                                recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
+                                evaluator_validation_list=evaluator_list,
+                                metric_to_optimize="MAP", output_folder_path=output_folder_path,
+                                parallelize_search=args.parallelize, n_jobs=args.n_jobs,
+                                n_cases=args.n_cases, n_random_starts=args.n_random_starts)
 
     print("...tuning ended")
 

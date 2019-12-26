@@ -67,9 +67,13 @@ class New_DataSplitter_leave_k_out(DataSplitter):
         return self.SPLIT_GLOBAL_MAPPER_DICT["user_original_ID_to_index"]
 
     def get_UCM_from_name(self, UCM_name):
+        if self.allow_cold_users:
+            return self.dataReader_object.get_UCM_from_name(UCM_name)
         return self.dataReader_object.get_UCM_from_name(UCM_name)[self.user_to_preserve, :]
 
     def get_loaded_UCM_dict(self):
+        if self.allow_cold_users:
+            return self.dataReader_object.get_loaded_UCM_dict()
         UCM_dict = self.dataReader_object.get_loaded_UCM_dict()
 
         for UCM_name in UCM_dict.keys():

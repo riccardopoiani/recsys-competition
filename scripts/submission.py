@@ -3,8 +3,8 @@ from datetime import datetime
 from course_lib.Base.NonPersonalizedRecommender import TopPop
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import read_target_users, read_URM_cold_all, read_UCM_cold_all, get_UCM_all, \
-    get_ICM_all
-from src.model import best_models, new_best_models
+    get_ICM_all, get_ICM_all_new
+from src.model import best_models, new_best_models, k_1_out_best_models
 from src.model.FallbackRecommender.MapperRecommender import MapperRecommender
 from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
 from src.model_management.submission_helper import write_submission_file_batch
@@ -18,56 +18,16 @@ if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")
     data_reader.load_data()
     URM_all = data_reader.get_URM_all()
-    ICM_all = get_ICM_all(data_reader)
+    ICM_all = get_ICM_all_new(data_reader)
     UCM_all = get_UCM_all(data_reader)
 
-    """UCM_region = data_reader.get_UCM_from_name("UCM_region")
-    print(data_reader.get_UCM_feature_to_index_mapper_from_name("UCM_region"))
-    all_users = np.arange(URM_all.shape[0])
-    users = UCM_region.tocoo().row
-    region = UCM_region.tocoo().col
-
-    region_group_1_mask = (region == 5) | (region == 6)
-    region_group_2_mask = np.logical_not(region_group_1_mask)
-    users_set_1 = list(set(users[region_group_1_mask]))
-    users_not_in_set_1 = np.setdiff1d(all_users, users_set_1)
-    users_set_2 = list(set(users[region_group_2_mask]))
-    users_set_2 = np.setdiff1d(users_set_2, users_set_1).tolist()
-    users_set_2 = list(set(np.concatenate([users_set_2, users_not_in_set_1])))
-
-    # Main recommender
-    main_recommender = HybridDemographicRecommender(URM_all)
-    main_recommender.add_user_group(0, users_set_1)
-    main_recommender.add_user_group(1, users_set_2)
-    main_recommender.add_relation_recommender_group(new_best_models.WeightedAverageItemBased.get_model(URM_all, ICM_all),
-                                                    0)
-    main_recommender.add_relation_recommender_group(new_best_models.MixedItem.get_model(URM_all, ICM_all), 1)
-    main_recommender.fit()"""
-    main_recommender = new_best_models.ItemCBF_CF.get_model(URM_all, ICM_all)
+    main_recommender = k_1_out_best_models.HybridNormWeightedAvgAll.get_model(URM_all, ICM_all, UCM_all)
 
     # Sub recommender
     URM_cold_all = read_URM_cold_all("../data/data_train.csv")
     UCM_cold_all = read_UCM_cold_all(URM_cold_all.shape[0], "../data/")
 
-    df_age = pd.read_csv(os.path.join("../data/", "data_UCM_age.csv"))
-
-    user_id_list = df_age['row'].values
-    age_id_list = df_age['col'].values
-    UCM_age = sps.coo_matrix((np.ones(len(user_id_list)), (user_id_list, age_id_list)),
-                             shape=(UCM_cold_all.shape[0], np.max(age_id_list) + 1))
-    cold_users_age_mask = np.ediff1d(UCM_age.tocsr().indptr) == 0
-    cold_users_age = np.arange(UCM_age.shape[0])[cold_users_age_mask]
-    warm_users_age = np.arange(UCM_age.shape[0])[~cold_users_age_mask]
-
-    topPop = TopPop(URM_cold_all)
-    topPop.fit()
-    user_cbf_cf = best_models.UserCBF_CF_Cold.get_model(URM_cold_all, UCM_cold_all)
-    sub_recommender = HybridDemographicRecommender(URM_cold_all)
-    sub_recommender.add_user_group(0, warm_users_age)
-    sub_recommender.add_user_group(1, cold_users_age)
-    sub_recommender.add_relation_recommender_group(user_cbf_cf, 0)
-    sub_recommender.add_relation_recommender_group(topPop, 1)
-    sub_recommender.fit()
+    sub_recommender = best_models.UserCBF_CF_Cold.get_model(URM_cold_all, UCM_cold_all)
 
     mapper_model = MapperRecommender(URM_cold_all)
     mapper_model.fit(main_recommender=main_recommender, sub_recommender=sub_recommender,

@@ -105,6 +105,45 @@ def get_ICM_all(reader: RecSys2019Reader):
     return ICM_all
 
 
+def get_ICM_all_new(reader: RecSys2019Reader):
+    """
+    It returns all the ICM_all after applying feature engineering
+
+    :param reader: data splitter
+    :return: return ICM_all
+    """
+    ICM_all_dict = reader.get_loaded_ICM_dict()
+    ICM_all_dict.pop("ICM_all")
+    ICM_all_dict = apply_filtering_ICM(ICM_all_dict,
+                                       ICM_name_to_filter_mapper={"ICM_asset": lambda x: x < np.quantile(x, q=0.75) +
+                                                                                         0.72 * (np.quantile(x,
+                                                                                                             q=0.75) -
+                                                                                                 np.quantile(x,
+                                                                                                             q=0.25)),
+                                                                  "ICM_price": lambda x: x < np.quantile(x, q=0.75) +
+                                                                                         4 * (np.quantile(x, q=0.75) -
+                                                                                              np.quantile(x, q=0.25))})
+    # Apply useful transformation
+    ICM_all_dict = apply_transformation_ICM(ICM_all_dict,
+                                            ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
+                                                                          "ICM_price": lambda x: np.log1p(1 / x),
+                                                                          "ICM_item_pop": np.log1p})
+    ICM_all_dict = apply_discretization_ICM(ICM_all_dict,
+                                            ICM_name_to_bins_mapper={"ICM_asset": 200,
+                                                                     "ICM_price": 200,
+                                                                     "ICM_item_pop": 50})
+    # Apply feature weighting
+    ICM_all_dict = apply_transformation_ICM(ICM_all_dict,
+                                            ICM_name_to_transform_mapper={"ICM_price": lambda x: x * 1.8474248499810804,
+                                                                          "ICM_asset": lambda x: x * 1.2232716972721878,
+                                                                          "ICM_sub_class": lambda
+                                                                              x: x * 1.662671860026709,
+                                                                          "ICM_item_pop": lambda
+                                                                              x: x * 0.886528360392298})
+    ICM_all = build_ICM_all_from_dict(ICM_all_dict)
+    return ICM_all
+
+
 def get_ICM_train(reader: New_DataSplitter_leave_k_out):
     """
     It returns all the ICM_train_all after applying feature engineering. This preprocessing is used on new_best_models

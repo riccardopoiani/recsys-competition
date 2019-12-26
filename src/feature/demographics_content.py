@@ -59,12 +59,12 @@ def get_user_demographic(UCM, original_feature_to_id_mapper, binned=False):
 
      So, we can call this for the purpose of getting user demographic of age and region.
 
-    :param original_feature_to_id_mapper:
     :param UCM: any UCM age or region
+    :param original_feature_to_id_mapper: mapper from original feature to the index in the UCM
     :param binned: true if you want to obtain these demographics in an already grouped way. In which, in each
     list, we have users from the same region/age/etc., and so on. The number of bins is determined automatically,
     since the possible features present (region/age) are already discretized)
-    :return: a list containing all demographics with only users that has profile length more than threshold_users
+    :return: a list containing all demographics of the specific UCM
     """
     UCM_copy = UCM.tocoo(copy=True)
 
