@@ -192,3 +192,6 @@ if __name__ == '__main__':
             plt.ylabel("1 if condition is satisfied, 0 otherwise")
             plt.plot(elem)
             show_fig("lt_perc_{}_age_{}".format(SUBCLASS_PERCENTAGE_MULTIPLIER_LIST[i], AGE_TO_FOCUS))
+
+    if f is not None:
+        f.close()
