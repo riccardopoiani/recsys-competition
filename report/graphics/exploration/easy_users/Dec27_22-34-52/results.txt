@@ -1,0 +1,5377 @@
+Threshold 5 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 10 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 20 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 30 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 40 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 50 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 60 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 70 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 80 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 5 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 90 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 5 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 100 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 5 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 4 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 2 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Activity: 3 
+
+Activity: 1 
+
+Activity: 1 
+
+Threshold 5 - User size 22
+Threshold 10 - User size 46
+Threshold 20 - User size 102
+Threshold 30 - User size 167
+Threshold 40 - User size 229
+Threshold 50 - User size 257
+Threshold 60 - User size 291
+Threshold 70 - User size 328
+Threshold 80 - User size 372
+Threshold 90 - User size 414
+Threshold 100 - User size 444

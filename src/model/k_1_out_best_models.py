@@ -30,6 +30,7 @@ class P3Alpha(ICollaborativeModel):
     recommender_class = P3alphaRecommender
     recommender_name = "P3alpha"
 
+
 class HybridNormWeightedAvgAll(IBestModel):
     """
     Hybrid of Normalized weighted average ranking of almost all models

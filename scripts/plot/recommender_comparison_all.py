@@ -3,7 +3,8 @@ from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new
 from src.data_management.dataframe_preprocessing import get_preprocessed_dataframe
 from src.feature.demographics_content import get_user_demographic
-from src.model import new_best_models
+from src.model import new_best_models, k_1_out_best_models
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.plots.recommender_plots import *
 from src.utils.general_utility_functions import get_split_seed
 
@@ -19,14 +20,14 @@ if __name__ == '__main__':
     ICM_all, _ = get_ICM_train_new(data_reader)
     UCM_all = get_UCM_train(data_reader)
 
-    item_cbf_cf = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_all)
-    #weighted_avg = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all)
-    user_cbf_cf = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
-    rp3 = new_best_models.RP3BetaSideInfo.get_model(URM_train, ICM_all)
-    pure_sdv = new_best_models.PureSVDSideInfo.get_model(URM_train, ICM_all)
-    user_cf = new_best_models.UserCF.get_model(URM_train)
+    item_cbf_cf_parm = new_best_models.ItemCBF_CF.get_best_parameters()
+    item_cbf_cf_parm['topK'] = 5
+    model = ItemKNNCBFCFRecommender(URM_train=URM_train, ICM_train=ICM_all)
+    model.fit(**item_cbf_cf_parm)
+    model.RECOMMENDER_NAME = "ItemCBFCF"
 
-    recommender_list = [item_cbf_cf, user_cbf_cf, rp3, pure_sdv, user_cf]
+    sub4 = k_1_out_best_models.HybridNormWeightedAvgAll.get_model(URM_train, ICM_all, UCM_all)
+    recommender_list = [model, sub4]
 
     # Building path
     version_path = "../../report/graphics/comparison/"

@@ -7,7 +7,7 @@ import numpy as np
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train, get_users_of_age
-from src.feature.demographics_content import get_user_demographic, get_sub_class_content
+from src.feature.demographics_content import get_user_demographic
 from src.utils.general_utility_functions import get_split_seed
 
 # SETTINGS

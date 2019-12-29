@@ -1,18 +1,11 @@
 from datetime import datetime
 
-from course_lib.Base.NonPersonalizedRecommender import TopPop
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import read_target_users, read_URM_cold_all, read_UCM_cold_all, get_UCM_all, \
-    get_ICM_all, get_ICM_all_new
-from src.model import best_models, new_best_models, k_1_out_best_models
+    get_ICM_all_new
+from src.model import best_models, k_1_out_best_models
 from src.model.FallbackRecommender.MapperRecommender import MapperRecommender
-from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
 from src.model_management.submission_helper import write_submission_file_batch
-
-import os
-import pandas as pd
-import scipy.sparse as sps
-import numpy as np
 
 if __name__ == '__main__':
     data_reader = RecSys2019Reader("../../data/")

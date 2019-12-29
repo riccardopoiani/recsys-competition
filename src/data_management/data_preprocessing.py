@@ -6,7 +6,6 @@ from src.data_management.RecSys2019Reader_utils import build_UCM_all
 
 
 # ----------- FEATURE ENGINEERING -----------
-from src.utils.general_utility_functions import n_ranges
 
 
 def apply_feature_engineering_ICM(ICM_dict: dict, URM, UCM_dict: dict, ICM_names_to_count: list,
@@ -56,6 +55,7 @@ def apply_feature_engineering_UCM(UCM_dict: dict, URM, ICM_dict: dict, ICM_names
         UCM_dict[new_UCM_name] = new_UCM.tocsr()
     return UCM_dict
 
+
 def apply_feature_entropy_UCM(UCM_dict: dict, UCM_names_to_entropy: list):
     if ~np.all(np.in1d(UCM_names_to_entropy, list(UCM_dict.keys()))):
         raise KeyError("Mapper contains wrong UCM names")
@@ -85,6 +85,7 @@ def apply_feature_entropy_UCM(UCM_dict: dict, UCM_names_to_entropy: list):
 
     return UCM_dict
 
+
 # ----------- FEATURE IMPUTATION -----------
 
 def apply_imputation_ICM(ICM_dict: dict, ICM_name_to_agg_mapper: dict):
@@ -105,6 +106,7 @@ def apply_imputation_ICM(ICM_dict: dict, ICM_name_to_agg_mapper: dict):
         ICM_object.data = ICM_object.data[sort_indices]
         ICM_dict[ICM_name] = ICM_object.tocsr()
     return ICM_dict
+
 
 def apply_imputation_UCM(UCM_dict: dict, UCM_name_to_agg_mapper: dict):
     if ~np.all(np.in1d(list(UCM_name_to_agg_mapper.keys()), list(UCM_dict.keys()))):
