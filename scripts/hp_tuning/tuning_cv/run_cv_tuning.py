@@ -3,8 +3,10 @@ import multiprocessing
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
+from course_lib.KNN import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import MatrixFactorization_AsySVD_Cython
@@ -49,6 +51,8 @@ COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
     # ML Item-Similarity Based
     "slim_bpr": SLIM_BPR_Cython,
     "slim_elastic": SLIMElasticNetRecommender,
+
+    # Graph-based
     "p3alpha": P3alphaRecommender,
     "rp3beta": RP3betaRecommender,
 
@@ -67,6 +71,7 @@ CONTENT_RECOMMENDER_CLASS_DICT = {
     "new_item_cbf": NewItemKNNCBFRecommender,
     "item_cbf_cf": ItemKNNCBFCFRecommender,
 }
+
 DEMOGRAPHIC_RECOMMENDER_CLASS_DICT = {
     # Pure Demographic KNN
     "user_cbf": UserKNNCBFRecommender,
@@ -141,8 +146,8 @@ def main():
     # --------- HYPER PARAMETERS TUNING SECTION --------- #
     print("Start tuning...")
 
-    hp_tuning_path = "../../../report/hp_tuning/"+args.recommender_name+"/"
-    date_string = datetime.now().strftime('%b%d_%H-%M-%S_k1/')
+    hp_tuning_path = "../../../report/hp_tuning/" + args.recommender_name + "/"
+    date_string = datetime.now().strftime('%b%d_%H-%M-%S_k1_lt_{}/'.format(args.lower_threshold))
     output_folder_path = hp_tuning_path + date_string
 
     if args.recommender_name in COLLABORATIVE_RECOMMENDER_CLASS_DICT.keys():

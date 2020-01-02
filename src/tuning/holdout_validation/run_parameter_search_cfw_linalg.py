@@ -15,7 +15,7 @@ def run_parameter_search(URM_train, ICM_all, W_sparse_CF, evaluator_test,
     parameterSearch = SearchBayesianSkopt(recommender_class,
                                           evaluator_validation=evaluator_test)
 
-    hyperparameters_range_dictionary = {"topK": Integer(1000, 2000),
+    hyperparameters_range_dictionary = {"topK": Integer(1, 2000),
                                         "add_zeros_quota": Real(low=0, high=0.1, prior='uniform'),
                                         "normalize_similarity": Categorical([True, False])}
 

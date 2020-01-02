@@ -1,5 +1,6 @@
 from skopt.space import Integer, Real, Categorical
 
+from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
@@ -21,6 +22,12 @@ from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecomm
 
 # ------------------------- HYPER PARAMETERS RANGE ------------------------- #
 HYPER_PARAMETERS_RANGE = {
+
+    CFW_D_Similarity_Linalg.RECOMMENDER_NAME: {
+        "topK": Integer(2, 2000),
+         "add_zeros_quota": Real(low=0, high=0.1, prior='uniform'),
+         "normalize_similarity": Categorical([True, False])
+    },
 
     # ------ Matrix Factorization ------ #
     ImplicitALSRecommender.RECOMMENDER_NAME: {
@@ -73,36 +80,36 @@ HYPER_PARAMETERS_RANGE = {
 
     # ------ Collaborative KNN Method ------ #
     ItemKNNCFRecommender.RECOMMENDER_NAME: {
-        "topK": Integer(5, 1000),
+        "topK": Integer(1, 1000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False])
     },
     UserKNNCFRecommender.RECOMMENDER_NAME: {
-        "topK": Integer(5, 3000),
+        "topK": Integer(1, 3000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False])
     },
     NewUserKNNCFRecommender.RECOMMENDER_NAME: {
-        "topK": Integer(5, 3000),
+        "topK": Integer(1, 3000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False])
     },
 
     # ------ Content KNN Method ------ #
     ItemKNNCBFRecommender.RECOMMENDER_NAME: {
-        "topK": Integer(5, 1000),
+        "topK": Integer(1, 1000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False]),
         "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
     NewItemKNNCBFRecommender.RECOMMENDER_NAME: {
-        "topK": Integer(5, 1000),
+        "topK": Integer(1, 1000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False]),
         "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
     ItemKNNCBFCFRecommender.RECOMMENDER_NAME: {
-        "topK": Integer(3, 200),
+        "topK": Integer(1, 200),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False]),
         "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])

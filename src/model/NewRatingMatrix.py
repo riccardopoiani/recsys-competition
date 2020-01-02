@@ -18,13 +18,13 @@ def get_age_rating_matrix(URM, age_demographic, implicit=False):
 
 def get_subclass_rating_matrix(URM, subclass_content_dict, implicit=False):
     subclasses = list(subclass_content_dict.keys())
-    ratings_per_subclass = np.zeros(shape=(URM.shape[0], len(subclasses)))
+    ratings_per_subclass = np.zeros(shape=(len(subclasses), URM.shape[0]))
 
     URM_csc = URM.tocsc()
 
     for i, sub in enumerate(subclasses):
         items = subclass_content_dict[sub]
-        URM_subclass = URM_csc.tocsc()[:, items]
+        URM_subclass = URM_csc[:, items]
         ratings_subclass = np.squeeze(np.asarray(URM_subclass.sum(axis=1)))
         if implicit:
             ratings_subclass[ratings_subclass > 1] = 1

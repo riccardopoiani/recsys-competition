@@ -4,7 +4,6 @@ from src.feature.demographics_content import get_user_demographic, get_sub_class
 
 import numpy as np
 
-
 class FilterRecommender(BaseRecommender):
 
     def __init__(self, URM_train, UCM_age, ICM_subclass, subclass_feature_to_id_mapper,
@@ -63,7 +62,7 @@ class FilterRecommender(BaseRecommender):
         self.filter_price_per_age = filter_price_per_age
         self.filter_asset_per_age = filter_asset_per_age
 
-        # User sat. conditions
+        # User satisfying subclass conditions of minimum number of ratings
         mask = np.ediff1d(self.URM_train.tocsr().indptr) > min_num_ratings_subclass_user
         self.users_subclass = np.arange(self.URM_train.shape[0])[mask]
 
@@ -99,8 +98,11 @@ class FilterRecommender(BaseRecommender):
         if self.filter_subclass_user:
             mask = np.in1d(user_id_array, self.users_subclass)
             temp_users = user_id_array[mask]  # Users affected by this filter
-            temp_URM = self.URM_train[temp_users].copy()
-            pass
+            # temp_URM = self.URM_train[temp_users].copy()
+
+            for u in temp_users:
+                items_u = self.URM_train[u].indices
+
 
         # rerank_top_n items according to user subclass preference (applied only on profile [min, max])
         if self.subclass_rerank:
