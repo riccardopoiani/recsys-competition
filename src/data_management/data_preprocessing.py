@@ -178,10 +178,25 @@ def apply_discretization_ICM(ICM_dict, ICM_name_to_bins_mapper: dict):
         x = np.array(ICM_object.data)
         labelled_x = transform_numerical_to_label(x, bins)
 
-        UCM_builder = IncrementalSparseMatrix(n_rows=ICM_object.shape[0])
-        UCM_builder.add_data_lists(ICM_object.tocoo().row, labelled_x, np.ones(len(labelled_x), dtype=np.float32))
+        ICM_builder = IncrementalSparseMatrix(n_rows=ICM_object.shape[0])
+        ICM_builder.add_data_lists(ICM_object.tocoo().row, labelled_x, np.ones(len(labelled_x), dtype=np.float32))
 
-        ICM_dict[ICM_name] = UCM_builder.get_SparseMatrix()
+        ICM_dict[ICM_name] = ICM_builder.get_SparseMatrix()
+    return ICM_dict
+
+
+def apply_advanced_discretization_ICM(ICM_dict, ICM_name_to_bins_mapper: dict):
+    if ~np.all(np.in1d(list(ICM_name_to_bins_mapper.keys()), list(ICM_dict.keys()))):
+        raise KeyError("Mapper contains wrong UCM names")
+
+    for ICM_name, bins in ICM_name_to_bins_mapper.items():
+        ICM_object: sps.csr_matrix = ICM_dict[ICM_name]
+        if ICM_object.shape[1] != 1:
+            raise KeyError("Given UCM name is not regarding a single feature, thus, it cannot be discretized")
+
+        ICM_object = transform_numerical_to_discretized_sparse_matrix(ICM_object.tocoo().row,
+                                                                             ICM_object.data, bins)
+        ICM_dict[ICM_name] = ICM_object
     return ICM_dict
 
 
@@ -238,3 +253,32 @@ def transform_numerical_to_label(x: np.ndarray, bins=20):
     bins_list = [i * (norm_x.max() / bins) for i in range(bins)]
     labelled_x = np.digitize(norm_x, bins_list, right=True)
     return labelled_x
+
+
+def transform_numerical_to_discretized_sparse_matrix(row: np.ndarray, data: np.ndarray, bins=20):
+    """
+    Transform a numerical data array into a discretized sparse matrix with a certain amount of bins
+
+    :param data: array of numerical values
+    :param bins: number of labels in the output
+    :return: sparse matrix containing the discretized values
+    """
+    if row.size != data.size:
+        raise ValueError("Row size has to be the same of data size")
+
+    eps = 10e-6
+    norm_x = (data - data.min()) / (data.max() - data.min() + eps) * 100
+    step = (norm_x.max() / bins)
+    bins_list = [i * step for i in range(bins)]
+
+    sparse_matrix_builder = IncrementalSparseMatrix(n_rows=np.max(row)+1, n_cols=bins+1)
+    for i, x in enumerate(norm_x):
+        x_dist = np.random.normal(loc=x, scale=step, size=1000)
+        label_x_dist = np.digitize(x_dist, bins_list, right=True)
+        unique_label_x_dist, unique_counts = np.unique(label_x_dist, return_counts=True)
+        unique_counts = unique_counts/np.max(unique_counts)  # Normalize unique counts
+        size = unique_label_x_dist.size
+
+        sparse_matrix_builder.add_data_lists([row[i]] * size, unique_label_x_dist, unique_counts)
+    sparse_matrix = sparse_matrix_builder.get_SparseMatrix()
+    return sparse_matrix

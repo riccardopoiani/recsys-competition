@@ -1,15 +1,18 @@
+import time
+
 import numpy as np
 import pandas as pd
 from scipy.sparse import csr_matrix
+from tqdm import tqdm
 
 from course_lib.Base.BaseRecommender import BaseRecommender
+from src.data_management.data_preprocessing_fm import sample_negative_interactions_uniformly
 from src.utils.general_utility_functions import get_total_number_of_users, get_total_number_of_items
 from sklearn.preprocessing import MinMaxScaler
 
 
 def preprocess_dataframe_after_reading(df: pd.DataFrame):
     df = df.copy()
-    #df = df.drop(columns=["index"], inplace=False)
     df = df.sort_values(by="user_id", ascending=True)
     df = df.reset_index()
     df = df.drop(columns=["index"], inplace=False)
@@ -17,19 +20,23 @@ def preprocess_dataframe_after_reading(df: pd.DataFrame):
 
 
 def get_valid_dataframe_second_version(user_id_array, cutoff, main_recommender, path, mapper, recommender_list,
-                                       URM_train):
+                                       URM_train, user_factors=None, item_factors=None):
     data_frame = get_boosting_base_dataframe(user_id_array=user_id_array, top_recommender=main_recommender,
                                              exclude_seen=True, cutoff=cutoff)
     for rec in recommender_list:
         data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
-                                                 cutoff=cutoff, column_name=rec.RECOMMENDER_NAME)
+                                                 column_name=rec.RECOMMENDER_NAME)
 
     data_frame = advanced_subclass_handling(data_frame=data_frame, URM_train=URM_train, path=path)
     data_frame = add_ICM_information(data_frame=data_frame, path=path, one_hot_encoding_subclass=False,
-                                     use_subclass=False)
+                                     use_subclass=True)
     data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
     data_frame = add_user_len_information(data_frame=data_frame, URM_train=URM_train)
     data_frame = add_item_popularity(data_frame=data_frame, URM_train=URM_train)
+    if user_factors is not None:
+        data_frame = add_user_factors(data_frame=data_frame, user_factors=user_factors)
+    if item_factors is not None:
+        data_frame = add_item_factors(data_frame=data_frame, item_factors=item_factors)
 
     data_frame = data_frame.sort_values(by="user_id", ascending=True)
     data_frame = data_frame.reset_index()
@@ -39,12 +46,14 @@ def get_valid_dataframe_second_version(user_id_array, cutoff, main_recommender, 
 
 
 def get_train_dataframe_proportion(user_id_array, cutoff, main_recommender, path, mapper, recommender_list,
-                                   URM_train, proportion):
+                                   URM_train, proportion, user_factors=None, item_factors=None,
+                                   negative_label_value=0):
     data_frame = get_boosting_base_dataframe(user_id_array=user_id_array, top_recommender=main_recommender,
                                              exclude_seen=False, cutoff=cutoff)
-    labels, ignore, ignore2 = add_label(data_frame, URM_train)
+    labels, _, _ = get_label_array(data_frame, URM_train)
     data_frame['label'] = labels
-    data_frame = add_random_negative_ratings(data_frame=data_frame, URM_train=URM_train, proportion=proportion)
+    data_frame = add_random_negative_ratings(data_frame=data_frame, URM_train=URM_train, proportion=proportion,
+                                             negative_label_value=negative_label_value)
 
     data_frame = data_frame.sort_values(by="user_id", ascending=True)
     data_frame = data_frame.reset_index()
@@ -52,15 +61,52 @@ def get_train_dataframe_proportion(user_id_array, cutoff, main_recommender, path
 
     for rec in recommender_list:
         data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
-                                                 cutoff=cutoff, column_name=rec.RECOMMENDER_NAME,
-                                                 is_proportion=True)
+                                                 column_name=rec.RECOMMENDER_NAME)
 
-    data_frame = advanced_subclass_handling(data_frame=data_frame, URM_train=URM_train, path=path)
+    data_frame = advanced_subclass_handling(data_frame=data_frame, URM_train=URM_train, path=path, add_subclass=False)
     data_frame = add_ICM_information(data_frame=data_frame, path=path, one_hot_encoding_subclass=False,
-                                     use_subclass=False)
+                                     use_subclass=True)
     data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
     data_frame = add_user_len_information(data_frame=data_frame, URM_train=URM_train)
     data_frame = add_item_popularity(data_frame=data_frame, URM_train=URM_train)
+    if user_factors is not None:
+        data_frame = add_user_factors(data_frame=data_frame, user_factors=user_factors)
+    if item_factors is not None:
+        data_frame = add_item_factors(data_frame=data_frame, item_factors=item_factors)
+
+    data_frame = data_frame.sort_values(by="user_id", ascending=True)
+    data_frame = data_frame.reset_index()
+    data_frame = data_frame.drop(columns=["index"], inplace=False)
+
+    return data_frame
+
+
+def get_dataframe_all_data(user_id_array, path, mapper, recommender_list,
+                           URM_train, proportion, user_factors=None, item_factors=None):
+    negative_URM = sample_negative_interactions_uniformly(negative_sample_size=len(URM_train.data) * proportion,
+                                                          URM=URM_train)
+    data_frame = get_dataframe_URM(user_id_array=user_id_array, URM_train=URM_train + negative_URM)
+    labels, _, _ = get_label_array(data_frame, URM_train)
+    data_frame['label'] = labels
+
+    data_frame = data_frame.sort_values(by="user_id", ascending=True)
+    data_frame = data_frame.reset_index()
+    data_frame = data_frame.drop(columns=["index"], inplace=False)
+
+    for rec in recommender_list:
+        data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
+                                                 column_name=rec.RECOMMENDER_NAME)
+
+    data_frame = advanced_subclass_handling(data_frame=data_frame, URM_train=URM_train, path=path, add_subclass=False)
+    data_frame = add_ICM_information(data_frame=data_frame, path=path, one_hot_encoding_subclass=False,
+                                     use_subclass=True)
+    data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
+    data_frame = add_user_len_information(data_frame=data_frame, URM_train=URM_train)
+    data_frame = add_item_popularity(data_frame=data_frame, URM_train=URM_train)
+    if user_factors is not None:
+        data_frame = add_user_factors(data_frame=data_frame, user_factors=user_factors)
+    if item_factors is not None:
+        data_frame = add_item_factors(data_frame=data_frame, item_factors=item_factors)
 
     data_frame = data_frame.sort_values(by="user_id", ascending=True)
     data_frame = data_frame.reset_index()
@@ -77,7 +123,7 @@ def get_dataframe_first_version(user_id_array, remove_seen_flag, cutoff, main_re
                                              cutoff=cutoff, top_recommender=main_recommender)
     for rec in recommender_list:
         data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
-                                                 cutoff=cutoff, column_name=rec.RECOMMENDER_NAME)
+                                                 column_name=rec.RECOMMENDER_NAME)
 
     data_frame = add_ICM_information(data_frame=data_frame, path=path)
     data_frame = add_UCM_information(data_frame=data_frame, path=path, user_mapper=mapper)
@@ -90,6 +136,44 @@ def get_dataframe_first_version(user_id_array, remove_seen_flag, cutoff, main_re
     return data_frame
 
 
+def add_user_factors(data_frame: pd.DataFrame, user_factors: np.ndarray):
+    """
+    Add user factors to the dataframe
+
+    :param data_frame:
+    :param user_factors:
+    :return:
+    """
+    print("Adding user factors...")
+
+    data_frame = data_frame.copy()
+    user_factors_df = pd.DataFrame(data=user_factors,
+                                   index=np.arange(0, user_factors.shape[0]),
+                                   columns=["user_factor_{}".format(i + 1) for i in range(user_factors.shape[1])])
+    data_frame = pd.merge(data_frame, user_factors_df, left_on="user_id", right_index=True)
+
+    return data_frame
+
+
+def add_item_factors(data_frame: pd.DataFrame, item_factors: np.ndarray):
+    """
+    Add item factors to the dataframe
+
+    :param data_frame:
+    :param item_factors:
+    :return:
+    """
+    print("Adding item factors...")
+
+    data_frame = data_frame.copy()
+    item_factors_df = pd.DataFrame(data=item_factors,
+                                   index=np.arange(0, item_factors.shape[0]),
+                                   columns=["item_factor_{}".format(i + 1) for i in range(item_factors.shape[1])])
+    data_frame = pd.merge(data_frame, item_factors_df, left_on="item_id", right_index=True)
+
+    return data_frame
+
+
 def add_item_popularity(data_frame: pd.DataFrame, URM_train: csr_matrix):
     """
     Add the item popularity to the dataframe
@@ -98,7 +182,7 @@ def add_item_popularity(data_frame: pd.DataFrame, URM_train: csr_matrix):
     :param URM_train: URM train matrix
     :return: dataframe containing boosting information + item popularity
     """
-    print("Adding item popularity", end="")
+    print("Adding item popularity...")
     data_frame = data_frame.copy()
 
     pop_items = (URM_train > 0).sum(axis=0)
@@ -112,12 +196,10 @@ def add_item_popularity(data_frame: pd.DataFrame, URM_train: csr_matrix):
     data_frame = pd.merge(data_frame, new_df, left_on="item_id", right_on="row")
     data_frame = data_frame.drop(columns=["row"], inplace=False)
 
-    print("Done")
-
     return data_frame
 
 
-def add_label(data_frame: pd.DataFrame, URM_train: csr_matrix):
+def get_label_array(data_frame: pd.DataFrame, URM_train: csr_matrix):
     """
     Create a dataframe with a single column with the correct predictions
 
@@ -125,23 +207,16 @@ def add_label(data_frame: pd.DataFrame, URM_train: csr_matrix):
     :param URM_train: URM train matrix
     :return: numpy array containing y information
     """
-    print("Retrieving training labels")
+    print("Retrieving training labels...")
     user_ids = data_frame['user_id'].values
     item_ids = data_frame['item_id'].values
 
-    y = np.zeros(user_ids.size)
-
-    for i in range(0, user_ids.size):
-        if i % 5000 == 0:
-            print("{} done over {}".format(i, user_ids.size))
-        true_ratings = URM_train[user_ids[i]].indices
-        if item_ids[i] in true_ratings:
-            y[i] = 1
-        else:
-            y[i] = 0
+    y = np.zeros(user_ids.size, dtype=np.int)
+    labels = np.array(URM_train[user_ids, item_ids].tolist()).flatten()
+    y[labels > 0] = 1
 
     non_zero_count = np.count_nonzero(y)
-    print("There are {} non-zero ratings in {}".format(non_zero_count, y.size))
+    print("\t- There are {} non-zero ratings in {}".format(non_zero_count, y.size))
 
     return y, non_zero_count, y.size
 
@@ -154,7 +229,7 @@ def add_user_len_information(data_frame: pd.DataFrame, URM_train: csr_matrix):
     :param URM_train: URM train from which to take profile length information
     :return: data frame with new content inserted
     """
-    print("Adding user profile length")
+    print("Adding user profile length...")
     data_frame = data_frame.copy()
 
     user_act = (URM_train > 0).sum(axis=1)
@@ -200,7 +275,8 @@ def remap_data_frame(df: pd.DataFrame, mapper):
     return df
 
 
-def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/", use_region=True, use_age=True):
+def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/", use_region=True, use_age=True,
+                        use_age_onehot=False):
     """
     Add UCM information to the data frame for XGboost
 
@@ -209,9 +285,10 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
     :param path: where to read UCM csv files
     :param use_region: True is region information should be used, false otherwise
     :param use_age: True if age information should be used, false otherwise
+    :param use_age_onehot: True if age information added is one hot, false otherwise
     :return: pd.DataFrame containing the original data frame+ UCM information
     """
-    print("Add UCM information")
+    print("Adding UCM information...")
     t_users = get_total_number_of_users()  # Total number of users (-1 since indexing from 0)
 
     data_frame = data_frame.copy()
@@ -222,25 +299,26 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
     if use_region:
         df_region = df_region[['row', 'col']]
 
-        dfDummies = pd.get_dummies(df_region['col'], prefix='region')
-        dfDummies = dfDummies.join(df_region['row'])
-        dfDummies = dfDummies.groupby(['row'], as_index=False).sum()
+        df_dummies = pd.get_dummies(df_region['col'], prefix='region')
+        df_dummies = df_dummies.join(df_region['row'])
+        df_dummies = df_dummies.groupby(['row'], as_index=False).sum()
 
         # Fill missing values
-        user_present = dfDummies['row'].values
+        user_present = df_dummies['row'].values
         total_users = np.arange(t_users)
         mask = np.in1d(total_users, user_present, invert=True)
         missing_users = total_users[mask]
-        num_col = dfDummies.columns.size
-        missing_val = np.zeros(shape=(num_col, missing_users.size))
-        missing_val[0] = missing_users
-        missing_df = pd.DataFrame(data=np.transpose(missing_val), dtype=np.int32, columns=dfDummies.columns)
-        df_region = dfDummies.append(missing_df)
+        num_col = df_dummies.columns.size
+        imputed_users = np.zeros(shape=(num_col, missing_users.size))
+        imputed_users[0] = missing_users
+        missing_df = pd.DataFrame(data=np.transpose(imputed_users), dtype=np.int32, columns=df_dummies.columns)
+        df_region_onehot = df_dummies.append(missing_df, sort=False)
 
         if user_mapper is not None:
-            df_region = remap_data_frame(df=df_region, mapper=user_mapper)
-        data_frame = pd.merge(data_frame, df_region, right_on="row", left_on="user_id")
+            df_region_onehot = remap_data_frame(df=df_region_onehot, mapper=user_mapper)
+        data_frame = pd.merge(data_frame, df_region_onehot, right_on="row", left_on="user_id")
         data_frame = data_frame.drop(columns=["row"], inplace=False)
+
     if use_age:
         df_age = df_age[['row', 'col']]
 
@@ -252,20 +330,38 @@ def add_UCM_information(data_frame: pd.DataFrame, user_mapper, path="../../data/
         missing_val_filled = np.ones(missing_users.size) * (int(df_age['col'].mode()) + 1)
         missing = np.array([missing_users, missing_val_filled], dtype=np.int32)
         missing_df = pd.DataFrame(data=np.transpose(missing), columns=["row", "col"])
-        df_age = df_age.append(missing_df)
-        df_age = df_age.reset_index()
-        df_age = df_age[['row', 'col']]
+        df_age_imputed = df_age.copy().append(missing_df, sort=False)
+        df_age_imputed = df_age_imputed.reset_index()
+        df_age_imputed = df_age_imputed[['row', 'col']]
 
         if user_mapper is not None:
-            df_age = remap_data_frame(df=df_age, mapper=user_mapper)
-        df_age = df_age.rename(columns={"col": "age"})
-        data_frame = pd.merge(data_frame, df_age, right_on="row", left_on="user_id")
+            df_age_imputed = remap_data_frame(df=df_age_imputed, mapper=user_mapper)
+        df_age_imputed = df_age_imputed.rename(columns={"col": "age"})
+        if use_age_onehot:
+            row = df_age_imputed['row']
+            df_age_imputed = pd.get_dummies(df_age_imputed['age'], prefix='age')
+            df_age_imputed = df_age_imputed.join(row)
+
+        data_frame = pd.merge(data_frame, df_age_imputed, right_on="row", left_on="user_id")
+        data_frame = data_frame.drop(columns=["row"], inplace=False)
+
+        # Add dummy variables indicating that the region has been imputed
+        df_age_dummy_imputation = df_age.copy()
+        df_age_dummy_imputation['col'] = 0
+        imputed_df = pd.DataFrame(
+            data={"row": missing_users, "col": np.ones(shape=missing_users.size, dtype=np.int)})
+        df_age_dummy_imputation = df_age_dummy_imputation.append(imputed_df, sort=False)
+        df_age_dummy_imputation = df_age_dummy_imputation.rename(columns={"col": "age_imputed_flag"})
+        if user_mapper is not None:
+            df_age_dummy_imputation = remap_data_frame(df=df_age_dummy_imputation, mapper=user_mapper)
+        data_frame = pd.merge(data_frame, df_age_dummy_imputation, right_on="row", left_on="user_id")
         data_frame = data_frame.drop(columns=["row"], inplace=False)
 
     return data_frame
 
 
-def advanced_subclass_handling(data_frame: pd.DataFrame, URM_train: csr_matrix, path="../../data/"):
+def advanced_subclass_handling(data_frame: pd.DataFrame, URM_train: csr_matrix, path="../../data/",
+                               add_subclass=False):
     """
     Here we want to include in the training set sub class information in the following way:
     - A column encoding the mean of 'label' for a certain couple (user, subclass): i.e. how many
@@ -278,7 +374,7 @@ def advanced_subclass_handling(data_frame: pd.DataFrame, URM_train: csr_matrix, 
     :param path: path to the folder containing subclass dataframe
     :return: dataframe with augmented information
     """
-    print("Advanced subclass handling")
+    print("Adding subclass and feature engineering subclass...")
     data_frame = data_frame.copy()
 
     df_subclass: pd.DataFrame = pd.read_csv(path + "data_ICM_sub_class.csv")
@@ -289,42 +385,47 @@ def advanced_subclass_handling(data_frame: pd.DataFrame, URM_train: csr_matrix, 
     data_frame = pd.merge(data_frame, df_subclass, right_on="row", left_on="item_id")
     data_frame = data_frame.drop(columns=["row"], inplace=False)
 
-    print("Add items present for each subclass")
+    print("\t- Add items present for each subclass")
     # Add subclass item-popularity: how many items are present of that subclass
     subclass_item_count = df_subclass.groupby("subclass").count()
     data_frame = pd.merge(data_frame, subclass_item_count, right_index=True, left_on="subclass")
     data_frame = data_frame.rename(columns={"row": "item_per_subclass"})
 
-    print("Add ratings popularity for each subclass")
+    print("\t- Add ratings popularity for each subclass")
     # Add subclass ratings-popularity: how many interactions we have for each subclass
     URM_train_csc = URM_train.tocsc()
     n_ratings_sub = []
-    sorted_sub = np.sort(np.unique(df_subclass['subclass']))
-    for sub in sorted_sub:
-        item_sub = df_subclass[df_subclass['subclass'] == sub]['row'].values
+
+    sorted_sub_indices = np.argsort(df_subclass['subclass'].values)
+    sorted_sub = df_subclass['subclass'][sorted_sub_indices].values
+    sorted_item_subclass = df_subclass['row'][sorted_sub_indices].values
+
+    unique_sorted_sub, sub_indptr = np.unique(sorted_sub, return_index=True)
+    sub_indptr = np.concatenate([sub_indptr, [sorted_sub.size]])
+    for i, sub in tqdm(enumerate(unique_sorted_sub), total=unique_sorted_sub.size, desc="\t\tProcessing"):
+        item_sub = sorted_item_subclass[sub_indptr[i]: sub_indptr[i + 1]]
         n_ratings_sub.append(URM_train_csc[:, item_sub].data.size)
 
-    ratings_sub = np.array([sorted_sub, n_ratings_sub])
+    ratings_sub = np.array([unique_sorted_sub, n_ratings_sub])
     ratings_per_sub_df = pd.DataFrame(data=np.transpose(ratings_sub),
                                       columns=["subclass", "global_ratings_per_subclass"])
 
     data_frame = pd.merge(data_frame, ratings_per_sub_df, left_on="subclass", right_on="subclass")
 
     # Add subclass ratings-popularity for each user using rating percentage
-    print("Add ratings popularity for pairs (user, subclass)")
+    print("\t- Add ratings popularity for pairs (user, subclass)")
     users = data_frame['user_id'].values
     sub = data_frame['subclass'].values
 
     perc_array = np.zeros(users.size)
     rat_array = np.zeros(users.size)
-    for i, user in enumerate(users):
-        if i % 5000 == 0:
-            print("{} done in {}".format(i, users.size))
+    for i, user in tqdm(enumerate(users), total=users.size, desc="\t\tProcessing"):
         curr_sub = sub[i]
+        curr_sub_index = np.searchsorted(unique_sorted_sub, curr_sub)
 
         # Find items of this subclass
-        item_sub = df_subclass[df_subclass['subclass'] == curr_sub]['row'].values
-        user_item = URM_train[user].indices
+        item_sub = sorted_item_subclass[sub_indptr[curr_sub_index]: sub_indptr[curr_sub_index + 1]]
+        user_item = URM_train.indices[URM_train.indptr[user]: URM_train.indptr[user + 1]]
 
         total_user_likes = user_item.size
         mask = np.in1d(item_sub, user_item)
@@ -333,13 +434,11 @@ def advanced_subclass_handling(data_frame: pd.DataFrame, URM_train: csr_matrix, 
         perc_array[i] = user_p
         rat_array[i] = likes_per_sub
 
-    data_frame = pd.merge(data_frame, pd.DataFrame(perc_array), right_index=True, left_index=True)
-    data_frame = data_frame.rename(columns={0: "subclass_user_like_perc"})
+    data_frame["subclass_user_like_perc"] = perc_array
+    data_frame["subclass_user_like_quantity"] = rat_array
 
-    data_frame = pd.merge(data_frame, pd.DataFrame(rat_array), right_index=True, left_index=True)
-    data_frame = data_frame.rename(columns={0: "subclass_user_like_quantity"})
-
-    print("Done")
+    if not add_subclass:
+        data_frame = data_frame.drop(columns=["subclass"], inplace=False)
 
     return data_frame
 
@@ -357,7 +456,7 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
     :param use_subclass: True if you wish to append subclass information, false otherwise
     :return: pd.DataFrame containing the information
     """
-    print("Adding ICM information")
+    print("Adding ICM information...")
     data_frame = data_frame.copy()
     df_price: pd.DataFrame = pd.read_csv(path + "data_ICM_price.csv")
     df_asset: pd.DataFrame = pd.read_csv(path + "data_ICM_asset.csv")
@@ -374,9 +473,11 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
         missing_val_filled = np.ones(missing_items.size) * df_price['data'].median()
         missing = np.array([missing_items, missing_val_filled])
         missing_df = pd.DataFrame(data=np.transpose(missing), columns=['row', 'data'])
-        df_price = df_price.append(missing_df)
+        df_price = df_price.append(missing_df, sort=False)
         df_price = df_price.reset_index()
         df_price = df_price[['row', 'data']]
+
+        # TODO remove outliers and add dummy variable
 
         df_price = df_price.rename(columns={"data": "price"})
         data_frame = pd.merge(data_frame, df_price, right_on="row", left_on="item_id")
@@ -389,9 +490,11 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
         missing_val_filled = np.ones(missing_items.size) * df_asset['data'].median()
         missing = np.array([missing_items, missing_val_filled])
         missing_df = pd.DataFrame(data=np.transpose(missing), columns=['row', 'data'])
-        df_asset = df_asset.append(missing_df)
+        df_asset = df_asset.append(missing_df, sort=False)
         df_asset = df_asset.reset_index()
         df_asset = df_asset[['row', 'data']]
+
+        # TODO remove outliers and add dummy variable
 
         df_asset = df_asset.rename(columns={"data": "asset"})
         data_frame = pd.merge(data_frame, df_asset, right_on="row", left_on="item_id")
@@ -412,62 +515,56 @@ def add_ICM_information(data_frame: pd.DataFrame, path="../../data/", use_price=
     return data_frame
 
 
-def add_recommender_predictions_proportion(data_frame: pd.DataFrame, recommender: BaseRecommender,
-                                           column_name: str, min_max_scaling=True):
-    data_frame = data_frame.copy()
-    items = data_frame['item_id'].values.astype(int)
-    users = data_frame['user_id'].values.astype(int)
-
-    print("Add recommender predictions - COLUMN NAME: " + str(column_name))
-    data_frame[column_name] = 0  # Initializing predictions at 0
-
-
-def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecommender, cutoff: int,
-                                column_name: str, min_max_scaling=True, is_proportion=False):
+def add_recommender_predictions(data_frame: pd.DataFrame, recommender: BaseRecommender,
+                                column_name: str, min_max_scaling=True):
     """
-    :param is_proportion: True if dataframe has been generated with proportion
+    Add predictions of a recommender to the dataframe and return the new dataframe
+
+    Note: Assumes that the data_frame is ordered by user_id (increasingly)
+
     :param data_frame: dataframe on which predictions will be added
     :param recommender: recommender of which the predictions will be added
-    :param cutoff: cutoff used for generating the dataframe
     :param column_name: name of the new column
     :param min_max_scaling: whether to apply min-max scaling or not
     :return: new dataframe containing recommender predictions
     """
+    print("Adding recommender predictions - COLUMN NAME: {}".format(column_name))
+
     new_df = data_frame.copy()
     items = new_df['item_id'].values.astype(int)
     users = new_df['user_id'].values.astype(int)
 
-    print("Add recommender predictions - COLUMN NAME: " + str(column_name))
-    new_df[column_name] = 0
+    # Check if dataframe is sorted by user_id
+    if not np.all(users[i] <= users[i + 1] for i in range(users.size - 1)):
+        raise ValueError("The dataframe is not sorted by user_id")
 
-    for i, user_id in enumerate(np.unique(users)):
-        if i % 10000 == 0:
-            print("{} done over {}".format(i, np.unique(users).size))
-        if is_proportion:
-            items_for_user_id = new_df[new_df['user_id'] == user_id]['item_id'].values.astype(int)
-        else:
-            items_for_user_id = items[(i * cutoff):(i * cutoff) + cutoff]
+    prediction_values = np.zeros(items.size, dtype=np.float32)
 
-        if items_for_user_id.size != np.unique(items_for_user_id).size:
-            raise RuntimeError("These two arrays should have the same size")
-
-        scores = recommender._compute_item_score([user_id]).squeeze()[items_for_user_id]
-        if scores.size != items_for_user_id.size:
-            raise RuntimeError("These two arrays should have the same size")
-
-        new_df.loc[new_df['user_id'] == user_id, [column_name]] = scores.reshape(scores.size, 1)
+    # Use indptr to avoid using query of dataframe
+    unique_users, user_indptr = np.unique(users, return_index=True)
+    user_indptr = np.concatenate([user_indptr, [users.size]])
+    all_scores = recommender._compute_item_score(unique_users)
 
     if min_max_scaling:
-        values: np.array = new_df[column_name].values
         scaler = MinMaxScaler()
-        scaler.fit(values.reshape(-1, 1))
-        new_values = scaler.transform(values.reshape(-1, 1))
-        new_df[column_name] = new_values
+        scaler.fit(all_scores.reshape(-1, 1))
+        all_scores = np.reshape(scaler.transform(all_scores.reshape(-1, 1)), newshape=all_scores.shape)
+
+    for i, user_id in tqdm(enumerate(unique_users), total=unique_users.size,
+                           desc="\tAdd users predictions".format(column_name)):
+        items_for_user_id = items[user_indptr[i]: user_indptr[i + 1]]
+        scores = all_scores[i, items_for_user_id].copy()
+        prediction_values[user_indptr[i]: user_indptr[i + 1]] = scores
+
+    new_df[column_name] = prediction_values
+
+    del all_scores  # Remove this variable in order to let the garbage collector collect it
 
     return new_df
 
 
-def user_uniform_sampling(user: int, URM_train: csr_matrix, items_to_exclude: np.array, sample_size: int):
+def user_uniform_sampling(user: int, URM_train: csr_matrix, items_to_exclude: np.array, sample_size: int,
+                          batch_size=1000):
     """
     Sample negative interactions at random for a given users from URM_train
 
@@ -475,67 +572,85 @@ def user_uniform_sampling(user: int, URM_train: csr_matrix, items_to_exclude: np
     :param user: sample negative interactions for this user
     :param URM_train: URM from which samples will be taken
     :param sample_size: how many samples to take
+    :param batch_size: batch size dimension for the number of random sampling to do at each iteration
     :return: np.array containing the collected samples
     """
+
     sampled = 0
 
-    collected_samples = np.zeros(sample_size)
+    invalid_items = URM_train.indices[URM_train.indptr[user]: URM_train.indptr[user + 1]]
+    collected_samples = []
 
     while sampled < sample_size:
-        t_item = np.random.randint(low=0, high=URM_train.shape[1], size=1)[0]
+        items_sampled = np.random.randint(low=0, high=URM_train.shape[1], size=batch_size)
+        items_sampled = np.unique(items_sampled)
 
-        if URM_train[user, t_item] == 0 and not np.any(np.in1d(items_to_exclude, t_item)) and \
-                not np.any(np.in1d(collected_samples, t_item)):
-            collected_samples[sampled] = t_item
-            sampled += 1
+        # Remove items already seen and items to exclude
+        valid_items = np.setdiff1d(items_sampled, invalid_items, assume_unique=True)
+        valid_items = np.setdiff1d(valid_items, items_to_exclude, assume_unique=True)
+
+        # Cap the size of batch size if it is the last batch
+        if sampled + len(valid_items) > sample_size:
+            remaining_sample_size = sample_size - sampled
+            valid_items = valid_items[:remaining_sample_size]
+        collected_samples = np.concatenate([collected_samples, valid_items])
+
+        # Update invalid items
+        invalid_items = np.concatenate([invalid_items, valid_items])
+        sampled += len(valid_items)
 
     return collected_samples
 
 
-def add_random_negative_ratings(data_frame: pd.DataFrame, URM_train: csr_matrix, users=None, proportion=1):
+def add_random_negative_ratings(data_frame: pd.DataFrame, URM_train: csr_matrix, proportion=1, negative_label_value=0):
     """
     Add random negative rating sampled from URM train
 
     Note: labels should be already inserted in the dataframe for this purpose in a 'label' column
+    Note: Assumes that the dataframe is ordered based on the users
 
     :param URM_train: URM train from which negative ratings will be sampled
-    :param users: users on which ratings will be added. If none, all the users of the dataframe will be considered
     :param data_frame: dataframe on which these negative ratings will be added
     :param proportion: proportion w.r.t. the positive ratings (expressed as positive/negative)
+    :param negative_label_value: the label to assign for negative sampled ratings
     :return: a new dataframe containing more negative interactions
     """
     data_frame = data_frame.copy()
 
-    print("Fixing proportion...")
-
-    if users is None:
-        users = np.unique(data_frame['user_id'].values.astype(int))
+    label_list = data_frame['label'].values.astype(int)
+    item_list = data_frame['item_id'].values.astype(int)
+    users, user_indptr = np.unique(data_frame['user_id'].values.astype(int), return_index=True)
+    user_indptr = np.concatenate([user_indptr, [data_frame['user_id'].size]])
 
     new_user_list = []
     new_item_list = []
 
-    for i, user in enumerate(users):
-        if i % 5000 == 0:
-            print("{} done in {}".format(i, users.size))
-        user_df = data_frame[data_frame['user_id'] == user]
-        pos_labels = user_df['label'].values
+    for i, user in tqdm(enumerate(users), desc="\tSample negative ratings", total=users.size):
+        pos_labels = label_list[user_indptr[i]: user_indptr[i + 1]]
         pos_count = np.count_nonzero(pos_labels)
         total = pos_labels.size
         neg_count = total - pos_count
         samples_to_add = np.array([int(pos_count / proportion) - neg_count]).min()
         if samples_to_add > 0:
-            items_to_exclude = data_frame[data_frame['user_id'] == user]['item_id'].values.astype(int)
+            items_to_exclude = item_list[user_indptr[i]: user_indptr[i + 1]]
             samples = user_uniform_sampling(user, URM_train, sample_size=samples_to_add,
                                             items_to_exclude=items_to_exclude)
             new_user_list.extend([user] * samples_to_add)
             new_item_list.extend(samples.tolist())
 
     data = np.array([new_user_list, new_item_list])
-    new_df = pd.DataFrame(np.transpose(data), columns=['user_id', 'item_id'])
-    new_df['label'] = 0
+    new_df = pd.DataFrame(np.transpose(data), columns=['user_id', 'item_id'], dtype=np.int)
+    new_df['label'] = negative_label_value
 
-    new_df = data_frame.append(new_df)
+    new_df = data_frame.append(new_df, sort=False)
     return new_df
+
+
+def get_dataframe_URM(user_id_array: list, URM_train: csr_matrix):
+    URM_train_slice = URM_train[user_id_array, :]
+    data_frame = pd.DataFrame({"user_id": URM_train_slice.tocoo().row, "item_id": URM_train_slice.tocoo().col},
+                              dtype=np.int)
+    return data_frame
 
 
 def get_boosting_base_dataframe(user_id_array, top_recommender: BaseRecommender, cutoff: int,
@@ -570,14 +685,9 @@ def get_boosting_base_dataframe(user_id_array, top_recommender: BaseRecommender,
             recommendations[i] = double_rec_false[i][mask[i]][0:cutoff]
 
     user_recommendations_items = recommendations.reshape((recommendations.size, 1)).squeeze()
+    user_recommendations_user_id = np.repeat(user_id_array, repeats=cutoff)
 
-    # Setting users
-    user_recommendations_user_id = np.zeros(user_recommendations_items.size)
-    for i, user in enumerate(user_id_array):
-        if user % 10000 == 0:
-            print("{} done over {}".format(i, user_id_array.size))
-        user_recommendations_user_id[(i * cutoff):(i * cutoff) + cutoff] = user
-
-    data_frame = pd.DataFrame({"user_id": user_recommendations_user_id, "item_id": user_recommendations_items})
+    data_frame = pd.DataFrame({"user_id": user_recommendations_user_id, "item_id": user_recommendations_items},
+                              dtype=np.int)
 
     return data_frame

@@ -30,18 +30,28 @@ class ItemCBF_all_FW(IBestModel):
     best_parameters = {'topK': 5, 'shrink': 1500, 'similarity': 'asymmetric', 'normalize': True,
                        'asymmetric_alpha': 0.0}
     CFW_parameters = {'topK': 1959, 'add_zeros_quota': 0.04991675690486688, 'normalize_similarity': False}
+    recommender_name = "ItemCBF_all_FW"
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train):
+    def get_model(cls, URM_train, ICM_train, load_model=False, save_model=False):
         from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
         from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
+        model = ItemKNNCBFRecommender(URM_train=URM_train, ICM_train=ICM_train)
+
+        try:
+            if load_model:
+                model = cls._load_model(model)
+                return model
+        except FileNotFoundError as e:
+            print("WARNING: Cannot find model to be loaded")
 
         item_cf = best_models.ItemCF.get_model(URM_train=URM_train)
         cfw = CFW_D_Similarity_Linalg(URM_train=URM_train, ICM=ICM_train, S_matrix_target=item_cf.W_sparse)
         cfw.fit(**cls.CFW_parameters)
 
-        model = ItemKNNCBFRecommender(URM_train=URM_train, ICM_train=ICM_train)
         model.fit(row_weights=cfw.D_best, **cls.get_best_parameters())
+        if save_model:
+            cls._save_model(model)
         return model
 
 
@@ -76,6 +86,22 @@ class SSLIM_BPR(ICollaborativeModel):
 
 
 # ---------------- DEMOGRAPHICS -----------------
+class UserCBF(IBestModel):
+    """
+    User CBF with UCM_all
+     - MAP@10 K3 (only warm): 0.0239197
+    """
+    best_parameters = {'topK': 2941, 'shrink': 36, 'similarity': 'asymmetric', 'normalize': True,
+                       'asymmetric_alpha': 0.1808758516271842, 'feature_weighting': 'BM25',
+                       'interactions_feature_weighting': 'TF-IDF'}
+    @classmethod
+    def get_model(cls, URM_train, UCM_train):
+        from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+        model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+
 class UserCBF_CF_Cold(IBestModel):
     """
     User CBF_CF tuned with URM_train and UCM_all
@@ -100,12 +126,23 @@ class UserCBF_CF_Warm(IBestModel):
     """
     best_parameters = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
                        'feature_weighting': 'BM25', 'interactions_feature_weighting': "TF-IDF"}
+    recommender_name = "UserCBF_CF_Warm"
 
     @classmethod
-    def get_model(cls, URM_train, UCM_train):
+    def get_model(cls, URM_train, UCM_train, load_model=False, save_model=False):
         from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
         model = UserKNNCBFCFRecommender(URM_train=URM_train, UCM_train=UCM_train)
+
+        try:
+            if load_model:
+                model = cls._load_model(model)
+                return model
+        except FileNotFoundError as e:
+            print("WARNING: Cannot find model to be loaded")
+
         model.fit(**cls.get_best_parameters())
+        if save_model:
+            cls._save_model(model)
         return model
 
 
@@ -134,6 +171,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
      - MAP (warm users) with weighted item features: 0.03658
     """
     best_parameters = {'num_models': 100}
+    recommender_name = "FusionMergeItem_CBF_CF"
 
     @classmethod
     def get_hyperparameters(cls):
@@ -145,12 +183,22 @@ class FusionMergeItem_CBF_CF(IBestModel):
         return hyper_parameters_range
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train):
+    def get_model(cls, URM_train, ICM_train, load_model=True, save_model=True):
         from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
         from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
         model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
                                                       ICM_train=ICM_train)
+
+        try:
+            if load_model:
+                model = cls._load_model(model)
+                return model
+        except FileNotFoundError as e:
+            print("WARNING: Cannot find model to be loaded")
+
         model.fit(num_models=100, hyper_parameters_range=cls.get_hyperparameters())
+        if save_model:
+            cls._save_model(model)
         return model
 
 
@@ -200,14 +248,25 @@ class RP3BetaSideInfo(IBestModel):
     """
     best_parameters = {'topK': 8, 'alpha': 0.47878856384101826, 'beta': 9.816192345071759e-11,
                        'normalize_similarity': False}
+    recommender_name = "RP3BetaSideInfo"
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train):
+    def get_model(cls, URM_train, ICM_train, load_model=False, save_model=False):
         from course_lib.Base.IR_feature_weighting import TF_IDF
-        URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
         from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
+        URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
         model = RP3betaRecommender(URM_train_side_info)
+
+        try:
+            if load_model:
+                model = cls._load_model(model)
+                return model
+        except FileNotFoundError as e:
+            print("WARNING: Cannot find model to be loaded")
+
         model.fit(**cls.get_best_parameters())
+        if save_model:
+            cls._save_model(model)
         return model
 
 
@@ -255,14 +314,17 @@ class MixedItem(IBestModel):
                        'alpha3': 0.0006963455386220786, 'alpha4': 0.018211744418817236}
 
     @classmethod
-    def get_model(cls, URM_train, ICM_all, load_model=False):
+    def get_model(cls, URM_train, ICM_all, load_model=False, save_model=False):
         from src.model.best_models import ItemCF
         from src.model.HybridRecommender.HybridMixedSimilarityRecommender import ItemHybridModelRecommender
 
-        item_cf = ItemCF.get_model(URM_train, load_model=load_model)
-        item_cbf_cf = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all)
-        item_cbf_all = ItemCBF_all_FW.get_model(URM_train=URM_train, ICM_train=ICM_all)
-        rp3beta = RP3BetaSideInfo.get_model(URM_train=URM_train, ICM_train=ICM_all)
+        item_cf = ItemCF.get_model(URM_train, load_model=load_model, save_model=save_model)
+        item_cbf_cf = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=load_model,
+                                                       save_model=save_model)
+        item_cbf_all = ItemCBF_all_FW.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=load_model,
+                                                save_model=save_model)
+        rp3beta = RP3BetaSideInfo.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=load_model,
+                                            save_model=save_model)
 
         hybrid = ItemHybridModelRecommender(URM_train)
         hybrid.add_similarity_matrix(item_cf.W_sparse)

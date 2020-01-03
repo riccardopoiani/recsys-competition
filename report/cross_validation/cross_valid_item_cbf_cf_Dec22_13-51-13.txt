@@ -1,4 +1,4 @@
-Recommender class: ItemKNNCBFCFRecommender
+Recommender class: ItemKNNCBFCFRecommender with original ICM_train_new
 Recommender fit parameters: {'topK': 17, 'shrink': 1463, 'similarity': 'asymmetric', 'normalize': True, 'asymmetric_alpha': 0.07899555402911075, 'feature_weighting': 'TF-IDF'}
 Number of folds: 10
 Seed list: [6910, 1996, 2019, 153, 12, 5, 1010, 9999, 666, 467]

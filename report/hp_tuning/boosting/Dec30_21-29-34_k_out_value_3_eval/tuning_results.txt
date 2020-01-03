@@ -1,0 +1,11 @@
+Tuning XGBoost 
+Parameters: 
+ {'learning_rate': [0.1, 0.01, 0.001, 0.0001], 'gamma': [0.001, 0.01, 0.1, 0.3, 0.5, 0.8], 'lambda': [0.001, 0.01, 0.1, 1, 10, 100], 'alpha': [0.001, 0.01, 0.1, 1, 10, 100], 'max_depth': [2, 4, 7, 11, 15], 'max_delta_step': [0, 1, 5, 10], 'subsample': [0.2, 0.4, 0.5, 0.6, 0.7], 'colsample_bytree': [0.3, 0.6, 0.8, 1.0], 'scale_pos_weight': [5.108947402471372], 'objective': ['rank:map']}
+ N_trials: 10 
+Max iteration per trial: 10000
+Early stopping every 100 iterations
+
+
+ Begin tuning 
+
+{'learning_rate': 0.1, 'gamma': 0.01, 'lambda': 10, 'alpha': 100, 'max_depth': 2, 'max_delta_step': 10, 'subsample': 0.2, 'colsample_bytree': 0.8, 'scale_pos_weight': 5.108947402471372, 'objective': 'rank:map'}

@@ -4,16 +4,15 @@
 @author: Cesare Bernardis
 """
 
+import sys
+import time
+
 import numpy as np
 import scipy.sparse as sps
-
 from sklearn.preprocessing import normalize
 
 from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.Recommender_utils import check_matrix, similarityMatrixTopK
-
-from course_lib.Base.BaseSimilarityMatrixRecommender import BaseItemSimilarityMatrixRecommender
-import time, sys
 
 
 class P3alphaWSparseRecommender(BaseRecommender):
@@ -25,14 +24,6 @@ class P3alphaWSparseRecommender(BaseRecommender):
         super(P3alphaWSparseRecommender, self).__init__(URM_train, verbose=verbose)
         self.user_W_sparse = user_W_sparse
         self.item_W_sparse = item_W_sparse
-
-
-    def __str__(self):
-        return "P3alpha(alpha={}, min_rating={}, topk={}, implicit={}, normalize_similarity={})".format(self.alpha,
-                                                                                                        self.min_rating,
-                                                                                                        self.topK,
-                                                                                                        self.implicit,
-                                                                                                        self.normalize_similarity)
 
     def fit(self, topK=100, alpha=1., min_rating=0, implicit=False, normalize_similarity=False):
 
@@ -57,14 +48,12 @@ class P3alphaWSparseRecommender(BaseRecommender):
         self.P = sps.vstack([self.Pui, self.Piu], format="csr")
 
         # Pui is the row-normalized urm
-        Pui = normalize(self.P, norm='l1', axis=1)
+        Pui = normalize(self.P.copy(), norm='l1', axis=1)
 
-        # Piu is the column-normalized, "boolean" urm transposed
-        #X_bool = self.URM_train.transpose(copy=True)
+        # Piu is the column-normalized
         X_bool = self.P.copy()
         X_bool.data = np.ones(X_bool.data.size, np.float32)
-        # ATTENTION: axis is still 1 because i transposed before the normalization
-        Piu = normalize(X_bool, norm='l1', axis=1)
+        Piu = normalize(X_bool, norm='l1', axis=0)
         del (X_bool)
 
         # Alfa power
@@ -138,8 +127,7 @@ class P3alphaWSparseRecommender(BaseRecommender):
         cols = cols[:numCells]
         values = values[:numCells]
 
-        self.W_sparse = sps.csr_matrix((values, (rows, cols)),
-                                       shape=(self.n_users + self.n_items, self.n_users + self.n_items))
+        self.W_sparse = sps.csr_matrix((values, (rows, cols)), shape=self.P.shape)
 
         if self.normalize_similarity:
             self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)

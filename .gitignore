@@ -1,3 +1,4 @@
+*.bin
 resources/
 Data_manager_split_datasets/
 result_experiments/

@@ -72,7 +72,7 @@ HYPER_PARAMETERS_RANGE = {
     },
 
     NewPureSVDRecommender.RECOMMENDER_NAME: {
-        "num_factors": Integer(50, 800),
+        "num_factors": Integer(10, 50),
         "n_oversamples": Integer(1, 30),
         "n_iter": Integer(1, 20),
         "feature_weighting": Categorical(["none", "BM25", "TF-IDF"])

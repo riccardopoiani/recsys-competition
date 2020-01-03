@@ -7,9 +7,10 @@ import os
 from datetime import datetime
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
-from src.data_management.data_reader import get_ICM_train, get_UCM_train
+from src.data_management.data_reader import get_ICM_train, get_UCM_train, get_ICM_train_new
 from src.model import new_best_models
-from src.model.Ensemble.Boosting.boosting_preprocessing import add_label, preprocess_dataframe_after_reading
+from src.model.Ensemble.Boosting.Boosting import BoostingFixedData
+from src.model.Ensemble.Boosting.boosting_preprocessing import get_label_array, preprocess_dataframe_after_reading
 from src.utils.general_utility_functions import get_split_seed
 
 
@@ -61,7 +62,7 @@ if __name__ == '__main__':
     # Initial settings
     show_score_distribution = True
     print_mean = True
-    model_path = "../../report/hp_tuning/boosting/Dec23_11-22-35_k_out_value_3_eval/best_model6"
+    model_path = "../../report/hp_tuning/boosting/Dec30_21-31-27_k_out_value_3_eval/best_model_5.bin"
     print_example_power_user = True
     show_extreme_scores = True
     show_mean_scores = True
@@ -72,7 +73,7 @@ if __name__ == '__main__':
     # Path creation
     version_path = "../../report/graphics/boosting/"
     now = datetime.now().strftime('%b%d_%H-%M-%S')
-    now = now + "k3_foh_5_v2/"
+    now = now + "k3_lt_20_cutoff_30/"
     output_folder_path = version_path + now
     output_file_name = output_folder_path + "results.txt"
     try:
@@ -90,27 +91,29 @@ if __name__ == '__main__':
                                                force_new_split=True, seed=get_split_seed())
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
-    ICM_all = get_ICM_train(data_reader)
+    ICM_all,_ = get_ICM_train_new(data_reader)
     UCM_all = get_UCM_train(data_reader)
-    dataframe_path = "../../boosting_dataframe/"
-    train_df = pd.read_csv(dataframe_path + "train_df_20_advanced_foh_5.csv")
-    valid_df = pd.read_csv(dataframe_path + "valid_df_20_advanced_foh_5.csv")
+    dataframe_path = "../../resources/boosting_dataframe/"
+    train_df = pd.read_csv(dataframe_path + "train_df_100_advanced_lt_20.csv")
+    valid_df = pd.read_csv(dataframe_path + "valid_df_30_advanced_lt_20.csv")
     train_df = preprocess_dataframe_after_reading(train_df)
     train_df_with_labels = train_df.copy()
     train_df = train_df.drop(columns=["label"], inplace=False)
     valid_df = preprocess_dataframe_after_reading(valid_df)
     print("Retrieving training labels...", end="")
-    y_train, non_zero_count, total = add_label(data_frame=train_df, URM_train=URM_train)
+    y_train, non_zero_count, total = get_label_array(data_frame=train_df, URM_train=URM_train)
     print("Done")
 
-    boosting = new_best_models.BoostingFoh5.get_model(URM_train=URM_train, train_df=train_df, y_train=y_train,
-                                                      valid_df=valid_df,
-                                                      model_path=model_path)
+    par = {'learning_rate': 0.01, 'gamma': 0.3, 'lambda': 0.001, 'alpha': 0.1, 'max_depth': 4, 'max_delta_step': 10,
+           'subsample': 0.7, 'colsample_bytree': 0.3, 'scale_pos_weight': 5.108947402471372, 'objective': 'rank:map'}
+    boosting = BoostingFixedData(URM_train=URM_train, X=train_df, y=y_train, df_test=valid_df,
+                                 cutoff=30, URM_test=URM_test, random_state=get_split_seed())
+    boosting.load_model_from_file(file_path=model_path, params=par)
 
     boosting.RECOMMENDER_NAME = "BOOSTING"
 
     # Setting additional dataframes
-    y_train_valid, non_zero_count_vaid, total_valid = add_label(data_frame=valid_df, URM_train=URM_test)
+    y_train_valid, non_zero_count_vaid, total_valid = get_label_array(data_frame=valid_df, URM_train=URM_test)
     valid_df['label'] = y_train_valid
     train_df = train_df_with_labels
 

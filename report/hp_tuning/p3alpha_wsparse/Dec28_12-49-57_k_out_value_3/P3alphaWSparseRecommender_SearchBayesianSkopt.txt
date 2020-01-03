@@ -1,0 +1,41 @@
+SearchBayesianSkopt: New best config found. Config 0: {'topK': 361, 'alpha': 0.8852739342271974, 'normalize_similarity': False} - results: ROC_AUC: 0.1188785, PRECISION: 0.0195173, PRECISION_RECALL_MIN_DEN: 0.0650576, RECALL: 0.0650576, MAP: 0.0317733, MRR: 0.0853417, NDCG: 0.0538909, F1: 0.0300266, HIT_RATE: 0.1951727, ARHR: 0.0902072, RMSE: 0.9966296, NOVELTY: 0.0058083, AVERAGE_POPULARITY: 0.1988260, DIVERSITY_MEAN_INTER_LIST: 0.9932467, DIVERSITY_HERFINDAHL: 0.9993195, COVERAGE_ITEM: 0.5793458, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.2998757, SHANNON_ENTROPY: 11.8279738, 
+SearchBayesianSkopt: Config 1 is suboptimal. Config: {'topK': 175, 'alpha': 1.5806207564768247, 'normalize_similarity': False} - results: ROC_AUC: 0.0280628, PRECISION: 0.0047389, PRECISION_RECALL_MIN_DEN: 0.0157962, RECALL: 0.0157962, MAP: 0.0068658, MRR: 0.0195257, NDCG: 0.0123826, F1: 0.0072906, HIT_RATE: 0.0473887, ARHR: 0.0200615, RMSE: 0.9999812, NOVELTY: 0.0060157, AVERAGE_POPULARITY: 0.0762362, DIVERSITY_MEAN_INTER_LIST: 0.9983805, DIVERSITY_HERFINDAHL: 0.9998329, COVERAGE_ITEM: 0.7233847, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.4713552, SHANNON_ENTROPY: 13.0169311, 
+SearchBayesianSkopt: Config 2 Exception. Config: {'topK': 367, 'alpha': 0.7378727517879545, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 145, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 3 is suboptimal. Config: {'topK': 564, 'alpha': 0.17797121421153064, 'normalize_similarity': False} - results: ROC_AUC: 0.1184346, PRECISION: 0.0199074, PRECISION_RECALL_MIN_DEN: 0.0663580, RECALL: 0.0663580, MAP: 0.0308506, MRR: 0.0838789, NDCG: 0.0535139, F1: 0.0306268, HIT_RATE: 0.1990741, ARHR: 0.0881203, RMSE: 3.0700596, NOVELTY: 0.0051373, AVERAGE_POPULARITY: 0.6951856, DIVERSITY_MEAN_INTER_LIST: 0.7992036, DIVERSITY_HERFINDAHL: 0.9799162, COVERAGE_ITEM: 0.1006759, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.0604307, SHANNON_ENTROPY: 6.7153737, 
+SearchBayesianSkopt: Config 4 Exception. Config: {'topK': 11, 'alpha': 0.8914660852135354, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 145, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+

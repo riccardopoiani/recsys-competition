@@ -21,7 +21,7 @@ import pandas as pd
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train, get_UCM_train
-from src.model.Ensemble.Boosting.boosting_preprocessing import add_label
+from src.model.Ensemble.Boosting.boosting_preprocessing import get_label_array
 from src.utils.general_utility_functions import get_split_seed
 import matplotlib.pyplot as plt
 from src.model import new_best_models
@@ -65,14 +65,14 @@ train_df = _preprocess_dataframe(train_df)
 valid_df = _preprocess_dataframe(valid_df)
 
 print("Retrieving training labels...", end="")
-y_train, non_zero_count, total = add_label(data_frame=train_df, URM_train=URM_train)
+y_train, non_zero_count, total = get_label_array(data_frame=train_df, URM_train=URM_train)
 print("Done")
 
 train_df['label'] = y_train
 # -
 
 print("Retrieving training labels...", end="")
-y_train_valid, non_zero_count_vaid, total_valid = add_label(data_frame=valid_df, URM_train=URM_test)
+y_train_valid, non_zero_count_vaid, total_valid = get_label_array(data_frame=valid_df, URM_train=URM_test)
 print("Done")
 valid_df['label'] = y_train_valid
 

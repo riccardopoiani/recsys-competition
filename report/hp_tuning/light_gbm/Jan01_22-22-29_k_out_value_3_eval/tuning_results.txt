@@ -1,0 +1,11 @@
+Tuning LightGBM 
+Parameters: 
+ {'learning_rate': [0.01], 'min_gain_to_split': [0.001, 0.01, 0.1, 0.3, 0.5, 0.8], 'lambda_l1': [0.001, 0.01, 0.1, 1, 10, 100], 'lambda_l2': [0.001, 0.01, 0.1, 1, 10, 100], 'max_depth': [2, 4, 7, 11, 15, 32, 64], 'min_data_in_leaf': [5, 10, 20, 30, 60], 'bagging_fraction': [0.1, 0.2, 0.30000000000000004, 0.4, 0.5, 0.6000000000000001, 0.7000000000000001, 0.8, 0.9], 'bagging_frequency': [2, 4, 8, 16, 32], 'feature_fraction': [0.1, 0.2, 0.30000000000000004, 0.4, 0.5, 0.6000000000000001, 0.7000000000000001, 0.8, 0.9], 'num_leaves': [32, 48, 64, 128, 256], 'objective': ['lambdarank:map'], 'metric': ['map'], 'eval_at': [[10]], 'max_position': [10]}
+ N_trials: 100 
+Max iteration per trial: 10000
+Early stopping every 100 iterations
+
+
+ Begin tuning 
+
+{'learning_rate': 0.01, 'min_gain_to_split': 0.001, 'lambda_l1': 0.1, 'lambda_l2': 0.01, 'max_depth': 64, 'min_data_in_leaf': 10, 'bagging_fraction': 0.2, 'bagging_frequency': 16, 'feature_fraction': 0.9, 'num_leaves': 64, 'objective': 'lambdarank:map', 'metric': 'map', 'eval_at': [10], 'max_position': 10}

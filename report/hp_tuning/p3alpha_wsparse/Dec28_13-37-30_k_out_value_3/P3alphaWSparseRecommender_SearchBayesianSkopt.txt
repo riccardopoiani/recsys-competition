@@ -1,0 +1,257 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'topK': 112, 'alpha': 0.8644809463459031, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: New best config found. Config 1: {'topK': 815, 'alpha': 1.353775475947621, 'normalize_similarity': False} - results: ROC_AUC: 0.0348233, PRECISION: 0.0063826, PRECISION_RECALL_MIN_DEN: 0.0212755, RECALL: 0.0212755, MAP: 0.0082242, MRR: 0.0228170, NDCG: 0.0154807, F1: 0.0098195, HIT_RATE: 0.0638265, ARHR: 0.0237355, RMSE: 0.9994996, NOVELTY: 0.0047525, AVERAGE_POPULARITY: 0.1148404, DIVERSITY_MEAN_INTER_LIST: 0.9927411, DIVERSITY_HERFINDAHL: 0.9992689, COVERAGE_ITEM: 0.4317383, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3207013, SHANNON_ENTROPY: 11.5891834, 
+SearchBayesianSkopt: New best config found. Config 2: {'topK': 377, 'alpha': 0.15163601195393975, 'normalize_similarity': False} - results: ROC_AUC: 0.1185043, PRECISION: 0.0191844, PRECISION_RECALL_MIN_DEN: 0.0639478, RECALL: 0.0639478, MAP: 0.0309844, MRR: 0.0848263, NDCG: 0.0530096, F1: 0.0295144, HIT_RATE: 0.1918435, ARHR: 0.0888184, RMSE: 2.6878520, NOVELTY: 0.0051480, AVERAGE_POPULARITY: 0.6887128, DIVERSITY_MEAN_INTER_LIST: 0.6930890, DIVERSITY_HERFINDAHL: 0.9693053, COVERAGE_ITEM: 0.1599892, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.0476294, SHANNON_ENTROPY: 6.4419353, 
+SearchBayesianSkopt: Config 3 is suboptimal. Config: {'topK': 914, 'alpha': 1.8844337210022621, 'normalize_similarity': False} - results: ROC_AUC: 0.0327004, PRECISION: 0.0060965, PRECISION_RECALL_MIN_DEN: 0.0203218, RECALL: 0.0203218, MAP: 0.0077561, MRR: 0.0215741, NDCG: 0.0146816, F1: 0.0093793, HIT_RATE: 0.0609655, ARHR: 0.0224120, RMSE: 0.9999134, NOVELTY: 0.0047602, AVERAGE_POPULARITY: 0.1114282, DIVERSITY_MEAN_INTER_LIST: 0.9928007, DIVERSITY_HERFINDAHL: 0.9992749, COVERAGE_ITEM: 0.4266559, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3206688, SHANNON_ENTROPY: 11.5745336, 
+SearchBayesianSkopt: Config 4 Exception. Config: {'topK': 500, 'alpha': 0.7900494853632893, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 5 is suboptimal. Config: {'topK': 679, 'alpha': 1.391460559435247, 'normalize_similarity': False} - results: ROC_AUC: 0.0347449, PRECISION: 0.0063931, PRECISION_RECALL_MIN_DEN: 0.0213102, RECALL: 0.0213102, MAP: 0.0081964, MRR: 0.0227870, NDCG: 0.0154692, F1: 0.0098355, HIT_RATE: 0.0639305, ARHR: 0.0236787, RMSE: 0.9995638, NOVELTY: 0.0047427, AVERAGE_POPULARITY: 0.1162359, DIVERSITY_MEAN_INTER_LIST: 0.9926173, DIVERSITY_HERFINDAHL: 0.9992566, COVERAGE_ITEM: 0.4330900, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3212189, SHANNON_ENTROPY: 11.5926535, 
+SearchBayesianSkopt: Config 6 Exception. Config: {'topK': 876, 'alpha': 0.19702678371226862, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 7 Exception. Config: {'topK': 103, 'alpha': 0.48194710467757196, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 8 Exception. Config: {'topK': 652, 'alpha': 1.2988105460439467, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 9 is suboptimal. Config: {'topK': 150, 'alpha': 1.2836540746698388, 'normalize_similarity': False} - results: ROC_AUC: 0.0348661, PRECISION: 0.0063722, PRECISION_RECALL_MIN_DEN: 0.0212408, RECALL: 0.0212408, MAP: 0.0080992, MRR: 0.0227247, NDCG: 0.0153832, F1: 0.0098035, HIT_RATE: 0.0637224, ARHR: 0.0235020, RMSE: 0.9993741, NOVELTY: 0.0047102, AVERAGE_POPULARITY: 0.1179120, DIVERSITY_MEAN_INTER_LIST: 0.9926878, DIVERSITY_HERFINDAHL: 0.9992636, COVERAGE_ITEM: 0.4330360, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3260015, SHANNON_ENTROPY: 11.6173731, 
+SearchBayesianSkopt: Config 10 Exception. Config: {'topK': 770, 'alpha': 0.14823437118756647, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 11 Exception. Config: {'topK': 185, 'alpha': 1.6782562347543115, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 12 is suboptimal. Config: {'topK': 924, 'alpha': 1.811711603692131, 'normalize_similarity': False} - results: ROC_AUC: 0.0329063, PRECISION: 0.0061434, PRECISION_RECALL_MIN_DEN: 0.0204779, RECALL: 0.0204779, MAP: 0.0078113, MRR: 0.0217355, NDCG: 0.0147891, F1: 0.0094513, HIT_RATE: 0.0614336, ARHR: 0.0225756, RMSE: 0.9998915, NOVELTY: 0.0047597, AVERAGE_POPULARITY: 0.1112130, DIVERSITY_MEAN_INTER_LIST: 0.9928348, DIVERSITY_HERFINDAHL: 0.9992783, COVERAGE_ITEM: 0.4273587, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3204660, SHANNON_ENTROPY: 11.5767433, 
+SearchBayesianSkopt: Config 13 is suboptimal. Config: {'topK': 494, 'alpha': 0.5568187178077691, 'normalize_similarity': False} - results: ROC_AUC: 0.0872729, PRECISION: 0.0143883, PRECISION_RECALL_MIN_DEN: 0.0479609, RECALL: 0.0479609, MAP: 0.0228012, MRR: 0.0627740, NDCG: 0.0393271, F1: 0.0221358, HIT_RATE: 0.1438826, ARHR: 0.0655312, RMSE: 0.9514491, NOVELTY: 0.0051281, AVERAGE_POPULARITY: 0.2644705, DIVERSITY_MEAN_INTER_LIST: 0.9795724, DIVERSITY_HERFINDAHL: 0.9979521, COVERAGE_ITEM: 0.3832387, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.2284780, SHANNON_ENTROPY: 10.6790803, 
+SearchBayesianSkopt: Config 14 Exception. Config: {'topK': 502, 'alpha': 0.023766635941960386, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    self.W_sparse = normalize(self.W_sparse, norm='l1', axis=1)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 15 Exception. Config: {'topK': 973, 'alpha': 0.6542610253190796, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    :param items_to_compute:
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 16 Exception. Config: {'topK': 324, 'alpha': 1.375380496119596, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    :param items_to_compute:
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 17 Exception. Config: {'topK': 196, 'alpha': 0.7656138633390321, 'normalize_similarity': True} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/GraphBased/P3alphaWSparseRecommender.py", line 144, in fit
+    :param items_to_compute:
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/preprocessing/data.py", line 1574, in normalize
+    estimator='the normalize function', dtype=FLOAT_DTYPES)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 517, in check_array
+    accept_large_sparse=accept_large_sparse)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 350, in _ensure_sparse_format
+    allow_nan=force_all_finite == 'allow-nan')
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/sklearn/utils/validation.py", line 56, in _assert_all_finite
+    raise ValueError(msg_err.format(type_err, X.dtype))
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+
+SearchBayesianSkopt: Config 18 is suboptimal. Config: {'topK': 946, 'alpha': 0.2414715413553235, 'normalize_similarity': False} - results: ROC_AUC: 0.1037413, PRECISION: 0.0172337, PRECISION_RECALL_MIN_DEN: 0.0574456, RECALL: 0.0574456, MAP: 0.0264061, MRR: 0.0726706, NDCG: 0.0461739, F1: 0.0265133, HIT_RATE: 0.1723367, ARHR: 0.0758639, RMSE: 2.2902600, NOVELTY: 0.0051417, AVERAGE_POPULARITY: 0.6634905, DIVERSITY_MEAN_INTER_LIST: 0.8499275, DIVERSITY_HERFINDAHL: 0.9849883, COVERAGE_ITEM: 0.0723979, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.0681907, SHANNON_ENTROPY: 6.7660811, 
+SearchBayesianSkopt: Config 19 is suboptimal. Config: {'topK': 46, 'alpha': 1.3573311675291266, 'normalize_similarity': False} - results: ROC_AUC: 0.0340316, PRECISION: 0.0060913, PRECISION_RECALL_MIN_DEN: 0.0203045, RECALL: 0.0203045, MAP: 0.0079933, MRR: 0.0225103, NDCG: 0.0149912, F1: 0.0093713, HIT_RATE: 0.0609134, ARHR: 0.0232385, RMSE: 0.9995199, NOVELTY: 0.0046986, AVERAGE_POPULARITY: 0.1137454, DIVERSITY_MEAN_INTER_LIST: 0.9935209, DIVERSITY_HERFINDAHL: 0.9993469, COVERAGE_ITEM: 0.4384969, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3219282, SHANNON_ENTROPY: 11.6458037, 
+SearchBayesianSkopt: Config 20 is suboptimal. Config: {'topK': 240, 'alpha': 0.9540138039278703, 'normalize_similarity': False} - results: ROC_AUC: 0.0375718, PRECISION: 0.0067936, PRECISION_RECALL_MIN_DEN: 0.0226453, RECALL: 0.0226453, MAP: 0.0089239, MRR: 0.0249649, NDCG: 0.0166952, F1: 0.0104517, HIT_RATE: 0.0679359, ARHR: 0.0258589, RMSE: 0.9975662, NOVELTY: 0.0047274, AVERAGE_POPULARITY: 0.1243621, DIVERSITY_MEAN_INTER_LIST: 0.9921357, DIVERSITY_HERFINDAHL: 0.9992084, COVERAGE_ITEM: 0.4330360, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3190592, SHANNON_ENTROPY: 11.5698751, 
+SearchBayesianSkopt: Config 21 is suboptimal. Config: {'topK': 590, 'alpha': 1.0495557616026927, 'normalize_similarity': False} - results: ROC_AUC: 0.0375508, PRECISION: 0.0067936, PRECISION_RECALL_MIN_DEN: 0.0226453, RECALL: 0.0226453, MAP: 0.0088132, MRR: 0.0246150, NDCG: 0.0165721, F1: 0.0104517, HIT_RATE: 0.0679359, ARHR: 0.0255120, RMSE: 0.9982975, NOVELTY: 0.0047177, AVERAGE_POPULARITY: 0.1309003, DIVERSITY_MEAN_INTER_LIST: 0.9914037, DIVERSITY_HERFINDAHL: 0.9991352, COVERAGE_ITEM: 0.4335766, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3158777, SHANNON_ENTROPY: 11.5392008, 
+SearchBayesianSkopt: Config 22 is suboptimal. Config: {'topK': 587, 'alpha': 1.052128615103802, 'normalize_similarity': False} - results: ROC_AUC: 0.0374707, PRECISION: 0.0067936, PRECISION_RECALL_MIN_DEN: 0.0226453, RECALL: 0.0226453, MAP: 0.0088007, MRR: 0.0245794, NDCG: 0.0165575, F1: 0.0104517, HIT_RATE: 0.0679359, ARHR: 0.0254755, RMSE: 0.9983192, NOVELTY: 0.0047172, AVERAGE_POPULARITY: 0.1308171, DIVERSITY_MEAN_INTER_LIST: 0.9914083, DIVERSITY_HERFINDAHL: 0.9991357, COVERAGE_ITEM: 0.4333604, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3161596, SHANNON_ENTROPY: 11.5397981, 
+SearchBayesianSkopt: Config 23 is suboptimal. Config: {'topK': 599, 'alpha': 1.0037822163982713, 'normalize_similarity': False} - results: ROC_AUC: 0.0381209, PRECISION: 0.0068872, PRECISION_RECALL_MIN_DEN: 0.0229574, RECALL: 0.0229574, MAP: 0.0089510, MRR: 0.0249888, NDCG: 0.0168198, F1: 0.0105957, HIT_RATE: 0.0688722, ARHR: 0.0259056, RMSE: 0.9978581, NOVELTY: 0.0047247, AVERAGE_POPULARITY: 0.1323571, DIVERSITY_MEAN_INTER_LIST: 0.9913084, DIVERSITY_HERFINDAHL: 0.9991257, COVERAGE_ITEM: 0.4317924, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3154168, SHANNON_ENTROPY: 11.5295876, 
+SearchBayesianSkopt: Config 24 is suboptimal. Config: {'topK': 724, 'alpha': 1.0829652821071423, 'normalize_similarity': False} - results: ROC_AUC: 0.0372519, PRECISION: 0.0067364, PRECISION_RECALL_MIN_DEN: 0.0224546, RECALL: 0.0224546, MAP: 0.0087712, MRR: 0.0244386, NDCG: 0.0164578, F1: 0.0103636, HIT_RATE: 0.0673637, ARHR: 0.0253634, RMSE: 0.9985169, NOVELTY: 0.0047192, AVERAGE_POPULARITY: 0.1299512, DIVERSITY_MEAN_INTER_LIST: 0.9915683, DIVERSITY_HERFINDAHL: 0.9991517, COVERAGE_ITEM: 0.4322249, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3164107, SHANNON_ENTROPY: 11.5420969, 
+SearchBayesianSkopt: Config 25 is suboptimal. Config: {'topK': 571, 'alpha': 1.0615792867729716, 'normalize_similarity': False} - results: ROC_AUC: 0.0374303, PRECISION: 0.0067832, PRECISION_RECALL_MIN_DEN: 0.0226106, RECALL: 0.0226106, MAP: 0.0087754, MRR: 0.0245065, NDCG: 0.0165209, F1: 0.0104357, HIT_RATE: 0.0678319, ARHR: 0.0254011, RMSE: 0.9983972, NOVELTY: 0.0047169, AVERAGE_POPULARITY: 0.1302566, DIVERSITY_MEAN_INTER_LIST: 0.9914616, DIVERSITY_HERFINDAHL: 0.9991410, COVERAGE_ITEM: 0.4333063, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3169994, SHANNON_ENTROPY: 11.5441412, 
+SearchBayesianSkopt: Config 26 is suboptimal. Config: {'topK': 561, 'alpha': 1.037630970124413, 'normalize_similarity': False} - results: ROC_AUC: 0.0376401, PRECISION: 0.0068248, PRECISION_RECALL_MIN_DEN: 0.0227493, RECALL: 0.0227493, MAP: 0.0088361, MRR: 0.0246914, NDCG: 0.0166324, F1: 0.0104997, HIT_RATE: 0.0682480, ARHR: 0.0255870, RMSE: 0.9982066, NOVELTY: 0.0047195, AVERAGE_POPULARITY: 0.1307646, DIVERSITY_MEAN_INTER_LIST: 0.9914569, DIVERSITY_HERFINDAHL: 0.9991405, COVERAGE_ITEM: 0.4331441, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3164715, SHANNON_ENTROPY: 11.5411586, 
+SearchBayesianSkopt: Config 27 is suboptimal. Config: {'topK': 573, 'alpha': 1.059285401344163, 'normalize_similarity': False} - results: ROC_AUC: 0.0374772, PRECISION: 0.0067832, PRECISION_RECALL_MIN_DEN: 0.0226106, RECALL: 0.0226106, MAP: 0.0087935, MRR: 0.0245596, NDCG: 0.0165403, F1: 0.0104357, HIT_RATE: 0.0678319, ARHR: 0.0254548, RMSE: 0.9983792, NOVELTY: 0.0047167, AVERAGE_POPULARITY: 0.1302878, DIVERSITY_MEAN_INTER_LIST: 0.9914603, DIVERSITY_HERFINDAHL: 0.9991409, COVERAGE_ITEM: 0.4339011, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3165567, SHANNON_ENTROPY: 11.5440775, 
+SearchBayesianSkopt: Config 28 is suboptimal. Config: {'topK': 573, 'alpha': 1.057536747429227, 'normalize_similarity': False} - results: ROC_AUC: 0.0374598, PRECISION: 0.0067936, PRECISION_RECALL_MIN_DEN: 0.0226453, RECALL: 0.0226453, MAP: 0.0087998, MRR: 0.0245755, NDCG: 0.0165568, F1: 0.0104517, HIT_RATE: 0.0679359, ARHR: 0.0254723, RMSE: 0.9983658, NOVELTY: 0.0047174, AVERAGE_POPULARITY: 0.1304101, DIVERSITY_MEAN_INTER_LIST: 0.9914564, DIVERSITY_HERFINDAHL: 0.9991405, COVERAGE_ITEM: 0.4335226, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3166849, SHANNON_ENTROPY: 11.5433046, 
+SearchBayesianSkopt: Config 29 is suboptimal. Config: {'topK': 566, 'alpha': 1.089721060548329, 'normalize_similarity': False} - results: ROC_AUC: 0.0370431, PRECISION: 0.0066844, PRECISION_RECALL_MIN_DEN: 0.0222812, RECALL: 0.0222812, MAP: 0.0086857, MRR: 0.0242405, NDCG: 0.0163210, F1: 0.0102836, HIT_RATE: 0.0668435, ARHR: 0.0251365, RMSE: 0.9985926, NOVELTY: 0.0047166, AVERAGE_POPULARITY: 0.1284326, DIVERSITY_MEAN_INTER_LIST: 0.9916032, DIVERSITY_HERFINDAHL: 0.9991552, COVERAGE_ITEM: 0.4337929, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3176365, SHANNON_ENTROPY: 11.5528029, 
+SearchBayesianSkopt: Config 30 is suboptimal. Config: {'topK': 557, 'alpha': 1.0149323687079923, 'normalize_similarity': False} - results: ROC_AUC: 0.0378307, PRECISION: 0.0068560, PRECISION_RECALL_MIN_DEN: 0.0228534, RECALL: 0.0228534, MAP: 0.0088788, MRR: 0.0247759, NDCG: 0.0167066, F1: 0.0105477, HIT_RATE: 0.0685601, ARHR: 0.0256905, RMSE: 0.9979953, NOVELTY: 0.0047215, AVERAGE_POPULARITY: 0.1313059, DIVERSITY_MEAN_INTER_LIST: 0.9914295, DIVERSITY_HERFINDAHL: 0.9991378, COVERAGE_ITEM: 0.4322790, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3164461, SHANNON_ENTROPY: 11.5380142, 
+SearchBayesianSkopt: Config 31 is suboptimal. Config: {'topK': 576, 'alpha': 1.0532671244158442, 'normalize_similarity': False} - results: ROC_AUC: 0.0374714, PRECISION: 0.0067988, PRECISION_RECALL_MIN_DEN: 0.0226626, RECALL: 0.0226626, MAP: 0.0088057, MRR: 0.0245932, NDCG: 0.0165681, F1: 0.0104597, HIT_RATE: 0.0679879, ARHR: 0.0254900, RMSE: 0.9983317, NOVELTY: 0.0047177, AVERAGE_POPULARITY: 0.1306036, DIVERSITY_MEAN_INTER_LIST: 0.9914396, DIVERSITY_HERFINDAHL: 0.9991388, COVERAGE_ITEM: 0.4339011, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3161811, SHANNON_ENTROPY: 11.5420221, 
+SearchBayesianSkopt: Config 32 is suboptimal. Config: {'topK': 614, 'alpha': 1.0508711422680355, 'normalize_similarity': False} - results: ROC_AUC: 0.0376061, PRECISION: 0.0068040, PRECISION_RECALL_MIN_DEN: 0.0226800, RECALL: 0.0226800, MAP: 0.0088203, MRR: 0.0246370, NDCG: 0.0165918, F1: 0.0104677, HIT_RATE: 0.0680400, ARHR: 0.0255337, RMSE: 0.9983014, NOVELTY: 0.0047174, AVERAGE_POPULARITY: 0.1311273, DIVERSITY_MEAN_INTER_LIST: 0.9913477, DIVERSITY_HERFINDAHL: 0.9991296, COVERAGE_ITEM: 0.4330360, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3159867, SHANNON_ENTROPY: 11.5367902, 
+SearchBayesianSkopt: Config 33 is suboptimal. Config: {'topK': 544, 'alpha': 1.0337184812844624, 'normalize_similarity': False} - results: ROC_AUC: 0.0375758, PRECISION: 0.0067936, PRECISION_RECALL_MIN_DEN: 0.0226453, RECALL: 0.0226453, MAP: 0.0088368, MRR: 0.0246924, NDCG: 0.0166000, F1: 0.0104517, HIT_RATE: 0.0679359, ARHR: 0.0255886, RMSE: 0.9981784, NOVELTY: 0.0047190, AVERAGE_POPULARITY: 0.1305804, DIVERSITY_MEAN_INTER_LIST: 0.9914689, DIVERSITY_HERFINDAHL: 0.9991417, COVERAGE_ITEM: 0.4334144, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3163853, SHANNON_ENTROPY: 11.5420684, 
+SearchBayesianSkopt: Config 34 is suboptimal. Config: {'topK': 550, 'alpha': 1.0098782349730913, 'normalize_similarity': False} - results: ROC_AUC: 0.0379962, PRECISION: 0.0068456, PRECISION_RECALL_MIN_DEN: 0.0228187, RECALL: 0.0228187, MAP: 0.0088953, MRR: 0.0248480, NDCG: 0.0167213, F1: 0.0105317, HIT_RATE: 0.0684561, ARHR: 0.0257538, RMSE: 0.9979469, NOVELTY: 0.0047229, AVERAGE_POPULARITY: 0.1313015, DIVERSITY_MEAN_INTER_LIST: 0.9914158, DIVERSITY_HERFINDAHL: 0.9991364, COVERAGE_ITEM: 0.4323331, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3162707, SHANNON_ENTROPY: 11.5372577, 
+SearchBayesianSkopt: Config 35 is suboptimal. Config: {'topK': 607, 'alpha': 1.0865582791195432, 'normalize_similarity': False} - results: ROC_AUC: 0.0371752, PRECISION: 0.0067000, PRECISION_RECALL_MIN_DEN: 0.0223332, RECALL: 0.0223332, MAP: 0.0087062, MRR: 0.0242655, NDCG: 0.0163554, F1: 0.0103076, HIT_RATE: 0.0669996, ARHR: 0.0251769, RMSE: 0.9985639, NOVELTY: 0.0047196, AVERAGE_POPULARITY: 0.1289805, DIVERSITY_MEAN_INTER_LIST: 0.9915333, DIVERSITY_HERFINDAHL: 0.9991482, COVERAGE_ITEM: 0.4335226, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3171044, SHANNON_ENTROPY: 11.5484443, 
+SearchBayesianSkopt: Config 36 is suboptimal. Config: {'topK': 613, 'alpha': 0.9876796826345045, 'normalize_similarity': False} - results: ROC_AUC: 0.0384297, PRECISION: 0.0069184, PRECISION_RECALL_MIN_DEN: 0.0230615, RECALL: 0.0230615, MAP: 0.0090508, MRR: 0.0252835, NDCG: 0.0169605, F1: 0.0106437, HIT_RATE: 0.0691844, ARHR: 0.0262026, RMSE: 0.9976613, NOVELTY: 0.0047273, AVERAGE_POPULARITY: 0.1332100, DIVERSITY_MEAN_INTER_LIST: 0.9912391, DIVERSITY_HERFINDAHL: 0.9991188, COVERAGE_ITEM: 0.4308191, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3150744, SHANNON_ENTROPY: 11.5233263, 
+SearchBayesianSkopt: Config 37 is suboptimal. Config: {'topK': 538, 'alpha': 1.0922258687825532, 'normalize_similarity': False} - results: ROC_AUC: 0.0369109, PRECISION: 0.0066739, PRECISION_RECALL_MIN_DEN: 0.0222465, RECALL: 0.0222465, MAP: 0.0086617, MRR: 0.0241597, NDCG: 0.0162814, F1: 0.0102676, HIT_RATE: 0.0667395, ARHR: 0.0250600, RMSE: 0.9986140, NOVELTY: 0.0047173, AVERAGE_POPULARITY: 0.1279459, DIVERSITY_MEAN_INTER_LIST: 0.9916814, DIVERSITY_HERFINDAHL: 0.9991630, COVERAGE_ITEM: 0.4343336, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3176005, SHANNON_ENTROPY: 11.5562180, 
+SearchBayesianSkopt: Config 38 is suboptimal. Config: {'topK': 588, 'alpha': 0.972671335277079, 'normalize_similarity': False} - results: ROC_AUC: 0.0385402, PRECISION: 0.0069809, PRECISION_RECALL_MIN_DEN: 0.0232695, RECALL: 0.0232695, MAP: 0.0090892, MRR: 0.0253922, NDCG: 0.0170654, F1: 0.0107398, HIT_RATE: 0.0698086, ARHR: 0.0263143, RMSE: 0.9974793, NOVELTY: 0.0047300, AVERAGE_POPULARITY: 0.1335379, DIVERSITY_MEAN_INTER_LIST: 0.9912501, DIVERSITY_HERFINDAHL: 0.9991199, COVERAGE_ITEM: 0.4302244, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3147400, SHANNON_ENTROPY: 11.5197682, 
+SearchBayesianSkopt: Config 39 is suboptimal. Config: {'topK': 591, 'alpha': 1.0238509154071849, 'normalize_similarity': False} - results: ROC_AUC: 0.0378969, PRECISION: 0.0068508, PRECISION_RECALL_MIN_DEN: 0.0228360, RECALL: 0.0228360, MAP: 0.0088886, MRR: 0.0248144, NDCG: 0.0167135, F1: 0.0105397, HIT_RATE: 0.0685081, ARHR: 0.0257249, RMSE: 0.9980689, NOVELTY: 0.0047193, AVERAGE_POPULARITY: 0.1316725, DIVERSITY_MEAN_INTER_LIST: 0.9913501, DIVERSITY_HERFINDAHL: 0.9991299, COVERAGE_ITEM: 0.4325493, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3159552, SHANNON_ENTROPY: 11.5348905, 
+SearchBayesianSkopt: Config 40 is suboptimal. Config: {'topK': 574, 'alpha': 1.0462976207579868, 'normalize_similarity': False} - results: ROC_AUC: 0.0375599, PRECISION: 0.0068092, PRECISION_RECALL_MIN_DEN: 0.0226973, RECALL: 0.0226973, MAP: 0.0088140, MRR: 0.0246174, NDCG: 0.0165894, F1: 0.0104757, HIT_RATE: 0.0680920, ARHR: 0.0255145, RMSE: 0.9982757, NOVELTY: 0.0047191, AVERAGE_POPULARITY: 0.1307808, DIVERSITY_MEAN_INTER_LIST: 0.9914279, DIVERSITY_HERFINDAHL: 0.9991376, COVERAGE_ITEM: 0.4335766, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3162320, SHANNON_ENTROPY: 11.5408158, 
+SearchBayesianSkopt: Config 41 is suboptimal. Config: {'topK': 598, 'alpha': 1.1121752700012741, 'normalize_similarity': False} - results: ROC_AUC: 0.0368913, PRECISION: 0.0066479, PRECISION_RECALL_MIN_DEN: 0.0221598, RECALL: 0.0221598, MAP: 0.0086287, MRR: 0.0240400, NDCG: 0.0162178, F1: 0.0102276, HIT_RATE: 0.0664794, ARHR: 0.0249478, RMSE: 0.9987206, NOVELTY: 0.0047187, AVERAGE_POPULARITY: 0.1275483, DIVERSITY_MEAN_INTER_LIST: 0.9916345, DIVERSITY_HERFINDAHL: 0.9991583, COVERAGE_ITEM: 0.4339551, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3178879, SHANNON_ENTROPY: 11.5559324, 
+SearchBayesianSkopt: Config 42 is suboptimal. Config: {'topK': 591, 'alpha': 1.052667639129637, 'normalize_similarity': False} - results: ROC_AUC: 0.0374913, PRECISION: 0.0068040, PRECISION_RECALL_MIN_DEN: 0.0226800, RECALL: 0.0226800, MAP: 0.0088027, MRR: 0.0245854, NDCG: 0.0165709, F1: 0.0104677, HIT_RATE: 0.0680400, ARHR: 0.0254814, RMSE: 0.9983224, NOVELTY: 0.0047168, AVERAGE_POPULARITY: 0.1308695, DIVERSITY_MEAN_INTER_LIST: 0.9914014, DIVERSITY_HERFINDAHL: 0.9991350, COVERAGE_ITEM: 0.4333063, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3161398, SHANNON_ENTROPY: 11.5394667, 
+SearchBayesianSkopt: Config 43 is suboptimal. Config: {'topK': 572, 'alpha': 1.1232075132871433, 'normalize_similarity': False} - results: ROC_AUC: 0.0367277, PRECISION: 0.0066167, PRECISION_RECALL_MIN_DEN: 0.0220558, RECALL: 0.0220558, MAP: 0.0085652, MRR: 0.0238748, NDCG: 0.0161208, F1: 0.0101796, HIT_RATE: 0.0661673, ARHR: 0.0247729, RMSE: 0.9987843, NOVELTY: 0.0047185, AVERAGE_POPULARITY: 0.1271342, DIVERSITY_MEAN_INTER_LIST: 0.9916686, DIVERSITY_HERFINDAHL: 0.9991617, COVERAGE_ITEM: 0.4339011, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3183693, SHANNON_ENTROPY: 11.5584761, 
+SearchBayesianSkopt: Config 44 is suboptimal. Config: {'topK': 573, 'alpha': 1.0410706909240983, 'normalize_similarity': False} - results: ROC_AUC: 0.0376317, PRECISION: 0.0068248, PRECISION_RECALL_MIN_DEN: 0.0227493, RECALL: 0.0227493, MAP: 0.0088306, MRR: 0.0246673, NDCG: 0.0166237, F1: 0.0104997, HIT_RATE: 0.0682480, ARHR: 0.0255643, RMSE: 0.9982321, NOVELTY: 0.0047181, AVERAGE_POPULARITY: 0.1308437, DIVERSITY_MEAN_INTER_LIST: 0.9914252, DIVERSITY_HERFINDAHL: 0.9991374, COVERAGE_ITEM: 0.4333063, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3163289, SHANNON_ENTROPY: 11.5404891, 
+SearchBayesianSkopt: Config 45 is suboptimal. Config: {'topK': 605, 'alpha': 1.044469814422602, 'normalize_similarity': False} - results: ROC_AUC: 0.0376606, PRECISION: 0.0068144, PRECISION_RECALL_MIN_DEN: 0.0227147, RECALL: 0.0227147, MAP: 0.0088331, MRR: 0.0246762, NDCG: 0.0166172, F1: 0.0104837, HIT_RATE: 0.0681440, ARHR: 0.0255724, RMSE: 0.9982508, NOVELTY: 0.0047180, AVERAGE_POPULARITY: 0.1312335, DIVERSITY_MEAN_INTER_LIST: 0.9913426, DIVERSITY_HERFINDAHL: 0.9991291, COVERAGE_ITEM: 0.4327656, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3160486, SHANNON_ENTROPY: 11.5361217, 
+SearchBayesianSkopt: Config 46 is suboptimal. Config: {'topK': 531, 'alpha': 1.0531292621702195, 'normalize_similarity': False} - results: ROC_AUC: 0.0372996, PRECISION: 0.0067624, PRECISION_RECALL_MIN_DEN: 0.0225413, RECALL: 0.0225413, MAP: 0.0087629, MRR: 0.0244861, NDCG: 0.0164871, F1: 0.0104037, HIT_RATE: 0.0676238, ARHR: 0.0253754, RMSE: 0.9983444, NOVELTY: 0.0047170, AVERAGE_POPULARITY: 0.1298916, DIVERSITY_MEAN_INTER_LIST: 0.9915218, DIVERSITY_HERFINDAHL: 0.9991470, COVERAGE_ITEM: 0.4335766, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3168960, SHANNON_ENTROPY: 11.5462291, 
+SearchBayesianSkopt: Config 47 is suboptimal. Config: {'topK': 595, 'alpha': 1.051244600786869, 'normalize_similarity': False} - results: ROC_AUC: 0.0375541, PRECISION: 0.0067988, PRECISION_RECALL_MIN_DEN: 0.0226626, RECALL: 0.0226626, MAP: 0.0088109, MRR: 0.0246093, NDCG: 0.0165757, F1: 0.0104597, HIT_RATE: 0.0679879, ARHR: 0.0255057, RMSE: 0.9983098, NOVELTY: 0.0047173, AVERAGE_POPULARITY: 0.1309656, DIVERSITY_MEAN_INTER_LIST: 0.9913851, DIVERSITY_HERFINDAHL: 0.9991334, COVERAGE_ITEM: 0.4329278, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3162673, SHANNON_ENTROPY: 11.5385603, 
+SearchBayesianSkopt: Config 48 is suboptimal. Config: {'topK': 599, 'alpha': 0.9272192715344985, 'normalize_similarity': False} - results: ROC_AUC: 0.0393595, PRECISION: 0.0070797, PRECISION_RECALL_MIN_DEN: 0.0235990, RECALL: 0.0235990, MAP: 0.0093079, MRR: 0.0260396, NDCG: 0.0174103, F1: 0.0108918, HIT_RATE: 0.0707969, ARHR: 0.0269661, RMSE: 0.9967242, NOVELTY: 0.0047378, AVERAGE_POPULARITY: 0.1362387, DIVERSITY_MEAN_INTER_LIST: 0.9910586, DIVERSITY_HERFINDAHL: 0.9991007, COVERAGE_ITEM: 0.4282779, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3123585, SHANNON_ENTROPY: 11.4991999, 
+SearchBayesianSkopt: Config 49 is suboptimal. Config: {'topK': 470, 'alpha': 0.7309039242245242, 'normalize_similarity': False} - results: ROC_AUC: 0.0506493, PRECISION: 0.0089680, PRECISION_RECALL_MIN_DEN: 0.0298932, RECALL: 0.0298932, MAP: 0.0124134, MRR: 0.0345271, NDCG: 0.0226715, F1: 0.0137969, HIT_RATE: 0.0896796, ARHR: 0.0358668, RMSE: 0.9881287, NOVELTY: 0.0048388, AVERAGE_POPULARITY: 0.1580590, DIVERSITY_MEAN_INTER_LIST: 0.9899949, DIVERSITY_HERFINDAHL: 0.9989943, COVERAGE_ITEM: 0.4163287, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.2954260, SHANNON_ENTROPY: 11.3602601, 
+SearchBayesianSkopt: Config 50 is suboptimal. Config: {'topK': 575, 'alpha': 1.0509053533277992, 'normalize_similarity': False} - results: ROC_AUC: 0.0375143, PRECISION: 0.0068092, PRECISION_RECALL_MIN_DEN: 0.0226973, RECALL: 0.0226973, MAP: 0.0088162, MRR: 0.0246226, NDCG: 0.0165901, F1: 0.0104757, HIT_RATE: 0.0680920, ARHR: 0.0255203, RMSE: 0.9983131, NOVELTY: 0.0047180, AVERAGE_POPULARITY: 0.1306786, DIVERSITY_MEAN_INTER_LIST: 0.9914358, DIVERSITY_HERFINDAHL: 0.9991384, COVERAGE_ITEM: 0.4337388, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3161803, SHANNON_ENTROPY: 11.5414233, 
+SearchBayesianSkopt: Config 51 is suboptimal. Config: {'topK': 574, 'alpha': 1.0394434456657184, 'normalize_similarity': False} - results: ROC_AUC: 0.0376787, PRECISION: 0.0068196, PRECISION_RECALL_MIN_DEN: 0.0227320, RECALL: 0.0227320, MAP: 0.0088509, MRR: 0.0247267, NDCG: 0.0166408, F1: 0.0104917, HIT_RATE: 0.0681960, ARHR: 0.0256244, RMSE: 0.9982178, NOVELTY: 0.0047185, AVERAGE_POPULARITY: 0.1308647, DIVERSITY_MEAN_INTER_LIST: 0.9914203, DIVERSITY_HERFINDAHL: 0.9991369, COVERAGE_ITEM: 0.4336848, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3159678, SHANNON_ENTROPY: 11.5400691, 
+SearchBayesianSkopt: Config 52 is suboptimal. Config: {'topK': 653, 'alpha': 1.085292692577448, 'normalize_similarity': False} - results: ROC_AUC: 0.0371623, PRECISION: 0.0067052, PRECISION_RECALL_MIN_DEN: 0.0223505, RECALL: 0.0223505, MAP: 0.0087001, MRR: 0.0242434, NDCG: 0.0163537, F1: 0.0103156, HIT_RATE: 0.0670516, ARHR: 0.0251592, RMSE: 0.9985467, NOVELTY: 0.0047191, AVERAGE_POPULARITY: 0.1292533, DIVERSITY_MEAN_INTER_LIST: 0.9915365, DIVERSITY_HERFINDAHL: 0.9991485, COVERAGE_ITEM: 0.4333604, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3165299, SHANNON_ENTROPY: 11.5455528, 
+SearchBayesianSkopt: Config 53 is suboptimal. Config: {'topK': 596, 'alpha': 1.018117080314328, 'normalize_similarity': False} - results: ROC_AUC: 0.0379496, PRECISION: 0.0068456, PRECISION_RECALL_MIN_DEN: 0.0228187, RECALL: 0.0228187, MAP: 0.0088997, MRR: 0.0248477, NDCG: 0.0167216, F1: 0.0105317, HIT_RATE: 0.0684561, ARHR: 0.0257582, RMSE: 0.9980107, NOVELTY: 0.0047206, AVERAGE_POPULARITY: 0.1319250, DIVERSITY_MEAN_INTER_LIST: 0.9913384, DIVERSITY_HERFINDAHL: 0.9991287, COVERAGE_ITEM: 0.4324953, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3157957, SHANNON_ENTROPY: 11.5337651, 
+SearchBayesianSkopt: Config 54 is suboptimal. Config: {'topK': 595, 'alpha': 1.0247582850421715, 'normalize_similarity': False} - results: ROC_AUC: 0.0378557, PRECISION: 0.0068508, PRECISION_RECALL_MIN_DEN: 0.0228360, RECALL: 0.0228360, MAP: 0.0088880, MRR: 0.0248107, NDCG: 0.0167117, F1: 0.0105397, HIT_RATE: 0.0685081, ARHR: 0.0257221, RMSE: 0.9980762, NOVELTY: 0.0047205, AVERAGE_POPULARITY: 0.1316849, DIVERSITY_MEAN_INTER_LIST: 0.9913484, DIVERSITY_HERFINDAHL: 0.9991297, COVERAGE_ITEM: 0.4329819, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3157141, SHANNON_ENTROPY: 11.5350855, 
+SearchBayesianSkopt: Config 55 is suboptimal. Config: {'topK': 574, 'alpha': 0.9345011773274292, 'normalize_similarity': False} - results: ROC_AUC: 0.0390917, PRECISION: 0.0070901, PRECISION_RECALL_MIN_DEN: 0.0236337, RECALL: 0.0236337, MAP: 0.0092191, MRR: 0.0257819, NDCG: 0.0173239, F1: 0.0109078, HIT_RATE: 0.0709010, ARHR: 0.0267036, RMSE: 0.9968867, NOVELTY: 0.0047371, AVERAGE_POPULARITY: 0.1352947, DIVERSITY_MEAN_INTER_LIST: 0.9911075, DIVERSITY_HERFINDAHL: 0.9991056, COVERAGE_ITEM: 0.4289267, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3128206, SHANNON_ENTROPY: 11.5043310, 
+SearchBayesianSkopt: Config 56 is suboptimal. Config: {'topK': 561, 'alpha': 1.0857824934008482, 'normalize_similarity': False} - results: ROC_AUC: 0.0370752, PRECISION: 0.0066844, PRECISION_RECALL_MIN_DEN: 0.0222812, RECALL: 0.0222812, MAP: 0.0086938, MRR: 0.0242646, NDCG: 0.0163305, F1: 0.0102836, HIT_RATE: 0.0668435, ARHR: 0.0251606, RMSE: 0.9985684, NOVELTY: 0.0047181, AVERAGE_POPULARITY: 0.1286727, DIVERSITY_MEAN_INTER_LIST: 0.9915970, DIVERSITY_HERFINDAHL: 0.9991545, COVERAGE_ITEM: 0.4333604, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3177421, SHANNON_ENTROPY: 11.5518382, 
+SearchBayesianSkopt: Config 57 is suboptimal. Config: {'topK': 558, 'alpha': 1.1331267336059279, 'normalize_similarity': False} - results: ROC_AUC: 0.0365037, PRECISION: 0.0065907, PRECISION_RECALL_MIN_DEN: 0.0219691, RECALL: 0.0219691, MAP: 0.0085103, MRR: 0.0237018, NDCG: 0.0160309, F1: 0.0101396, HIT_RATE: 0.0659072, ARHR: 0.0246040, RMSE: 0.9988368, NOVELTY: 0.0047199, AVERAGE_POPULARITY: 0.1265492, DIVERSITY_MEAN_INTER_LIST: 0.9917358, DIVERSITY_HERFINDAHL: 0.9991684, COVERAGE_ITEM: 0.4343336, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3185074, SHANNON_ENTROPY: 11.5618875, 
+SearchBayesianSkopt: Config 58 is suboptimal. Config: {'topK': 601, 'alpha': 1.0755075852558598, 'normalize_similarity': False} - results: ROC_AUC: 0.0373447, PRECISION: 0.0067156, PRECISION_RECALL_MIN_DEN: 0.0223852, RECALL: 0.0223852, MAP: 0.0087332, MRR: 0.0243920, NDCG: 0.0164091, F1: 0.0103316, HIT_RATE: 0.0671556, ARHR: 0.0252806, RMSE: 0.9984905, NOVELTY: 0.0047185, AVERAGE_POPULARITY: 0.1297161, DIVERSITY_MEAN_INTER_LIST: 0.9914729, DIVERSITY_HERFINDAHL: 0.9991421, COVERAGE_ITEM: 0.4331441, COVERAGE_USER: 1.0000000, DIVERSITY_GINI: 0.3171257, SHANNON_ENTROPY: 11.5456557, 
