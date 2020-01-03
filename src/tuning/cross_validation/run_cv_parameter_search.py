@@ -3,7 +3,7 @@ import os
 import traceback
 from functools import partial
 
-from course_lib.KNN import ItemKNNCBFRecommender
+from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
@@ -16,7 +16,7 @@ from src.tuning.cross_validation.hyper_parameters_ranges import get_hyper_parame
     add_knn_similarity_type_hyper_parameters
 
 KNN_RECOMMENDERS = [ItemKNNCFRecommender, UserKNNCFRecommender, NewUserKNNCFRecommender, ItemKNNCBFRecommender,
-                    ItemKNNCBFCFRecommender, UserKNNCBFRecommender, UserKNNCBFCFRecommender]
+                    ItemKNNCBFCFRecommender, UserKNNCBFRecommender, UserKNNCBFCFRecommender, ItemKNNCBFRecommender]
 
 
 def run_tuning_on_similarity_type(similarity_type,

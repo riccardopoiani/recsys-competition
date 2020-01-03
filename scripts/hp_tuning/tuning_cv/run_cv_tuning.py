@@ -2,11 +2,12 @@ import argparse
 import multiprocessing
 from datetime import datetime
 
+from Base.IR_feature_weighting import TF_IDF
+
 from course_lib.Base.Evaluation.Evaluator import *
-from course_lib.FeatureWeighting.CFW_D_Similarity_Linalg import CFW_D_Similarity_Linalg
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
-from course_lib.KNN import ItemKNNCBFRecommender
+from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import MatrixFactorization_AsySVD_Cython
@@ -55,6 +56,7 @@ COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
     # Graph-based
     "p3alpha": P3alphaRecommender,
     "rp3beta": RP3betaRecommender,
+    "rp3beta_side_info": RP3betaRecommender,
 
     # Matrix Factorization
     "pure_svd": NewPureSVDRecommender,
@@ -70,6 +72,7 @@ CONTENT_RECOMMENDER_CLASS_DICT = {
     # Pure CBF KNN
     "new_item_cbf": NewItemKNNCBFRecommender,
     "item_cbf_cf": ItemKNNCBFCFRecommender,
+    "item_cbf_all": ItemKNNCBFRecommender
 }
 
 DEMOGRAPHIC_RECOMMENDER_CLASS_DICT = {
@@ -171,6 +174,17 @@ def main():
                                 metric_to_optimize="MAP", output_folder_path=output_folder_path,
                                 parallelize_search=args.parallelize, n_jobs=args.n_jobs,
                                 n_cases=args.n_cases, n_random_starts=args.n_random_starts)
+    elif args.recommender_name == "rp3beta_side_info":
+        temp_list = []
+        for i, URM in enumerate(URM_train_list):
+            temp = sps.vstack([URM, ICM_train_list[i].T], format="csr")
+            temp = TF_IDF(temp).tocsr()
+            temp_list.append(temp)
+
+        run_cv_parameter_search(URM_train_list=temp_list, recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
+                                evaluator_validation_list=evaluator_list, metric_to_optimize="MAP",
+                                output_folder_path=output_folder_path, parallelize_search=args.paralellize,
+                                n_jobs=args.n_jobs, n_cases=args.n_cases, n_random_starts=args.n_random_starts)
 
     print("...tuning ended")
 

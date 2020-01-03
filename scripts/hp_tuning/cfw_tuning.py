@@ -44,5 +44,5 @@ if __name__ == '__main__':
     run_parameter_search(URM_train=URM_train, output_folder_path=version_path,
                          evaluator_test=evaluator,
                          W_sparse_CF=item_cf.W_sparse, ICM_all=ICM_all,
-                         n_cases=50, n_random_starts=25)
+                         n_cases=70, n_random_starts=30)
     print("...tuning ended")

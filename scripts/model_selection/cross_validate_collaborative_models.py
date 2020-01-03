@@ -2,10 +2,10 @@ import os
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
-from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from scripts.model_selection.cross_validate_utils import write_results_on_file, get_seed_list
 from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_ignore_users
+from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -13,16 +13,16 @@ from src.utils.general_utility_functions import get_project_root_path
 K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = True
-LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2**16-1  # Remove users above or equal this threshold (default value: 2**16-1)
+LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
+UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 # VARIABLES TO MODIFY
-model_name = "item_cf"
-recommender_class = ItemKNNCFRecommender
-model_parameters = {'topK': 2973, 'shrink': 117, 'similarity': 'asymmetric', 'normalize': True,
-                    'asymmetric_alpha': 0.007315425738737337, 'feature_weighting': 'BM25',
-                    'interactions_feature_weighting': 'TF-IDF'}
+model_parameters = {'topK': 995, 'shrink': 9, 'similarity': 'cosine', 'normalize': True,
+                    'feature_weighting': 'TF-IDF'}
+
+recommender_class = NewUserKNNCFRecommender
+model_name = "UserCF_lt_23_new_best_models"
 
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data

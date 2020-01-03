@@ -100,7 +100,7 @@ HYPER_PARAMETERS_RANGE = {
         "topK": Integer(1, 1000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False]),
-        "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
+        # "interactions_feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
     NewItemKNNCBFRecommender.RECOMMENDER_NAME: {
         "topK": Integer(1, 1000),

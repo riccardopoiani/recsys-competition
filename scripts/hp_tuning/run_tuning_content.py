@@ -3,7 +3,6 @@ from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
-from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.RecSys2019Reader_utils import get_ICM_numerical
@@ -12,8 +11,8 @@ from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.tuning.holdout_validation.run_parameter_search_item_content import run_parameter_search_item_content
 from src.utils.general_utility_functions import get_split_seed
 
-N_RANDOM_STARTS = 20
-N_CASES = 60
+N_RANDOM_STARTS = 30
+N_CASES = 70
 RECOMMENDER_CLASS_DICT = {
     "item_cbf_numerical": ItemKNNCBFRecommender,
     "item_cbf_categorical": ItemKNNCBFRecommender,
@@ -44,7 +43,6 @@ def main():
 
     # Data loading
     data_reader = RecSys2019Reader(args.reader_path)
-    data_reader = DataPreprocessingRemoveColdUsersItems(data_reader, threshold_items=-1, threshold_users=20)
     data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
                                                force_new_split=True, seed=args.seed)
     data_reader.load_data()

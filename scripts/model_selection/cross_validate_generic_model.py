@@ -1,6 +1,7 @@
 import os
-import numpy as np
 from datetime import datetime
+
+import numpy as np
 
 from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
@@ -8,8 +9,7 @@ from scripts.model_selection.cross_validate_utils import get_seed_list, write_re
 from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, get_ignore_users, get_ignore_users_age
 from src.feature.demographics_content import get_user_demographic
-from src.model import new_best_models
-from src.model.HybridRecommender.HybridRankBasedRecommender import HybridRankBasedRecommender
+from src.model import new_best_models, best_models_lower_threshold_23
 from src.tuning.cross_validation.CrossSearchAbstractClass import compute_mean_std_result_dict, get_result_string
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -17,7 +17,7 @@ from src.utils.general_utility_functions import get_project_root_path
 K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
-LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
+LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
 UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
@@ -25,7 +25,7 @@ AGE_TO_KEEP = [4]  # Default []
 
 
 # VARIABLES TO MODIFY
-model_name = "ItemCBFCF"
+model_name = "ItemCBF_CF_23"
 
 
 def _get_all_models(URM_train, ICM_all, UCM_all):
@@ -42,7 +42,7 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_train)
+    model = best_models_lower_threshold_23.ItemCBF_CF.get_model(URM_train=URM_train,ICM_train=ICM_train)
     return model
 
 

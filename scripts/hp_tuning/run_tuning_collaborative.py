@@ -4,7 +4,6 @@ from datetime import datetime
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.Base.IR_feature_weighting import TF_IDF
 from course_lib.ParameterTuning.run_parameter_search import *
-from src.data_management.DataPreprocessing import DataPreprocessingRemoveColdUsersItems
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_ICM_train

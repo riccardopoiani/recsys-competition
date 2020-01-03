@@ -1,0 +1,1022 @@
+CrossSearchBayesianSkopt: Config 0 Exception. Config: {'topK': 554, 'shrink': 528, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 1 Exception. Config: {'topK': 513, 'shrink': 347, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 2 Exception. Config: {'topK': 241, 'shrink': 722, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 3 Exception. Config: {'topK': 890, 'shrink': 271, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 4 Exception. Config: {'topK': 413, 'shrink': 1588, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 5 Exception. Config: {'topK': 44, 'shrink': 1837, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 6 Exception. Config: {'topK': 38, 'shrink': 1311, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 7 Exception. Config: {'topK': 944, 'shrink': 1157, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 8 Exception. Config: {'topK': 771, 'shrink': 896, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 9 Exception. Config: {'topK': 43, 'shrink': 334, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 10 Exception. Config: {'topK': 426, 'shrink': 1798, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 11 Exception. Config: {'topK': 779, 'shrink': 751, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 12 Exception. Config: {'topK': 118, 'shrink': 1574, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 13 Exception. Config: {'topK': 7, 'shrink': 973, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 14 Exception. Config: {'topK': 710, 'shrink': 1223, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 15 Exception. Config: {'topK': 164, 'shrink': 1742, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 16 Exception. Config: {'topK': 675, 'shrink': 1128, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 17 Exception. Config: {'topK': 249, 'shrink': 1707, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 18 Exception. Config: {'topK': 966, 'shrink': 1723, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 19 Exception. Config: {'topK': 919, 'shrink': 989, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 20 Exception. Config: {'topK': 124, 'shrink': 1969, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 21 Exception. Config: {'topK': 803, 'shrink': 1569, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 22 Exception. Config: {'topK': 890, 'shrink': 760, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 23 Exception. Config: {'topK': 338, 'shrink': 1158, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 24 Exception. Config: {'topK': 700, 'shrink': 78, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 25 Exception. Config: {'topK': 545, 'shrink': 57, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 26 Exception. Config: {'topK': 459, 'shrink': 8, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 27 Exception. Config: {'topK': 714, 'shrink': 1363, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 28 Exception. Config: {'topK': 343, 'shrink': 1315, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 29 Exception. Config: {'topK': 762, 'shrink': 174, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 30 Exception. Config: {'topK': 2, 'shrink': 31, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 31 Exception. Config: {'topK': 992, 'shrink': 1975, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 32 Exception. Config: {'topK': 965, 'shrink': 23, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 33 Exception. Config: {'topK': 8, 'shrink': 28, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 34 Exception. Config: {'topK': 996, 'shrink': 1980, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 35 Exception. Config: {'topK': 979, 'shrink': 8, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 36 Exception. Config: {'topK': 2, 'shrink': 46, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 37 Exception. Config: {'topK': 18, 'shrink': 41, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 38 Exception. Config: {'topK': 22, 'shrink': 1994, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 39 Exception. Config: {'topK': 970, 'shrink': 1992, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 40 Exception. Config: {'topK': 999, 'shrink': 3, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 41 Exception. Config: {'topK': 996, 'shrink': 1954, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 42 Exception. Config: {'topK': 13, 'shrink': 1971, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 43 Exception. Config: {'topK': 3, 'shrink': 1982, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 44 Exception. Config: {'topK': 27, 'shrink': 15, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 45 Exception. Config: {'topK': 980, 'shrink': 0, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 46 Exception. Config: {'topK': 998, 'shrink': 1992, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 47 Exception. Config: {'topK': 995, 'shrink': 1969, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 48 Exception. Config: {'topK': 2, 'shrink': 38, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 49 Exception. Config: {'topK': 5, 'shrink': 1956, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 50 Exception. Config: {'topK': 992, 'shrink': 61, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 51 Exception. Config: {'topK': 10, 'shrink': 1997, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 52 Exception. Config: {'topK': 4, 'shrink': 14, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 53 Exception. Config: {'topK': 8, 'shrink': 47, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 54 Exception. Config: {'topK': 990, 'shrink': 13, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 55 Exception. Config: {'topK': 997, 'shrink': 19, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 56 Exception. Config: {'topK': 995, 'shrink': 1998, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 57 Exception. Config: {'topK': 1000, 'shrink': 1999, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 58 Exception. Config: {'topK': 10, 'shrink': 1978, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 59 Exception. Config: {'topK': 2, 'shrink': 36, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 60 Exception. Config: {'topK': 2, 'shrink': 1942, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 61 Exception. Config: {'topK': 994, 'shrink': 1989, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 62 Exception. Config: {'topK': 5, 'shrink': 13, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 63 Exception. Config: {'topK': 1000, 'shrink': 34, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 64 Exception. Config: {'topK': 5, 'shrink': 1997, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 65 Exception. Config: {'topK': 998, 'shrink': 25, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 66 Exception. Config: {'topK': 9, 'shrink': 1973, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 67 Exception. Config: {'topK': 1000, 'shrink': 1994, 'normalize': False, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 68 Exception. Config: {'topK': 10, 'shrink': 1, 'normalize': False, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 69 Exception. Config: {'topK': 997, 'shrink': 1989, 'normalize': False, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 70 Exception. Config: {'topK': 5, 'shrink': 1982, 'normalize': True, 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 71 Exception. Config: {'topK': 8, 'shrink': 4, 'normalize': True, 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+CrossSearchBayesianSkopt: Config 72 Exception. Config: {'topK': 985, 'shrink': 21, 'normalize': True, 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 229, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 204, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchAbstractClass.py", line 188, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\KNN\ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\course_lib\Base\Similarity\Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
