@@ -1,18 +1,19 @@
 import os
 
+from course_lib.Base.NonPersonalizedRecommender import TopPop
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_UCM_train, get_ignore_users, get_ICM_train_new
-from src.model import new_best_models
+from src.model import new_best_models, best_models
 from src.model.Ensemble.Boosting.boosting_preprocessing import get_train_dataframe_proportion, \
     get_valid_dataframe_second_version, get_dataframe_all_data
 from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
 from src.utils.general_utility_functions import get_split_seed
 
 LOWER_THRESHOLD = 20
-VALID_CUTOFF = 10
-TRAIN_CUTOFF = 30
-NEGATIVE_LABEL_VALUE = -1
+VALID_CUTOFF = 100
+TRAIN_CUTOFF = 100
+NEGATIVE_LABEL_VALUE = 0
 IGNORE_NON_TARGET_USERS = True
 NEGATIVE_PROPORTION = 1
 
@@ -51,7 +52,12 @@ if __name__ == '__main__':
     sub_5 = new_best_models.UserCF.get_model(URM_train=URM_train, load_model=True, save_model=True)
     sub_5.RECOMMENDER_NAME = "UserCF"
 
-    sub_list = [sub_0, sub_1, sub_2, sub_3, sub_4, sub_5]
+    sub_6 = best_models.ItemCF.get_model(URM_train=URM_train, load_model=True, save_model=True)
+    sub_6.RECOMMENDER_NAME = "ItemCF"
+
+    sub_7 = best_models.SLIM_BPR.get_model(URM_train=URM_train, load_model=True, save_model=True)
+
+    sub_list = [sub_0, sub_1, sub_2, sub_3, sub_4, sub_5, sub_6, sub_7]
 
     pure_svd_param = {'num_factors': 50, 'n_oversamples': 3, 'n_iter': 20, 'feature_weighting': 'TF-IDF'}
     pure_svd = NewPureSVDRecommender(URM_train)
@@ -70,11 +76,17 @@ if __name__ == '__main__':
 
     # Retrieve data for boosting
 
-    train_df = get_dataframe_all_data(user_id_array=total_users,
-                                      recommender_list=sub_list,
-                                      mapper=mapper, URM_train=URM_train, path=data_path,
-                                      proportion=NEGATIVE_PROPORTION, user_factors=user_factors,
-                                      item_factors=item_factors)
+    train_df = get_train_dataframe_proportion(user_id_array=user_to_validate,
+                                              cutoff=TRAIN_CUTOFF,
+                                              main_recommender=main_recommender,
+                                              recommender_list=sub_list,
+                                              mapper=mapper,
+                                              URM_train=URM_train,
+                                              user_factors=user_factors,
+                                              item_factors=item_factors,
+                                              path=data_path, negative_label_value=NEGATIVE_LABEL_VALUE,
+                                              proportion=NEGATIVE_PROPORTION,
+                                              threshold=0.3)
 
     valid_df = get_valid_dataframe_second_version(user_id_array=user_to_validate,
                                                   cutoff=VALID_CUTOFF,
@@ -94,5 +106,5 @@ if __name__ == '__main__':
     except FileNotFoundError as e:
         os.makedirs(path)
 
-    #train_df.to_csv(path + "train_df_all_proportion_{}.csv".format(NEGATIVE_PROPORTION), index=False)
+    train_df.to_csv(path + "train_df_{}_advanced_lt_{}.csv".format(TRAIN_CUTOFF, LOWER_THRESHOLD), index=False)
     valid_df.to_csv(path + "valid_df_{}_advanced_lt_{}.csv".format(VALID_CUTOFF, LOWER_THRESHOLD), index=False)

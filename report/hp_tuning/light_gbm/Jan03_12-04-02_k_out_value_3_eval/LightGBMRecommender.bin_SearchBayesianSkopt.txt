@@ -1,0 +1,57 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'learning_rate': 3.01117203181742e-06, 'min_gain_to_split': 0.0008466286556255534, 'reg_l1': 0.00044260455153509145, 'reg_l2': 0.0004587620872843613, 'max_depth': 47, 'min_data_in_leaf': 37, 'bagging_freq': 5, 'num_leaves': 206, 'bagging_fraction': 0.14751530968768123, 'feature_fraction': 0.5071173235525533} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1714, in __init__
+    train_set.construct().handle,
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1085, in construct
+    categorical_feature=self.categorical_feature, params=self.params)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 859, in _lazy_init
+    .format(type(name).__name__, name))
+TypeError: Wrong type(str) or unknown name(subclass) in categorical_feature
+
+SearchBayesianSkopt: Config 1 Exception. Config: {'learning_rate': 0.00010127665350814682, 'min_gain_to_split': 0.0023889877062401735, 'reg_l1': 7.284857440324337e-06, 'reg_l2': 9.438114212521022e-05, 'max_depth': 85, 'min_data_in_leaf': 55, 'bagging_freq': 79, 'num_leaves': 154, 'bagging_fraction': 0.17449146457950548, 'feature_fraction': 0.32985032988547713} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1714, in __init__
+    train_set.construct().handle,
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1085, in construct
+    categorical_feature=self.categorical_feature, params=self.params)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 859, in _lazy_init
+    .format(type(name).__name__, name))
+TypeError: Wrong type(str) or unknown name(subclass) in categorical_feature
+
+SearchBayesianSkopt: Config 2 Exception. Config: {'learning_rate': 0.0007542477076569617, 'min_gain_to_split': 0.026674484580972307, 'reg_l1': 1.2164525550924319, 'reg_l2': 0.9946945620558684, 'max_depth': 60, 'min_data_in_leaf': 62, 'bagging_freq': 16, 'num_leaves': 218, 'bagging_fraction': 0.10516335337584465, 'feature_fraction': 0.1626329968291562} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1714, in __init__
+    train_set.construct().handle,
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1085, in construct
+    categorical_feature=self.categorical_feature, params=self.params)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 859, in _lazy_init
+    .format(type(name).__name__, name))
+TypeError: Wrong type(str) or unknown name(subclass) in categorical_feature
+

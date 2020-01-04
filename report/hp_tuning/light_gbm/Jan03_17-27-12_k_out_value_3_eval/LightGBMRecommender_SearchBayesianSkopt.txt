@@ -1,0 +1,731 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'learning_rate': 1.877080085745668e-05, 'min_gain_to_split': 0.06773269754387673, 'reg_l1': 6.0049787016883445e-06, 'reg_l2': 0.00020573743837422616, 'max_depth': 53, 'min_data_in_leaf': 68, 'bagging_freq': 9, 'num_leaves': 102, 'bagging_fraction': 0.8705852394408917, 'feature_fraction': 0.6023576212950192} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 1 Exception. Config: {'learning_rate': 0.0007998390543174922, 'min_gain_to_split': 0.002253977335844887, 'reg_l1': 4.7451729143795, 'reg_l2': 0.0005510057712777189, 'max_depth': 94, 'min_data_in_leaf': 92, 'bagging_freq': 56, 'num_leaves': 40, 'bagging_fraction': 0.2174381495095749, 'feature_fraction': 0.1525155480070882} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 2 Exception. Config: {'learning_rate': 0.00194146648703496, 'min_gain_to_split': 0.00010832502883543986, 'reg_l1': 1.5230347620924185, 'reg_l2': 7.266697582135645e-07, 'max_depth': 63, 'min_data_in_leaf': 62, 'bagging_freq': 94, 'num_leaves': 181, 'bagging_fraction': 0.49246780080460406, 'feature_fraction': 0.10089750452909027} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 3 Exception. Config: {'learning_rate': 0.004793423767677709, 'min_gain_to_split': 0.0015714109323985844, 'reg_l1': 0.42633875585657216, 'reg_l2': 0.016736594987127026, 'max_depth': 15, 'min_data_in_leaf': 18, 'bagging_freq': 16, 'num_leaves': 41, 'bagging_fraction': 0.29506921308494793, 'feature_fraction': 0.5782214350263262} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 4 Exception. Config: {'learning_rate': 0.028319021333952032, 'min_gain_to_split': 0.005008190992260818, 'reg_l1': 0.001355000172486853, 'reg_l2': 0.8340298775575414, 'max_depth': 92, 'min_data_in_leaf': 72, 'bagging_freq': 73, 'num_leaves': 301, 'bagging_fraction': 0.8950401696475636, 'feature_fraction': 0.15047779283838972} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 5 Exception. Config: {'learning_rate': 0.04747796330862022, 'min_gain_to_split': 0.0061575862174120186, 'reg_l1': 8.132501278711381e-07, 'reg_l2': 0.0001566508995479323, 'max_depth': 32, 'min_data_in_leaf': 19, 'bagging_freq': 22, 'num_leaves': 62, 'bagging_fraction': 0.129379642478986, 'feature_fraction': 0.8066219622146875} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 6 Exception. Config: {'learning_rate': 7.132815352983417e-05, 'min_gain_to_split': 0.0005697889606858959, 'reg_l1': 0.0009350714631205024, 'reg_l2': 0.0042549370449915655, 'max_depth': 87, 'min_data_in_leaf': 37, 'bagging_freq': 43, 'num_leaves': 126, 'bagging_fraction': 0.355533541707848, 'feature_fraction': 0.17910213843955347} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 7 Exception. Config: {'learning_rate': 0.0020687814769099104, 'min_gain_to_split': 0.0001358477378391419, 'reg_l1': 0.017808102383021118, 'reg_l2': 0.000921220430611649, 'max_depth': 54, 'min_data_in_leaf': 40, 'bagging_freq': 83, 'num_leaves': 20, 'bagging_fraction': 0.1960693360399665, 'feature_fraction': 0.2823625734771101} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 8 Exception. Config: {'learning_rate': 0.001708588813589427, 'min_gain_to_split': 0.0025638921048859935, 'reg_l1': 0.4984179373814538, 'reg_l2': 3.181193170268402e-07, 'max_depth': 65, 'min_data_in_leaf': 56, 'bagging_freq': 38, 'num_leaves': 127, 'bagging_fraction': 0.584682664843947, 'feature_fraction': 0.3960639312221968} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 9 Exception. Config: {'learning_rate': 0.004040108620921209, 'min_gain_to_split': 0.005797044238296825, 'reg_l1': 1.3268750454911291e-05, 'reg_l2': 0.00793881863228371, 'max_depth': 32, 'min_data_in_leaf': 10, 'bagging_freq': 6, 'num_leaves': 335, 'bagging_fraction': 0.5473939523862199, 'feature_fraction': 0.2583819530295337} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 10 Exception. Config: {'learning_rate': 0.0005810735550924913, 'min_gain_to_split': 0.00012650787698237256, 'reg_l1': 0.00013399536022598297, 'reg_l2': 1.5828252421767244, 'max_depth': 82, 'min_data_in_leaf': 56, 'bagging_freq': 41, 'num_leaves': 312, 'bagging_fraction': 0.3261456456049804, 'feature_fraction': 0.3888642070118913} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 11 Exception. Config: {'learning_rate': 2.162464396966839e-05, 'min_gain_to_split': 0.00012208196117918124, 'reg_l1': 1.79974428617294e-07, 'reg_l2': 0.0004098870247001698, 'max_depth': 70, 'min_data_in_leaf': 74, 'bagging_freq': 42, 'num_leaves': 351, 'bagging_fraction': 0.21292471128157295, 'feature_fraction': 0.10531547522177562} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 12 Exception. Config: {'learning_rate': 0.0032631956043925087, 'min_gain_to_split': 0.002191753859369998, 'reg_l1': 0.0001330303635606755, 'reg_l2': 0.012675571110961563, 'max_depth': 89, 'min_data_in_leaf': 83, 'bagging_freq': 3, 'num_leaves': 381, 'bagging_fraction': 0.23701151725596312, 'feature_fraction': 0.34398671252495383} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 13 Exception. Config: {'learning_rate': 1.733491534095519e-05, 'min_gain_to_split': 0.011185088295468791, 'reg_l1': 0.021034646355536816, 'reg_l2': 2.5345501735724447, 'max_depth': 46, 'min_data_in_leaf': 37, 'bagging_freq': 74, 'num_leaves': 130, 'bagging_fraction': 0.26584722857393867, 'feature_fraction': 0.8378876570526156} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 14 Exception. Config: {'learning_rate': 0.00795336826459491, 'min_gain_to_split': 0.00013355779999159087, 'reg_l1': 4.0746010953578055e-06, 'reg_l2': 7.151235033869995e-05, 'max_depth': 77, 'min_data_in_leaf': 41, 'bagging_freq': 61, 'num_leaves': 139, 'bagging_fraction': 0.24610364408977692, 'feature_fraction': 0.4955627431592386} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 15 Exception. Config: {'learning_rate': 3.047285029266178e-06, 'min_gain_to_split': 0.04512069046295213, 'reg_l1': 0.0002667831084538396, 'reg_l2': 3.7175965332695676e-06, 'max_depth': 86, 'min_data_in_leaf': 54, 'bagging_freq': 60, 'num_leaves': 244, 'bagging_fraction': 0.5697829702692988, 'feature_fraction': 0.6245383121515231} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 16 Exception. Config: {'learning_rate': 0.0001637772950888521, 'min_gain_to_split': 0.0004606319017879765, 'reg_l1': 0.09051751839569504, 'reg_l2': 0.9395896360310031, 'max_depth': 72, 'min_data_in_leaf': 92, 'bagging_freq': 45, 'num_leaves': 35, 'bagging_fraction': 0.2649759018706549, 'feature_fraction': 0.2697777965920511} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 17 Exception. Config: {'learning_rate': 5.156724475474837e-06, 'min_gain_to_split': 0.035100991433554246, 'reg_l1': 7.35180931656835, 'reg_l2': 1.4236144399946082, 'max_depth': 52, 'min_data_in_leaf': 86, 'bagging_freq': 57, 'num_leaves': 98, 'bagging_fraction': 0.7349606171177001, 'feature_fraction': 0.13063206042270561} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 18 Exception. Config: {'learning_rate': 0.017943584731782855, 'min_gain_to_split': 0.00024387286222770122, 'reg_l1': 6.932433673746043e-07, 'reg_l2': 2.0779180868430442e-07, 'max_depth': 100, 'min_data_in_leaf': 51, 'bagging_freq': 50, 'num_leaves': 68, 'bagging_fraction': 0.23502617410109955, 'feature_fraction': 0.12447655550174735} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 19 Exception. Config: {'learning_rate': 2.6980252152477913e-05, 'min_gain_to_split': 0.0007001829495108893, 'reg_l1': 0.03526991607069451, 'reg_l2': 4.34699620497353e-07, 'max_depth': 52, 'min_data_in_leaf': 50, 'bagging_freq': 88, 'num_leaves': 224, 'bagging_fraction': 0.6585632766421528, 'feature_fraction': 0.2231254094368715} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 20 Exception. Config: {'learning_rate': 0.024104539095215028, 'min_gain_to_split': 0.0006018366306852644, 'reg_l1': 8.528371924781036, 'reg_l2': 0.6906162495905334, 'max_depth': 50, 'min_data_in_leaf': 51, 'bagging_freq': 87, 'num_leaves': 357, 'bagging_fraction': 0.8600030697688845, 'feature_fraction': 0.7203129251975618} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 21 Exception. Config: {'learning_rate': 0.03100969972021345, 'min_gain_to_split': 0.0003505449158956958, 'reg_l1': 1.109318820149917e-06, 'reg_l2': 0.13281577684949586, 'max_depth': 26, 'min_data_in_leaf': 41, 'bagging_freq': 78, 'num_leaves': 131, 'bagging_fraction': 0.6584627751098073, 'feature_fraction': 0.2054581188894888} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 22 Exception. Config: {'learning_rate': 0.0014434458706036862, 'min_gain_to_split': 0.00014213822810686541, 'reg_l1': 1.6738795256444692, 'reg_l2': 4.66341367901756e-06, 'max_depth': 73, 'min_data_in_leaf': 63, 'bagging_freq': 56, 'num_leaves': 324, 'bagging_fraction': 0.16589456429429716, 'feature_fraction': 0.42012324572362786} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 23 Exception. Config: {'learning_rate': 9.441403184084738e-05, 'min_gain_to_split': 0.01234567260191176, 'reg_l1': 0.11958901109025583, 'reg_l2': 0.049969068183151645, 'max_depth': 65, 'min_data_in_leaf': 63, 'bagging_freq': 82, 'num_leaves': 118, 'bagging_fraction': 0.13536285053149216, 'feature_fraction': 0.2071222328490034} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 24 Exception. Config: {'learning_rate': 0.06798853647896579, 'min_gain_to_split': 0.04552447104820307, 'reg_l1': 1.1190832120235473e-07, 'reg_l2': 2.021135681851304e-05, 'max_depth': 64, 'min_data_in_leaf': 50, 'bagging_freq': 18, 'num_leaves': 221, 'bagging_fraction': 0.20829168830719902, 'feature_fraction': 0.3061783231633628} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 25 Exception. Config: {'learning_rate': 1.3051598295112801e-05, 'min_gain_to_split': 0.00043954566062803124, 'reg_l1': 0.0006037953499615648, 'reg_l2': 3.088061931463639e-07, 'max_depth': 76, 'min_data_in_leaf': 100, 'bagging_freq': 88, 'num_leaves': 372, 'bagging_fraction': 0.10421440907550779, 'feature_fraction': 0.32616960279151525} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 26 Exception. Config: {'learning_rate': 4.689338311110349e-05, 'min_gain_to_split': 0.02673063061989157, 'reg_l1': 0.0001162077751464487, 'reg_l2': 4.327927226978989, 'max_depth': 12, 'min_data_in_leaf': 27, 'bagging_freq': 17, 'num_leaves': 322, 'bagging_fraction': 0.5766940457379933, 'feature_fraction': 0.6736504451194019} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 27 Exception. Config: {'learning_rate': 0.003389939845123763, 'min_gain_to_split': 0.014833122050937333, 'reg_l1': 9.956761723873123e-06, 'reg_l2': 2.620548664107909e-05, 'max_depth': 5, 'min_data_in_leaf': 89, 'bagging_freq': 24, 'num_leaves': 161, 'bagging_fraction': 0.6879414170064632, 'feature_fraction': 0.3184971483150558} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 28 Exception. Config: {'learning_rate': 0.004718540359851943, 'min_gain_to_split': 0.000445736252974366, 'reg_l1': 0.08870453577473576, 'reg_l2': 1.8286881839800056e-05, 'max_depth': 92, 'min_data_in_leaf': 88, 'bagging_freq': 61, 'num_leaves': 55, 'bagging_fraction': 0.1731936379406605, 'feature_fraction': 0.15595124836964327} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 29 Exception. Config: {'learning_rate': 0.00019952019607911336, 'min_gain_to_split': 0.00036444009993801197, 'reg_l1': 1.305392939120074e-07, 'reg_l2': 5.364226006834004e-05, 'max_depth': 64, 'min_data_in_leaf': 60, 'bagging_freq': 79, 'num_leaves': 270, 'bagging_fraction': 0.39950667739090134, 'feature_fraction': 0.2859745113221675} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 30 Exception. Config: {'learning_rate': 0.0001042137204618022, 'min_gain_to_split': 0.000530493417235614, 'reg_l1': 0.008185273739548344, 'reg_l2': 5.269128009275403e-07, 'max_depth': 51, 'min_data_in_leaf': 5, 'bagging_freq': 49, 'num_leaves': 114, 'bagging_fraction': 0.16965613596779167, 'feature_fraction': 0.2221150315223941} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 31 Exception. Config: {'learning_rate': 0.0013800279763533114, 'min_gain_to_split': 0.003552059615752036, 'reg_l1': 1.6540611117519008, 'reg_l2': 0.00894123041851149, 'max_depth': 8, 'min_data_in_leaf': 23, 'bagging_freq': 25, 'num_leaves': 330, 'bagging_fraction': 0.6766346251840706, 'feature_fraction': 0.7884681465094391} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 32 Exception. Config: {'learning_rate': 0.0017439155914948858, 'min_gain_to_split': 0.008243859213141998, 'reg_l1': 0.697946607547406, 'reg_l2': 8.87198898598072e-07, 'max_depth': 21, 'min_data_in_leaf': 19, 'bagging_freq': 16, 'num_leaves': 304, 'bagging_fraction': 0.5584968048341761, 'feature_fraction': 0.18024547460150558} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 33 Exception. Config: {'learning_rate': 0.008463994295874695, 'min_gain_to_split': 0.00013069388724036823, 'reg_l1': 0.00027179301728300195, 'reg_l2': 0.01308302056396329, 'max_depth': 30, 'min_data_in_leaf': 18, 'bagging_freq': 77, 'num_leaves': 376, 'bagging_fraction': 0.5801864228521452, 'feature_fraction': 0.12166002838030619} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 34 Exception. Config: {'learning_rate': 0.00024575341386811884, 'min_gain_to_split': 0.00032718368363817617, 'reg_l1': 1.2119487085260665, 'reg_l2': 0.001100594152303644, 'max_depth': 44, 'min_data_in_leaf': 36, 'bagging_freq': 23, 'num_leaves': 397, 'bagging_fraction': 0.4419621090574399, 'feature_fraction': 0.10404456199439115} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 35 Exception. Config: {'learning_rate': 1.4092853438264466e-05, 'min_gain_to_split': 0.012148544176345756, 'reg_l1': 1.0851491358993484e-07, 'reg_l2': 1.7352714222241116e-07, 'max_depth': 62, 'min_data_in_leaf': 10, 'bagging_freq': 15, 'num_leaves': 46, 'bagging_fraction': 0.11363427892581733, 'feature_fraction': 0.12984511161332857} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 36 Exception. Config: {'learning_rate': 0.0015598944635918843, 'min_gain_to_split': 0.021114427355117506, 'reg_l1': 0.0021920894789244387, 'reg_l2': 0.3305985523643808, 'max_depth': 88, 'min_data_in_leaf': 54, 'bagging_freq': 3, 'num_leaves': 206, 'bagging_fraction': 0.17342651965533445, 'feature_fraction': 0.22530489212449992} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 37 Exception. Config: {'learning_rate': 0.008054811324555433, 'min_gain_to_split': 0.00022431297057194362, 'reg_l1': 3.5587610524716617, 'reg_l2': 0.002202697045621634, 'max_depth': 6, 'min_data_in_leaf': 75, 'bagging_freq': 95, 'num_leaves': 388, 'bagging_fraction': 0.22283924930875648, 'feature_fraction': 0.14257348043890503} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 38 Exception. Config: {'learning_rate': 0.020704748110103827, 'min_gain_to_split': 0.01820042967503953, 'reg_l1': 0.00010160239111570985, 'reg_l2': 0.00012082622008853365, 'max_depth': 37, 'min_data_in_leaf': 73, 'bagging_freq': 91, 'num_leaves': 287, 'bagging_fraction': 0.5869278889441774, 'feature_fraction': 0.14668316260776984} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 39 Exception. Config: {'learning_rate': 6.806807182980858e-05, 'min_gain_to_split': 0.0004301105977699532, 'reg_l1': 0.005003935038350995, 'reg_l2': 0.5339541043977618, 'max_depth': 54, 'min_data_in_leaf': 41, 'bagging_freq': 24, 'num_leaves': 80, 'bagging_fraction': 0.15541220207113143, 'feature_fraction': 0.640804131706467} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 40 Exception. Config: {'learning_rate': 1.5706094944131693e-06, 'min_gain_to_split': 0.0681488626855641, 'reg_l1': 2.192420246756659e-05, 'reg_l2': 7.899254746035906, 'max_depth': 99, 'min_data_in_leaf': 6, 'bagging_freq': 63, 'num_leaves': 310, 'bagging_fraction': 0.10275289793477026, 'feature_fraction': 0.8883858383924942} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 41 Exception. Config: {'learning_rate': 0.0018333564257114888, 'min_gain_to_split': 0.04678780059015614, 'reg_l1': 1.2082341008553611e-07, 'reg_l2': 2.5561559141724774e-07, 'max_depth': 10, 'min_data_in_leaf': 91, 'bagging_freq': 91, 'num_leaves': 381, 'bagging_fraction': 0.11547860430680468, 'feature_fraction': 0.825582908927065} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+
+SearchBayesianSkopt: Config 42 Exception. Config: {'learning_rate': 1.2079174507411105e-06, 'min_gain_to_split': 0.00010990748165258522, 'reg_l1': 6.534096905073421, 'reg_l2': 1.5104984693492347, 'max_depth': 27, 'min_data_in_leaf': 54, 'bagging_freq': 11, 'num_leaves': 369, 'bagging_fraction': 0.1041914204704361, 'feature_fraction': 0.8023192534902172} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/src/model/Ensemble/Boosting/LightGBMRecommender.py", line 56, in fit
+    verbose_eval=verbose)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/engine.py", line 228, in train
+    booster = Booster(params=params, train_set=train_set)
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 1716, in __init__
+    ctypes.byref(self.handle)))
+  File "/Users/tangtang.zhou/anaconda3/envs/recsys/lib/python3.6/site-packages/lightgbm/basic.py", line 45, in _safe_call
+    raise LightGBMError(decode_string(_LIB.LGBM_GetLastError()))
+lightgbm.basic.LightGBMError: label (31) excel the max range -1
+

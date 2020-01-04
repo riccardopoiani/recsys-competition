@@ -35,10 +35,10 @@ def run_parameter_search_bagging(recommender_class, URM_train, constructor_kwarg
     )
 
     hyperparameters_range = {}
-    hyperparameters_range['num_models'] = Categorical([50])
+    hyperparameters_range['num_models'] = Integer(10, 100)
 
     if recommender_class in [BaggingMergeItemSimilarityRecommender, BaggingMergeUserSimilarityRecommender]:
-        hyperparameters_range['topK'] = Integer(low=5, high=3000)
+        hyperparameters_range['topK'] = Integer(low=1, high=3000)
 
     parameterSearch.search(recommender_input_args,
                            parameter_search_space=hyperparameters_range,

@@ -8,14 +8,14 @@ from src.data_management.data_reader import get_ICM_train_new, get_ignore_users
 from src.model import new_best_models
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
-from src.utils.general_utility_functions import get_project_root_path
+from src.utils.general_utility_functions import get_project_root_path, get_seed_lists, get_split_seed
 
 # CONSTANTS TO MODIFY
 K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
-LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
+LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
+UPPER_THRESHOLD = 22  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 # VARIABLES TO MODIFY

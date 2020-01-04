@@ -22,15 +22,19 @@ if __name__ == '__main__':
 
     # Reading the dataframe
     dataframe_path = "../../resources/boosting_dataframe/"
-    train_df = pd.read_csv(dataframe_path + "train_df_80_advanced_lt_20.csv")
-    valid_df = pd.read_csv(dataframe_path + "valid_df_10_advanced_lt_20.csv")
+    train_df = pd.read_csv(dataframe_path + "train_df_100_advanced_lt_20.csv")
+    valid_df = pd.read_csv(dataframe_path + "valid_df_30_advanced_lt_20.csv")
 
     train_df = preprocess_dataframe_after_reading(train_df)
-    #y_train = train_df['label'].values
-    train_df = train_df.drop(columns=["label"], inplace=False)
-    valid_df = preprocess_dataframe_after_reading(valid_df)
+    y_train = train_df['label'].values + 1
 
-    y_train, non_zero_count, total = get_label_array(data_frame=train_df, URM_train=URM_train)
+    train_df = train_df.drop(columns=["label"],
+                             inplace=False)
+    valid_df = preprocess_dataframe_after_reading(valid_df)
+    valid_df = valid_df.drop(columns=[],
+                             inplace=False)
+
+    _, non_zero_count, total = get_label_array(data_frame=train_df, URM_train=URM_train)
     y_valid, _, _ = get_label_array(data_frame=valid_df, URM_train=URM_test)
 
     # Setting evaluator
@@ -49,8 +53,8 @@ if __name__ == '__main__':
     now = now + "_k_out_value_3_eval/"
     version_path = version_path + now
 
-    run_parameter_search_lightgbm(URM_train, train_df, y_train, valid_df, y_valid, cutoff_test=10,
-                                  categorical_features=["subclass"],
+    run_parameter_search_lightgbm(URM_train, train_df, y_train, valid_df, y_valid, cutoff_test=30,
+                                  categorical_features=[],
                                   num_iteration=10000, early_stopping_iteration=150,
                                   objective="lambdarank", verbose=True,
                                   output_folder_path=version_path, evaluator_validation=evaluator,

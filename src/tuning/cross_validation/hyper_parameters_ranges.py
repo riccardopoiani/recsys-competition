@@ -14,6 +14,7 @@ from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
 from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
 from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+from src.model.KNN.UserKNNDotCFRecommender import UserKNNDotCFRecommender
 from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
@@ -98,6 +99,12 @@ HYPER_PARAMETERS_RANGE = {
         "topK": Integer(1, 3000),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False])
+    },
+    UserKNNDotCFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(1, 3000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False]),
+        "feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
 
     # ------ Content KNN Method ------ #

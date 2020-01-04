@@ -2,8 +2,7 @@ import argparse
 import multiprocessing
 from datetime import datetime
 
-from Base.IR_feature_weighting import TF_IDF
-
+from course_lib.Base.IR_feature_weighting import TF_IDF
 from course_lib.Base.Evaluation.Evaluator import *
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
@@ -24,6 +23,7 @@ from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
 from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
 from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+from src.model.KNN.UserKNNDotCFRecommender import UserKNNDotCFRecommender
 from src.model.MatrixFactorization.FunkSVDRecommender import FunkSVDRecommender
 from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.model.MatrixFactorization.LightFMRecommender import LightFMRecommender
@@ -49,7 +49,7 @@ SIDE_INFO_CLASS_DICT = {
     "rp3beta_side": RP3betaRecommender,
 
     # ML-Based
-    "pure_svd_side": PureSVDRecommender
+    "pure_svd_side": NewPureSVDRecommender
 }
 
 COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
@@ -57,6 +57,7 @@ COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
     "item_cf": ItemKNNCFRecommender,
     "user_cf": UserKNNCFRecommender,
     "new_user_cf": NewUserKNNCFRecommender,
+    "user_dot_cf": UserKNNDotCFRecommender,
 
     # ML Item-Similarity Based
     "slim_bpr": SLIM_BPR_Cython,

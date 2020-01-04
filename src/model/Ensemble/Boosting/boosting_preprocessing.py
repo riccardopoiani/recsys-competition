@@ -47,10 +47,10 @@ def get_valid_dataframe_second_version(user_id_array, cutoff, main_recommender, 
 
 def get_train_dataframe_proportion(user_id_array, cutoff, main_recommender, path, mapper, recommender_list,
                                    URM_train, proportion, user_factors=None, item_factors=None,
-                                   negative_label_value=0):
+                                   negative_label_value=0, threshold=0.7):
     data_frame = get_boosting_base_dataframe(user_id_array=user_id_array, top_recommender=main_recommender,
                                              exclude_seen=False, cutoff=cutoff)
-    labels, _, _ = get_label_array(data_frame, URM_train)
+    labels, non_zero_count, _ = get_label_array(data_frame, URM_train)
     data_frame['label'] = labels
     data_frame = add_random_negative_ratings(data_frame=data_frame, URM_train=URM_train, proportion=proportion,
                                              negative_label_value=negative_label_value)
@@ -62,6 +62,11 @@ def get_train_dataframe_proportion(user_id_array, cutoff, main_recommender, path
     for rec in recommender_list:
         data_frame = add_recommender_predictions(data_frame=data_frame, recommender=rec,
                                                  column_name=rec.RECOMMENDER_NAME)
+        # Add labels value in order to differentiate more the elements
+        mask = (data_frame[rec.RECOMMENDER_NAME] > threshold) & (data_frame['label'] > 0)
+        print("\t Score greater than threshold: {}/{}".format(np.sum(mask), non_zero_count))
+        data_frame.loc[mask, 'label'] += 1
+    print("Labels greater than 1: {}".format(np.sum(data_frame['label'] > 1)))
 
     data_frame = advanced_subclass_handling(data_frame=data_frame, URM_train=URM_train, path=path, add_subclass=False)
     data_frame = add_ICM_information(data_frame=data_frame, path=path, one_hot_encoding_subclass=False,

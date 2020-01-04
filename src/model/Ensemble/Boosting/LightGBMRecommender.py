@@ -47,7 +47,8 @@ class LightGBMRecommender(BaseRecommender):
             "metric": metric,
             "eval_at": [eval_at],
             "max_position": max_position,
-            "is_unbalance": True
+            "is_unbalance": True,
+            "boost_from_average": False
         }
         self.bst = lgb.train(params=parameters, train_set=self.dtrain, num_boost_round=num_iteration,
                              valid_sets=[self.dvalid, self.dtrain], valid_names=["valid", "train"],
@@ -84,6 +85,8 @@ class LightGBMRecommender(BaseRecommender):
         return scores[idx]
 
     def load_model(self, folder_path, file_name=None):
+        if file_name is None:
+            file_name = ""
         self.loaded_from_file = True
         self.bst = lgb.Booster(model_file=folder_path + file_name)
 

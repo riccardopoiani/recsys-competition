@@ -1,0 +1,280 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'topK': 530, 'shrink': 888, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 1 Exception. Config: {'topK': 886, 'shrink': 649, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'BM25', 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 2 Exception. Config: {'topK': 559, 'shrink': 265, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'BM25', 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 3 Exception. Config: {'topK': 167, 'shrink': 1014, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'BM25', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 4 Exception. Config: {'topK': 550, 'shrink': 1392, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'none', 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 5 Exception. Config: {'topK': 460, 'shrink': 426, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 6 Exception. Config: {'topK': 344, 'shrink': 1077, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'none', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 7 Exception. Config: {'topK': 895, 'shrink': 476, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 8 Exception. Config: {'topK': 62, 'shrink': 416, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'none', 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 9 Exception. Config: {'topK': 698, 'shrink': 74, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'none', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 10 Exception. Config: {'topK': 390, 'shrink': 1201, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 11 Exception. Config: {'topK': 27, 'shrink': 1228, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'BM25', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 12 Exception. Config: {'topK': 389, 'shrink': 151, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 13 Exception. Config: {'topK': 923, 'shrink': 819, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 14 Exception. Config: {'topK': 707, 'shrink': 398, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'none', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 15 Exception. Config: {'topK': 812, 'shrink': 875, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'none', 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 16 Exception. Config: {'topK': 370, 'shrink': 1058, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'none', 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 17 Exception. Config: {'topK': 542, 'shrink': 1161, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 18 Exception. Config: {'topK': 572, 'shrink': 153, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'TF-IDF', 'interactions_feature_weighting': 'TF-IDF'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+
+SearchBayesianSkopt: Config 19 Exception. Config: {'topK': 929, 'shrink': 562, 'similarity': 'cosine', 'normalize': True, 'feature_weighting': 'BM25', 'interactions_feature_weighting': 'none'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 237, in _evaluate_on_validation
+    recommender_instance, train_time = self._fit_model(current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 229, in _fit_model
+    **current_fit_parameters)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/KNN/ItemKNNCBFRecommender.py", line 49, in fit
+    similarity=similarity, **similarity_args)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Similarity/Compute_Similarity.py", line 95, in __init__
+    self.compute_similarity_object = Compute_Similarity_Cython(dataMatrix, **args)
+  File "Compute_Similarity_Cython.pyx", line 70, in Compute_Similarity_Cython.Compute_Similarity_Cython.__init__
+TypeError: __init__() got an unexpected keyword argument 'interactions_feature_weighting'
+

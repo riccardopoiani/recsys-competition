@@ -5,6 +5,7 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from scripts.model_selection.cross_validate_utils import write_results_on_file, get_seed_list
 from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_ignore_users
+from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
 from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
 from src.utils.general_utility_functions import get_project_root_path
@@ -18,11 +19,10 @@ UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (def
 IGNORE_NON_TARGET_USERS = True
 
 # VARIABLES TO MODIFY
-model_parameters = {'topK': 995, 'shrink': 9, 'similarity': 'cosine', 'normalize': True,
-                    'feature_weighting': 'TF-IDF'}
+model_parameters = {"topK": 4, "shrink": 1500, "normalize": True, "feature_weighting": "none"}
 
-recommender_class = NewUserKNNCFRecommender
-model_name = "UserCF_lt_23_new_best_models"
+recommender_class = ItemKNNDotCFRecommender
+model_name = "item_dot_cf_lt_23"
 
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data

@@ -121,7 +121,6 @@ class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSim
 
     def _reconcile_model(self, num_models):
         self.W_sparse = self.W_sparse / num_models
-
         if self.topK >= 0:
             self.W_sparse = similarityMatrixTopK(self.W_sparse, k=self.topK).tocsr()
 

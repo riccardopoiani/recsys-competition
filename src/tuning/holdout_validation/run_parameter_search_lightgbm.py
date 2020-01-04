@@ -19,7 +19,7 @@ def run_parameter_search_lightgbm(URM_train, X_train, y_train, X_test, y_test, c
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
 
-    output_file_name_root = recommender_class.RECOMMENDER_NAME + ".bin"
+    output_file_name_root = recommender_class.RECOMMENDER_NAME
 
     hyperparameters_range_dictionary = {}
     hyperparameters_range_dictionary["learning_rate"] = Real(low=1e-6, high=1e-1, prior="log-uniform")

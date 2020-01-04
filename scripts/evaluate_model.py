@@ -1,29 +1,32 @@
 import os
 
+from skopt.space import Categorical, Integer
+
 from course_lib.Base.Evaluation.Evaluator import *
 from scripts.scripts_utils import set_env_variables
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, \
     get_ignore_users
+from src.model import new_best_models
+from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
+from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
+from src.model.KNN.UserKNNDotCFRecommender import UserKNNDotCFRecommender
 from src.utils.general_utility_functions import get_split_seed, get_project_root_path
 
 K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
 LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
+UPPER_THRESHOLD = 2**16-1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 
 def get_model(URM_train, ICM_train, UCM_train):
     # Write the model that you want to evaluate here. Possibly, do not modify the code if unnecessary in the main
-    from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
-    param = {'topK': 2, 'shrink': 81, 'normalize': False, 'interactions_feature_weighting': 'BM25',
-             'similarity': 'cosine',
-             'feature_weighting': 'TF-IDF'}
-    model = ItemKNNCBFCFRecommender(URM_train=URM_train, ICM_train=ICM_train)
-    model.fit(**param)
+    model = ItemKNNDotCFRecommender(URM_train)
+    model.fit(topK=4, shrink=1500, normalize=True, feature_weighting="none")
     return model
 
 
