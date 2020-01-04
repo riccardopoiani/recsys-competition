@@ -10,6 +10,7 @@ from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
+from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
 from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import MatrixFactorization_AsySVD_Cython
 from course_lib.MatrixFactorization.NMFRecommender import NMFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
@@ -43,6 +44,14 @@ MIN_LOWER_THRESHOLD = -1
 
 AGE_TO_KEEP = []  # Default []
 
+SIDE_INFO_CLASS_DICT = {
+    # Graph-Based
+    "rp3beta_side": RP3betaRecommender,
+
+    # ML-Based
+    "pure_svd_side": PureSVDRecommender
+}
+
 COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
     # KNN
     "item_cf": ItemKNNCFRecommender,
@@ -56,7 +65,6 @@ COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
     # Graph-based
     "p3alpha": P3alphaRecommender,
     "rp3beta": RP3betaRecommender,
-    "rp3beta_side_info": RP3betaRecommender,
 
     # Matrix Factorization
     "pure_svd": NewPureSVDRecommender,
@@ -82,7 +90,7 @@ DEMOGRAPHIC_RECOMMENDER_CLASS_DICT = {
 }
 
 RECOMMENDER_CLASS_DICT = dict(**COLLABORATIVE_RECOMMENDER_CLASS_DICT, **CONTENT_RECOMMENDER_CLASS_DICT,
-                              **DEMOGRAPHIC_RECOMMENDER_CLASS_DICT)
+                              **DEMOGRAPHIC_RECOMMENDER_CLASS_DICT, **SIDE_INFO_CLASS_DICT)
 
 
 def get_arguments():
@@ -134,10 +142,10 @@ def main():
                                         ignore_non_target_users=args.exclude_non_target)
 
         # Ignore users by age
-        UCM_age = data_reader.get_UCM_from_name("UCM_age")
-        age_feature_to_id_mapper = data_reader.dataReader_object.get_UCM_feature_to_index_mapper_from_name("UCM_age")
-        age_demographic = get_user_demographic(UCM_age, age_feature_to_id_mapper, binned=True)
-        ignore_users = np.unique(np.concatenate((ignore_users, get_ignore_users_age(age_demographic, AGE_TO_KEEP))))
+        # UCM_age = data_reader.get_UCM_from_name("UCM_age")
+        # age_feature_to_id_mapper = data_reader.dataReader_object.get_UCM_feature_to_index_mapper_from_name("UCM_age")
+        # age_demographic = get_user_demographic(UCM_age, age_feature_to_id_mapper, binned=True)
+        # ignore_users = np.unique(np.concatenate((ignore_users, get_ignore_users_age(age_demographic, AGE_TO_KEEP))))
 
         URM_train_list.append(URM_train)
         ICM_train_list.append(ICM_train)
@@ -174,16 +182,17 @@ def main():
                                 metric_to_optimize="MAP", output_folder_path=output_folder_path,
                                 parallelize_search=args.parallelize, n_jobs=args.n_jobs,
                                 n_cases=args.n_cases, n_random_starts=args.n_random_starts)
-    elif args.recommender_name == "rp3beta_side_info":
+    elif args.recommender_name in SIDE_INFO_CLASS_DICT:
         temp_list = []
         for i, URM in enumerate(URM_train_list):
             temp = sps.vstack([URM, ICM_train_list[i].T], format="csr")
             temp = TF_IDF(temp).tocsr()
             temp_list.append(temp)
 
-        run_cv_parameter_search(URM_train_list=temp_list, recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
+        run_cv_parameter_search(URM_train_list=temp_list,
+                                recommender_class=RECOMMENDER_CLASS_DICT[args.recommender_name],
                                 evaluator_validation_list=evaluator_list, metric_to_optimize="MAP",
-                                output_folder_path=output_folder_path, parallelize_search=args.paralellize,
+                                output_folder_path=output_folder_path, parallelize_search=args.parallelize,
                                 n_jobs=args.n_jobs, n_cases=args.n_cases, n_random_starts=args.n_random_starts)
 
     print("...tuning ended")

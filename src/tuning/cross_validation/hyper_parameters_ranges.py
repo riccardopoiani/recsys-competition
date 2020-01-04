@@ -6,6 +6,7 @@ from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
+from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
@@ -69,6 +70,10 @@ HYPER_PARAMETERS_RANGE = {
         'latent_factors': Integer(low=20, high=500),
         'regularization': Real(low=10e-7, high=10e-1, prior="log-uniform"),
         'learning_rate': Real(low=10e-3, high=10e-1, prior="log-uniform")
+    },
+
+    PureSVDRecommender.RECOMMENDER_NAME: {
+       "num_factors": Integer(10, 1000),
     },
 
     NewPureSVDRecommender.RECOMMENDER_NAME: {

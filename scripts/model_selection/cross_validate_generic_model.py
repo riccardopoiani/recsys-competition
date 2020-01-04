@@ -1,14 +1,11 @@
 import os
 from datetime import datetime
 
-import numpy as np
-
 from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from scripts.model_selection.cross_validate_utils import get_seed_list, write_results_on_file
 from scripts.scripts_utils import read_split_load_data
-from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, get_ignore_users, get_ignore_users_age
-from src.feature.demographics_content import get_user_demographic
+from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, get_ignore_users
 from src.model import new_best_models, best_models_lower_threshold_23
 from src.tuning.cross_validation.CrossSearchAbstractClass import compute_mean_std_result_dict, get_result_string
 from src.utils.general_utility_functions import get_project_root_path
@@ -21,11 +18,8 @@ LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default valu
 UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
-AGE_TO_KEEP = [4]  # Default []
-
-
 # VARIABLES TO MODIFY
-model_name = "ItemCBF_CF_23"
+model_name = "S_RP3_LT_23"
 
 
 def _get_all_models(URM_train, ICM_all, UCM_all):
@@ -42,7 +36,8 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = best_models_lower_threshold_23.ItemCBF_CF.get_model(URM_train=URM_train,ICM_train=ICM_train)
+    model = best_models_lower_threshold_23.RP3Beta_side_info.get_model(URM_train=URM_train,
+                                                                       ICM_train=ICM_train)
     return model
 
 
@@ -61,11 +56,6 @@ def main():
         ignore_users = get_ignore_users(URM_train, data_reader.get_original_user_id_to_index_mapper(),
                                         lower_threshold=LOWER_THRESHOLD, upper_threshold=UPPER_THRESHOLD,
                                         ignore_non_target_users=IGNORE_NON_TARGET_USERS)
-        # Ignore users by age
-        UCM_age = data_reader.get_UCM_from_name("UCM_age")
-        age_feature_to_id_mapper = data_reader.dataReader_object.get_UCM_feature_to_index_mapper_from_name("UCM_age")
-        age_demographic = get_user_demographic(UCM_age, age_feature_to_id_mapper, binned=True)
-        ignore_users = np.unique(np.concatenate((ignore_users, get_ignore_users_age(age_demographic, AGE_TO_KEEP))))
 
         single_evaluator = EvaluatorHoldout(URM_test, cutoff_list=[CUTOFF], ignore_users=ignore_users)
 

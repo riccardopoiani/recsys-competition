@@ -20,7 +20,8 @@ class RP3Beta_side_info(IBestModel):
     """
     RP3 beta with side info by using TF_IDF([URM_train, ICM_all.T])
 
-    - MAP 5 FOLD : .035434�0.0013
+    - MAP 5 FOLD: 0.035434�0.0013
+    - MAP 10 FOLD: 0.0328794�0.0017
     """
 
     best_parameters = {'topK': 28, 'alpha': 0.008124745090408949,

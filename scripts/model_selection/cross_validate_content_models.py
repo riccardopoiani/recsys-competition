@@ -2,15 +2,11 @@ import os
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
-from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from scripts.model_selection.cross_validate_utils import write_results_on_file, get_seed_list
 from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_ICM_train_new, get_ignore_users
-<<<<<<< Updated upstream
 from src.model import new_best_models
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
-=======
->>>>>>> Stashed changes
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -23,18 +19,9 @@ UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (def
 IGNORE_NON_TARGET_USERS = True
 
 # VARIABLES TO MODIFY
-<<<<<<< Updated upstream
 model_name = "item_cbf_cf"
 recommender_class = ItemKNNCBFCFRecommender
 model_parameters = new_best_models.ItemCBF_CF.get_best_parameters()
-=======
-
-
-model_parameters = {'topK': 5, 'shrink': 19, 'normalize': False, 'similarity': 'asymmetric',
-                    'asymmetric_alpha': 1.8793950443550476, 'feature_weighting': 'TF-IDF'}
-recommender_class = ItemKNNCBFRecommender
-model_name = "ItemCBF_all"
->>>>>>> Stashed changes
 
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data
