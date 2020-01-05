@@ -4,6 +4,33 @@ from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 import scipy.sparse as sps
 
 
+class WeightedAverageItemBasedWithRP3(IBestModel):
+    """
+    CV MAP 0.0374
+    10 FOLD CV: 0.0373325�0.0018
+    """
+    best_parameters = {'FUSION': 0.11932917388021072, 'ItemDotCF': 0.714527859515967,
+                       'ItemCBF_CF': 0.314038888909047, 'RP3BETA_SIDE': 0.1419501369179094}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_all):
+        from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+
+        fusion = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+        item_cbf_cf = ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+        rp3beta = RP3Beta_side_info.get_model(URM_train=URM_train, ICM_train=ICM_all)
+        item_dot = ItemDotCF.get_model(URM_train=URM_train, load_model=False)
+
+        hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
+        hybrid.add_fitted_model("ItemDotCF", item_dot)
+        hybrid.add_fitted_model("FUSION", fusion)
+        hybrid.add_fitted_model("ItemCBF_CF", item_cbf_cf)
+        hybrid.add_fitted_model("RP3BETA_SIDE", rp3beta)
+
+        hybrid.fit(**cls.get_best_parameters())
+        return hybrid
+
+
 class ItemDotCF(ICollaborativeModel):
     """
     - MAP 10 FOLD: 0.0352704�0.0015
@@ -30,6 +57,27 @@ class NewUserCF(ICollaborativeModel):
                        'asymmetric_alpha': 0.007806844711984786, 'feature_weighting': 'BM25'}
     recommender_class = NewUserKNNCFRecommender
     recommender_name = "NewUserCF"
+
+
+class NewPureSVD_side_info(IBestModel):
+    """
+    MAP 5CV: 0.028324�0.0018
+    MAP 10CV TF IDF True: 0.0285517�0.0027
+    MAP 10CV TF IDF FALSE: 0.0272885�0.0026
+    """
+    best_parameters = {'num_factors': 496, 'n_oversamples': 2, 'n_iter': 20, 'feature_weighting': 'TF-IDF'}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train, apply_tf_idf=True):
+        from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
+        from course_lib.Base.IR_feature_weighting import TF_IDF
+        if apply_tf_idf:
+            URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
+        else:
+            URM_train_side_info = sps.vstack([URM_train, ICM_train.T]).tocsr()
+        model = NewPureSVDRecommender(URM_train_side_info)
+        model.fit(**cls.get_best_parameters())
+        return model
 
 
 class PureSVD_side_info(IBestModel):
@@ -142,7 +190,7 @@ class ItemCBF_all_FW(IBestModel):
     """
     MAP lt 23: 0.0088 (OF CFW)
 
-    MAP 10 FOLD LT 23 OF THIS MODEL:
+    MAP 10 FOLD LT 23 OF THIS MODEL: 0.0096621�0.0009
 
     MAP 10 FOLD LT 23 OF NEW BEST MODELS IS: MAP: 0.0114828�0.0011
     """
@@ -186,7 +234,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
         return hyper_parameters_range
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train, load_model=True, save_model=True):
+    def get_model(cls, URM_train, ICM_train, load_model=False, save_model=False):
         from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
         from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
         model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
@@ -203,4 +251,3 @@ class FusionMergeItem_CBF_CF(IBestModel):
         if save_model:
             cls._save_model(model)
         return model
-

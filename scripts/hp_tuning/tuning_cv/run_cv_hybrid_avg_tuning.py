@@ -10,15 +10,16 @@ from src.tuning.cross_validation.run_cv_parameter_search_hybrid_avg import run_c
 from src.utils.general_utility_functions import get_split_seed, get_seed_lists
 
 # Parameters to modify
-N_CASES = 100
-N_RANDOM_STARTS = 40
-N_FOLDS = 5
+N_CASES = 120
+N_RANDOM_STARTS = 50
+N_FOLDS = 7
 K_OUT = 1
 CUTOFF = 10
 UPPER_THRESHOLD = 2 ** 16 - 1  # default 2**16-1
 LOWER_THRESHOLD = 23  # default -1
 ALLOW_COLD_USERS = False
 IGNORE_NON_TARGET_USERS = True
+NORMALIZE = True
 
 AGE_TO_KEEP = []  # Default []
 
@@ -27,14 +28,18 @@ def _get_all_models(URM_train, ICM_train, UCM_train):
     # Method to modify
     all_models = {}
 
-    all_models['ITEM_CBF_CF'] = best_models_lower_threshold_23.ItemCBF_CF.get_model(URM_train, ICM_train)
-    all_models['ITEM_CBF_ALL_FW'] = best_models_lower_threshold_23.ItemCBF_all_FW.get_model(URM_train, ICM_train)
-
+    all_models['FUSION'] = best_models_lower_threshold_23.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train,
+                                                                                           ICM_train=ICM_train)
+    all_models['ItemDotCF'] = best_models_lower_threshold_23.ItemDotCF.get_model(URM_train=URM_train)
+    all_models['ItemCBF_CF'] = best_models_lower_threshold_23.ItemCBF_CF.get_model(URM_train=URM_train,
+                                                                                   ICM_train=ICM_train)
+    all_models['RP3BETA_SIDE'] = best_models_lower_threshold_23.RP3Beta_side_info.get_model(URM_train=URM_train,
+                                                                                            ICM_train=ICM_train)
     return all_models
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = HybridWeightedAverageRecommender(URM_train, normalize=True)
+    model = HybridWeightedAverageRecommender(URM_train, normalize=NORMALIZE)
 
     all_models = _get_all_models(URM_train=URM_train, ICM_train=ICM_train, UCM_train=UCM_train)
     for model_name, model_object in all_models.items():

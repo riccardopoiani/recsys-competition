@@ -48,7 +48,8 @@ SIDE_INFO_CLASS_DICT = {
     "rp3beta_side": RP3betaRecommender,
 
     # ML-Based
-    "pure_svd_side": NewPureSVDRecommender
+    "pure_svd_side": NewPureSVDRecommender,
+    "slim_side": SLIM_BPR_Cython
 }
 
 COLLABORATIVE_RECOMMENDER_CLASS_DICT = {

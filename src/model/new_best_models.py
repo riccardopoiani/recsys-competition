@@ -122,7 +122,8 @@ class UserCBF_CF_Cold(IBestModel):
 class UserCBF_CF_Warm(IBestModel):
     """
     User CBF tuned with URM_train and UCM_all
-     - MAP (only warm): 0.0305
+    - MAP (only warm): 0.0305
+    - MAP LT 23: 0.0269084�0.0022
     """
     best_parameters = {'topK': 998, 'shrink': 968, 'similarity': 'cosine', 'normalize': False,
                        'feature_weighting': 'BM25', 'interactions_feature_weighting': "TF-IDF"}

@@ -79,7 +79,7 @@ HYPER_PARAMETERS_RANGE = {
     },
 
     NewPureSVDRecommender.RECOMMENDER_NAME: {
-        "num_factors": Integer(10, 50),
+        "num_factors": Integer(10, 500),
         "n_oversamples": Integer(1, 30),
         "n_iter": Integer(1, 20),
         "feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
@@ -163,7 +163,7 @@ HYPER_PARAMETERS_RANGE = {
     },
     SLIM_BPR_Cython.RECOMMENDER_NAME: {
         "topK": Integer(5, 1000),
-        "epochs": Categorical([1000]),
+        "epochs": Categorical([1000, 1100, 1200, 1300, 1400, 1500, 1600]),
         "symmetric": Categorical([True, False]),
         "sgd_mode": Categorical(["adagrad", "adam"]),
         "lambda_i": Real(low=1e-12, high=1e-1, prior='log-uniform'),
