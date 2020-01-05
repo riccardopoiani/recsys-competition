@@ -38,11 +38,8 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = best_models_lower_threshold_23.NewPureSVD_side_info.get_model(URM_train=URM_train, ICM_train=ICM_train
-                                                                          , apply_tf_idf=False)
-    # model = best_models_lower_threshold_23.WeightedAverageItemBased.get_model(URM_train=URM_train, ICM_all=ICM_train)
-    # model = best_models_lower_threshold_23.ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_train
-    #                                                            , load_model=False)
+    model = best_models_lower_threshold_23.WeightedAverageItemBasedWithoutRP3.get_model(URM_train=URM_train,
+                                                                                        ICM_all=ICM_train)
     return model
 
 

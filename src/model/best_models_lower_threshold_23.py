@@ -4,6 +4,31 @@ from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 import scipy.sparse as sps
 
 
+class WeightedAverageItemBasedWithoutRP3(IBestModel):
+    """
+    MAP 5: 0.0375
+    MAP 10: 0.0370478�0.0019
+    """
+    best_parameters = {'FUSION': 0.14212574141484816, 'ItemDotCF': 0.9812875193125008,
+                       'ItemCBF_CF': 0.9792817153741367}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_all):
+        from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+
+        fusion = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+        item_cbf_cf = ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+        item_dot = ItemDotCF.get_model(URM_train=URM_train, load_model=False)
+
+        hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
+        hybrid.add_fitted_model("ItemDotCF", item_dot)
+        hybrid.add_fitted_model("FUSION", fusion)
+        hybrid.add_fitted_model("ItemCBF_CF", item_cbf_cf)
+
+        hybrid.fit(**cls.get_best_parameters())
+        return hybrid
+
+
 class WeightedAverageItemBasedWithRP3(IBestModel):
     """
     CV MAP 0.0374
@@ -18,7 +43,7 @@ class WeightedAverageItemBasedWithRP3(IBestModel):
 
         fusion = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
         item_cbf_cf = ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
-        rp3beta = RP3Beta_side_info.get_model(URM_train=URM_train, ICM_train=ICM_all)
+        rp3beta = RP3Beta_side_info.get_model(URM_train=URM_train, ICM_train=ICM_all, apply_tf_idf=True)
         item_dot = ItemDotCF.get_model(URM_train=URM_train, load_model=False)
 
         hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
@@ -115,7 +140,7 @@ class RP3Beta_side_info(IBestModel):
                        'beta': 0.0051792301071096345, 'normalize_similarity': True}
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train, apply_tf_idf=True):
+    def get_model(cls, URM_train, ICM_train, apply_tf_idf=False):
         from course_lib.Base.IR_feature_weighting import TF_IDF
 
         if apply_tf_idf:
