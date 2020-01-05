@@ -47,6 +47,6 @@ class UserKNNDotCFRecommender(BaseUserSimilarityMatrixRecommender):
             self.W_sparse = userSimilarityMatrixTopK(self.W_sparse, k=self.topK).tocsr()
 
         if normalize:
-            self.W_sparse = normalize_sk(self.W_sparse, norm="l1")
+            self.W_sparse = normalize_sk(self.W_sparse, norm="l1", axis=1)
 
         self.W_sparse = check_matrix(self.W_sparse, format='csr')

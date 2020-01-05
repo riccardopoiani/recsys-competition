@@ -1,3 +1,5 @@
+from skopt.space import Categorical, Integer
+
 from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 import scipy.sparse as sps
 
@@ -121,3 +123,42 @@ class ItemCBF_all_FW(IBestModel):
         model = ItemKNNCBFRecommender(URM_train=URM_train, ICM_train=ICM_train)
         model.fit(row_weights=cfw.D_best, **cls.get_best_parameters())
         return model
+
+
+class FusionMergeItem_CBF_CF(IBestModel):
+    """
+    Fusion, i.e. bagging w/o bootstrap, merge of best models: Item_CBF_CF using ICM_all (sub_class, price, asset,
+    sub_class_count and item_pop; all discretized with bins 200, 200, 50, 50)
+     - MAP-K1 CV10 (lt 22): 0.0365217±0.0023
+    """
+    best_parameters = {'num_models': 10, 'topK': 16}
+    recommender_name = "FusionMergeItem_CBF_CF"
+
+    @classmethod
+    def get_hyperparameters(cls):
+        hyper_parameters_range = {}
+        for par, value in ItemCBF_CF.get_best_parameters().items():
+            hyper_parameters_range[par] = Categorical([value])
+        hyper_parameters_range['topK'] = Integer(low=3, high=30)
+        hyper_parameters_range['shrink'] = Integer(low=1000, high=2000)
+        return hyper_parameters_range
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train, load_model=True, save_model=True):
+        from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
+        from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+        model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,
+                                                      ICM_train=ICM_train)
+
+        try:
+            if load_model:
+                model = cls._load_model(model)
+                return model
+        except FileNotFoundError:
+            print("WARNING: Cannot find model to be loaded")
+
+        model.fit(topK=16, num_models=10, hyper_parameters_range=cls.get_hyperparameters())
+        if save_model:
+            cls._save_model(model)
+        return model
+

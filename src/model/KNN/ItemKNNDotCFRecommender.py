@@ -31,12 +31,12 @@ class ItemKNNDotCFRecommender(BaseItemSimilarityMatrixRecommender):
 
         if feature_weighting == "BM25":
             self.URM_train = self.URM_train.astype(np.float32)
-            self.URM_train = okapi_BM_25(self.URM_train)
+            self.URM_train = okapi_BM_25(self.URM_train.T).T
             self.URM_train = check_matrix(self.URM_train, 'csr')
 
         elif feature_weighting == "TF-IDF":
             self.URM_train = self.URM_train.astype(np.float32)
-            self.URM_train = TF_IDF(self.URM_train)
+            self.URM_train = TF_IDF(self.URM_train.T).T
             self.URM_train = check_matrix(self.URM_train, 'csr')
 
         denominator = 1 if shrink == 0 else shrink
@@ -47,6 +47,6 @@ class ItemKNNDotCFRecommender(BaseItemSimilarityMatrixRecommender):
             self.W_sparse = userSimilarityMatrixTopK(self.W_sparse, k=self.topK).tocsr()
 
         if normalize:
-            self.W_sparse = normalize_sk(self.W_sparse, norm="l2")
+            self.W_sparse = normalize_sk(self.W_sparse, norm="l2", axis=1)
 
         self.W_sparse = check_matrix(self.W_sparse, format='csr')

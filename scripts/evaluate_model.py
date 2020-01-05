@@ -18,15 +18,15 @@ from src.utils.general_utility_functions import get_split_seed, get_project_root
 K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
-LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2**16-1  # Remove users above or equal this threshold (default value: 2**16-1)
+LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
+UPPER_THRESHOLD = 22  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 
 def get_model(URM_train, ICM_train, UCM_train):
     # Write the model that you want to evaluate here. Possibly, do not modify the code if unnecessary in the main
-    model = ItemKNNDotCFRecommender(URM_train)
-    model.fit(topK=4, shrink=1500, normalize=True, feature_weighting="none")
+    model = UserKNNDotCFRecommender(URM_train)
+    model.fit(**{'topK': 989, 'shrink': 1228, 'normalize': True, 'feature_weighting': 'BM25'})
     return model
 
 
