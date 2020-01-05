@@ -2,22 +2,21 @@ import argparse
 import multiprocessing
 from datetime import datetime
 
-from course_lib.Base.IR_feature_weighting import TF_IDF
 from course_lib.Base.Evaluation.Evaluator import *
+from course_lib.Base.IR_feature_weighting import TF_IDF
 from course_lib.GraphBased.P3alphaRecommender import P3alphaRecommender
 from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
 from course_lib.KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
-from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
 from course_lib.MatrixFactorization.Cython.MatrixFactorization_Cython import MatrixFactorization_AsySVD_Cython
 from course_lib.MatrixFactorization.NMFRecommender import NMFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from course_lib.SLIM_ElasticNet.SLIMElasticNetRecommender import SLIMElasticNetRecommender
 from scripts.scripts_utils import set_env_variables, read_split_load_data
 from src.data_management.New_DataSplitter_leave_k_out import *
-from src.data_management.data_reader import get_ICM_train_new, get_UCM_train_new, get_ignore_users, get_ignore_users_age
-from src.feature.demographics_content import get_user_demographic
+from src.data_management.data_reader import get_ICM_train_new, get_UCM_train_new, get_ignore_users
+from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
 from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
@@ -58,6 +57,7 @@ COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
     "user_cf": UserKNNCFRecommender,
     "new_user_cf": NewUserKNNCFRecommender,
     "user_dot_cf": UserKNNDotCFRecommender,
+    "item_dot_cf": ItemKNNDotCFRecommender,
 
     # ML Item-Similarity Based
     "slim_bpr": SLIM_BPR_Cython,

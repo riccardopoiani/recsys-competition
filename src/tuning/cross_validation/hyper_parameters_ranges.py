@@ -9,6 +9,7 @@ from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.model.FactorizationMachine.FieldAwareFMRecommender import FieldAwareFMRecommender
+from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.NewItemKNNCBFRecommender import NewItemKNNCBFRecommender
 from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
@@ -102,6 +103,12 @@ HYPER_PARAMETERS_RANGE = {
     },
     UserKNNDotCFRecommender.RECOMMENDER_NAME: {
         "topK": Integer(1, 3000),
+        "shrink": Integer(0, 2000),
+        "normalize": Categorical([True, False]),
+        "feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
+    },
+    ItemKNNDotCFRecommender.RECOMMENDER_NAME: {
+        "topK": Integer(3, 30),
         "shrink": Integer(0, 2000),
         "normalize": Categorical([True, False]),
         "feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
