@@ -183,7 +183,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
         return hyper_parameters_range
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train, load_model=True, save_model=True):
+    def get_model(cls, URM_train, ICM_train, load_model=False, save_model=False):
         from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
         from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
         model = BaggingMergeItemSimilarityRecommender(URM_train, ItemKNNCBFCFRecommender, do_bootstrap=False,

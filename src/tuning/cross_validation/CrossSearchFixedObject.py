@@ -9,71 +9,22 @@ import numpy as np
 from course_lib.Base.DataIO import DataIO
 from course_lib.Base.Evaluation.Evaluator import Evaluator
 from course_lib.ParameterTuning.SearchAbstractClass import _compute_avg_time_non_none_values
+from src.tuning.cross_validation.CrossSearchAbstractClass import compute_mean_std_result_dict, get_result_string
 
 
-def compute_mean_std_result_dict(result_dicts):
-    metric_list = list(result_dicts[0].keys())
-
-    # ------- Calculate mean of each metrics -------
-    mean_result_dict: dict = {}
-    # Initialization
-    for metric in metric_list:
-        mean_result_dict[metric] = 0
-
-    # Sum operation
-    for result_dict in result_dicts:
-        for metric in metric_list:
-            mean_result_dict[metric] = mean_result_dict[metric] + result_dict[metric]
-
-    # Average
-    for metric in metric_list:
-        mean_result_dict[metric] = mean_result_dict[metric] / len(result_dicts)
-
-    # ------- Calculate std of each metrics -------
-    # Initialization
-    std_result_dict = {}
-    for metric in metric_list:
-        std_result_dict[metric] = 0
-
-    # Sum operation
-    for idx, result_dict in enumerate(result_dicts):
-        for metric in metric_list:
-            mean_value = mean_result_dict[metric]
-            squared_difference = (result_dict[metric] - mean_value) ** 2
-            std_result_dict[metric] = std_result_dict[metric] + squared_difference
-
-    # Average and root square
-    for metric in metric_list:
-        std_result_dict[metric] = (std_result_dict[metric] / len(result_dicts)) ** (1 / 2)
-
-    return mean_result_dict, std_result_dict
-
-
-def get_result_string(mean_result_dict, std_result_dict, n_mean_decimals=7, n_std_decimals=4):
-    output_str = ""
-
-    for metric in mean_result_dict.keys():
-        output_str += "{}: {:.{n_mean_decimals}f}\u00B1{:.{n_std_decimals}f}, ".format(metric, mean_result_dict[metric],
-                                                                                       std_result_dict[metric],
-                                                                                       n_mean_decimals=n_mean_decimals,
-                                                                                       n_std_decimals=n_std_decimals)
-
-    return output_str
-
-
-class CrossSearchAbstractClass(object):
-    ALGORITHM_NAME = "CrossSearchAbstractClass"
+class CrossSearchFixedObject(object):
+    ALGORITHM_NAME = "CrossSearchFixedObject"
 
     # Value to be assigned to invalid configuration or if an Exception is raised
     INVALID_CONFIG_VALUE = np.finfo(np.float16).max
 
-    def __init__(self, recommender_class,
+    def __init__(self, recommender_object_list,
                  evaluator_validation_list: List[Evaluator] = None,
                  verbose=True):
 
-        super(CrossSearchAbstractClass, self).__init__()
+        super(CrossSearchFixedObject, self).__init__()
 
-        self.recommender_class = recommender_class
+        self.recommender_object_list = recommender_object_list
         self.verbose = verbose
         self.log_file = None
 
@@ -126,7 +77,7 @@ class CrossSearchAbstractClass(object):
     def _init_metadata_dict(self, n_cases):
 
         self.metadata_dict = {"algorithm_name_search": self.ALGORITHM_NAME,
-                              "algorithm_name_recommender": self.recommender_class.RECOMMENDER_NAME,
+                              "algorithm_name_recommender": self.recommender_object_list[0].RECOMMENDER_NAME,
                               "exception_list": [None] * n_cases,
 
                               "hyperparameters_list": [None] * n_cases,
@@ -168,13 +119,12 @@ class CrossSearchAbstractClass(object):
             self.log_file.write(string)
             self.log_file.flush()
 
-    def _fit_model(self, current_fit_parameters, recommender_input_args):
+    def _fit_model(self, split_index, current_fit_parameters, recommender_input_args):
 
         start_time = time.time()
 
         # Construct a new recommender instance
-        recommender_instance = self.recommender_class(*recommender_input_args.CONSTRUCTOR_POSITIONAL_ARGS,
-                                                      **recommender_input_args.CONSTRUCTOR_KEYWORD_ARGS)
+        recommender_instance = self.recommender_object_list[split_index].copy()
 
         recommender_instance.fit(*recommender_input_args.FIT_POSITIONAL_ARGS,
                                  **recommender_input_args.FIT_KEYWORD_ARGS,
@@ -193,7 +143,7 @@ class CrossSearchAbstractClass(object):
         self._print("{}: Testing config: {}".format(self.ALGORITHM_NAME, current_fit_parameters))
 
         for i, evaluator in enumerate(self.evaluator_validation_list):
-            recommender_instance, train_times[i] = self._fit_model(current_fit_parameters,
+            recommender_instance, train_times[i] = self._fit_model(i, current_fit_parameters,
                                                                    self.recommender_input_args_list[i])
 
             start_time = time.time()

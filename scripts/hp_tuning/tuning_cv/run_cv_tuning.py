@@ -123,7 +123,7 @@ def get_arguments():
 def main():
     set_env_variables()
     args = get_arguments()
-    seeds = get_seed_lists(N_FOLDS, get_split_seed())
+    seeds = get_seed_lists(args.n_folds, get_split_seed())
 
     # --------- DATA LOADING SECTION --------- #
     URM_train_list = []

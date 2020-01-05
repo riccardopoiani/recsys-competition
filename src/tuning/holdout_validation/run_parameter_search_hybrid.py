@@ -130,11 +130,11 @@ def run_parameter_search_hybrid(recommender_object: AbstractHybridRecommender, m
             for similarity_type in strategies:
                 run_hybrid_reranking_on_strategy_partial(similarity_type)
         return
-
-    parameterSearch.search(recommender_input_args,
-                           parameter_search_space=hyperparameters_range_dictionary,
-                           n_cases=n_cases,
-                           n_random_starts=n_random_starts,
-                           output_folder_path=output_folder_path,
-                           output_file_name_root=output_file_name_root,
-                           metric_to_optimize=metric_to_optimize, save_model="no")
+    parameter_search = SearchBayesianSkoptObject(recommender_object, evaluator_validation)
+    parameter_search.search(recommender_input_args,
+                            parameter_search_space=hyperparameters_range_dictionary,
+                            n_cases=n_cases,
+                            n_random_starts=n_random_starts,
+                            output_folder_path=output_folder_path,
+                            output_file_name_root=output_file_name_root,
+                            metric_to_optimize=metric_to_optimize, save_model="no")
