@@ -2,6 +2,20 @@ from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 import scipy.sparse as sps
 
 
+class ItemDotCF(ICollaborativeModel):
+    """
+    - MAP 10 FOLD: 0.0352704�0.0015
+
+    Other parameters MAP 10 FOLD:
+    MAP: 0.0344132�0.0017 = {'topK': 10, 'shrink': 766, 'normalize': True, 'feature_weighting': 'none'}
+    MAP: 0.0350459�0.0014 = {'topK': 5, 'shrink': 620, 'normalize': True, 'feature_weighting': 'none'}
+    """
+    from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
+    best_parameters = {'topK': 3, 'shrink': 2000, 'normalize': True, 'feature_weighting': 'none'}
+    recommender_class = ItemKNNDotCFRecommender
+    recommender_name = "ItemDotCF"
+
+
 class NewUserCF(ICollaborativeModel):
     """
     - MAP TUNING 5 FOLD: 0.026830�0.0016
@@ -16,21 +30,49 @@ class NewUserCF(ICollaborativeModel):
     recommender_name = "NewUserCF"
 
 
+class PureSVD_side_info(IBestModel):
+    """
+    PureSVD recommender with side info by using TF_IDF([URM_train, ICM_all.T])
+    - MAP 5 FOLD: 0.027078�0.0019
+    - MAP 10 FOLD: MAP: 0.0265599�0.0025
+    - MAP 10 FOLD TF_IDF_FALSE: MAP: 0.0212042�0.0023
+    """
+    best_parameters = {'num_factors': 435}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train, apply_tf_idf=True):
+        from course_lib.MatrixFactorization.PureSVDRecommender import PureSVDRecommender
+        from course_lib.Base.IR_feature_weighting import TF_IDF
+        if apply_tf_idf:
+            URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
+        else:
+            URM_train_side_info = sps.vstack([URM_train, ICM_train.T]).tocsr()
+        model = PureSVDRecommender(URM_train_side_info)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+
 class RP3Beta_side_info(IBestModel):
     """
     RP3 beta with side info by using TF_IDF([URM_train, ICM_all.T])
 
     - MAP 5 FOLD: 0.035434�0.0013
     - MAP 10 FOLD: 0.0328794�0.0017
+    - MAP 10 FOLD APPLY TF IDF FALSE: 0.0351791�0.0018
     """
 
     best_parameters = {'topK': 28, 'alpha': 0.008124745090408949,
                        'beta': 0.0051792301071096345, 'normalize_similarity': True}
 
     @classmethod
-    def get_model(cls, URM_train, ICM_train):
+    def get_model(cls, URM_train, ICM_train, apply_tf_idf=True):
         from course_lib.Base.IR_feature_weighting import TF_IDF
-        URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
+
+        if apply_tf_idf:
+            URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
+        else:
+            URM_train_side_info = sps.vstack([URM_train, ICM_train.T]).tocsr()
+
         from course_lib.GraphBased.RP3betaRecommender import RP3betaRecommender
         model = RP3betaRecommender(URM_train_side_info)
         model.fit(**cls.get_best_parameters())

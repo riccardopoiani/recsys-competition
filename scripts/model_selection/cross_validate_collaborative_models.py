@@ -6,7 +6,6 @@ from scripts.model_selection.cross_validate_utils import write_results_on_file, 
 from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_ignore_users
 from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
-from src.model.KNN.NewUserKNNCFRecommender import NewUserKNNCFRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -19,8 +18,7 @@ UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (def
 IGNORE_NON_TARGET_USERS = True
 
 # VARIABLES TO MODIFY
-model_parameters = {"topK": 4, "shrink": 1500, "normalize": True, "feature_weighting": "none"}
-
+model_parameters = {'topK': 5, 'shrink': 620, 'normalize': True, 'feature_weighting': 'none'}
 recommender_class = ItemKNNDotCFRecommender
 model_name = "item_dot_cf_lt_23"
 
