@@ -24,12 +24,14 @@ from src.model.MatrixFactorization.MF_BPR_Recommender import MF_BPR_Recommender
 from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
 
 # ------------------------- HYPER PARAMETERS RANGE ------------------------- #
+from src.model.SLIM.SSLIM_BPR import SSLIM_BPR
+
 HYPER_PARAMETERS_RANGE = {
 
     CFW_D_Similarity_Linalg.RECOMMENDER_NAME: {
         "topK": Integer(2, 2000),
-         "add_zeros_quota": Real(low=0, high=0.1, prior='uniform'),
-         "normalize_similarity": Categorical([True, False])
+        "add_zeros_quota": Real(low=0, high=0.1, prior='uniform'),
+        "normalize_similarity": Categorical([True, False])
     },
 
     # ------ Matrix Factorization ------ #
@@ -75,13 +77,13 @@ HYPER_PARAMETERS_RANGE = {
     },
 
     PureSVDRecommender.RECOMMENDER_NAME: {
-       "num_factors": Integer(10, 1000),
+        "num_factors": Integer(10, 1000),
     },
 
     NewPureSVDRecommender.RECOMMENDER_NAME: {
-        "num_factors": Integer(10, 500),
-        "n_oversamples": Integer(1, 30),
-        "n_iter": Integer(1, 20),
+        "num_factors": Integer(500, 1000),
+        "n_oversamples": Integer(10, 50),
+        "n_iter": Integer(10, 50),
         "feature_weighting": Categorical(["none", "BM25", "TF-IDF"])
     },
 
@@ -169,13 +171,22 @@ HYPER_PARAMETERS_RANGE = {
         "lambda_i": Real(low=1e-12, high=1e-1, prior='log-uniform'),
         "lambda_j": Real(low=1e-12, high=1e-1, prior='log-uniform'),
         "learning_rate": Real(low=1e-8, high=1e-4, prior='log-uniform')
+    },
+    SSLIM_BPR.RECOMMENDER_NAME: {
+        "topK": Integer(5, 1000),
+        "epochs": Categorical([1000]),
+        "symmetric": Categorical([True, False]),
+        "sgd_mode": Categorical(["adam"]),
+        "lambda_i": Real(low=1e-12, high=1e-1, prior='log-uniform'),
+        "lambda_j": Real(low=1e-12, high=1e-1, prior='log-uniform'),
+        "learning_rate": Real(low=1e-8, high=1e-4, prior='log-uniform'),
+        "alpha": Real(low=0.01, high=0.99, prior='log-uniform')
     }
 
 }
 
 
 def get_hyper_parameters_dictionary(recommender_class):
-    hyperparameters_range_dictionary = {}
     return HYPER_PARAMETERS_RANGE[recommender_class.RECOMMENDER_NAME]
 
 

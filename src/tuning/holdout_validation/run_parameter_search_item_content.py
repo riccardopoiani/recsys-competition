@@ -6,6 +6,8 @@ import os
 
 from course_lib.ParameterTuning.SearchBayesianSkopt import SearchBayesianSkopt
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
+from src.model.SLIM.SSLIM_BPR import SSLIM_BPR
+from src.tuning.cross_validation.hyper_parameters_ranges import get_hyper_parameters_dictionary
 
 
 def run_KNNRecommender_on_similarity_type(similarity_type, parameterSearch,
@@ -102,6 +104,15 @@ def run_parameter_search_item_content(recommender_class, URM_train, ICM_object, 
         recommender_input_args_last_test.CONSTRUCTOR_POSITIONAL_ARGS[0] = URM_train_last_test
     else:
         recommender_input_args_last_test = None
+
+    if recommender_class.RECOMMENDER_NAME == SSLIM_BPR.RECOMMENDER_NAME:
+        hyper_parameters_range = get_hyper_parameters_dictionary(recommender_class)
+        parameterSearch.search(recommender_input_args, hyper_parameters_range,
+                               metric_to_optimize=metric_to_optimize, n_cases=n_cases, n_random_starts=n_random_starts,
+                               output_folder_path=output_folder_path, output_file_name_root=output_file_name_root,
+                               save_model=save_model, resume_from_saved=resume_from_saved,
+                               recommender_input_args_last_test=recommender_input_args_last_test)
+        return
 
     run_KNNCBFRecommender_on_similarity_type_partial = partial(run_KNNRecommender_on_similarity_type,
                                                                recommender_input_args=recommender_input_args,

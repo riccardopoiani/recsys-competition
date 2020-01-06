@@ -170,6 +170,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
     sub_class_count and item_pop; all discretized with bins 200, 200, 50, 50)
      - MAP (warm users): range  of [0.0359, 0.0363]
      - MAP (warm users) with weighted item features: 0.03658
+     - MAP-K1 CV10 (ut 22): 0.0592439±0.0011
     """
     best_parameters = {'num_models': 100}
     recommender_name = "FusionMergeItem_CBF_CF"

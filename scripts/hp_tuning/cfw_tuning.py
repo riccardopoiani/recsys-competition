@@ -11,8 +11,8 @@ from src.utils.general_utility_functions import get_split_seed
 K_OUT = 3
 CUTOFF = 10
 ALLOW_COLD_USERS = False
-LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
+LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
+UPPER_THRESHOLD = 22 # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 if __name__ == '__main__':
