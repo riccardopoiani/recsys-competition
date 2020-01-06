@@ -6,11 +6,8 @@ from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from scripts.model_selection.cross_validate_utils import get_seed_list, write_results_on_file
 from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, get_ignore_users
-from src.model import new_best_models, best_models_lower_threshold_23
-from src.model import best_models_lower_threshold_23, best_models_upper_threshold_22
+from src.model import best_models_lower_threshold_23
 from src.model import new_best_models
-from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
-from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.tuning.cross_validation.CrossSearchAbstractClass import compute_mean_std_result_dict, get_result_string
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -18,14 +15,14 @@ from src.utils.general_utility_functions import get_project_root_path
 K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
-LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 22  # Remove users above or equal this threshold (default value: 2**16-1)
+LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
+UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 AGE_TO_KEEP = []  # Default []
 
 # VARIABLES TO MODIFY
-model_name = "NewPureSVDSIDE_LT23_TFIDF0"
+model_name = "WeightedAvgLT23_RP3_TF_IDF_0"
 
 
 def _get_all_models(URM_train, ICM_all, UCM_all):
@@ -42,7 +39,8 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_train)
+    model = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(URM_train=URM_train,
+                                                                                     ICM_all=ICM_train)
     return model
 
 

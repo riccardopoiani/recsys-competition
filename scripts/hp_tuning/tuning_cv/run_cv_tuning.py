@@ -35,11 +35,12 @@ from src.utils.general_utility_functions import get_split_seed, get_seed_lists, 
 
 N_CASES = 100
 N_RANDOM_STARTS = 40
-N_FOLDS = 5
-K_OUT = 1
+
 CUTOFF = 10
-MAX_UPPER_THRESHOLD = 2 ** 32 - 1
-MIN_LOWER_THRESHOLD = -1
+ALLOW_COLD_USERS = True
+LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
+UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
+IGNORE_NON_TARGET_USERS = True
 
 AGE_TO_KEEP = []  # Default []
 

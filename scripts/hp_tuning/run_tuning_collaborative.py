@@ -11,6 +11,7 @@ from src.utils.general_utility_functions import get_split_seed
 
 N_CASES = 60
 N_RANDOM_STARTS = 20
+
 RECOMMENDER_CLASS_DICT = {
     "item_cf": ItemKNNCFRecommender,
     "user_cf": UserKNNCFRecommender,

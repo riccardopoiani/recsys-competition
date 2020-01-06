@@ -12,7 +12,7 @@ from src.utils.general_utility_functions import get_split_seed, get_seed_lists
 # Parameters to modify
 N_CASES = 120
 N_RANDOM_STARTS = 50
-N_FOLDS = 7
+N_FOLDS = 5
 K_OUT = 1
 CUTOFF = 10
 UPPER_THRESHOLD = 2 ** 16 - 1  # default 2**16-1
@@ -34,7 +34,8 @@ def _get_all_models(URM_train, ICM_train, UCM_train):
     all_models['ItemCBF_CF'] = best_models_lower_threshold_23.ItemCBF_CF.get_model(URM_train=URM_train,
                                                                                    ICM_train=ICM_train)
     all_models['RP3BETA_SIDE'] = best_models_lower_threshold_23.RP3Beta_side_info.get_model(URM_train=URM_train,
-                                                                                            ICM_train=ICM_train)
+                                                                                            ICM_train=ICM_train,
+                                                                                            apply_tf_idf=False)
     return all_models
 
 

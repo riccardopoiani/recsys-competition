@@ -9,8 +9,9 @@ class WeightedAverageItemBasedWithoutRP3(IBestModel):
     MAP 5: 0.0375
     MAP 10: 0.0370478�0.0019
     """
-    best_parameters = {'FUSION': 0.14212574141484816, 'ItemDotCF': 0.9812875193125008,
-                       'ItemCBF_CF': 0.9792817153741367}
+    best_parameters_true = {'FUSION': 0.14212574141484816, 'ItemDotCF': 0.9812875193125008,
+                            'ItemCBF_CF': 0.9792817153741367}
+    best_parameters = {'FUSION': 0.15, "ItemDotCF": 1, 'ItemCBF_CF': 1}
 
     @classmethod
     def get_model(cls, URM_train, ICM_all):
@@ -31,11 +32,18 @@ class WeightedAverageItemBasedWithoutRP3(IBestModel):
 
 class WeightedAverageItemBasedWithRP3(IBestModel):
     """
-    CV MAP 0.0374
-    10 FOLD CV: 0.0373325�0.0018
+    CV MAP 0.0374 TFIDF TRUE
+    10 FOLD CV: 0.0373325�0.0018 TFIDF TRUE
+
+    CV MAP TUNING TF IDF FALSE: 0.0377
+    10 FOLD CV: 0.0375901�0.0019
     """
-    best_parameters = {'FUSION': 0.11932917388021072, 'ItemDotCF': 0.714527859515967,
-                       'ItemCBF_CF': 0.314038888909047, 'RP3BETA_SIDE': 0.1419501369179094}
+    best_parameters_tf_idf_true = {'FUSION': 0.11932917388021072, 'ItemDotCF': 0.714527859515967,
+                                   'ItemCBF_CF': 0.314038888909047, 'RP3BETA_SIDE': 0.1419501369179094}
+
+    best_parameters = {'FUSION': 0.027727001572924077, 'ItemDotCF': 0.5547085458866265,
+                       'ItemCBF_CF': 0.3781014922999707,
+                       'RP3BETA_SIDE': 0.34790282048827864}
 
     @classmethod
     def get_model(cls, URM_train, ICM_all):
@@ -43,7 +51,7 @@ class WeightedAverageItemBasedWithRP3(IBestModel):
 
         fusion = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
         item_cbf_cf = ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
-        rp3beta = RP3Beta_side_info.get_model(URM_train=URM_train, ICM_train=ICM_all, apply_tf_idf=True)
+        rp3beta = RP3Beta_side_info.get_model(URM_train=URM_train, ICM_train=ICM_all, apply_tf_idf=False)
         item_dot = ItemDotCF.get_model(URM_train=URM_train, load_model=False)
 
         hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
