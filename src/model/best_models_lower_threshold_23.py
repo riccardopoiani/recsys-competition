@@ -5,14 +5,29 @@ from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 import scipy.sparse as sps
 
 
+class SLIM_side(IBestModel):
+    """
+    MAP 10FOLD CV: 0.0272825�0.0021
+    """
+    best_parameters = {'topK': 5, 'epochs': 1199, 'symmetric': True, 'sgd_mode': 'adam',
+                       'lambda_i': 0.039630931088674236, 'lambda_j': 6.504422502155122e-06,
+                       'learning_rate': 9.053916955113245e-05, 'alpha': 0.010003115216594088}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train):
+        from src.model.SLIM.SSLIM_BPR import SSLIM_BPR
+        sslim = SSLIM_BPR(URM_train=URM_train, ICM_train=ICM_train)
+        sslim.fit(**cls.get_best_parameters())
+        return sslim
+
+
 class WeightedAverageItemBasedWithoutRP3(IBestModel):
     """
     MAP 5: 0.0375
     MAP 10: 0.0370478�0.0019
     """
-    best_parameters_true = {'FUSION': 0.14212574141484816, 'ItemDotCF': 0.9812875193125008,
-                            'ItemCBF_CF': 0.9792817153741367}
-    best_parameters = {'FUSION': 0.15, "ItemDotCF": 1, 'ItemCBF_CF': 1}
+    best_parameters = {'FUSION': 0.14212574141484816, 'ItemDotCF': 0.9812875193125008,
+                       'ItemCBF_CF': 0.9792817153741367}
 
     @classmethod
     def get_model(cls, URM_train, ICM_all):
@@ -38,13 +53,17 @@ class WeightedAverageItemBasedWithRP3(IBestModel):
 
     CV MAP TUNING TF IDF FALSE: 0.0377
     10 FOLD CV: 0.0375901�0.0019
+
+    10 FOLD CV NEW BEST PARAM: 0.0375273�0.0017
     """
     best_parameters_tf_idf_true = {'FUSION': 0.11932917388021072, 'ItemDotCF': 0.714527859515967,
                                    'ItemCBF_CF': 0.314038888909047, 'RP3BETA_SIDE': 0.1419501369179094}
 
-    best_parameters = {'FUSION': 0.027727001572924077, 'ItemDotCF': 0.5547085458866265,
-                       'ItemCBF_CF': 0.3781014922999707,
-                       'RP3BETA_SIDE': 0.34790282048827864}
+    best_parameters_tf_idf_false = {'FUSION': 0.027727001572924077, 'ItemDotCF': 0.5547085458866265,
+                                    'ItemCBF_CF': 0.3781014922999707,
+                                    'RP3BETA_SIDE': 0.34790282048827864}
+
+    best_parameters = {'FUSION': 0.29, 'ItemDotCF': 0.88, 'ItemCBF_CF': 0.39, 'RP3BETA_SIDE': 0.1}
 
     @classmethod
     def get_model(cls, URM_train, ICM_all):

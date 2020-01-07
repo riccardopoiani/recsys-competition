@@ -9,10 +9,17 @@ class HybridWeightedAverageRecommender(AbstractHybridRecommender):
 
     RECOMMENDER_NAME = "HybridWeightedAverageRecommender"
 
-    def __init__(self, URM_train, normalize=True):
+    def __init__(self, URM_train, normalize=True, mapping=None):
         super().__init__(URM_train)
 
+        self.mapping = mapping
         self.normalize = normalize
+
+    def map_weights(self, weights):
+        new_w = {}
+        for rec, w in weights.items():
+            new_w[rec] = self.mapping[w]
+        return new_w
 
     def fit(self, **weights):
         """
@@ -22,6 +29,9 @@ class HybridWeightedAverageRecommender(AbstractHybridRecommender):
         :param weights: the list of weight of each recommender
         :return: None
         """
+        if self.mapping is not None:
+            weights = self.map_weights(weights)
+
         if np.all(np.in1d(weights.keys(), list(self.models.keys()), assume_unique=True)):
             raise ValueError("The weights key name passed does not correspond to the name of the models inside the "
                              "hybrid recommender: {}".format(self.get_recommender_names()))
@@ -63,4 +73,5 @@ class HybridWeightedAverageRecommender(AbstractHybridRecommender):
         copy.models = self.models
         copy.weights = self.weights
         copy.normalize = self.normalize
+        copy.mapping = self.mapping
         return copy

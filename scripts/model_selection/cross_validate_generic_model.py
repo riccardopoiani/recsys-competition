@@ -22,7 +22,7 @@ IGNORE_NON_TARGET_USERS = True
 AGE_TO_KEEP = []  # Default []
 
 # VARIABLES TO MODIFY
-model_name = "WeightedAvgLT23_RP3_TF_IDF_0"
+model_name = "WeightedAvgLT23_FUSIONFIXED"
 
 
 def _get_all_models(URM_train, ICM_all, UCM_all):
@@ -39,7 +39,8 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = best_models_upper_threshold_22.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_train)
+    model = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.\
+        get_model(URM_train=URM_train, ICM_all=ICM_train)
     return model
 
 

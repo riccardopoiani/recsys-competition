@@ -2,7 +2,7 @@ import multiprocessing
 import os
 import traceback
 
-from skopt.space import Real
+from skopt.space import Real, Integer
 
 from course_lib.ParameterTuning.SearchAbstractClass import SearchInputRecommenderArgs
 from src.tuning.cross_validation.CrossSearchBayesianSkoptObject import CrossSearchBayesianSkoptObject
@@ -13,7 +13,8 @@ def run_cv_parameter_search_hybrid_avg(recommender_object_list, URM_train_list, 
                                        ICM_name=None, UCM_name=None, metric_to_optimize="MAP",
                                        evaluator_validation_list=None, output_folder_path="result_experiments/",
                                        parallelize_search=True, n_cases=60, n_random_starts=20,
-                                       resume_from_saved=False, n_jobs=multiprocessing.cpu_count()):
+                                       resume_from_saved=False, n_jobs=multiprocessing.cpu_count(),
+                                       map_max=0):
     if len(evaluator_validation_list) != len(URM_train_list):
         raise ValueError("Number of evaluators does not coincide with the number of URM_train")
 
@@ -46,7 +47,10 @@ def run_cv_parameter_search_hybrid_avg(recommender_object_list, URM_train_list, 
         # Get hyper parameters range dictionary by recommender_class
         hyperparameters_range_dictionary = {}
         for model_name in recommender_object_list[0].get_recommender_names():
-            hyperparameters_range_dictionary[model_name] = Real(0, 1)
+            if map_max == 0:
+                hyperparameters_range_dictionary[model_name] = Real(0, 1)
+            else:
+                hyperparameters_range_dictionary[model_name] = Integer(0, map_max)
 
         parameter_search.search(recommender_input_args_list,
                                 parameter_search_space=hyperparameters_range_dictionary,

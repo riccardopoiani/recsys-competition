@@ -173,8 +173,8 @@ HYPER_PARAMETERS_RANGE = {
         "learning_rate": Real(low=1e-8, high=1e-4, prior='log-uniform')
     },
     SSLIM_BPR.RECOMMENDER_NAME: {
-        "topK": Integer(5, 1000),
-        "epochs": Categorical([1000]),
+        "topK": Integer(5, 100),
+        "epochs": Categorical([1200, 1500, 1700]),
         "symmetric": Categorical([True, False]),
         "sgd_mode": Categorical(["adam"]),
         "lambda_i": Real(low=1e-12, high=1e-1, prior='log-uniform'),

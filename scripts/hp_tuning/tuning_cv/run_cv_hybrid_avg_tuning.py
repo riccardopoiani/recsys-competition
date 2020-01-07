@@ -10,9 +10,9 @@ from src.tuning.cross_validation.run_cv_parameter_search_hybrid_avg import run_c
 from src.utils.general_utility_functions import get_split_seed, get_seed_lists
 
 # Parameters to modify
-N_CASES = 120
-N_RANDOM_STARTS = 50
-N_FOLDS = 5
+N_CASES = 110
+N_RANDOM_STARTS = 100
+N_FOLDS = 8
 K_OUT = 1
 CUTOFF = 10
 UPPER_THRESHOLD = 2 ** 16 - 1  # default 2**16-1
@@ -22,6 +22,18 @@ IGNORE_NON_TARGET_USERS = True
 NORMALIZE = True
 
 AGE_TO_KEEP = []  # Default []
+
+
+def get_map_max():
+    return 24
+
+
+def get_mapping():
+    mapping = {0: 0, 1: 0.1, 2: 0.13, 3: 0.17, 4: 0.2, 5: 0.25, 6: 0.29, 7: 0.31, 8: 0.34, 9: 0.39,
+               10: 0.43, 11: 0.46, 12: 0.5, 13: 0.551, 14: 0.605, 15: 0.62, 16: 0.66, 17: 0.71, 18: 0.75, 19: 0.8,
+               20: 0.85,
+               21: 0.88, 22: 0.91, 23: 0.965, 24: 1}
+    return mapping
 
 
 def _get_all_models(URM_train, ICM_train, UCM_train):
@@ -40,7 +52,7 @@ def _get_all_models(URM_train, ICM_train, UCM_train):
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = HybridWeightedAverageRecommender(URM_train, normalize=NORMALIZE)
+    model = HybridWeightedAverageRecommender(URM_train, normalize=NORMALIZE, mapping=get_mapping())
 
     all_models = _get_all_models(URM_train=URM_train, ICM_train=ICM_train, UCM_train=UCM_train)
     for model_name, model_object in all_models.items():
@@ -95,5 +107,6 @@ if __name__ == '__main__':
 
     run_cv_parameter_search_hybrid_avg(model_list, URM_train_list, metric_to_optimize="MAP",
                                        evaluator_validation_list=evaluator_list, output_folder_path=output_folder_path,
-                                       parallelize_search=True, n_cases=N_CASES, n_random_starts=N_RANDOM_STARTS)
+                                       parallelize_search=True, n_cases=N_CASES, n_random_starts=N_RANDOM_STARTS,
+                                       map_max=get_map_max())
     print("...tuning ended")

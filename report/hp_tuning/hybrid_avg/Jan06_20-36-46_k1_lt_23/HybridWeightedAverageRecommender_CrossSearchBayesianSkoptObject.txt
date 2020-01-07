@@ -1,0 +1,1781 @@
+CrossSearchBayesianSkoptObject: Config 0 Exception. Config: {'FUSION': 5, 'ItemDotCF': 18, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 7} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 1 Exception. Config: {'FUSION': 22, 'ItemDotCF': 18, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 2 Exception. Config: {'FUSION': 11, 'ItemDotCF': 15, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 8} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 3 Exception. Config: {'FUSION': 3, 'ItemDotCF': 2, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 12} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 4 Exception. Config: {'FUSION': 3, 'ItemDotCF': 2, 'ItemCBF_CF': 21, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 5 Exception. Config: {'FUSION': 17, 'ItemDotCF': 14, 'ItemCBF_CF': 20, 'RP3BETA_SIDE': 7} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 6 Exception. Config: {'FUSION': 24, 'ItemDotCF': 20, 'ItemCBF_CF': 3, 'RP3BETA_SIDE': 17} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 7 Exception. Config: {'FUSION': 8, 'ItemDotCF': 21, 'ItemCBF_CF': 9, 'RP3BETA_SIDE': 22} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 8 Exception. Config: {'FUSION': 13, 'ItemDotCF': 6, 'ItemCBF_CF': 13, 'RP3BETA_SIDE': 5} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 9 Exception. Config: {'FUSION': 19, 'ItemDotCF': 12, 'ItemCBF_CF': 7, 'RP3BETA_SIDE': 5} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 10 Exception. Config: {'FUSION': 17, 'ItemDotCF': 21, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 15} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 11 Exception. Config: {'FUSION': 5, 'ItemDotCF': 2, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 12 Exception. Config: {'FUSION': 8, 'ItemDotCF': 7, 'ItemCBF_CF': 7, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 13 Exception. Config: {'FUSION': 0, 'ItemDotCF': 16, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 15} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 14 Exception. Config: {'FUSION': 1, 'ItemDotCF': 19, 'ItemCBF_CF': 13, 'RP3BETA_SIDE': 12} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 15 Exception. Config: {'FUSION': 21, 'ItemDotCF': 11, 'ItemCBF_CF': 11, 'RP3BETA_SIDE': 14} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 16 Exception. Config: {'FUSION': 8, 'ItemDotCF': 19, 'ItemCBF_CF': 15, 'RP3BETA_SIDE': 19} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 17 Exception. Config: {'FUSION': 1, 'ItemDotCF': 10, 'ItemCBF_CF': 16, 'RP3BETA_SIDE': 11} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 18 Exception. Config: {'FUSION': 0, 'ItemDotCF': 11, 'ItemCBF_CF': 2, 'RP3BETA_SIDE': 16} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 19 Exception. Config: {'FUSION': 3, 'ItemDotCF': 12, 'ItemCBF_CF': 6, 'RP3BETA_SIDE': 10} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 20 Exception. Config: {'FUSION': 11, 'ItemDotCF': 9, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 21 Exception. Config: {'FUSION': 14, 'ItemDotCF': 11, 'ItemCBF_CF': 5, 'RP3BETA_SIDE': 13} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 22 Exception. Config: {'FUSION': 13, 'ItemDotCF': 14, 'ItemCBF_CF': 3, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 23 Exception. Config: {'FUSION': 23, 'ItemDotCF': 23, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 20} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 24 Exception. Config: {'FUSION': 8, 'ItemDotCF': 14, 'ItemCBF_CF': 5, 'RP3BETA_SIDE': 21} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 25 Exception. Config: {'FUSION': 20, 'ItemDotCF': 15, 'ItemCBF_CF': 8, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 26 Exception. Config: {'FUSION': 1, 'ItemDotCF': 18, 'ItemCBF_CF': 16, 'RP3BETA_SIDE': 15} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 27 Exception. Config: {'FUSION': 7, 'ItemDotCF': 3, 'ItemCBF_CF': 6, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 28 Exception. Config: {'FUSION': 7, 'ItemDotCF': 23, 'ItemCBF_CF': 16, 'RP3BETA_SIDE': 15} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 29 Exception. Config: {'FUSION': 5, 'ItemDotCF': 22, 'ItemCBF_CF': 11, 'RP3BETA_SIDE': 20} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 30 Exception. Config: {'FUSION': 10, 'ItemDotCF': 3, 'ItemCBF_CF': 12, 'RP3BETA_SIDE': 17} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 31 Exception. Config: {'FUSION': 18, 'ItemDotCF': 7, 'ItemCBF_CF': 16, 'RP3BETA_SIDE': 5} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 32 Exception. Config: {'FUSION': 3, 'ItemDotCF': 14, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 6} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 33 Exception. Config: {'FUSION': 0, 'ItemDotCF': 8, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 12} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 34 Exception. Config: {'FUSION': 12, 'ItemDotCF': 13, 'ItemCBF_CF': 16, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 35 Exception. Config: {'FUSION': 7, 'ItemDotCF': 22, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 16} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 36 Exception. Config: {'FUSION': 12, 'ItemDotCF': 12, 'ItemCBF_CF': 14, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 37 Exception. Config: {'FUSION': 20, 'ItemDotCF': 4, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 11} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 38 Exception. Config: {'FUSION': 4, 'ItemDotCF': 12, 'ItemCBF_CF': 2, 'RP3BETA_SIDE': 11} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 39 Exception. Config: {'FUSION': 11, 'ItemDotCF': 8, 'ItemCBF_CF': 20, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 40 Exception. Config: {'FUSION': 6, 'ItemDotCF': 2, 'ItemCBF_CF': 12, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 41 Exception. Config: {'FUSION': 20, 'ItemDotCF': 3, 'ItemCBF_CF': 8, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 42 Exception. Config: {'FUSION': 15, 'ItemDotCF': 6, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 21} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 43 Exception. Config: {'FUSION': 11, 'ItemDotCF': 12, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 19} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 44 Exception. Config: {'FUSION': 4, 'ItemDotCF': 7, 'ItemCBF_CF': 4, 'RP3BETA_SIDE': 8} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 45 Exception. Config: {'FUSION': 16, 'ItemDotCF': 5, 'ItemCBF_CF': 14, 'RP3BETA_SIDE': 11} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 46 Exception. Config: {'FUSION': 8, 'ItemDotCF': 16, 'ItemCBF_CF': 22, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 47 Exception. Config: {'FUSION': 9, 'ItemDotCF': 17, 'ItemCBF_CF': 3, 'RP3BETA_SIDE': 9} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 48 Exception. Config: {'FUSION': 23, 'ItemDotCF': 13, 'ItemCBF_CF': 14, 'RP3BETA_SIDE': 20} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 49 Exception. Config: {'FUSION': 18, 'ItemDotCF': 14, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 13} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 50 Exception. Config: {'FUSION': 22, 'ItemDotCF': 3, 'ItemCBF_CF': 2, 'RP3BETA_SIDE': 13} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 51 Exception. Config: {'FUSION': 3, 'ItemDotCF': 12, 'ItemCBF_CF': 22, 'RP3BETA_SIDE': 4} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 52 Exception. Config: {'FUSION': 15, 'ItemDotCF': 13, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 20} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 53 Exception. Config: {'FUSION': 14, 'ItemDotCF': 22, 'ItemCBF_CF': 3, 'RP3BETA_SIDE': 19} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 54 Exception. Config: {'FUSION': 19, 'ItemDotCF': 16, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 11} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 55 Exception. Config: {'FUSION': 14, 'ItemDotCF': 19, 'ItemCBF_CF': 19, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 56 Exception. Config: {'FUSION': 17, 'ItemDotCF': 18, 'ItemCBF_CF': 16, 'RP3BETA_SIDE': 13} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 57 Exception. Config: {'FUSION': 22, 'ItemDotCF': 9, 'ItemCBF_CF': 15, 'RP3BETA_SIDE': 6} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 58 Exception. Config: {'FUSION': 12, 'ItemDotCF': 22, 'ItemCBF_CF': 17, 'RP3BETA_SIDE': 4} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 59 Exception. Config: {'FUSION': 23, 'ItemDotCF': 5, 'ItemCBF_CF': 6, 'RP3BETA_SIDE': 16} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 60 Exception. Config: {'FUSION': 7, 'ItemDotCF': 6, 'ItemCBF_CF': 21, 'RP3BETA_SIDE': 22} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 61 Exception. Config: {'FUSION': 16, 'ItemDotCF': 8, 'ItemCBF_CF': 12, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 62 Exception. Config: {'FUSION': 5, 'ItemDotCF': 16, 'ItemCBF_CF': 14, 'RP3BETA_SIDE': 8} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 63 Exception. Config: {'FUSION': 1, 'ItemDotCF': 17, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 64 Exception. Config: {'FUSION': 13, 'ItemDotCF': 15, 'ItemCBF_CF': 13, 'RP3BETA_SIDE': 6} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 65 Exception. Config: {'FUSION': 9, 'ItemDotCF': 15, 'ItemCBF_CF': 12, 'RP3BETA_SIDE': 8} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 66 Exception. Config: {'FUSION': 6, 'ItemDotCF': 6, 'ItemCBF_CF': 4, 'RP3BETA_SIDE': 15} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 67 Exception. Config: {'FUSION': 4, 'ItemDotCF': 2, 'ItemCBF_CF': 22, 'RP3BETA_SIDE': 18} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 68 Exception. Config: {'FUSION': 6, 'ItemDotCF': 13, 'ItemCBF_CF': 21, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 69 Exception. Config: {'FUSION': 13, 'ItemDotCF': 6, 'ItemCBF_CF': 10, 'RP3BETA_SIDE': 17} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 70 Exception. Config: {'FUSION': 24, 'ItemDotCF': 1, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 71 Exception. Config: {'FUSION': 22, 'ItemDotCF': 0, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 72 Exception. Config: {'FUSION': 23, 'ItemDotCF': 0, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 73 Exception. Config: {'FUSION': 21, 'ItemDotCF': 24, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 74 Exception. Config: {'FUSION': 24, 'ItemDotCF': 24, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 75 Exception. Config: {'FUSION': 24, 'ItemDotCF': 0, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 76 Exception. Config: {'FUSION': 24, 'ItemDotCF': 0, 'ItemCBF_CF': 2, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 77 Exception. Config: {'FUSION': 1, 'ItemDotCF': 24, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 78 Exception. Config: {'FUSION': 0, 'ItemDotCF': 4, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 79 Exception. Config: {'FUSION': 23, 'ItemDotCF': 24, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 21} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 80 Exception. Config: {'FUSION': 23, 'ItemDotCF': 0, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 81 Exception. Config: {'FUSION': 1, 'ItemDotCF': 1, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 82 Exception. Config: {'FUSION': 0, 'ItemDotCF': 0, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 83 Exception. Config: {'FUSION': 22, 'ItemDotCF': 24, 'ItemCBF_CF': 22, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 84 Exception. Config: {'FUSION': 24, 'ItemDotCF': 24, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 85 Exception. Config: {'FUSION': 24, 'ItemDotCF': 0, 'ItemCBF_CF': 22, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 86 Exception. Config: {'FUSION': 0, 'ItemDotCF': 24, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 87 Exception. Config: {'FUSION': 1, 'ItemDotCF': 0, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 88 Exception. Config: {'FUSION': 1, 'ItemDotCF': 24, 'ItemCBF_CF': 2, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 89 Exception. Config: {'FUSION': 24, 'ItemDotCF': 24, 'ItemCBF_CF': 3, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 90 Exception. Config: {'FUSION': 0, 'ItemDotCF': 24, 'ItemCBF_CF': 2, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 91 Exception. Config: {'FUSION': 0, 'ItemDotCF': 0, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 92 Exception. Config: {'FUSION': 0, 'ItemDotCF': 23, 'ItemCBF_CF': 22, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 93 Exception. Config: {'FUSION': 24, 'ItemDotCF': 23, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 94 Exception. Config: {'FUSION': 24, 'ItemDotCF': 1, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 95 Exception. Config: {'FUSION': 23, 'ItemDotCF': 24, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 21} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 96 Exception. Config: {'FUSION': 1, 'ItemDotCF': 23, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 97 Exception. Config: {'FUSION': 22, 'ItemDotCF': 1, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 98 Exception. Config: {'FUSION': 24, 'ItemDotCF': 23, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 99 Exception. Config: {'FUSION': 1, 'ItemDotCF': 0, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 100 Exception. Config: {'FUSION': 0, 'ItemDotCF': 3, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 101 Exception. Config: {'FUSION': 24, 'ItemDotCF': 3, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 102 Exception. Config: {'FUSION': 24, 'ItemDotCF': 0, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 103 Exception. Config: {'FUSION': 24, 'ItemDotCF': 2, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 104 Exception. Config: {'FUSION': 23, 'ItemDotCF': 23, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 105 Exception. Config: {'FUSION': 24, 'ItemDotCF': 23, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 106 Exception. Config: {'FUSION': 24, 'ItemDotCF': 22, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 107 Exception. Config: {'FUSION': 24, 'ItemDotCF': 1, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 108 Exception. Config: {'FUSION': 0, 'ItemDotCF': 23, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 109 Exception. Config: {'FUSION': 24, 'ItemDotCF': 23, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 110 Exception. Config: {'FUSION': 1, 'ItemDotCF': 24, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 111 Exception. Config: {'FUSION': 0, 'ItemDotCF': 0, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 112 Exception. Config: {'FUSION': 0, 'ItemDotCF': 1, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 22} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 113 Exception. Config: {'FUSION': 0, 'ItemDotCF': 2, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 114 Exception. Config: {'FUSION': 0, 'ItemDotCF': 1, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 115 Exception. Config: {'FUSION': 0, 'ItemDotCF': 24, 'ItemCBF_CF': 22, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 116 Exception. Config: {'FUSION': 24, 'ItemDotCF': 24, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 117 Exception. Config: {'FUSION': 0, 'ItemDotCF': 23, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 118 Exception. Config: {'FUSION': 0, 'ItemDotCF': 24, 'ItemCBF_CF': 21, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 119 Exception. Config: {'FUSION': 0, 'ItemDotCF': 0, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 23} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 120 Exception. Config: {'FUSION': 23, 'ItemDotCF': 1, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 121 Exception. Config: {'FUSION': 0, 'ItemDotCF': 0, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 122 Exception. Config: {'FUSION': 24, 'ItemDotCF': 23, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 22} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 123 Exception. Config: {'FUSION': 23, 'ItemDotCF': 0, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 124 Exception. Config: {'FUSION': 0, 'ItemDotCF': 0, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 125 Exception. Config: {'FUSION': 24, 'ItemDotCF': 2, 'ItemCBF_CF': 2, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 126 Exception. Config: {'FUSION': 24, 'ItemDotCF': 1, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 127 Exception. Config: {'FUSION': 23, 'ItemDotCF': 2, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 128 Exception. Config: {'FUSION': 0, 'ItemDotCF': 24, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 22} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 129 Exception. Config: {'FUSION': 22, 'ItemDotCF': 23, 'ItemCBF_CF': 24, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 130 Exception. Config: {'FUSION': 23, 'ItemDotCF': 24, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 131 Exception. Config: {'FUSION': 0, 'ItemDotCF': 23, 'ItemCBF_CF': 23, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 132 Exception. Config: {'FUSION': 23, 'ItemDotCF': 0, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 133 Exception. Config: {'FUSION': 22, 'ItemDotCF': 24, 'ItemCBF_CF': 0, 'RP3BETA_SIDE': 24} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 134 Exception. Config: {'FUSION': 1, 'ItemDotCF': 24, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 135 Exception. Config: {'FUSION': 23, 'ItemDotCF': 24, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 136 Exception. Config: {'FUSION': 0, 'ItemDotCF': 23, 'ItemCBF_CF': 1, 'RP3BETA_SIDE': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 33, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 21, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+

@@ -421,7 +421,7 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, URM_train_las
         if recommender_class is SLIM_BPR_Cython:
             hyperparameters_range_dictionary = {}
             hyperparameters_range_dictionary["topK"] = Integer(5, 2000)
-            hyperparameters_range_dictionary["epochs"] = Categorical([1500])
+            hyperparameters_range_dictionary["epochs"] = Categorical([1200, 1500, 1700])
             hyperparameters_range_dictionary["symmetric"] = Categorical([True, False])
             hyperparameters_range_dictionary["sgd_mode"] = Categorical(["adagrad", "adam"])
             hyperparameters_range_dictionary["lambda_i"] = Real(low=1e-7, high=1e1, prior='log-uniform')

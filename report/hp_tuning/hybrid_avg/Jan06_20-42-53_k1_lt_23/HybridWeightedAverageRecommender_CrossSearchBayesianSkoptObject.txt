@@ -1,0 +1,351 @@
+CrossSearchBayesianSkoptObject: Config 0 Exception. Config: {'ItemDotCF': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 1 Exception. Config: {'ItemDotCF': 16} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 2 Exception. Config: {'ItemDotCF': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 3 Exception. Config: {'ItemDotCF': 16} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 4 Exception. Config: {'ItemDotCF': 21} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 5 Exception. Config: {'ItemDotCF': 21} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 6 Exception. Config: {'ItemDotCF': 17} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 7 Exception. Config: {'ItemDotCF': 18} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 8 Exception. Config: {'ItemDotCF': 8} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 9 Exception. Config: {'ItemDotCF': 2} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 10 Exception. Config: {'ItemDotCF': 11} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 11 Exception. Config: {'ItemDotCF': 11} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 12 Exception. Config: {'ItemDotCF': 6} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 13 Exception. Config: {'ItemDotCF': 21} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 14 Exception. Config: {'ItemDotCF': 4} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 15 Exception. Config: {'ItemDotCF': 4} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 16 Exception. Config: {'ItemDotCF': 3} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 17 Exception. Config: {'ItemDotCF': 8} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 18 Exception. Config: {'ItemDotCF': 6} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 19 Exception. Config: {'ItemDotCF': 14} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 20 Exception. Config: {'ItemDotCF': 1} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 21 Exception. Config: {'ItemDotCF': 7} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 22 Exception. Config: {'ItemDotCF': 8} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 23 Exception. Config: {'ItemDotCF': 7} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 24 Exception. Config: {'ItemDotCF': 6} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 25 Exception. Config: {'ItemDotCF': 0} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
+CrossSearchBayesianSkoptObject: Config 26 Exception. Config: {'ItemDotCF': 17} - Exception: Traceback (most recent call last):
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 172, in _objective_function
+    current_fit_parameters_dict)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 147, in _evaluate_on_validation
+    self.recommender_input_args_list[i])
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\tuning\cross_validation\CrossSearchFixedObject.py", line 131, in _fit_model
+    **current_fit_parameters)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 37, in fit
+    weights = self.map_weights(weights)
+  File "C:\Users\User.LAPTOP-FG37H74P\Documents\GitHub\recsys_2019\src\model\HybridRecommender\HybridWeightedAverageRecommender.py", line 25, in map_weights
+    new_w[rec] = self.mapping[w]
+TypeError: 'NoneType' object is not subscriptable
+
