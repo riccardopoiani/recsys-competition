@@ -52,7 +52,8 @@ SIDE_INFO_CLASS_DICT = {
 
     # ML-Based
     "pure_svd_side": NewPureSVDRecommender,
-    "slim_side": SLIM_BPR_Cython
+    "slim_side": SLIM_BPR_Cython,
+    "ials_side": ImplicitALSRecommender
 }
 
 COLLABORATIVE_RECOMMENDER_CLASS_DICT = {
@@ -191,7 +192,7 @@ def main():
         temp_list = []
         for i, URM in enumerate(URM_train_list):
             temp = sps.vstack([URM, ICM_train_list[i].T], format="csr")
-            temp = TF_IDF(temp).tocsr()
+            #temp = TF_IDF(temp).tocsr()
             temp_list.append(temp)
 
         run_cv_parameter_search(URM_train_list=temp_list,

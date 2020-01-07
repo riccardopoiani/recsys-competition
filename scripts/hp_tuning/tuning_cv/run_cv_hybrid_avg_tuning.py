@@ -4,19 +4,19 @@ from course_lib.Base.Evaluation.Evaluator import *
 from scripts.scripts_utils import set_env_variables, read_split_load_data
 from src.data_management.New_DataSplitter_leave_k_out import *
 from src.data_management.data_reader import get_ICM_train_new, get_UCM_train_new, get_ignore_users
-from src.model import new_best_models, best_models_lower_threshold_23
+from src.model import new_best_models, best_models_lower_threshold_23, best_models_upper_threshold_22
 from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
 from src.tuning.cross_validation.run_cv_parameter_search_hybrid_avg import run_cv_parameter_search_hybrid_avg
 from src.utils.general_utility_functions import get_split_seed, get_seed_lists
 
 # Parameters to modify
-N_CASES = 110
-N_RANDOM_STARTS = 100
-N_FOLDS = 8
+N_CASES = 200
+N_RANDOM_STARTS = 150
+N_FOLDS = 5
 K_OUT = 1
 CUTOFF = 10
-UPPER_THRESHOLD = 2 ** 16 - 1  # default 2**16-1
-LOWER_THRESHOLD = 23  # default -1
+UPPER_THRESHOLD = 22  # default 2**16-1
+LOWER_THRESHOLD = -1  # default -1
 ALLOW_COLD_USERS = False
 IGNORE_NON_TARGET_USERS = True
 NORMALIZE = True
@@ -40,14 +40,17 @@ def _get_all_models(URM_train, ICM_train, UCM_train):
     # Method to modify
     all_models = {}
 
-    all_models['FUSION'] = best_models_lower_threshold_23.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train,
+    all_models['Fusion'] = best_models_upper_threshold_22.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train,
                                                                                            ICM_train=ICM_train)
-    all_models['ItemDotCF'] = best_models_lower_threshold_23.ItemDotCF.get_model(URM_train=URM_train)
-    all_models['ItemCBF_CF'] = best_models_lower_threshold_23.ItemCBF_CF.get_model(URM_train=URM_train,
+    all_models['ItemDotCF'] = best_models_upper_threshold_22.ItemDotCF.get_model(URM_train=URM_train)
+    all_models['ItemCBF_CF'] = best_models_upper_threshold_22.ItemCBF_CF.get_model(URM_train=URM_train,
                                                                                    ICM_train=ICM_train)
-    all_models['RP3BETA_SIDE'] = best_models_lower_threshold_23.RP3Beta_side_info.get_model(URM_train=URM_train,
-                                                                                            ICM_train=ICM_train,
-                                                                                            apply_tf_idf=False)
+    all_models['ItemCF'] = best_models_upper_threshold_22.Item_CF.get_model(URM_train=URM_train)
+    all_models['ItemCBF_FW'] = best_models_upper_threshold_22.ItemCBF_all_FW.get_model(URM_train=URM_train,
+                                                                                       ICM_train=ICM_train)
+    all_models['RP3betaSide'] = best_models_upper_threshold_22.RP3Beta_side_info.get_model(URM_train=URM_train,
+                                                                                           ICM_train=ICM_train,
+                                                                                           apply_tf_idf=True)
     return all_models
 
 

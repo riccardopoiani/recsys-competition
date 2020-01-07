@@ -5,8 +5,8 @@ from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
 from scripts.model_selection.cross_validate_utils import get_seed_list, write_results_on_file
 from scripts.scripts_utils import read_split_load_data
-from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, get_ignore_users
-from src.model import best_models_lower_threshold_23, best_models_upper_threshold_22
+from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, get_ignore_users, get_UCM_train_new
+from src.model import best_models_lower_threshold_23, best_models_upper_threshold_22, k_1_out_best_models
 from src.model import new_best_models
 from src.tuning.cross_validation.CrossSearchAbstractClass import compute_mean_std_result_dict, get_result_string
 from src.utils.general_utility_functions import get_project_root_path
@@ -39,8 +39,7 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.\
-        get_model(URM_train=URM_train, ICM_all=ICM_train)
+    model = k_1_out_best_models.HybridNormWeightedAvgAll.get_model(URM_train, ICM_train, UCM_train)
     return model
 
 
@@ -53,7 +52,7 @@ def main():
 
         URM_train, URM_test = data_reader.get_holdout_split()
         ICM_all, _ = get_ICM_train_new(data_reader)
-        UCM_all = get_UCM_train(data_reader)
+        UCM_all, _ = get_UCM_train_new(data_reader)
 
         # Setting evaluator
         ignore_users = get_ignore_users(URM_train, data_reader.get_original_user_id_to_index_mapper(),

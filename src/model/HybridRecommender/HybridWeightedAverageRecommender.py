@@ -9,11 +9,12 @@ class HybridWeightedAverageRecommender(AbstractHybridRecommender):
 
     RECOMMENDER_NAME = "HybridWeightedAverageRecommender"
 
-    def __init__(self, URM_train, normalize=True, mapping=None):
+    def __init__(self, URM_train, normalize=True, mapping=None, global_normalization=False):
         super().__init__(URM_train)
 
         self.mapping = mapping
         self.normalize = normalize
+        self.global_normalization = global_normalization
 
     def map_weights(self, weights):
         new_w = {}
@@ -52,14 +53,19 @@ class HybridWeightedAverageRecommender(AbstractHybridRecommender):
             scores_batch = recommender_model._compute_item_score(user_id_array, items_to_compute=items_to_compute)
 
             if self.normalize:
-                maximum = np.max(scores_batch, axis=1).reshape((len(user_id_array), 1))
-
                 scores_batch_for_minimum = scores_batch.copy()
                 scores_batch_for_minimum[scores_batch_for_minimum == float('-inf')] = np.inf
-                minimum = np.min(scores_batch_for_minimum, axis=1).reshape((len(user_id_array), 1))
 
-                denominator = maximum - minimum
-                denominator[denominator == 0] = 1.0
+                if self.global_normalization:
+                    maximum = np.max(scores_batch)
+                    minimum = np.min(scores_batch_for_minimum)
+                    denominator = maximum - minimum
+                    denominator = 1 if denominator == 0 else denominator
+                else:
+                    maximum = np.max(scores_batch, axis=1).reshape((len(user_id_array), 1))
+                    minimum = np.min(scores_batch_for_minimum, axis=1).reshape((len(user_id_array), 1))
+                    denominator = maximum - minimum
+                    denominator[denominator == 0] = 1.0
 
                 scores_batch = (scores_batch - minimum) / denominator
 

@@ -10,7 +10,7 @@ from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_le
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, \
     get_ignore_users
-from src.model import new_best_models, best_models
+from src.model import new_best_models, best_models, best_models_upper_threshold_22
 from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
@@ -27,8 +27,17 @@ IGNORE_NON_TARGET_USERS = True
 
 def get_model(URM_train, ICM_train, UCM_train):
     # Write the model that you want to evaluate here. Possibly, do not modify the code if unnecessary in the main
-    model = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_train)
-    return model
+    from src.model.best_models import ItemCF
+    from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+
+    item_cf = ItemCF.get_model(URM_train)
+
+    hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True, global_normalization=False)
+    hybrid.add_fitted_model("ITEM_CF", item_cf)
+    hybrid.add_fitted_model("ITEM_CF_2", item_cf)
+
+    hybrid.fit(ITEM_CF=0.5, ITEM_CF_2=0.3)
+    return hybrid
 
 
 def main():
