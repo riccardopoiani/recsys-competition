@@ -1,5 +1,6 @@
 from skopt.space import Categorical, Integer
 
+from src.model import new_best_models
 from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 import scipy.sparse as sps
 
@@ -66,6 +67,27 @@ class RP3Beta_side_info(IBestModel):
         return model
 
 
+class NewPureSVD_side_info(IBestModel):
+    """
+    MAP 5CV: 0.052407±0.0006
+    MAP 10CV TF IDF True: 0.0502948±0.0015
+    MAP 10CV TF IDF FALSE: 0.0455457±0.0011
+    """
+    best_parameters = {'num_factors': 840, 'n_oversamples': 26, 'n_iter': 17, 'feature_weighting': 'TF-IDF'}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train, apply_tf_idf=True):
+        from src.model.MatrixFactorization.NewPureSVDRecommender import NewPureSVDRecommender
+        from course_lib.Base.IR_feature_weighting import TF_IDF
+        if apply_tf_idf:
+            URM_train_side_info = TF_IDF(sps.vstack([URM_train, ICM_train.T])).tocsr()
+        else:
+            URM_train_side_info = sps.vstack([URM_train, ICM_train.T]).tocsr()
+        model = NewPureSVDRecommender(URM_train_side_info)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+
 class User_Dot_CF(ICollaborativeModel):
     """
     User Dot CF tuned with URM_train
@@ -87,13 +109,13 @@ class FusionMergeItem_CBF_CF(IBestModel):
 
     The old fusion is: MAP-K1 CV10 (ut 22): 0.0592439±0.0011
     """
-    best_parameters = {'num_models': 10, 'topK': 2946}
+    best_parameters = {'num_models': 30, 'topK': 2776}
     recommender_name = "FusionMergeItem_CBF_CF"
 
     @classmethod
     def get_hyperparameters(cls):
         hyper_parameters_range = {}
-        for par, value in ItemCBF_CF.get_best_parameters().items():
+        for par, value in new_best_models.ItemCBF_CF.get_best_parameters().items():
             hyper_parameters_range[par] = Categorical([value])
         hyper_parameters_range['topK'] = Integer(low=3, high=30)
         hyper_parameters_range['shrink'] = Integer(low=1000, high=2000)
@@ -113,7 +135,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
         except FileNotFoundError:
             print("WARNING: Cannot find model to be loaded")
 
-        model.fit(hyper_parameters_range=cls.get_hyperparameters(), **cls.get_best_parameters())
+        model.fit(**cls.get_best_parameters(), hyper_parameters_range=cls.get_hyperparameters())
         if save_model:
             cls._save_model(model)
         return model

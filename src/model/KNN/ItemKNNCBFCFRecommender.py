@@ -16,7 +16,6 @@ class ItemKNNCBFCFRecommender(ItemKNNCBFRecommender):
     def __init__(self, URM_train, ICM_train, verbose=True):
         super(ItemKNNCBFRecommender, self).__init__(URM_train, verbose=verbose)
 
-        #self.ICM_train = sps.hstack([ICM_train, URM_train.T], format="csr")
         self.ICM_train = sps.hstack([URM_train.T, ICM_train], format="csr")
 
     def fit(self, topK=50, shrink=100, similarity='cosine', normalize=True, feature_weighting="none",

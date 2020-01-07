@@ -1,5 +1,6 @@
 from skopt.space import Categorical, Integer
 
+from src.model import new_best_models
 from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 import scipy.sparse as sps
 
@@ -260,7 +261,7 @@ class FusionMergeItem_CBF_CF(IBestModel):
     @classmethod
     def get_hyperparameters(cls):
         hyper_parameters_range = {}
-        for par, value in ItemCBF_CF.get_best_parameters().items():
+        for par, value in new_best_models.ItemCBF_CF.get_best_parameters().items():
             hyper_parameters_range[par] = Categorical([value])
         hyper_parameters_range['topK'] = Integer(low=3, high=30)
         hyper_parameters_range['shrink'] = Integer(low=1000, high=2000)

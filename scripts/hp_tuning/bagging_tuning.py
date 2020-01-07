@@ -18,7 +18,8 @@ if __name__ == '__main__':
     # Data loading
     root_data_path = "../../data/"
     data_reader = RecSys2019Reader(root_data_path)
-    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=3, use_validation_set=False,
+    data_reader = New_DataSplitter_leave_k_out(data_reader, k_out_value=1, allow_cold_users=False,
+                                               use_validation_set=False,
                                                force_new_split=True, seed=get_split_seed())
     data_reader.load_data()
     URM_train, URM_test = data_reader.get_holdout_split()
@@ -58,6 +59,6 @@ if __name__ == '__main__':
                                  metric_to_optimize="MAP",
                                  evaluator_validation=evaluator,
                                  output_folder_path=version_path,
-                                 n_cases=60, n_random_starts=30)
+                                 n_cases=70, n_random_starts=30)
 
     print("...tuning ended")

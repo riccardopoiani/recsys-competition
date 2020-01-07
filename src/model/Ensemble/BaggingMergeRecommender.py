@@ -47,18 +47,12 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
 
         np.random.seed(get_split_seed())
         seeds = np.random.randint(low=0, high=2**16-1, size=num_models)
-        np.random.seed()
 
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
             URM_bootstrap = self.URM_train
             recommender_kwargs = self.recommender_kwargs.copy()
             if self.do_bootstrap:
                 URM_bootstrap, users_added = get_item_bootstrap(self.URM_train, seeds[i])
-                """for name, object in recommender_kwargs.items():
-                    if name == "UCM_train":
-                        UCM_object = object.copy()
-                        UCM_object = sps.vstack([UCM_object, UCM_object[users_added, :]], format="csr")
-                        recommender_kwargs[name] = UCM_object"""
 
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():

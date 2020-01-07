@@ -27,7 +27,7 @@ IGNORE_NON_TARGET_USERS = True
 
 def get_model(URM_train, ICM_train, UCM_train):
     # Write the model that you want to evaluate here. Possibly, do not modify the code if unnecessary in the main
-    model = new_best_models.ItemCBF_CF.get_model(URM_train, ICM_train)
+    model = new_best_models.FusionMergeItem_CBF_CF.get_model(URM_train, ICM_train)
     return model
 
 
