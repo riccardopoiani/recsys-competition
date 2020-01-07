@@ -105,11 +105,11 @@ class FusionMergeItem_CBF_CF(IBestModel):
     """
     Fusion, i.e. bagging w/o bootstrap, merge of best models: Item_CBF_CF using ICM_all (sub_class, price, asset,
     sub_class_count and item_pop; all discretized with bins 200, 200, 50, 50)
-     - MAP-K1 CV10 (lt 22): 0.0481411±0.0012
+     - MAP-K1 CV10 (lt 22): 0.0592046±0.0011
 
     The old fusion is: MAP-K1 CV10 (ut 22): 0.0592439±0.0011
     """
-    best_parameters = {'num_models': 30, 'topK': 2776}
+    best_parameters = {'num_models': 10, 'topK': 2946}
     recommender_name = "FusionMergeItem_CBF_CF"
 
     @classmethod

@@ -35,17 +35,18 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
         self.recommender_class = recommender_class
         self.recommender_kwargs = recommender_constr_kwargs
 
-    def fit(self, num_models=5, hyper_parameters_range=None, **kwargs):
+    def fit(self, num_models=5, hyper_parameters_range=None, seed=get_split_seed(), **kwargs):
         """
         Fit all the num_models and merge them into a unique model
 
         :param num_models: number of models in the bagging recommender
         :param hyper_parameters_range: hyper parameters range to give some more diversity in models
+        :param seed:
         """
         if hyper_parameters_range is None:
             hyper_parameters_range = {}
 
-        np.random.seed(get_split_seed())
+        np.random.seed(seed)
         seeds = np.random.randint(low=0, high=2**16-1, size=num_models)
 
         for i in tqdm(range(num_models), desc="Fitting bagging models"):
