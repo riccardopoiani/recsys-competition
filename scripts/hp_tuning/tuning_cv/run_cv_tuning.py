@@ -37,9 +37,11 @@ N_CASES = 100
 N_RANDOM_STARTS = 40
 
 CUTOFF = 10
-ALLOW_COLD_USERS = True
-LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
+N_FOLDS = 5
+K_OUT = 1
+ALLOW_COLD_USERS = False
+MIN_LOWER_THRESHOLD = -1
+MAX_UPPER_THRESHOLD = 2 ** 16 - 1
 IGNORE_NON_TARGET_USERS = True
 
 AGE_TO_KEEP = []  # Default []
