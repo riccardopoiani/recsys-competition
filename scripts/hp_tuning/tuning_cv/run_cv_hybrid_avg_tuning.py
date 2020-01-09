@@ -39,7 +39,6 @@ def get_mapping():
 def _get_all_models(URM_train, ICM_train, UCM_train):
     # Method to modify
     all_models = {}
-
     all_models['ItemAvg'] = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(
         URM_train=URM_train,
         ICM_all=ICM_train)
@@ -49,8 +48,6 @@ def _get_all_models(URM_train, ICM_train, UCM_train):
                                                                                              ICM_train=ICM_train,
                                                                                              apply_tf_idf=True)
     all_models['IALS'] = best_models_lower_threshold_23.IALS.get_model(URM_train=URM_train)
-
-    return all_models
 
 
 def get_model(URM_train, ICM_train, UCM_train):

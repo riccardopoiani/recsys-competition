@@ -1,5 +1,8 @@
 import os
 from datetime import datetime
+import numpy as np
+
+from skopt.space import Categorical, Integer
 
 from course_lib.Base.BaseRecommender import BaseRecommender
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
@@ -8,6 +11,9 @@ from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, get_ignore_users, get_UCM_train_new
 from src.model import best_models_lower_threshold_23, best_models_upper_threshold_22, k_1_out_best_models
 from src.model import new_best_models
+from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
+from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
+from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
 from src.tuning.cross_validation.CrossSearchAbstractClass import compute_mean_std_result_dict, get_result_string
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -15,32 +21,32 @@ from src.utils.general_utility_functions import get_project_root_path
 K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
-LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
+LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
 UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 AGE_TO_KEEP = []  # Default []
 
 # VARIABLES TO MODIFY
-model_name = "HybridLT23"
-
-
-def _get_all_models(URM_train, ICM_all, UCM_all):
-    all_models = {}
-
-    all_models['WEIGHTED_AVG_ITEM'] = new_best_models.WeightedAverageItemBased.get_model(URM_train, ICM_all)
-
-    all_models['S_PURE_SVD'] = new_best_models.PureSVDSideInfo.get_model(URM_train, ICM_all)
-    all_models['S_IALS'] = new_best_models.IALSSideInfo.get_model(URM_train, ICM_all)
-    all_models['USER_CBF_CF'] = new_best_models.UserCBF_CF_Warm.get_model(URM_train, UCM_all)
-    all_models['USER_CF'] = new_best_models.UserCF.get_model(URM_train)
-
-    return all_models
+model_name = "HybridDemographic_T_23"
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = best_models_lower_threshold_23.HybridLT23.get_model(URM_train=URM_train, ICM_all=ICM_train)
-    return model
+    threshold = 23
+    lt_23_recommender = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(URM_train,
+                                                                                                 ICM_train)
+    ut_22_recommender = best_models_upper_threshold_22.WeightedAverageAll.get_model(URM_train, ICM_train, UCM_train)
+    lt_23_users_mask = np.ediff1d(URM_train.tocsr().indptr) >= threshold
+    lt_23_users = np.arange(URM_train.shape[0])[lt_23_users_mask]
+    ut_23_users = np.arange(URM_train.shape[0])[~lt_23_users_mask]
+
+    main_recommender = HybridDemographicRecommender(URM_train=URM_train)
+    main_recommender.add_user_group(1, lt_23_users)
+    main_recommender.add_user_group(2, ut_23_users)
+    main_recommender.add_relation_recommender_group(lt_23_recommender, 1)
+    main_recommender.add_relation_recommender_group(ut_22_recommender, 2)
+    main_recommender.fit()
+    return main_recommender
 
 
 def main():

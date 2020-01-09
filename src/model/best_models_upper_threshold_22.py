@@ -210,3 +210,56 @@ class FusionMergeItem_CBF_CF(IBestModel):
         if save_model:
             cls._save_model(model)
         return model
+
+
+class WeightedAverageItemBased(IBestModel):
+    """
+     - MAP-K1 CV5: 0.062276±0.0005
+     - MAP-K1 CV10: 0.0599453±0.0011
+    """
+    best_parameters = {'Fusion': 0.88, 'ItemDotCF': 1, 'ItemCBF_CF': 0.1, 'ItemCF': 0.13, 'RP3betaSide': 0.13}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_all):
+        from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+
+        fusion = FusionMergeItem_CBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+        item_cbf_cf = ItemCBF_CF.get_model(URM_train=URM_train, ICM_train=ICM_all, load_model=False)
+        item_cf = Item_CF.get_model(URM_train=URM_train, load_model=False)
+        rp3beta = RP3Beta_side_info.get_model(URM_train=URM_train, ICM_train=ICM_all, apply_tf_idf=False)
+        item_dot = ItemDotCF.get_model(URM_train=URM_train, load_model=False)
+
+        hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
+        hybrid.add_fitted_model("ItemDotCF", item_dot)
+        hybrid.add_fitted_model("Fusion", fusion)
+        hybrid.add_fitted_model("ItemCBF_CF", item_cbf_cf)
+        hybrid.add_fitted_model("ItemCF", item_cf)
+        hybrid.add_fitted_model("RP3betaSide", rp3beta)
+
+        hybrid.fit(**cls.get_best_parameters())
+        return hybrid
+
+class WeightedAverageAll(IBestModel):
+    """
+         - MAP-K1 CV5: 0.062508±0.0004
+         - MAP-K1 CV10: 0.0601679±0.0013
+        """
+    best_parameters = {'HybridAvg': 1, 'UserDotCF': 0.8, 'UserCBF_CF': 0.1, 'S_PureSVD': 0.43}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_all, UCM_all):
+        from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+
+        weighted_avg = WeightedAverageItemBased.get_model(URM_train=URM_train, ICM_all=ICM_all)
+        user_dot = User_Dot_CF.get_model(URM_train=URM_train, load_model=False)
+        user_cbf_cf = User_CBF_CF.get_model(URM_train=URM_train, UCM_train=UCM_all, load_model=False)
+        s_pure_svd = NewPureSVD_side_info.get_model(URM_train=URM_train, ICM_train=ICM_all, apply_tf_idf=False)
+
+        hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
+        hybrid.add_fitted_model("HybridAvg", weighted_avg)
+        hybrid.add_fitted_model("UserDotCF", user_dot)
+        hybrid.add_fitted_model("UserCBF_CF", user_cbf_cf)
+        hybrid.add_fitted_model("S_PureSVD", s_pure_svd)
+
+        hybrid.fit(**cls.get_best_parameters())
+        return hybrid

@@ -16,6 +16,7 @@ from course_lib.KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from course_lib.SLIM_BPR.Cython.SLIM_BPR_Cython import SLIM_BPR_Cython
 from src.model.Ensemble.BaggingUtils import get_user_bootstrap, get_item_bootstrap
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
+from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
 from src.model.KNN.UserKNNCBFCFRecommender import UserKNNCBFCFRecommender
 from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.utils.general_utility_functions import block_print, enable_print, get_split_seed
@@ -53,7 +54,7 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
             URM_bootstrap = self.URM_train
             recommender_kwargs = self.recommender_kwargs.copy()
             if self.do_bootstrap:
-                URM_bootstrap, users_added = get_item_bootstrap(self.URM_train, seeds[i])
+                URM_bootstrap, users_added = get_user_bootstrap(self.URM_train, seeds[i])
 
             parameters = {}
             for parameter_name, parameter_range in hyper_parameters_range.items():
@@ -95,7 +96,8 @@ class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSim
     RECOMMENDER_NAME = "BaggingMergeItemSimilarityRecommender"
 
     COMPATIBLE_RECOMMENDERS = [ItemKNNCBFRecommender, ItemKNNCBFCFRecommender, ItemKNNCFRecommender,
-                               SLIM_BPR_Cython, P3alphaRecommender, RP3betaRecommender]
+                               SLIM_BPR_Cython, P3alphaRecommender, RP3betaRecommender,
+                               ItemKNNDotCFRecommender]
 
     def __init__(self, URM_train, recommender_class, do_bootstrap=True, weight_replacement=True,
                  **recommender_constr_kwargs):

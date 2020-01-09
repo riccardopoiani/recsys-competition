@@ -249,6 +249,51 @@ def get_UCM_all(reader: RecSys2019Reader):
     return UCM_all
 
 
+def get_UCM_all_new(reader: RecSys2019Reader):
+    URM_all = reader.get_URM_all()
+    UCM_all_dict = reader.get_loaded_UCM_dict()
+    ICM_dict = reader.get_loaded_ICM_dict()
+
+    # Preprocess ICM
+    ICM_dict.pop("ICM_all")
+    ICM_dict = apply_feature_engineering_ICM(ICM_dict, URM_all, UCM_all_dict,
+                                             ICM_names_to_count=["ICM_sub_class"], UCM_names_to_list=["UCM_age"])
+    ICM_dict = apply_filtering_ICM(ICM_dict,
+                                   ICM_name_to_filter_mapper={"ICM_asset": lambda x: x < np.quantile(x, q=0.75) +
+                                                                                     0.72 * (np.quantile(x,
+                                                                                                         q=0.75) -
+                                                                                             np.quantile(x,
+                                                                                                         q=0.25)),
+                                                              "ICM_price": lambda x: x < np.quantile(x, q=0.75) +
+                                                                                     4 * (np.quantile(x, q=0.75) -
+                                                                                          np.quantile(x, q=0.25))})
+    ICM_dict = apply_transformation_ICM(ICM_dict,
+                                        ICM_name_to_transform_mapper={"ICM_asset": lambda x: np.log1p(1 / x),
+                                                                      "ICM_price": lambda x: np.log1p(1 / x),
+                                                                      "ICM_item_pop": np.log1p,
+                                                                      "ICM_sub_class_count": np.log1p,
+                                                                      "ICM_age": lambda x: x ** (1 / 2.5)})
+    ICM_dict = apply_discretization_ICM(ICM_dict,
+                                        ICM_name_to_bins_mapper={"ICM_asset": 200,
+                                                                 "ICM_price": 200,
+                                                                 "ICM_item_pop": 50,
+                                                                 "ICM_sub_class_count": 50})
+
+    # Preprocess UCM
+    UCM_all_dict = apply_feature_engineering_UCM(UCM_all_dict, URM_all, ICM_dict,
+                                                 ICM_names_to_UCM=["ICM_sub_class", "ICM_item_pop"])
+    UCM_all_dict = apply_feature_entropy_UCM(UCM_all_dict, UCM_names_to_entropy=["UCM_sub_class"])
+    # Apply useful transformation
+    UCM_all_dict = apply_transformation_UCM(UCM_all_dict,
+                                            UCM_name_to_transform_mapper={"UCM_user_act": np.log1p})
+
+    UCM_all_dict = apply_discretization_UCM(UCM_all_dict, UCM_name_to_bins_mapper={"UCM_user_act": 50,
+                                                                                   "UCM_sub_class_entropy": 20})
+
+    UCM_all = build_UCM_all_from_dict(UCM_all_dict)
+    return UCM_all
+
+
 def get_UCM_train(reader: New_DataSplitter_leave_k_out):
     """
     It returns all the UCM_all after applying feature engineering. This preprocessing is used on new_best_models file
@@ -311,8 +356,6 @@ def get_UCM_train_new(reader: New_DataSplitter_leave_k_out):
 
     UCM_all_dict = apply_discretization_UCM(UCM_all_dict, UCM_name_to_bins_mapper={"UCM_user_act": 50,
                                                                                    "UCM_sub_class_entropy": 20})
-
-    # Apply feature weighting TODO
 
     UCM_all = None
     user_feature_to_range_mapper = {}
