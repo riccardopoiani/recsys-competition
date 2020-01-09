@@ -10,13 +10,13 @@ from src.tuning.cross_validation.run_cv_parameter_search_hybrid_avg import run_c
 from src.utils.general_utility_functions import get_split_seed, get_seed_lists
 
 # Parameters to modify
-N_CASES = 200
+N_CASES = 250
 N_RANDOM_STARTS = 150
 N_FOLDS = 5
 K_OUT = 1
 CUTOFF = 10
-UPPER_THRESHOLD = 22  # default 2**16-1
-LOWER_THRESHOLD = -1  # default -1
+UPPER_THRESHOLD = 2 ** 16 - 1  # default 2**16-1
+LOWER_THRESHOLD = 23  # default -1
 ALLOW_COLD_USERS = False
 IGNORE_NON_TARGET_USERS = True
 NORMALIZE = True
@@ -40,22 +40,22 @@ def _get_all_models(URM_train, ICM_train, UCM_train):
     # Method to modify
     all_models = {}
 
-    all_models['Fusion'] = best_models_upper_threshold_22.FusionMergeItem_CBF_CF.get_model(URM_train=URM_train,
-                                                                                           ICM_train=ICM_train)
-    all_models['ItemDotCF'] = best_models_upper_threshold_22.ItemDotCF.get_model(URM_train=URM_train)
-    all_models['ItemCBF_CF'] = best_models_upper_threshold_22.ItemCBF_CF.get_model(URM_train=URM_train,
-                                                                                   ICM_train=ICM_train)
-    all_models['ItemCF'] = best_models_upper_threshold_22.Item_CF.get_model(URM_train=URM_train)
-    all_models['ItemCBF_FW'] = best_models_upper_threshold_22.ItemCBF_all_FW.get_model(URM_train=URM_train,
-                                                                                       ICM_train=ICM_train)
-    all_models['RP3betaSide'] = best_models_upper_threshold_22.RP3Beta_side_info.get_model(URM_train=URM_train,
-                                                                                           ICM_train=ICM_train,
-                                                                                           apply_tf_idf=True)
+    all_models['ItemAvg'] = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(
+        URM_train=URM_train,
+        ICM_all=ICM_train)
+
+    all_models['NewUserCF'] = best_models_lower_threshold_23.NewUserCF.get_model(URM_train=URM_train)
+    all_models['NewPureSVD'] = best_models_lower_threshold_23.NewPureSVD_side_info.get_model(URM_train=URM_train,
+                                                                                             ICM_train=ICM_train,
+                                                                                             apply_tf_idf=True)
+    all_models['IALS'] = best_models_lower_threshold_23.IALS.get_model(URM_train=URM_train)
+
     return all_models
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = HybridWeightedAverageRecommender(URM_train, normalize=NORMALIZE, mapping=get_mapping())
+    model = HybridWeightedAverageRecommender(URM_train, normalize=NORMALIZE, mapping=get_mapping(),
+                                             global_normalization=False)
 
     all_models = _get_all_models(URM_train=URM_train, ICM_train=ICM_train, UCM_train=UCM_train)
     for model_name, model_object in all_models.items():

@@ -75,9 +75,11 @@ class HybridWeightedAverageRecommender(AbstractHybridRecommender):
         return cum_scores_batch
 
     def copy(self):
-        copy = HybridWeightedAverageRecommender(URM_train=self.URM_train)
+        copy = HybridWeightedAverageRecommender(URM_train=self.URM_train,
+                                                global_normalization=self.global_normalization)
         copy.models = self.models
         copy.weights = self.weights
         copy.normalize = self.normalize
         copy.mapping = self.mapping
+        copy.global_normalization = self.global_normalization
         return copy

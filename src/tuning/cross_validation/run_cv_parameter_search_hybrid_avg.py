@@ -50,7 +50,10 @@ def run_cv_parameter_search_hybrid_avg(recommender_object_list, URM_train_list, 
             if map_max == 0:
                 hyperparameters_range_dictionary[model_name] = Real(0, 1)
             else:
-                hyperparameters_range_dictionary[model_name] = Integer(0, map_max)
+                if model_name == "ItemAvg":
+                    hyperparameters_range_dictionary[model_name] = Integer((map_max//2)-5, map_max)
+                else:
+                    hyperparameters_range_dictionary[model_name] = Integer(0, map_max-3)
 
         parameter_search.search(recommender_input_args_list,
                                 parameter_search_space=hyperparameters_range_dictionary,

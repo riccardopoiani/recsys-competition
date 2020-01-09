@@ -5,6 +5,42 @@ from src.model.Interface import IContentModel, IBestModel, ICollaborativeModel
 import scipy.sparse as sps
 
 
+class HybridLT23(IBestModel):
+    """
+    MAP 5: 0.0379
+    MAP 10:
+    """
+
+    best_parameters = {'ItemAvg': 0.91, 'NewUserCF': 0.17, 'IALS': 0.39}
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_all):
+        from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
+
+        item_avg = WeightedAverageItemBasedWithRP3.get_model(URM_train=URM_train, ICM_all=ICM_all)
+        new_user_cf = NewUserCF.get_model(URM_train=URM_train)
+        ials = IALS.get_model(URM_train=URM_train)
+
+        hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
+        hybrid.add_fitted_model("ItemAvg", item_avg)
+        hybrid.add_fitted_model("NewUserCF", new_user_cf)
+        hybrid.add_fitted_model("IALS", ials)
+
+        hybrid.fit(**cls.get_best_parameters())
+        return hybrid
+
+
+class IALS(ICollaborativeModel):
+    """
+    MAP 10 FOLD: 0.0276472�0.0025
+    """
+    from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
+    best_parameters = {'num_factors': 406, 'regularization': 4.853705690289253, 'epochs': 50,
+                       'confidence_scaling': 'linear', 'alpha': 0.34370928029631664}
+    recommender_class = ImplicitALSRecommender
+    recommender_name = "IALS"
+
+
 class SLIM_side(IBestModel):
     """
     MAP 10FOLD CV: 0.0272825�0.0021
@@ -65,6 +101,8 @@ class WeightedAverageItemBasedWithRP3(IBestModel):
 
     best_parameters = {'FUSION': 0.29, 'ItemDotCF': 0.88, 'ItemCBF_CF': 0.39, 'RP3BETA_SIDE': 0.1}
 
+    best_parameters_global_norm = {'FUSION': 0.551, 'ItemDotCF': 0.91, 'ItemCBF_CF': 0.62, 'RP3BETA_SIDE': 0.5}
+
     @classmethod
     def get_model(cls, URM_train, ICM_all):
         from src.model.HybridRecommender.HybridWeightedAverageRecommender import HybridWeightedAverageRecommender
@@ -74,7 +112,7 @@ class WeightedAverageItemBasedWithRP3(IBestModel):
         rp3beta = RP3Beta_side_info.get_model(URM_train=URM_train, ICM_train=ICM_all, apply_tf_idf=False)
         item_dot = ItemDotCF.get_model(URM_train=URM_train, load_model=False)
 
-        hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True)
+        hybrid = HybridWeightedAverageRecommender(URM_train, normalize=True, global_normalization=False)
         hybrid.add_fitted_model("ItemDotCF", item_dot)
         hybrid.add_fitted_model("FUSION", fusion)
         hybrid.add_fitted_model("ItemCBF_CF", item_cbf_cf)

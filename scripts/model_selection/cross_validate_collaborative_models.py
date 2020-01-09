@@ -2,13 +2,10 @@ import os
 from datetime import datetime
 
 from course_lib.Base.Evaluation.Evaluator import EvaluatorHoldout
-from course_lib.KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
 from scripts.model_selection.cross_validate_utils import write_results_on_file, get_seed_list
 from scripts.scripts_utils import read_split_load_data
 from src.data_management.data_reader import get_ignore_users
-from src.model import best_models_upper_threshold_22
-from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
-from src.model.KNN.UserKNNDotCFRecommender import UserKNNDotCFRecommender
+from src.model.MatrixFactorization.ImplicitALSRecommender import ImplicitALSRecommender
 from src.model_management.CrossEvaluator import EvaluatorCrossValidationKeepKOut
 from src.utils.general_utility_functions import get_project_root_path
 
@@ -16,14 +13,15 @@ from src.utils.general_utility_functions import get_project_root_path
 K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
-LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 22  # Remove users above or equal this threshold (default value: 2**16-1)
+LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
+UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 # VARIABLES TO MODIFY
-model_parameters = best_models_upper_threshold_22.User_Dot_CF.get_best_parameters()
-recommender_class = UserKNNDotCFRecommender
-model_name = "user_dot_cf_ut_22"
+model_parameters = {'num_factors': 406, 'regularization': 4.853705690289253, 'epochs': 50,
+                    'confidence_scaling': 'linear', 'alpha': 0.34370928029631664}
+recommender_class = ImplicitALSRecommender
+model_name = "IALS_LT23"
 
 if __name__ == '__main__':
     # Set seed in order to have same splitting of data

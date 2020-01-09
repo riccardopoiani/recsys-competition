@@ -16,13 +16,13 @@ K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
 LOWER_THRESHOLD = 23  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2**16-1 # Remove users above or equal this threshold (default value: 2**16-1)
+UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 AGE_TO_KEEP = []  # Default []
 
 # VARIABLES TO MODIFY
-model_name = "WeightedAvgLT23_FUSIONFIXED"
+model_name = "HybridLT23"
 
 
 def _get_all_models(URM_train, ICM_all, UCM_all):
@@ -39,7 +39,7 @@ def _get_all_models(URM_train, ICM_all, UCM_all):
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = k_1_out_best_models.HybridNormWeightedAvgAll.get_model(URM_train, ICM_train, UCM_train)
+    model = best_models_lower_threshold_23.HybridLT23.get_model(URM_train=URM_train, ICM_all=ICM_train)
     return model
 
 
