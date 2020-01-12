@@ -22,20 +22,20 @@ K_OUT = 1
 CUTOFF = 10
 ALLOW_COLD_USERS = False
 LOWER_THRESHOLD = -1  # Remove users below or equal this threshold (default value: -1)
-UPPER_THRESHOLD = 2 ** 16 - 1  # Remove users above or equal this threshold (default value: 2**16-1)
+UPPER_THRESHOLD = 2**16-1  # Remove users above or equal this threshold (default value: 2**16-1)
 IGNORE_NON_TARGET_USERS = True
 
 AGE_TO_KEEP = []  # Default []
 
 # VARIABLES TO MODIFY
-model_name = "HybridDemographic_T_23"
+model_name = "Hybrid_LT22_ON_LT23"
 
 
 def get_model(URM_train, ICM_train, UCM_train):
     threshold = 23
     lt_23_recommender = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(URM_train,
                                                                                                  ICM_train)
-    ut_22_recommender = best_models_upper_threshold_22.WeightedAverageAll.get_model(URM_train, ICM_train, UCM_train)
+    """ut_22_recommender = best_models_upper_threshold_22.WeightedAverageAll.get_model(URM_train, ICM_train, UCM_train)
     lt_23_users_mask = np.ediff1d(URM_train.tocsr().indptr) >= threshold
     lt_23_users = np.arange(URM_train.shape[0])[lt_23_users_mask]
     ut_23_users = np.arange(URM_train.shape[0])[~lt_23_users_mask]
@@ -45,8 +45,8 @@ def get_model(URM_train, ICM_train, UCM_train):
     main_recommender.add_user_group(2, ut_23_users)
     main_recommender.add_relation_recommender_group(lt_23_recommender, 1)
     main_recommender.add_relation_recommender_group(ut_22_recommender, 2)
-    main_recommender.fit()
-    return main_recommender
+    main_recommender.fit()"""
+    return lt_23_recommender
 
 
 def main():
@@ -58,7 +58,7 @@ def main():
 
         URM_train, URM_test = data_reader.get_holdout_split()
         ICM_all, _ = get_ICM_train_new(data_reader)
-        UCM_all, _ = get_UCM_train_new(data_reader)
+        UCM_all= get_UCM_train(data_reader)
 
         # Setting evaluator
         ignore_users = get_ignore_users(URM_train, data_reader.get_original_user_id_to_index_mapper(),

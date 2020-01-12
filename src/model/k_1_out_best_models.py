@@ -65,3 +65,56 @@ class HybridNormWeightedAvgAll(IBestModel):
         hybrid.fit(**cls.get_best_parameters())
 
         return hybrid
+
+
+class UserCBF_Cold(IBestModel):
+    """
+    User CBF tuned with URM_train and UCM (containing age, region, user_act)
+     - MAP on tuning (k_out_3 and testing on 2, 3, 4 len users): 0.0117
+     - MAP on cold users (k_1_out): 0.01735
+    """
+    best_parameters = {'topK': 3372, 'shrink': 1086, 'similarity': 'asymmetric', 'normalize': True,
+                       'asymmetric_alpha': 1.5033071260303803, 'feature_weighting': 'BM25',
+                       'interactions_feature_weighting': 'BM25'}
+
+    @classmethod
+    def get_model(cls, URM_train, UCM_train):
+        from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
+        model = UserKNNCBFRecommender(URM_train=URM_train, UCM_train=UCM_train)
+        model.fit(**cls.get_best_parameters())
+        return model
+
+
+class HybridDemographicWithLT23AndUT22(IBestModel):
+    """
+    Final hybrid model composed by two hybrid: one for smaller profile len users and one for bigger profile len users
+
+     - The threshold is set heuristically (I have tested threshold 20 and threshold 26, but there are not much changes
+     in the MAP)
+     - UCM_train is the one from get_UCM_train_new or get_UCM_all_new
+     - ICM_train is the one from get_ICM_train_new or get_ICM_all_new
+    """
+
+    threshold = 23
+
+    @classmethod
+    def get_model(cls, URM_train, ICM_train, UCM_train):
+        from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
+        from src.model import best_models_lower_threshold_23, best_models_upper_threshold_22
+        import numpy as np
+
+        lt_23_recommender = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(URM_train,
+                                                                                                     ICM_train)
+        ut_22_recommender = best_models_upper_threshold_22.WeightedAverageAll.get_model(URM_train, ICM_train, UCM_train)
+        lt_23_users_mask = np.ediff1d(URM_train.tocsr().indptr) >= cls.threshold
+        lt_23_users = np.arange(URM_train.shape[0])[lt_23_users_mask]
+        ut_23_users = np.arange(URM_train.shape[0])[~lt_23_users_mask]
+
+        model = HybridDemographicRecommender(URM_train=URM_train)
+        model.add_user_group(1, lt_23_users)
+        model.add_user_group(2, ut_23_users)
+        model.add_relation_recommender_group(lt_23_recommender, 1)
+        model.add_relation_recommender_group(ut_22_recommender, 2)
+        model.fit()
+
+        return model

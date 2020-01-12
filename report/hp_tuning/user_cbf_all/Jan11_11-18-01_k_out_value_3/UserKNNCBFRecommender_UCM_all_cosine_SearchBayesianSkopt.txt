@@ -1,0 +1,11 @@
+SearchBayesianSkopt: Config 0 Exception. Config: {'topK': 1186, 'shrink': 520, 'similarity': 'cosine', 'normalize': False, 'feature_weighting': 'BM25', 'interactions_feature_weighting': 'BM25'} - Exception: Traceback (most recent call last):
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 335, in _objective_function
+    current_fit_parameters_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/ParameterTuning/SearchAbstractClass.py", line 242, in _evaluate_on_validation
+    result_dict, _ = self.evaluator_validation.evaluateRecommender(recommender_instance)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 415, in evaluateRecommender
+    results_run_string = get_result_string(results_dict)
+  File "/Users/tangtang.zhou/Documents/GitHubProjects/recsys_2019/course_lib/Base/Evaluation/Evaluator.py", line 103, in get_result_string
+    n_decimals=n_decimals)
+TypeError: unsupported format string passed to MAP.__format__
+

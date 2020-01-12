@@ -9,12 +9,14 @@ from scripts.scripts_utils import set_env_variables
 from src.data_management.New_DataSplitter_leave_k_out import New_DataSplitter_leave_k_out
 from src.data_management.RecSys2019Reader import RecSys2019Reader
 from src.data_management.data_reader import get_UCM_train, get_ICM_train_new, \
-    get_ignore_users, get_UCM_train_new
-from src.model import new_best_models, best_models, best_models_upper_threshold_22, best_models_lower_threshold_23
+    get_ignore_users, get_UCM_train_new, get_UCM_train_cold
+from src.model import new_best_models, best_models, best_models_upper_threshold_22, best_models_lower_threshold_23, \
+    k_1_out_best_models
 from src.model.Ensemble.BaggingMergeRecommender import BaggingMergeItemSimilarityRecommender
 from src.model.HybridRecommender.HybridDemographicRecommender import HybridDemographicRecommender
 from src.model.KNN.ItemKNNCBFCFRecommender import ItemKNNCBFCFRecommender
 from src.model.KNN.ItemKNNDotCFRecommender import ItemKNNDotCFRecommender
+from src.model.KNN.UserKNNCBFRecommender import UserKNNCBFRecommender
 from src.model.KNN.UserKNNDotCFRecommender import UserKNNDotCFRecommender
 from src.utils.general_utility_functions import get_split_seed, get_project_root_path
 
@@ -28,20 +30,8 @@ IGNORE_NON_TARGET_USERS = True
 
 def get_model(URM_train, ICM_train, UCM_train):
     # Write the model that you want to evaluate here. Possibly, do not modify the code if unnecessary in the main
-    lt_23_recommender = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(URM_train,
-                                                                                                 ICM_train)
-    ut_22_recommender = best_models_upper_threshold_22.WeightedAverageAll.get_model(URM_train, ICM_train, UCM_train)
-    lt_23_users_mask = np.ediff1d(URM_train.tocsr().indptr) >= 23
-    lt_23_users = np.arange(URM_train.shape[0])[lt_23_users_mask]
-    ut_23_users = np.arange(URM_train.shape[0])[~lt_23_users_mask]
-
-    main_recommender = HybridDemographicRecommender(URM_train=URM_train)
-    main_recommender.add_user_group(1, lt_23_users)
-    main_recommender.add_user_group(2, ut_23_users)
-    main_recommender.add_relation_recommender_group(lt_23_recommender, 1)
-    main_recommender.add_relation_recommender_group(ut_22_recommender, 2)
-    main_recommender.fit()
-    return main_recommender
+    model = k_1_out_best_models.HybridDemographicWithLT23AndUT22.get_model(URM_train, ICM_train, UCM_train)
+    return model
 
 
 def main():

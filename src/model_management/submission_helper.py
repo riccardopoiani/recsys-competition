@@ -1,6 +1,6 @@
 from course_lib.Base.BaseRecommender import BaseRecommender
 
-
+@DeprecationWarning
 def write_submission_file(recommender, path, userlist):
     """
     :param recommender: tells how to recommend item for the users. It must be a
@@ -48,8 +48,9 @@ def write_submission_file_batch(recommender: BaseRecommender, path, userlist, ba
         for j in range(len(recommendation_list)):
             f.write(str(users[j]))
             f.write(",")
-            for item in recommendation_list[j]:
+            for k, item in enumerate(recommendation_list[j]):
                 f.write(str(item))
-                f.write(" ")
+                if k < len(recommendation_list[j]) - 1:
+                    f.write(" ")
             f.write("\n")
     f.close()

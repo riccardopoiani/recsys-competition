@@ -67,6 +67,50 @@ def read_UCM_cold_all(num_users, root_path="../data/"):
     return UCM_all
 
 
+def read_UCM_cold_all_with_user_act(num_users, root_path="../data/"):
+    """
+    :return: all the UCM in csr format
+    """
+    import scipy.sparse as sps
+    import numpy as np
+    import pandas as pd
+    import os
+
+    # Reading age data
+    df_age = pd.read_csv(os.path.join(root_path, "data_UCM_age.csv"))
+    user_id_list = df_age['row'].values
+    age_id_list = df_age['col'].values
+    UCM_age = sps.coo_matrix((np.ones(len(user_id_list)), (user_id_list, age_id_list)),
+                             shape=(num_users, np.max(age_id_list) + 1))
+
+    # Reading region data
+    df_region = pd.read_csv(os.path.join(root_path, "data_UCM_region.csv"))
+    user_id_list = df_region['row'].values
+    region_id_list = df_region['col'].values
+    UCM_region = sps.coo_matrix((np.ones(len(user_id_list)), (user_id_list, region_id_list)),
+                                shape=(num_users, np.max(region_id_list) + 1))
+
+    # Reading user_act data from URM
+    df_original = pd.read_csv(os.path.join(root_path, "data_train.csv"))
+    user_act = df_original.groupby(by='row')['data'].sum()
+    user_act = (user_act - 0) / (user_act.max() - 0)
+    user_id_list = user_act.index
+    feature_list = [0] * len(user_id_list)
+    data_list = user_act.values.astype(np.float32)
+    UCM_user_act = sps.coo_matrix((data_list, (user_id_list, feature_list)), shape=(num_users, 1))
+
+    # Create UCM_all_dict
+    UCM_all_dict = {"UCM_age": UCM_age, "UCM_region": UCM_region, "UCM_user_act": UCM_user_act}
+
+    UCM_all_dict = apply_transformation_UCM(UCM_all_dict,
+                                            UCM_name_to_transform_mapper={"UCM_user_act": np.log1p})
+    UCM_all_dict = apply_discretization_UCM(UCM_all_dict, UCM_name_to_bins_mapper={"UCM_user_act": 50})
+
+    # Merge UCMs
+    UCM_all = build_UCM_all_from_dict(UCM_all_dict)
+    return UCM_all
+
+
 # -------- GET ITEM CONTENT MATRIX --------
 def get_ICM_all(reader: RecSys2019Reader):
     """
@@ -369,6 +413,22 @@ def get_UCM_train_new(reader: New_DataSplitter_leave_k_out):
         user_feature_to_range_mapper[UCM_name] = (last_range, last_range + UCM_object.shape[1])
         last_range = last_range + UCM_object.shape[1]
     return UCM_all, user_feature_to_range_mapper
+
+
+def get_UCM_train_cold(reader: New_DataSplitter_leave_k_out):
+    """
+    It returns all the UCM_all after applying feature engineering. This preprocessing is used on new_best_models file
+
+    :param reader: data splitter
+    :return: return UCM_all
+    """
+    URM_train, _ = reader.get_holdout_split()
+    UCM_all_dict = reader.get_loaded_UCM_dict()
+    UCM_all_dict = apply_transformation_UCM(UCM_all_dict,
+                                            UCM_name_to_transform_mapper={"UCM_user_act": np.log1p})
+    UCM_all_dict = apply_discretization_UCM(UCM_all_dict, UCM_name_to_bins_mapper={"UCM_user_act": 50})
+    UCM_all = build_UCM_all_from_dict(UCM_all_dict)
+    return UCM_all
 
 
 # -------- GET SPECIFIC USERS --------

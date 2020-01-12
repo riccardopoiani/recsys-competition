@@ -106,9 +106,9 @@ class BaggingMergeItemSimilarityRecommender(BaggingMergeRecommender, BaseItemSim
 
         self.W_sparse = None
 
-    def fit(self, topK=-1, num_models=5, hyper_parameters_range=None):
+    def fit(self, topK=-1, num_models=5, hyper_parameters_range=None, seed=get_split_seed()):
         self.topK = topK
-        super().fit(num_models, hyper_parameters_range)
+        super().fit(num_models, hyper_parameters_range, seed=seed)
 
     def _update_model(self, recommender_object):
         if self.W_sparse is None:
@@ -138,9 +138,9 @@ class BaggingMergeUserSimilarityRecommender(BaggingMergeRecommender, BaseUserSim
                          **recommender_constr_kwargs)
         self.W_sparse = None
 
-    def fit(self, topK=-1, num_models=5, hyper_parameters_range=None):
+    def fit(self, topK=-1, num_models=5, hyper_parameters_range=None, seed=get_split_seed()):
         self.topK = topK
-        super().fit(num_models, hyper_parameters_range)
+        super().fit(num_models, hyper_parameters_range, seed=seed)
 
     def _update_model(self, recommender_object):
         if self.W_sparse is None:
