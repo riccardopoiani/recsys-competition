@@ -36,7 +36,8 @@ class BaggingMergeRecommender(BaseRecommender, ABC):
         self.recommender_class = recommender_class
         self.recommender_kwargs = recommender_constr_kwargs
 
-    def fit(self, num_models=5, hyper_parameters_range=None, seed=get_split_seed(), **kwargs):
+    # TODO CHANGE SEED
+    def fit(self, num_models=5, hyper_parameters_range=None, seed=876133, **kwargs):
         """
         Fit all the num_models and merge them into a unique model
 

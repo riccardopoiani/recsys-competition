@@ -10,8 +10,8 @@ from src.tuning.cross_validation.run_cv_parameter_search_hybrid_avg import run_c
 from src.utils.general_utility_functions import get_split_seed, get_seed_lists
 
 # Parameters to modify
-N_CASES = 250
-N_RANDOM_STARTS = 150
+N_CASES = 120
+N_RANDOM_STARTS = 70
 N_FOLDS = 5
 K_OUT = 1
 CUTOFF = 10
@@ -39,19 +39,18 @@ def get_mapping():
 def _get_all_models(URM_train, ICM_train, UCM_train):
     # Method to modify
     all_models = {}
-    all_models['ItemAvg'] = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(
+    all_models['ItemAvgLT23'] = best_models_lower_threshold_23.WeightedAverageItemBasedWithRP3.get_model(
         URM_train=URM_train,
         ICM_all=ICM_train)
 
-    all_models['NewUserCF'] = best_models_lower_threshold_23.NewUserCF.get_model(URM_train=URM_train)
-    all_models['NewPureSVD'] = best_models_lower_threshold_23.NewPureSVD_side_info.get_model(URM_train=URM_train,
-                                                                                             ICM_train=ICM_train,
-                                                                                             apply_tf_idf=True)
-    all_models['IALS'] = best_models_lower_threshold_23.IALS.get_model(URM_train=URM_train)
+    all_models['ItemAvgOld'] = best_models_upper_threshold_22.WeightedAverageItemBased.get_model(URM_train=URM_train,
+                                                                                                 ICM_all=ICM_train)
+
+    return all_models
 
 
 def get_model(URM_train, ICM_train, UCM_train):
-    model = HybridWeightedAverageRecommender(URM_train, normalize=NORMALIZE, mapping=get_mapping(),
+    model = HybridWeightedAverageRecommender(URM_train, normalize=NORMALIZE, mapping=None,
                                              global_normalization=False)
 
     all_models = _get_all_models(URM_train=URM_train, ICM_train=ICM_train, UCM_train=UCM_train)
